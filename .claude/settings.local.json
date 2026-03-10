@@ -14,7 +14,10 @@
       "Bash(gh repo create GeoLearn-Japan --public --source=. --push --description \"GeoLearn Japan — Geotechnical & Geophysical Engineering Learning App\")",
       "Bash(gh api repos/Golem7X/GeoLearn-Japan/pages -X POST -f \"build_type=workflow\" -f \"source[branch]=master\" -f \"source[path]=/\")",
       "Bash(gh api repos/Golem7X/GeoLearn-Japan/pages -X PUT -f \"build_type=legacy\" -f \"source[branch]=master\" -f \"source[path]=/\")",
-      "Bash(gh api repos/Golem7X/GeoLearn-Japan/pages)"
+      "Bash(gh api repos/Golem7X/GeoLearn-Japan/pages)",
+      "Bash(npm init -y)",
+      "Bash(npm install javascript-obfuscator)",
+      "Bash(node build.js)"
     ]
   }
 }
