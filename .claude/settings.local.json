@@ -17,7 +17,8 @@
       "Bash(gh api repos/Golem7X/GeoLearn-Japan/pages)",
       "Bash(npm init -y)",
       "Bash(npm install javascript-obfuscator)",
-      "Bash(node build.js)"
+      "Bash(node build.js)",
+      "Bash(node build-secure.js)"
     ]
   }
 }
