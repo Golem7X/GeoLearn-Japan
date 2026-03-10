@@ -13,7 +13,7 @@
   }
 
   // ── 2. Domain lock ──
-  const ALLOWED_HOSTS = ['golem7x.github.io','localhost','127.0.0.1',''];
+  const ALLOWED_HOSTS = ['golem7x.github.io','localhost','127.0.0.1','','run.app','app.github.dev','claude.ai'];
   const currentHost = window.location.hostname.toLowerCase();
   if(!ALLOWED_HOSTS.some(h => currentHost === h || currentHost.endsWith('.'+h))){
     document.documentElement.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#0a0c10;color:#ff4757;font-family:monospace;font-size:20px">UNAUTHORIZED DOMAIN</div>';
