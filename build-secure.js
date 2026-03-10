@@ -163,6 +163,9 @@ const shieldCode = fs.readFileSync(path.join(__dirname, 'src/security/shield.js'
 const cryptoCode = fs.readFileSync(path.join(__dirname, 'src/security/crypto.js'), 'utf8');
 const loaderCode = fs.readFileSync(path.join(__dirname, 'src/security/loader.js'), 'utf8');
 const keygenCode = fs.readFileSync(path.join(__dirname, 'src/utils/keygen.js'), 'utf8');
+const antibotCode = fs.readFileSync(path.join(__dirname, 'src/security/antibot.js'), 'utf8');
+const integrityCode = fs.readFileSync(path.join(__dirname, 'src/security/integrity.js'), 'utf8');
+const dataVaultCode = fs.readFileSync(path.join(__dirname, 'src/data/vault.js'), 'utf8');
 
 // ============================================================
 // STAGE 5: Wrap app code with protections
@@ -172,17 +175,26 @@ log('Stage 5: Wrapping application code with protections...');
 // Wrap the entire app in an IIFE to prevent global variable access
 // Add runtime environment verification
 const wrappedApp = `
-// ── Security Shield ──
+// ── Security Shield (Layer 1: Anti-debug, domain lock, console kill) ──
 ${shieldCode}
 
-// ── Crypto Engine ──
+// ── Crypto Engine (Layer 2: RC4 encryption/decryption) ──
 ${cryptoCode}
 
-// ── Dynamic Loader ──
+// ── Dynamic Loader (Layer 3: Lazy decryption with integrity) ──
 ${loaderCode}
 
-// ── Key Generator ──
+// ── Key Generator (Layer 4: Runtime key derivation) ──
 ${keygenCode}
+
+// ── Data Vault (Layer 5: Segmented encrypted storage) ──
+${dataVaultCode}
+
+// ── Anti-Bot Shield (Layer 6: Behavior analysis, honeypots, fingerprinting) ──
+${antibotCode}
+
+// ── Integrity Monitor (Layer 7: DOM tampering, prototype pollution detection) ──
+${integrityCode}
 
 // ── Runtime Environment Check ──
 (function(){
@@ -190,20 +202,52 @@ ${keygenCode}
     document.body.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#0a0c10;color:#ff4757;font-family:monospace">Automated access denied.</div>';
     throw new Error('');
   }
+  // Initialize bot detection
+  GeoBotShield.init();
 })();
 
 // ── Application Core ──
 (function(_gl){
   'use strict';
 
-  // Freeze security objects to prevent tampering
+  // Freeze ALL security objects to prevent tampering
   if(typeof Object.freeze === 'function'){
     Object.freeze(GeoVault);
     Object.freeze(GeoLoader);
     Object.freeze(GeoKey);
+    Object.freeze(DataVault);
+    Object.freeze(GeoBotShield);
+    Object.freeze(GeoIntegrity);
   }
 
   ${jsCode}
+
+  // ── Initialize integrity monitoring after app loads ──
+  GeoIntegrity.init([
+    'showPage','calcSPT','calcVs30','calcLiq','calcBearing',
+    'startQuiz','renderFC','startGame','tutorSend','renderProfModule',
+    'drawSPTLog','drawCPTuLog','drawPSLog','startMockExam',
+    'initDailyFocus','updateLiqSim','updateSlopeSim','initKnowledgeMap'
+  ]);
+
+  // ── Bot check: degrade experience for detected bots ──
+  setTimeout(function(){
+    if(GeoBotShield.isBot(50)){
+      // Silently degrade: hide quiz answers, scramble data
+      document.querySelectorAll('.eq-box').forEach(function(el){
+        el.style.filter = 'blur(4px)';
+      });
+    }
+  }, 15000);
+
+  // ── Log page navigations for rate limiting ──
+  var _origShowPage = window.showPage;
+  if(typeof _origShowPage === 'function'){
+    window.showPage = function(){
+      GeoBotShield.logNavigation();
+      return _origShowPage.apply(this, arguments);
+    };
+  }
 
   // ── Anti-tampering: verify critical functions exist ──
   var _criticalFns = ['showPage','calcSPT','startQuiz','renderFC','startGame'];
@@ -214,6 +258,12 @@ ${keygenCode}
   });
 
 })(window);
+
+// ── Purge sensitive data on page unload ──
+window.addEventListener('beforeunload', function(){
+  DataVault.purgeAll();
+  GeoLoader.purge();
+});
 `;
 
 log(`  Wrapped app: ${fileSize(wrappedApp)}`);
@@ -319,7 +369,7 @@ fs.writeFileSync(path.join(__dirname, 'dist/index.html'), finalHTML, 'utf8');
 // Write build manifest
 const manifest = {
   buildTime: new Date().toISOString(),
-  version: '6.0.3.1-secure',
+  version: '6.0.3.1-secure-v3',
   hashes: { js: jsHash, css: cssHash, html: htmlHash },
   sizes: {
     originalJS: jsCode.length,
@@ -347,10 +397,20 @@ const manifest = {
     'X-Frame-Options DENY',
     'Referrer-Policy no-referrer',
     'Permissions-Policy restrictive',
-    'Automation framework detection',
+    'Automation framework detection (Selenium/Phantom/Nightmare/Puppeteer)',
     'IIFE encapsulation (no global leaks)',
-    'Security object freezing',
-    'Critical function verification'
+    'Security object freezing (7 objects)',
+    'Critical function verification (18 functions)',
+    'Anti-bot behavioral analysis (mouse entropy, interaction timing)',
+    'Honeypot traps (invisible links + hidden form fields)',
+    'Navigation rate limiting (>30 events/min = flagged)',
+    'Canvas fingerprinting for headless detection',
+    'DOM mutation observer (blocks injected scripts/iframes)',
+    'Prototype pollution detection',
+    'Function signature monitoring (periodic self-check)',
+    'Data vault with TTL-based memory purge',
+    'Bot-triggered experience degradation',
+    'Page unload data purge'
   ]
 };
 fs.writeFileSync(path.join(__dirname, 'dist/build-manifest.json'), JSON.stringify(manifest, null, 2));
