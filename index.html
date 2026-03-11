@@ -4,28 +4,43 @@
 (function(){
   'use strict';
   if(!/android|iphone|ipad|ipod|mobile/i.test(navigator.userAgent)) return;
-  // On mobile, two security intervals cause a false-positive black screen:
-  //   - 2500ms: debugger trap wipes document.body if timing > 80ms
-  //   - 2000ms: DevTools size check (outerHeight-innerHeight > 160px is normal on mobile)
-  // Fix: replace both with no-ops on mobile. Desktop is unaffected.
+
+  // ── Block ALL security-triggered page wipes on mobile ──
+  // Multiple security checks can wipe the page on mobile:
+  //   - debugger trap: mobile JS timing > 80ms → body wipe
+  //   - DevTools size: mobile toolbars > 160px → triggers check
+  //   - Integrity check: mobile env differences → 3 violations → body wipe
+  // Two-layer fix:
+  // 1. Block any innerHTML assignment containing security wipe keywords
+  // 2. Skip the 2500ms/2000ms security intervals entirely
+
+  var _wipeKeywords = ['SESSION TERMINATED','INTEGRITY VIOLATION','UNAUTHORIZED DOMAIN'];
+  var _desc = Object.getOwnPropertyDescriptor(Element.prototype, 'innerHTML');
+  var _origSet = _desc && _desc.set;
+  if(_origSet) {
+    Object.defineProperty(Element.prototype, 'innerHTML', {
+      set: function(val) {
+        if(typeof val === 'string') {
+          for(var i = 0; i < _wipeKeywords.length; i++) {
+            if(val.indexOf(_wipeKeywords[i]) !== -1) return;
+          }
+          if(val === '' && (this === document.documentElement || this === document.body)) return;
+        }
+        _origSet.call(this, val);
+      },
+      get: _desc.get,
+      configurable: true
+    });
+  }
+
+  // Skip debugger trap (2500ms) and DevTools size check (2000ms) on mobile
   var _si = window.setInterval;
   window.setInterval = function(fn, delay) {
-    if(typeof fn === 'function' && (delay === 2500 || delay === 2000 || delay === 0x9c4 || delay === 0x7d0)) {
+    if(typeof fn === 'function' && (delay === 2500 || delay === 2000)) {
       return _si.call(window, function(){}, delay);
     }
     return _si.apply(window, arguments);
   };
-  // Also guard against the body being wiped unexpectedly
-  document.addEventListener('DOMContentLoaded', function() {
-    var _obs = new MutationObserver(function(mutations) {
-      for (var i = 0; i < mutations.length; i++) {
-        if (document.body && document.body.innerHTML.length < 200) {
-          location.reload();
-        }
-      }
-    });
-    if (document.body) _obs.observe(document.body, { childList: true });
-  });
 })();
 </script>
 <meta charset="UTF-8">
