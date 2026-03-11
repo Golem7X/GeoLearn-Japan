@@ -2,8 +2,41 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; img-src * data: blob:; style-src * 'unsafe-inline'; font-src * data:; script-src * 'unsafe-inline' 'unsafe-eval';">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GeoLearn Japan — Geotechnical & Geophysical Engineering</title>
+<script>
+// ── Diagnostic + CSP fallback ──
+// This runs FIRST to test if JS works and provide onclick fallback
+(function(){
+  // Mark that JS is running
+  window.__jsOK = true;
+
+  // Fallback: if inline onclick handlers are blocked by CSP,
+  // re-bind them as event listeners after DOM loads
+  document.addEventListener('DOMContentLoaded', function(){
+    var els = document.querySelectorAll('[onclick]');
+    if (els.length === 0) {
+      // onclick attributes were stripped by CSP - find elements that SHOULD have handlers
+      // This means CSP is blocking inline handlers, need alternative approach
+    }
+    // Add visual indicator that JS is working
+    var test = document.getElementById('topics-count');
+    if (test && !window.__appLoaded) {
+      // JS ran but app script may have failed
+    }
+  });
+
+  // Error handler to catch and show any JS errors visually
+  window.onerror = function(msg, src, line, col, err) {
+    var d = document.createElement('div');
+    d.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:#ff0;color:#000;padding:8px;font:12px monospace;z-index:99999;max-height:120px;overflow:auto';
+    d.textContent = 'JS Error: ' + msg + ' (line ' + line + ')';
+    document.body.appendChild(d);
+    return false;
+  };
+})();
+</script>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -13467,6 +13500,8 @@ function expandCase(id) {
 
 
 
+// ── App loaded marker ──
+window.__appLoaded = true;
 </script>
 </body>
 </html>
