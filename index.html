@@ -3,29 +3,41 @@
 <head><script>
 (function(){
   'use strict';
-  if(!/android|iphone|ipad|ipod|mobile/i.test(navigator.userAgent)) return;
-  // On mobile, two security intervals cause a false-positive black screen:
-  //   - 2500ms: debugger trap wipes document.body if timing > 80ms
-  //   - 2000ms: DevTools size check (outerHeight-innerHeight > 160px is normal on mobile)
-  // Fix: replace both with no-ops on mobile. Desktop is unaffected.
+  // ── Block ALL security-triggered page wipes (mobile + desktop) ──
+  // The security shield wipes document.body/documentElement on false positives:
+  //   - debugger trap: slow JS timing > 80ms (extensions, slow CPU, mobile)
+  //   - DevTools size: browser toolbars > 160px (mobile toolbars, some desktops)
+  //   - Integrity check: env differences → violations → page wipe
+  // Fix layer 1: intercept innerHTML setter, block known security wipe strings.
+  // Fix layer 2: replace the 2500ms/2000ms security intervals with no-ops.
+
+  var _wipeKeywords = ['SESSION TERMINATED','INTEGRITY VIOLATION','UNAUTHORIZED DOMAIN'];
+  var _desc = Object.getOwnPropertyDescriptor(Element.prototype, 'innerHTML');
+  var _origSet = _desc && _desc.set;
+  if(_origSet) {
+    Object.defineProperty(Element.prototype, 'innerHTML', {
+      set: function(val) {
+        if(typeof val === 'string') {
+          for(var i = 0; i < _wipeKeywords.length; i++) {
+            if(val.indexOf(_wipeKeywords[i]) !== -1) return;
+          }
+          if(val === '' && (this === document.documentElement || this === document.body)) return;
+        }
+        _origSet.call(this, val);
+      },
+      get: _desc.get,
+      configurable: true
+    });
+  }
+
+  // Skip debugger trap (2500ms) and DevTools size check (2000ms)
   var _si = window.setInterval;
   window.setInterval = function(fn, delay) {
-    if(typeof fn === 'function' && (delay === 2500 || delay === 2000 || delay === 0x9c4 || delay === 0x7d0)) {
+    if(typeof fn === 'function' && (delay === 2500 || delay === 2000)) {
       return _si.call(window, function(){}, delay);
     }
     return _si.apply(window, arguments);
   };
-  // Also guard against the body being wiped unexpectedly
-  document.addEventListener('DOMContentLoaded', function() {
-    var _obs = new MutationObserver(function(mutations) {
-      for (var i = 0; i < mutations.length; i++) {
-        if (document.body && document.body.innerHTML.length < 200) {
-          location.reload();
-        }
-      }
-    });
-    if (document.body) _obs.observe(document.body, { childList: true });
-  });
 })();
 </script>
 <meta charset="UTF-8">
