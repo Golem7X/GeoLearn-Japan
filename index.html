@@ -2,41 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; img-src * data: blob:; style-src * 'unsafe-inline'; font-src * data:; script-src * 'unsafe-inline' 'unsafe-eval';">
+<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; script-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; font-src * data: blob:; img-src * data: blob:;">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GeoLearn Japan — Geotechnical & Geophysical Engineering</title>
-<script>
-// ── Diagnostic + CSP fallback ──
-// This runs FIRST to test if JS works and provide onclick fallback
-(function(){
-  // Mark that JS is running
-  window.__jsOK = true;
-
-  // Fallback: if inline onclick handlers are blocked by CSP,
-  // re-bind them as event listeners after DOM loads
-  document.addEventListener('DOMContentLoaded', function(){
-    var els = document.querySelectorAll('[onclick]');
-    if (els.length === 0) {
-      // onclick attributes were stripped by CSP - find elements that SHOULD have handlers
-      // This means CSP is blocking inline handlers, need alternative approach
-    }
-    // Add visual indicator that JS is working
-    var test = document.getElementById('topics-count');
-    if (test && !window.__appLoaded) {
-      // JS ran but app script may have failed
-    }
-  });
-
-  // Error handler to catch and show any JS errors visually
-  window.onerror = function(msg, src, line, col, err) {
-    var d = document.createElement('div');
-    d.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:#ff0;color:#000;padding:8px;font:12px monospace;z-index:99999;max-height:120px;overflow:auto';
-    d.textContent = 'JS Error: ' + msg + ' (line ' + line + ')';
-    document.body.appendChild(d);
-    return false;
-  };
-})();
-</script>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -2706,7 +2674,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
 <div class="spaced-review-note" id="spaced-note">
   <div class="spaced-note-header">
     <span>📚 Spaced Review</span>
-    <span class="spaced-note-close" onclick="closeSpacedNote()">✕</span>
+    <span class="spaced-note-close" data-action="closeSpacedNote()">✕</span>
   </div>
   <div class="spaced-note-term" id="spaced-note-term"></div>
   <div class="spaced-note-def" id="spaced-note-def"></div>
@@ -2714,19 +2682,19 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
 
 <!-- STUDY TOOLBAR -->
 <div id="study-toolbar">
-  <button class="toolbar-btn" onclick="toggleStudyMode()" id="study-mode-btn" title="Switch between dark engineering mode and soft study mode">
+  <button class="toolbar-btn" data-action="toggleStudyMode()" id="study-mode-btn" title="Switch between dark engineering mode and soft study mode">
     ☀️ Study Mode
   </button>
-  <button class="toolbar-btn study-only" onclick="toggleFocusMode()" id="focus-mode-btn" title="Focus Mode: hides sidebar, increases text size">
+  <button class="toolbar-btn study-only" data-action="toggleFocusMode()" id="focus-mode-btn" title="Focus Mode: hides sidebar, increases text size">
     🎯 Focus Mode
   </button>
-  <button class="toolbar-btn study-only" onclick="toggleHighlightMode()" id="highlight-btn" title="Toggle key term highlighting">
+  <button class="toolbar-btn study-only" data-action="toggleHighlightMode()" id="highlight-btn" title="Toggle key term highlighting">
     🖊 Highlight Terms
   </button>
-  <button class="toolbar-btn study-only" onclick="showSpacedReview()" title="Show a random spaced review card">
+  <button class="toolbar-btn study-only" data-action="showSpacedReview()" title="Show a random spaced review card">
     🔁 Quick Review
   </button>
-  <button class="toolbar-btn focus-hide-tb" onclick="scrollToTop()" title="Back to top">
+  <button class="toolbar-btn focus-hide-tb" data-action="scrollToTop()" title="Back to top">
     ↑ Top
   </button>
 </div>
@@ -2736,70 +2704,70 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
 <!-- SIDEBAR -->
 <nav class="sidebar">
   <div class="nav-logo">G</div>
-  <div class="nav-item active" onclick="showPage('home')">
+  <div class="nav-item active" data-action="showPage('home')">
     <span class="nav-icon">⌂</span><span class="nav-label">Home</span>
   </div>
-  <div class="nav-item" onclick="showPage('study')">
+  <div class="nav-item" data-action="showPage('study')">
     <span class="nav-icon">📚</span><span class="nav-label">Study Modules</span>
   </div>
-  <div class="nav-item" onclick="showPage('animations')">
+  <div class="nav-item" data-action="showPage('animations')">
     <span class="nav-icon">▶</span><span class="nav-label">Animations</span>
   </div>
-  <div class="nav-item" onclick="showPage('calculator')">
+  <div class="nav-item" data-action="showPage('calculator')">
     <span class="nav-icon">🔬</span><span class="nav-label">Field Calculator</span>
   </div>
-  <div class="nav-item" onclick="showPage('flashcards')">
+  <div class="nav-item" data-action="showPage('flashcards')">
     <span class="nav-icon">🃏</span><span class="nav-label">Flashcards</span>
   </div>
-  <div class="nav-item" onclick="showPage('quiz')">
+  <div class="nav-item" data-action="showPage('quiz')">
     <span class="nav-icon">⚡</span><span class="nav-label">Quiz</span>
   </div>
-  <div class="nav-item" onclick="showPage('game')">
+  <div class="nav-item" data-action="showPage('game')">
     <span class="nav-icon">🎮</span><span class="nav-label">Memory Game</span>
   </div>
-  <div class="nav-item" onclick="showPage('resources')">
+  <div class="nav-item" data-action="showPage('resources')">
     <span class="nav-icon">🌐</span><span class="nav-label">Resources</span>
   </div>
-  <div class="nav-item" onclick="showPage('career')">
+  <div class="nav-item" data-action="showPage('career')">
     <span class="nav-icon">🗾</span><span class="nav-label">Career Roadmap</span>
   </div>
-  <div class="nav-item" onclick="showPage('ai')">
+  <div class="nav-item" data-action="showPage('ai')">
     <span class="nav-icon">🤖</span><span class="nav-label">AI Tutor</span>
   </div>
-  <div class="nav-item" onclick="showPage('professor')">
+  <div class="nav-item" data-action="showPage('professor')">
     <span class="nav-icon">🎓</span><span class="nav-label">Professor Mode</span>
   </div>
-  <div class="nav-item" onclick="showPage('fielddata')">
+  <div class="nav-item" data-action="showPage('fielddata')">
     <span class="nav-icon">📈</span><span class="nav-label">Field Data Lab</span>
   </div>
-  <div class="nav-item" onclick="showPage('studyplan')">
+  <div class="nav-item" data-action="showPage('studyplan')">
     <span class="nav-icon">📅</span><span class="nav-label">Study Plan</span>
   </div>
-  <div class="nav-item" onclick="showPage('vocab')">
+  <div class="nav-item" data-action="showPage('vocab')">
     <span class="nav-icon">📖</span><span class="nav-label">Vocabulary Hub</span>
   </div>
-  <div class="nav-item" onclick="showPage('jlpt')">
+  <div class="nav-item" data-action="showPage('jlpt')">
     <span class="nav-icon">🇯🇵</span><span class="nav-label">JLPT Study Hub</span>
   </div>
-  <div class="nav-item" onclick="showPage('analytics')">
+  <div class="nav-item" data-action="showPage('analytics')">
     <span class="nav-icon">📊</span><span class="nav-label">Analytics</span>
   </div>
-  <div class="nav-item" onclick="showPage('smart')">
+  <div class="nav-item" data-action="showPage('smart')">
     <span class="nav-icon">🧠</span><span class="nav-label">Smart Study</span>
   </div>
-  <div class="nav-item" onclick="showPage('dailyfocus')">
+  <div class="nav-item" data-action="showPage('dailyfocus')">
     <span class="nav-icon">🎯</span><span class="nav-label">Daily Focus</span>
   </div>
-  <div class="nav-item" onclick="showPage('simulations')">
+  <div class="nav-item" data-action="showPage('simulations')">
     <span class="nav-icon">🧪</span><span class="nav-label">Simulations</span>
   </div>
-  <div class="nav-item" onclick="showPage('kmap')">
+  <div class="nav-item" data-action="showPage('kmap')">
     <span class="nav-icon">🕸</span><span class="nav-label">Knowledge Map</span>
   </div>
-  <div class="nav-item" onclick="showPage('casestudies')">
+  <div class="nav-item" data-action="showPage('casestudies')">
     <span class="nav-icon">🏛</span><span class="nav-label">Case Studies</span>
   </div>
-  <div class="nav-item" onclick="showPage('photos')">
+  <div class="nav-item" data-action="showPage('photos')">
     <span class="nav-icon">📷</span><span class="nav-label">Photo Gallery</span>
   </div>
 </nav>
@@ -2814,9 +2782,9 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
     <div class="hero-jp">地質・地盤工学学習システム</div>
     <div class="hero-desc">Master Geotechnical & Geophysical Engineering for Japanese licensing. 22 interactive topics — including full modules for Borehole Camera, Pressuremeter, GPR, Plate Load Test & RQD — plus animations, field calculators, and exam prep.</div>
     <div class="hero-actions">
-      <button class="btn btn-primary" onclick="showPage('study')">▶ Start Studying</button>
-      <button class="btn btn-outline" onclick="showPage('flashcards')">🃏 Flashcards</button>
-      <button class="btn btn-outline" onclick="showPage('quiz')">⚡ Quick Quiz</button>
+      <button class="btn btn-primary" data-action="showPage('study')">▶ Start Studying</button>
+      <button class="btn btn-outline" data-action="showPage('flashcards')">🃏 Flashcards</button>
+      <button class="btn btn-outline" data-action="showPage('quiz')">⚡ Quick Quiz</button>
     </div>
   </div>
 
@@ -2833,8 +2801,8 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
   <div class="card" style="max-width:400px;margin-bottom:24px">
     <div class="timer-display" id="timer-display">00:00:00</div>
     <div style="display:flex;gap:8px;justify-content:center">
-      <button class="btn btn-primary" id="timer-btn" onclick="toggleTimer()">▶ Start</button>
-      <button class="btn btn-outline" onclick="resetTimer()">↺ Reset</button>
+      <button class="btn btn-primary" id="timer-btn" data-action="toggleTimer()">▶ Start</button>
+      <button class="btn btn-outline" data-action="resetTimer()">↺ Reset</button>
     </div>
   </div>
 
@@ -2882,28 +2850,28 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
   <div id="topic-list">
     <div class="section-header"><div class="section-title">// SOIL MECHANICS 土質力学</div><div class="section-line"></div></div>
     <div class="grid grid-3" style="margin-bottom:24px">
-      <div class="topic-card" onclick="showTopic('effective-stress')">
+      <div class="topic-card" data-action="showTopic('effective-stress')">
         <div class="topic-icon">⚖️</div>
         <div class="topic-name">Effective Stress</div>
         <div class="topic-jp">有効応力</div>
         <div class="topic-desc">The stress carried by the soil skeleton. Foundation of all soil strength analysis.</div>
         <div class="topic-badge">σ' = σ - u</div>
       </div>
-      <div class="topic-card" onclick="showTopic('shear-strength')">
+      <div class="topic-card" data-action="showTopic('shear-strength')">
         <div class="topic-icon">⚡</div>
         <div class="topic-name">Shear Strength</div>
         <div class="topic-jp">せん断強さ</div>
         <div class="topic-desc">Mohr-Coulomb criterion. Controls slope stability, bearing capacity, and retaining walls.</div>
         <div class="topic-badge">τ = c' + σ'tanφ'</div>
       </div>
-      <div class="topic-card" onclick="showTopic('consolidation')">
+      <div class="topic-card" data-action="showTopic('consolidation')">
         <div class="topic-icon">📉</div>
         <div class="topic-name">Consolidation</div>
         <div class="topic-jp">圧密</div>
         <div class="topic-desc">Time-dependent compression of saturated clay. Terzaghi 1D consolidation theory.</div>
         <div class="topic-badge">Tv = cv·t/H²</div>
       </div>
-      <div class="topic-card" onclick="showTopic('liquefaction')">
+      <div class="topic-card" data-action="showTopic('liquefaction')">
         <div class="topic-icon">💧</div>
         <div class="topic-name">Liquefaction</div>
         <div class="topic-jp">液状化</div>
@@ -2914,21 +2882,21 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
 
     <div class="section-header"><div class="section-title">// WAVE PROPAGATION 波動伝播</div><div class="section-line"></div></div>
     <div class="grid grid-3" style="margin-bottom:24px">
-      <div class="topic-card" onclick="showTopic('p-wave')">
+      <div class="topic-card" data-action="showTopic('p-wave')">
         <div class="topic-icon">→</div>
         <div class="topic-name">P-Wave (Primary)</div>
         <div class="topic-jp">P波（縦波）</div>
         <div class="topic-desc">Compressional wave. Travels through solids and liquids. Used in seismic refraction surveys.</div>
         <div class="topic-badge">Vp = √(M/ρ)</div>
       </div>
-      <div class="topic-card" onclick="showTopic('s-wave')">
+      <div class="topic-card" data-action="showTopic('s-wave')">
         <div class="topic-icon">〜</div>
         <div class="topic-name">S-Wave (Shear)</div>
         <div class="topic-jp">S波（横波）</div>
         <div class="topic-desc">Shear wave. Cannot travel through liquids. Key for Vs30 calculation and site amplification.</div>
         <div class="topic-badge">Vs = √(G/ρ)</div>
       </div>
-      <div class="topic-card" onclick="showTopic('vs30')">
+      <div class="topic-card" data-action="showTopic('vs30')">
         <div class="topic-icon">📊</div>
         <div class="topic-name">Vs30 & Site Class</div>
         <div class="topic-jp">地盤種別</div>
@@ -2939,21 +2907,21 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
 
     <div class="section-header"><div class="section-title">// IN-SITU TESTING 原位置試験</div><div class="section-line"></div></div>
     <div class="grid grid-3" style="margin-bottom:24px">
-      <div class="topic-card" onclick="showTopic('spt')">
+      <div class="topic-card" data-action="showTopic('spt')">
         <div class="topic-icon">🔨</div>
         <div class="topic-name">SPT (Standard Penetration Test)</div>
         <div class="topic-jp">標準貫入試験</div>
         <div class="topic-desc">N-value from 63.5kg hammer drop. Most common soil investigation in Japan.</div>
         <div class="topic-badge">N60 = N·(ER/60)</div>
       </div>
-      <div class="topic-card" onclick="showTopic('cpt')">
+      <div class="topic-card" data-action="showTopic('cpt')">
         <div class="topic-icon">📍</div>
         <div class="topic-name">CPTu (Cone Penetration Test)</div>
         <div class="topic-jp">コーン貫入試験</div>
         <div class="topic-desc">Continuous profile of tip resistance, sleeve friction, and pore pressure.</div>
         <div class="topic-badge">Ic = √((3.47-log Qt)²+...)</div>
       </div>
-      <div class="topic-card" onclick="showTopic('ps-logging')">
+      <div class="topic-card" data-action="showTopic('ps-logging')">
         <div class="topic-icon">📡</div>
         <div class="topic-name">PS Logging</div>
         <div class="topic-jp">PS検層</div>
@@ -2964,28 +2932,28 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
 
     <div class="section-header"><div class="section-title">// GEOPHYSICAL METHODS 物理探査</div><div class="section-line"></div></div>
     <div class="grid grid-3" style="margin-bottom:24px">
-      <div class="topic-card" onclick="showTopic('seismic-refraction')">
+      <div class="topic-card" data-action="showTopic('seismic-refraction')">
         <div class="topic-icon">↗</div>
         <div class="topic-name">Seismic Refraction</div>
         <div class="topic-jp">屈折法地震探査</div>
         <div class="topic-desc">Surface seismic method mapping velocity layers. Uses first arrival times.</div>
         <div class="topic-badge">t = x/V1 + 2h·cosθc/V1</div>
       </div>
-      <div class="topic-card" onclick="showTopic('resistivity')">
+      <div class="topic-card" data-action="showTopic('resistivity')">
         <div class="topic-icon">⚡</div>
         <div class="topic-name">Electrical Resistivity Survey</div>
         <div class="topic-jp">電気探査</div>
         <div class="topic-desc">Wenner, Schlumberger, dipole-dipole arrays. Map subsurface resistivity variations.</div>
         <div class="topic-badge">ρ = 2πa·(V/I)</div>
       </div>
-      <div class="topic-card" onclick="showTopic('masw')">
+      <div class="topic-card" data-action="showTopic('masw')">
         <div class="topic-icon">🌊</div>
         <div class="topic-name">MASW Surface Wave Survey</div>
         <div class="topic-jp">表面波探査・微動探査</div>
         <div class="topic-desc">Surface wave analysis for Vs profiling. MASW and H/V spectral ratio methods.</div>
         <div class="topic-badge">Vs(z) from dispersion</div>
       </div>
-      <div class="topic-card" onclick="showTopic('gpr')">
+      <div class="topic-card" data-action="showTopic('gpr')">
         <div class="topic-icon">📡</div>
         <div class="topic-name">Ground Penetrating Radar</div>
         <div class="topic-jp">地中レーダー探査</div>
@@ -2996,21 +2964,21 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
 
     <div class="section-header"><div class="section-title">// BOREHOLE INVESTIGATION 孔内調査</div><div class="section-line"></div></div>
     <div class="grid grid-3" style="margin-bottom:24px">
-      <div class="topic-card" onclick="showTopic('borehole-camera')">
+      <div class="topic-card" data-action="showTopic('borehole-camera')">
         <div class="topic-icon">🎥</div>
         <div class="topic-name">Borehole Camera</div>
         <div class="topic-jp">孔内カメラ</div>
         <div class="topic-desc">Visual inspection of borehole walls. Reveals fractures, joints, weathering, groundwater inflow.</div>
         <div class="topic-badge">Fracture orientation & RQD</div>
       </div>
-      <div class="topic-card" onclick="showTopic('pressuremeter')">
+      <div class="topic-card" data-action="showTopic('pressuremeter')">
         <div class="topic-icon">🔵</div>
         <div class="topic-name">Pressuremeter Test</div>
         <div class="topic-jp">孔内水平載荷試験</div>
         <div class="topic-desc">Inflatable probe measures lateral stress-strain in borehole. Gives Em and limit pressure PL.</div>
         <div class="topic-badge">Em = 2(1+ν)·V·ΔP/ΔV</div>
       </div>
-      <div class="topic-card" onclick="showTopic('rqd')">
+      <div class="topic-card" data-action="showTopic('rqd')">
         <div class="topic-icon">🪨</div>
         <div class="topic-name">Rock Quality Designation (RQD)</div>
         <div class="topic-jp">岩盤品質指標</div>
@@ -3021,21 +2989,21 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
 
     <div class="section-header"><div class="section-title">// LOAD TESTING 載荷試験</div><div class="section-line"></div></div>
     <div class="grid grid-3">
-      <div class="topic-card" onclick="showTopic('plate-load-test')">
+      <div class="topic-card" data-action="showTopic('plate-load-test')">
         <div class="topic-icon">🏗️</div>
         <div class="topic-name">Plate Load Test</div>
         <div class="topic-jp">平板載荷試験</div>
         <div class="topic-desc">Direct measurement of bearing capacity and settlement modulus at foundation level. JIS A 1215.</div>
         <div class="topic-badge">K30 = p/s · (1/0.125)</div>
       </div>
-      <div class="topic-card" onclick="showTopic('cpt')">
+      <div class="topic-card" data-action="showTopic('cpt')">
         <div class="topic-icon">📍</div>
         <div class="topic-name">CPTu (Cone Penetration Test)</div>
         <div class="topic-jp">コーン貫入試験</div>
         <div class="topic-desc">Continuous profile of tip resistance, sleeve friction, and pore pressure.</div>
         <div class="topic-badge">Ic = √((3.47-log Qt)²+...)</div>
       </div>
-      <div class="topic-card" onclick="showTopic('spt')">
+      <div class="topic-card" data-action="showTopic('spt')">
         <div class="topic-icon">🔨</div>
         <div class="topic-name">SPT (Standard Penetration Test)</div>
         <div class="topic-jp">標準貫入試験</div>
@@ -3047,7 +3015,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
 
   <!-- TOPIC DETAIL VIEW -->
   <div id="topic-detail" style="display:none">
-    <button class="btn btn-outline" style="margin-bottom:20px" onclick="hideTopic()">← Back</button>
+    <button class="btn btn-outline" style="margin-bottom:20px" data-action="hideTopic()">← Back</button>
     <div id="topic-content"></div>
   </div>
 </div>
@@ -3070,8 +3038,8 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
     </select>
     <canvas class="anim-canvas" id="anim-canvas" width="800" height="280"></canvas>
     <div class="anim-controls">
-      <button class="anim-btn" id="play-btn" onclick="toggleAnim()">▶ Play</button>
-      <button class="anim-btn" onclick="resetAnim()">↺ Reset</button>
+      <button class="anim-btn" id="play-btn" data-action="toggleAnim()">▶ Play</button>
+      <button class="anim-btn" data-action="resetAnim()">↺ Reset</button>
       <div id="anim-info" style="font-size:13px;color:var(--text2);font-family:'JetBrains Mono',monospace;margin-left:auto"></div>
     </div>
   </div>
@@ -3087,10 +3055,10 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
   </div>
 
   <div class="tabs">
-    <div class="tab active" onclick="switchCalc(this,'spt-calc')">🔨 SPT Analysis</div>
-    <div class="tab" onclick="switchCalc(this,'vs30-calc')">📡 Vs30 Calculator</div>
-    <div class="tab" onclick="switchCalc(this,'liq-calc')">💧 Liquefaction FL</div>
-    <div class="tab" onclick="switchCalc(this,'bearing-calc')">🏗 Bearing Capacity</div>
+    <div class="tab active" data-action="switchCalc(this,'spt-calc')">🔨 SPT Analysis</div>
+    <div class="tab" data-action="switchCalc(this,'vs30-calc')">📡 Vs30 Calculator</div>
+    <div class="tab" data-action="switchCalc(this,'liq-calc')">💧 Liquefaction FL</div>
+    <div class="tab" data-action="switchCalc(this,'bearing-calc')">🏗 Bearing Capacity</div>
   </div>
 
   <div id="spt-calc">
@@ -3119,7 +3087,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
         <div style="font-size:12px;color:var(--text2);margin-top:10px;font-family:'JetBrains Mono',monospace">
           Click "Add Layer" to build a soil column profile
         </div>
-        <button class="btn btn-outline" style="margin-top:10px;width:100%" onclick="addSoilLayer()">+ Add Layer</button>
+        <button class="btn btn-outline" style="margin-top:10px;width:100%" data-action="addSoilLayer()">+ Add Layer</button>
       </div>
     </div>
   </div>
@@ -3129,7 +3097,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
       <div style="font-weight:700;margin-bottom:16px;font-size:16px">📡 Vs30 Calculation — 地盤種別判定</div>
       <div style="color:var(--text2);font-size:13px;margin-bottom:16px">Enter up to 10 soil layers (hi = thickness in m, Vsi = shear wave velocity in m/s)</div>
       <div id="vs30-layers" style="display:grid;gap:8px"></div>
-      <button class="btn btn-outline" style="margin-top:12px" onclick="addVs30Layer()">+ Add Layer</button>
+      <button class="btn btn-outline" style="margin-top:12px" data-action="addVs30Layer()">+ Add Layer</button>
       <div class="result-box" style="margin-top:16px" id="vs30-result">
         <div class="result-item"><span>Vs30 (m/s)</span><span class="result-val" id="r-vs30">—</span></div>
         <div class="result-item"><span>Site Class (NEHRP)</span><span class="result-val" id="r-site-class">—</span></div>
@@ -3209,14 +3177,14 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
   </div>
 
   <div class="tabs">
-    <div class="tab active" onclick="switchFCDeck(this,'all')">All (40)</div>
-    <div class="tab" onclick="switchFCDeck(this,'soil')">Soil Mechanics</div>
-    <div class="tab" onclick="switchFCDeck(this,'wave')">Waves</div>
-    <div class="tab" onclick="switchFCDeck(this,'test')">Field Tests</div>
-    <div class="tab" onclick="switchFCDeck(this,'jp')">Japanese Terms</div>
+    <div class="tab active" data-action="switchFCDeck(this,'all')">All (40)</div>
+    <div class="tab" data-action="switchFCDeck(this,'soil')">Soil Mechanics</div>
+    <div class="tab" data-action="switchFCDeck(this,'wave')">Waves</div>
+    <div class="tab" data-action="switchFCDeck(this,'test')">Field Tests</div>
+    <div class="tab" data-action="switchFCDeck(this,'jp')">Japanese Terms</div>
   </div>
 
-  <div class="flashcard-scene" onclick="flipCard()">
+  <div class="flashcard-scene" data-action="flipCard()">
     <div class="flashcard" id="flashcard">
       <div class="flashcard-face flashcard-front">
         <div class="fc-jp" id="fc-front-jp"></div>
@@ -3231,14 +3199,14 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
   </div>
 
   <div class="fc-nav">
-    <button class="btn btn-outline" onclick="prevCard()">← Prev</button>
+    <button class="btn btn-outline" data-action="prevCard()">← Prev</button>
     <div class="fc-counter" id="fc-counter">1 / 40</div>
-    <button class="btn btn-primary" onclick="nextCard()">Next →</button>
+    <button class="btn btn-primary" data-action="nextCard()">Next →</button>
   </div>
   <div style="display:flex;gap:8px;justify-content:center;margin-top:12px">
-    <button class="btn btn-outline" onclick="shuffleCards()">🔀 Shuffle</button>
-    <button class="btn btn-outline" onclick="markKnown()">✓ Know it</button>
-    <button class="btn btn-outline" onclick="markUnknown()">✗ Review</button>
+    <button class="btn btn-outline" data-action="shuffleCards()">🔀 Shuffle</button>
+    <button class="btn btn-outline" data-action="markKnown()">✓ Know it</button>
+    <button class="btn btn-outline" data-action="markUnknown()">✗ Review</button>
   </div>
   <div style="text-align:center;margin-top:12px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text2)" id="fc-status"></div>
 </div>
@@ -3256,10 +3224,10 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
       <div style="font-size:22px;font-weight:700;margin-bottom:8px">Ready to Test?</div>
       <div style="color:var(--text2);margin-bottom:24px;font-size:14px">60 questions across all topics. Choose your category.</div>
       <div style="display:grid;gap:8px;margin-bottom:20px">
-        <button class="btn btn-outline" style="justify-content:center" onclick="startQuiz('all')">🌐 All Topics (20 Q)</button>
-        <button class="btn btn-outline" style="justify-content:center" onclick="startQuiz('soil')">⚖️ Soil Mechanics (10 Q)</button>
-        <button class="btn btn-outline" style="justify-content:center" onclick="startQuiz('wave')">〜 Wave & Geophysics (10 Q)</button>
-        <button class="btn btn-outline" style="justify-content:center" onclick="startQuiz('test')">🔨 Field Testing (10 Q)</button>
+        <button class="btn btn-outline" style="justify-content:center" data-action="startQuiz('all')">🌐 All Topics (20 Q)</button>
+        <button class="btn btn-outline" style="justify-content:center" data-action="startQuiz('soil')">⚖️ Soil Mechanics (10 Q)</button>
+        <button class="btn btn-outline" style="justify-content:center" data-action="startQuiz('wave')">〜 Wave & Geophysics (10 Q)</button>
+        <button class="btn btn-outline" style="justify-content:center" data-action="startQuiz('test')">🔨 Field Testing (10 Q)</button>
       </div>
     </div>
   </div>
@@ -3271,7 +3239,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
       <div class="quiz-q" id="q-text"></div>
       <div class="quiz-options" id="q-options"></div>
       <div id="q-explain" class="quiz-explain" style="display:none"></div>
-      <button class="btn btn-primary" id="q-next" style="display:none" onclick="nextQuestion()">Next →</button>
+      <button class="btn btn-primary" id="q-next" style="display:none" data-action="nextQuestion()">Next →</button>
     </div>
   </div>
 
@@ -3281,8 +3249,8 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
       <div class="score-big" id="final-score"></div>
       <div id="score-grade" style="font-size:24px;font-weight:700;margin:8px 0"></div>
       <div id="score-msg" style="color:var(--text2);margin-bottom:24px;font-size:14px"></div>
-      <button class="btn btn-primary" onclick="restartQuiz()">Try Again</button>
-      <button class="btn btn-outline" style="margin-left:12px" onclick="showPage('flashcards')">📚 Review Flashcards</button>
+      <button class="btn btn-primary" data-action="restartQuiz()">Try Again</button>
+      <button class="btn btn-outline" style="margin-left:12px" data-action="showPage('flashcards')">📚 Review Flashcards</button>
     </div>
   </div>
 </div>
@@ -3313,7 +3281,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
     </div>
     <div style="flex:1"></div>
     <div>
-      <button class="btn btn-primary" onclick="startGame()">🔄 New Game</button>
+      <button class="btn btn-primary" data-action="startGame()">🔄 New Game</button>
       <select class="anim-select" id="game-level" style="margin-left:8px">
         <option value="easy">Easy (6 pairs)</option>
         <option value="medium" selected>Medium (8 pairs)</option>
@@ -3327,7 +3295,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
     <div style="font-size:48px">🎉</div>
     <div style="font-size:24px;font-weight:700;margin:8px 0">Complete!</div>
     <div id="game-final-msg" style="color:var(--text2);margin-bottom:16px"></div>
-    <button class="btn btn-primary" onclick="startGame()">Play Again</button>
+    <button class="btn btn-primary" data-action="startGame()">Play Again</button>
   </div>
 </div>
 
@@ -3517,7 +3485,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
           <div style="font-size:14px;font-weight:700">Personal AI Tutor</div>
           <div style="font-size:11px;color:var(--accent3);font-family:'JetBrains Mono',monospace">● OFFLINE · 20 Lessons · No API</div>
         </div>
-        <button onclick="clearTutorChat()" title="New conversation" style="margin-left:auto;background:rgba(255,71,87,0.1);border:1px solid rgba(255,71,87,0.2);color:var(--danger);border-radius:8px;padding:5px 10px;cursor:pointer;font-size:12px;font-family:'Syne',sans-serif;font-weight:600">🗑 Clear</button>
+        <button data-action="clearTutorChat()" title="New conversation" style="margin-left:auto;background:rgba(255,71,87,0.1);border:1px solid rgba(255,71,87,0.2);color:var(--danger);border-radius:8px;padding:5px 10px;cursor:pointer;font-size:12px;font-family:'Syne',sans-serif;font-weight:600">🗑 Clear</button>
       </div>
       <div id="tutor-msgs" style="height:460px;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px">
         <div class="msg msg-ai" style="border-radius:12px 12px 12px 4px"><strong style="color:var(--accent)">🤖 AI Tutor:</strong><br><br>
@@ -3533,7 +3501,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
       </div>
       <div style="padding:12px 14px;border-top:1px solid var(--border);display:flex;gap:8px">
         <input id="tutor-input" style="flex:1;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:10px 14px;font-family:'Syne',sans-serif;font-size:14px;outline:none;transition:border-color .2s" placeholder="Type a topic or question..." onkeydown="if(event.key==='Enter')tutorSend()" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'">
-        <button class="btn btn-primary" onclick="tutorSend()">Ask →</button>
+        <button class="btn btn-primary" data-action="tutorSend()">Ask →</button>
       </div>
     </div>
 
@@ -3563,15 +3531,15 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
   </div>
 
   <div class="module-tabs" id="prof-module-tabs">
-    <div class="module-tab active" onclick="selectProfModule(this,'soil')">🌱 M1 Soil Mechanics</div>
-    <div class="module-tab" onclick="selectProfModule(this,'rock')">🪨 M2 Rock Mechanics</div>
-    <div class="module-tab" onclick="selectProfModule(this,'wave')">〜 M3 Wave Propagation</div>
-    <div class="module-tab" onclick="selectProfModule(this,'insitu')">🔨 M4 In-situ Testing</div>
-    <div class="module-tab" onclick="selectProfModule(this,'geo')">⚡ M5 Geophysical Exploration</div>
-    <div class="module-tab" onclick="selectProfModule(this,'found')">🏗 M6 Foundation Engineering</div>
-    <div class="module-tab" onclick="selectProfModule(this,'liq')">💧 M7 Liquefaction</div>
-    <div class="module-tab" onclick="selectProfModule(this,'interp')">📊 M8 Field Data Interpretation</div>
-    <div class="module-tab" onclick="selectProfModule(this,'investigation')">🔬 M9 Investigation Methods</div>
+    <div class="module-tab active" data-action="selectProfModule(this,'soil')">🌱 M1 Soil Mechanics</div>
+    <div class="module-tab" data-action="selectProfModule(this,'rock')">🪨 M2 Rock Mechanics</div>
+    <div class="module-tab" data-action="selectProfModule(this,'wave')">〜 M3 Wave Propagation</div>
+    <div class="module-tab" data-action="selectProfModule(this,'insitu')">🔨 M4 In-situ Testing</div>
+    <div class="module-tab" data-action="selectProfModule(this,'geo')">⚡ M5 Geophysical Exploration</div>
+    <div class="module-tab" data-action="selectProfModule(this,'found')">🏗 M6 Foundation Engineering</div>
+    <div class="module-tab" data-action="selectProfModule(this,'liq')">💧 M7 Liquefaction</div>
+    <div class="module-tab" data-action="selectProfModule(this,'interp')">📊 M8 Field Data Interpretation</div>
+    <div class="module-tab" data-action="selectProfModule(this,'investigation')">🔬 M9 Investigation Methods</div>
   </div>
 
   <div id="prof-content"></div>
@@ -3587,11 +3555,11 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
   </div>
 
   <div class="tabs">
-    <div class="tab active" onclick="switchFieldTab(this,'spt-log')">🔨 SPT Log</div>
-    <div class="tab" onclick="switchFieldTab(this,'cptu-log')">📍 CPTu Graph</div>
-    <div class="tab" onclick="switchFieldTab(this,'ps-log')">📡 PS Logging</div>
-    <div class="tab" onclick="switchFieldTab(this,'pmt-log')">🔵 Pressuremeter</div>
-    <div class="tab" onclick="switchFieldTab(this,'calc-quiz')">🧮 Calc Problems</div>
+    <div class="tab active" data-action="switchFieldTab(this,'spt-log')">🔨 SPT Log</div>
+    <div class="tab" data-action="switchFieldTab(this,'cptu-log')">📍 CPTu Graph</div>
+    <div class="tab" data-action="switchFieldTab(this,'ps-log')">📡 PS Logging</div>
+    <div class="tab" data-action="switchFieldTab(this,'pmt-log')">🔵 Pressuremeter</div>
+    <div class="tab" data-action="switchFieldTab(this,'calc-quiz')">🧮 Calc Problems</div>
   </div>
 
   <!-- SPT LOG -->
@@ -3749,7 +3717,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
       <div style="font-weight:700;margin-bottom:10px">📊 Weekly Progress Tracker</div>
       <div id="week-tracker" style="display:grid;grid-template-columns:repeat(7,1fr);gap:8px;text-align:center">
       </div>
-      <button class="btn btn-outline" style="width:100%;margin-top:12px;font-size:12px" onclick="resetWeekTracker()">↺ Reset Week</button>
+      <button class="btn btn-outline" style="width:100%;margin-top:12px;font-size:12px" data-action="resetWeekTracker()">↺ Reset Week</button>
     </div>
   </div>
 
@@ -3776,23 +3744,23 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
   </div>
 
   <div class="tabs" style="margin-bottom:16px">
-    <div class="tab active" onclick="switchVocabMode(this,'browse')">🔍 Browse</div>
-    <div class="tab" onclick="switchVocabMode(this,'flashcard')">🃏 Flashcard Mode</div>
-    <div class="tab" onclick="switchVocabMode(this,'spaced')">🔁 Spaced Review</div>
-    <div class="tab" onclick="switchVocabMode(this,'quiz')">⚡ Vocab Quiz</div>
+    <div class="tab active" data-action="switchVocabMode(this,'browse')">🔍 Browse</div>
+    <div class="tab" data-action="switchVocabMode(this,'flashcard')">🃏 Flashcard Mode</div>
+    <div class="tab" data-action="switchVocabMode(this,'spaced')">🔁 Spaced Review</div>
+    <div class="tab" data-action="switchVocabMode(this,'quiz')">⚡ Vocab Quiz</div>
   </div>
 
   <!-- BROWSE MODE -->
   <div id="vocab-browse">
     <input class="vocab-search" id="vocab-search-input" placeholder="Search Japanese or English... 検索" oninput="filterVocab()">
     <div style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0" id="vocab-filters">
-      <button class="filter-btn active" onclick="setVocabFilter('all',this)">All</button>
-      <button class="filter-btn" onclick="setVocabFilter('soil',this)">🌱 Soil</button>
-      <button class="filter-btn" onclick="setVocabFilter('seismic',this)">🌊 Seismic</button>
-      <button class="filter-btn" onclick="setVocabFilter('testing',this)">🔬 Testing</button>
-      <button class="filter-btn" onclick="setVocabFilter('foundation',this)">🏗 Foundation</button>
-      <button class="filter-btn" onclick="setVocabFilter('geophysics',this)">⚡ Geophysics</button>
-      <button class="filter-btn" onclick="setVocabFilter('jlpt',this)">🇯🇵 JLPT</button>
+      <button class="filter-btn active" data-action="setVocabFilter('all',this)">All</button>
+      <button class="filter-btn" data-action="setVocabFilter('soil',this)">🌱 Soil</button>
+      <button class="filter-btn" data-action="setVocabFilter('seismic',this)">🌊 Seismic</button>
+      <button class="filter-btn" data-action="setVocabFilter('testing',this)">🔬 Testing</button>
+      <button class="filter-btn" data-action="setVocabFilter('foundation',this)">🏗 Foundation</button>
+      <button class="filter-btn" data-action="setVocabFilter('geophysics',this)">⚡ Geophysics</button>
+      <button class="filter-btn" data-action="setVocabFilter('jlpt',this)">🇯🇵 JLPT</button>
     </div>
     <div style="font-size:12px;color:var(--text2);font-family:'JetBrains Mono',monospace;margin-bottom:12px" id="vocab-count-label"></div>
     <div class="grid grid-3" id="vocab-grid"></div>
@@ -3801,7 +3769,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
   <!-- FLASHCARD MODE -->
   <div id="vocab-flashcard" style="display:none">
     <div class="vocab-fc-container">
-      <div id="vocab-fc-card" class="vocab-fc" onclick="revealVocabFC()">
+      <div id="vocab-fc-card" class="vocab-fc" data-action="revealVocabFC()">
         <div id="vocab-fc-jp" class="vocab-jp" style="font-size:32px"></div>
         <div id="vocab-fc-kana" class="vocab-kana"></div>
         <div id="vocab-fc-hint" style="font-size:11px;color:var(--text3);margin-top:16px;font-family:'JetBrains Mono',monospace">Click to reveal meaning</div>
@@ -3812,9 +3780,9 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
         </div>
       </div>
       <div class="fc-nav" style="margin-top:16px">
-        <button class="btn btn-outline" onclick="prevVocabFC()">← Prev</button>
+        <button class="btn btn-outline" data-action="prevVocabFC()">← Prev</button>
         <span class="fc-counter" id="vocab-fc-counter">0/0</span>
-        <button class="btn btn-outline" onclick="nextVocabFC()">Next →</button>
+        <button class="btn btn-outline" data-action="nextVocabFC()">Next →</button>
       </div>
     </div>
   </div>
@@ -3832,12 +3800,12 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
         <div id="vocab-sr-en" style="font-size:20px;font-weight:700"></div>
         <div id="vocab-sr-def" style="font-size:13px;color:var(--text2);margin-top:8px"></div>
       </div>
-      <button class="btn btn-outline" style="margin-top:16px" id="vocab-sr-show-btn" onclick="showVocabSRAnswer()">Show Answer</button>
+      <button class="btn btn-outline" style="margin-top:16px" id="vocab-sr-show-btn" data-action="showVocabSRAnswer()">Show Answer</button>
     </div>
     <div class="sr-controls" id="vocab-sr-controls" style="display:none">
-      <button class="sr-btn-hard" onclick="rateVocabSR(1)">😰 Hard (1 day)</button>
-      <button class="sr-btn-good" onclick="rateVocabSR(3)">👍 Good (3 days)</button>
-      <button class="sr-btn-easy" onclick="rateVocabSR(7)">⭐ Easy (7 days)</button>
+      <button class="sr-btn-hard" data-action="rateVocabSR(1)">😰 Hard (1 day)</button>
+      <button class="sr-btn-good" data-action="rateVocabSR(3)">👍 Good (3 days)</button>
+      <button class="sr-btn-easy" data-action="rateVocabSR(7)">⭐ Easy (7 days)</button>
     </div>
     <div style="text-align:center;margin-top:16px;font-size:12px;color:var(--text2);font-family:'JetBrains Mono',monospace" id="vocab-sr-next-info"></div>
   </div>
@@ -3849,10 +3817,10 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
         <div style="font-size:24px;font-weight:800;margin-bottom:8px">Vocabulary Quiz</div>
         <div style="color:var(--text2);margin-bottom:20px">Test your Japanese technical vocabulary knowledge</div>
         <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-          <button class="btn btn-outline" onclick="startVocabQuiz('soil')">🌱 Soil</button>
-          <button class="btn btn-outline" onclick="startVocabQuiz('seismic')">🌊 Seismic</button>
-          <button class="btn btn-outline" onclick="startVocabQuiz('jlpt')">🇯🇵 JLPT</button>
-          <button class="btn btn-primary" onclick="startVocabQuiz('all')">All Vocab</button>
+          <button class="btn btn-outline" data-action="startVocabQuiz('soil')">🌱 Soil</button>
+          <button class="btn btn-outline" data-action="startVocabQuiz('seismic')">🌊 Seismic</button>
+          <button class="btn btn-outline" data-action="startVocabQuiz('jlpt')">🇯🇵 JLPT</button>
+          <button class="btn btn-primary" data-action="startVocabQuiz('all')">All Vocab</button>
         </div>
       </div>
     </div>
@@ -3862,12 +3830,12 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
       <div class="quiz-q" id="vq-question"></div>
       <div class="quiz-options" id="vq-options"></div>
       <div class="quiz-explain" id="vq-explain" style="display:none"></div>
-      <button class="btn btn-primary" id="vq-next" style="display:none;margin-top:12px" onclick="nextVocabQuestion()">Next →</button>
+      <button class="btn btn-primary" id="vq-next" style="display:none;margin-top:12px" data-action="nextVocabQuestion()">Next →</button>
     </div>
     <div id="vocab-quiz-end" style="display:none;text-align:center;padding:32px">
       <div class="score-big" id="vq-final-score"></div>
       <div id="vq-grade" style="font-size:18px;font-weight:700;margin-top:8px"></div>
-      <button class="btn btn-primary" style="margin-top:16px" onclick="document.getElementById('vocab-quiz-end').style.display='none';document.getElementById('vocab-quiz-start').style.display='block'">Try Again</button>
+      <button class="btn btn-primary" style="margin-top:16px" data-action="document.getElementById('vocab-quiz-end').style.display='none';document.getElementById('vocab-quiz-start').style.display='block'">Try Again</button>
     </div>
   </div>
 </div>
@@ -3884,13 +3852,13 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
   <!-- Level selector -->
   <div id="jlpt-home">
     <div class="grid grid-2" style="max-width:700px;margin:0 auto 32px">
-      <div class="jlpt-level-card" onclick="enterJLPTLevel('N2')">
+      <div class="jlpt-level-card" data-action="enterJLPTLevel('N2')">
         <div class="jlpt-level-num" style="color:var(--accent)">N2</div>
         <div class="jlpt-level-jp">日本語能力試験N2</div>
         <div class="jlpt-level-desc">Upper intermediate Japanese. Required for many engineering firms in Japan.</div>
         <div class="jlpt-stat" id="n2-progress-text">0 / 6000 vocab · 0% ready</div>
       </div>
-      <div class="jlpt-level-card" onclick="enterJLPTLevel('N1')">
+      <div class="jlpt-level-card" data-action="enterJLPTLevel('N1')">
         <div class="jlpt-level-num" style="color:var(--purple)">N1</div>
         <div class="jlpt-level-jp">日本語能力試験N1</div>
         <div class="jlpt-level-desc">Advanced mastery. Required for technical report writing and client communication.</div>
@@ -3935,36 +3903,36 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
 
   <!-- JLPT Level content -->
   <div id="jlpt-level-content" style="display:none">
-    <button class="btn btn-outline" style="margin-bottom:16px" onclick="document.getElementById('jlpt-home').style.display='block';document.getElementById('jlpt-level-content').style.display='none'">← Back to Levels</button>
+    <button class="btn btn-outline" style="margin-bottom:16px" data-action="document.getElementById('jlpt-home').style.display='block';document.getElementById('jlpt-level-content').style.display='none'">← Back to Levels</button>
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
       <div style="font-size:28px;font-weight:800" id="jlpt-level-title"></div>
       <span class="mode-badge mode-normal" id="jlpt-level-badge"></span>
     </div>
     <div class="jlpt-sub-tabs">
-      <div class="jlpt-sub-tab active" onclick="showJLPTSection(this,'jlpt-vocab-section')">📚 Vocabulary</div>
-      <div class="jlpt-sub-tab" onclick="showJLPTSection(this,'jlpt-kanji-section')">漢字 Kanji</div>
-      <div class="jlpt-sub-tab" onclick="showJLPTSection(this,'jlpt-grammar-section');initGrammarHub('grammar-hub-container')">📝 Grammar</div>
-      <div class="jlpt-sub-tab" onclick="showJLPTSection(this,'jlpt-reading-section')">📖 Reading</div>
-      <div class="jlpt-sub-tab" onclick="showJLPTSection(this,'jlpt-listening-section')">🎧 Listening</div>
-      <div class="jlpt-sub-tab" onclick="showJLPTSection(this,'jlpt-mock-section')">📋 Mock Exam</div>
+      <div class="jlpt-sub-tab active" data-action="showJLPTSection(this,'jlpt-vocab-section')">📚 Vocabulary</div>
+      <div class="jlpt-sub-tab" data-action="showJLPTSection(this,'jlpt-kanji-section')">漢字 Kanji</div>
+      <div class="jlpt-sub-tab" data-action="showJLPTSection(this,'jlpt-grammar-section');initGrammarHub('grammar-hub-container')">📝 Grammar</div>
+      <div class="jlpt-sub-tab" data-action="showJLPTSection(this,'jlpt-reading-section')">📖 Reading</div>
+      <div class="jlpt-sub-tab" data-action="showJLPTSection(this,'jlpt-listening-section')">🎧 Listening</div>
+      <div class="jlpt-sub-tab" data-action="showJLPTSection(this,'jlpt-mock-section')">📋 Mock Exam</div>
     </div>
 
     <!-- JLPT VOCABULARY -->
     <div id="jlpt-vocab-section">
       <div class="tabs" style="margin-bottom:16px">
-        <div class="tab active" onclick="switchJLPTVocabMode(this,'jv-browse')">Browse</div>
-        <div class="tab" onclick="switchJLPTVocabMode(this,'jv-flashcard')">Flashcards</div>
-        <div class="tab" onclick="switchJLPTVocabMode(this,'jv-quiz')">Quiz</div>
+        <div class="tab active" data-action="switchJLPTVocabMode(this,'jv-browse')">Browse</div>
+        <div class="tab" data-action="switchJLPTVocabMode(this,'jv-flashcard')">Flashcards</div>
+        <div class="tab" data-action="switchJLPTVocabMode(this,'jv-quiz')">Quiz</div>
       </div>
       <div id="jv-browse">
         <div class="grid grid-3" id="jlpt-vocab-grid"></div>
         <div style="text-align:center;margin-top:20px">
-          <button class="btn btn-outline" onclick="loadMoreJLPTVocab()">Load More 続き</button>
+          <button class="btn btn-outline" data-action="loadMoreJLPTVocab()">Load More 続き</button>
         </div>
       </div>
       <div id="jv-flashcard" style="display:none">
         <div class="vocab-fc-container">
-          <div class="vocab-fc" id="jlpt-fc-card" onclick="flipJLPTFC()">
+          <div class="vocab-fc" id="jlpt-fc-card" data-action="flipJLPTFC()">
             <div id="jlpt-fc-front">
               <div id="jlpt-fc-jp" class="vocab-jp" style="font-size:32px"></div>
               <div id="jlpt-fc-kana" class="vocab-kana"></div>
@@ -3977,26 +3945,26 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
             </div>
           </div>
           <div class="fc-nav">
-            <button class="btn btn-outline" onclick="prevJLPTFC()">← Prev</button>
+            <button class="btn btn-outline" data-action="prevJLPTFC()">← Prev</button>
             <span class="fc-counter" id="jlpt-fc-counter">0/0</span>
-            <button class="btn btn-outline" onclick="nextJLPTFC()">Next →</button>
+            <button class="btn btn-outline" data-action="nextJLPTFC()">Next →</button>
           </div>
         </div>
       </div>
       <div id="jv-quiz" style="display:none">
         <div id="jlpt-vq-area">
-          <button class="btn btn-primary" onclick="startJLPTVocabQuiz()" style="margin-bottom:16px">Start Vocabulary Quiz</button>
+          <button class="btn btn-primary" data-action="startJLPTVocabQuiz()" style="margin-bottom:16px">Start Vocabulary Quiz</button>
           <div id="jlpt-vq-question" style="display:none">
             <div class="quiz-progress"><div class="quiz-progress-fill" id="jlpt-vq-fill"></div></div>
             <div class="quiz-q" id="jlpt-vq-q" style="font-family:'Noto Sans JP',sans-serif"></div>
             <div class="quiz-options" id="jlpt-vq-opts"></div>
             <div class="quiz-explain" id="jlpt-vq-explain" style="display:none"></div>
-            <button class="btn btn-primary" id="jlpt-vq-next" style="display:none;margin-top:12px" onclick="nextJLPTVocabQ()">Next →</button>
+            <button class="btn btn-primary" id="jlpt-vq-next" style="display:none;margin-top:12px" data-action="nextJLPTVocabQ()">Next →</button>
           </div>
           <div id="jlpt-vq-end" style="display:none;text-align:center;padding:24px">
             <div class="score-big" id="jlpt-vq-score"></div>
             <div id="jlpt-vq-grade" style="font-size:18px;font-weight:700;margin-top:8px"></div>
-            <button class="btn btn-primary" style="margin-top:12px" onclick="startJLPTVocabQuiz()">Retry</button>
+            <button class="btn btn-primary" style="margin-top:12px" data-action="startJLPTVocabQuiz()">Retry</button>
           </div>
         </div>
       </div>
@@ -4005,24 +3973,24 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
     <!-- KANJI SECTION -->
     <div id="jlpt-kanji-section" style="display:none">
       <div class="tabs" style="margin-bottom:16px">
-        <div class="tab active" onclick="switchKanjiMode(this,'kanji-browse')">Browse</div>
-        <div class="tab" onclick="switchKanjiMode(this,'kanji-quiz')">Quiz</div>
+        <div class="tab active" data-action="switchKanjiMode(this,'kanji-browse')">Browse</div>
+        <div class="tab" data-action="switchKanjiMode(this,'kanji-quiz')">Quiz</div>
       </div>
       <div id="kanji-browse">
         <div class="grid grid-3" id="kanji-grid"></div>
       </div>
       <div id="kanji-quiz" style="display:none">
         <div class="card" style="max-width:480px;margin:0 auto">
-          <button class="btn btn-primary" onclick="startKanjiQuiz()" style="margin-bottom:16px">Start Kanji Quiz</button>
+          <button class="btn btn-primary" data-action="startKanjiQuiz()" style="margin-bottom:16px">Start Kanji Quiz</button>
           <div id="kanji-quiz-area" style="display:none">
             <div class="quiz-q" id="kq-question" style="font-family:'Noto Sans JP',sans-serif;font-size:52px;text-align:center;margin-bottom:16px"></div>
             <div class="quiz-options" id="kq-options"></div>
             <div class="quiz-explain" id="kq-explain" style="display:none"></div>
-            <button class="btn btn-primary" id="kq-next" style="display:none;margin-top:12px" onclick="nextKanjiQ()">Next →</button>
+            <button class="btn btn-primary" id="kq-next" style="display:none;margin-top:12px" data-action="nextKanjiQ()">Next →</button>
           </div>
           <div id="kanji-quiz-end" style="display:none;text-align:center;padding:24px">
             <div class="score-big" id="kq-score"></div>
-            <button class="btn btn-primary" style="margin-top:12px" onclick="startKanjiQuiz()">Retry</button>
+            <button class="btn btn-primary" style="margin-top:12px" data-action="startKanjiQuiz()">Retry</button>
           </div>
         </div>
       </div>
@@ -4039,7 +4007,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
         <div class="grid grid-2" id="reading-passages-grid"></div>
       </div>
       <div id="reading-passage-view" style="display:none">
-        <button class="btn btn-outline" style="margin-bottom:16px" onclick="document.getElementById('reading-list').style.display='block';document.getElementById('reading-passage-view').style.display='none'">← Back</button>
+        <button class="btn btn-outline" style="margin-bottom:16px" data-action="document.getElementById('reading-list').style.display='block';document.getElementById('reading-passage-view').style.display='none'">← Back</button>
         <div class="passage-card" id="active-passage-content"></div>
         <div style="margin-top:16px" id="reading-questions-area"></div>
       </div>
@@ -4069,7 +4037,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
             <div class="stat-card"><div class="stat-num" id="mock-reading-count">5</div><div class="stat-label">Reading Qs</div></div>
           </div>
           <div style="font-size:13px;color:var(--text2);margin-bottom:16px">⏱ Duration: <span id="mock-duration-label">105 minutes</span> (simulated)</div>
-          <button class="btn btn-primary" onclick="startMockExam()">▶ Begin Mock Exam</button>
+          <button class="btn btn-primary" data-action="startMockExam()">▶ Begin Mock Exam</button>
         </div>
       </div>
 
@@ -4082,7 +4050,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
         <div id="mock-q-num" style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text2);margin:8px 0"></div>
         <div class="quiz-q" id="mock-question" style="font-family:'Noto Sans JP',sans-serif"></div>
         <div class="quiz-options" id="mock-options"></div>
-        <button class="btn btn-primary" id="mock-next-btn" style="display:none;margin-top:12px" onclick="nextMockQuestion()">Next →</button>
+        <button class="btn btn-primary" id="mock-next-btn" style="display:none;margin-top:12px" data-action="nextMockQuestion()">Next →</button>
       </div>
 
       <div id="mock-results" style="display:none">
@@ -4105,7 +4073,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
             </div>
           </div>
         </div>
-        <button class="btn btn-primary" style="margin-top:16px" onclick="document.getElementById('mock-results').style.display='none';document.getElementById('mock-start').style.display='block'">Try Again</button>
+        <button class="btn btn-primary" style="margin-top:16px" data-action="document.getElementById('mock-results').style.display='none';document.getElementById('mock-start').style.display='block'">Try Again</button>
       </div>
     </div>
   </div>
@@ -4121,7 +4089,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
   </div>
 
   <div id="analytics-mode-row" style="margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
-    <div id="analytics-fast-toggle" class="fast-learner-toggle" onclick="toggleFastLearner()" style="max-width:320px">
+    <div id="analytics-fast-toggle" class="fast-learner-toggle" data-action="toggleFastLearner()" style="max-width:320px">
       <div class="toggle-switch" id="fast-toggle-switch"><div class="toggle-knob"></div></div>
       <div>
         <div class="fast-label">⚡ Fast Learner Mode</div>
@@ -4308,8 +4276,8 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
       <div class="dfp-block-progress-bar"><div class="dfp-block-progress-fill" id="bpf-0" style="width:0%"></div></div>
       <div class="dfp-block-body" id="dfp-block-body-0"></div>
       <div class="dfp-block-footer">
-        <button class="btn btn-primary" onclick="dfpStartBlock(0)">▶ Start Block 1</button>
-        <button class="btn btn-outline" onclick="showPage('jlpt')">Open JLPT Hub →</button>
+        <button class="btn btn-primary" data-action="dfpStartBlock(0)">▶ Start Block 1</button>
+        <button class="btn btn-outline" data-action="showPage('jlpt')">Open JLPT Hub →</button>
       </div>
     </div>
 
@@ -4326,8 +4294,8 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
       <div class="dfp-block-progress-bar"><div class="dfp-block-progress-fill" id="bpf-1" style="width:0%"></div></div>
       <div class="dfp-block-body" id="dfp-block-body-1"></div>
       <div class="dfp-block-footer">
-        <button class="btn btn-primary" onclick="dfpStartBlock(1)">▶ Start Block 2</button>
-        <button class="btn btn-outline" onclick="showPage('vocab')">Open Vocab Hub →</button>
+        <button class="btn btn-primary" data-action="dfpStartBlock(1)">▶ Start Block 2</button>
+        <button class="btn btn-outline" data-action="showPage('vocab')">Open Vocab Hub →</button>
       </div>
     </div>
 
@@ -4344,8 +4312,8 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
       <div class="dfp-block-progress-bar"><div class="dfp-block-progress-fill" id="bpf-2" style="width:0%"></div></div>
       <div class="dfp-block-body" id="dfp-block-body-2"></div>
       <div class="dfp-block-footer">
-        <button class="btn btn-primary" onclick="dfpStartBlock(2)">▶ Start Block 3</button>
-        <button class="btn btn-outline" onclick="showPage('study')">Open Modules →</button>
+        <button class="btn btn-primary" data-action="dfpStartBlock(2)">▶ Start Block 3</button>
+        <button class="btn btn-outline" data-action="showPage('study')">Open Modules →</button>
       </div>
     </div>
 
@@ -4362,8 +4330,8 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
       <div class="dfp-block-progress-bar"><div class="dfp-block-progress-fill" id="bpf-3" style="width:0%"></div></div>
       <div class="dfp-block-body" id="dfp-block-body-3"></div>
       <div class="dfp-block-footer">
-        <button class="btn btn-primary" onclick="dfpStartBlock(3)">▶ Start Block 4</button>
-        <button class="btn btn-outline" onclick="showPage('flashcards')">Open Flashcards →</button>
+        <button class="btn btn-primary" data-action="dfpStartBlock(3)">▶ Start Block 4</button>
+        <button class="btn btn-outline" data-action="showPage('flashcards')">Open Flashcards →</button>
       </div>
     </div>
   </div>
@@ -4374,7 +4342,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
       <div id="dfp-active-title" class="dfp-active-title"></div>
       <div style="display:flex;gap:8px;align-items:center">
         <div class="dfp-active-step-counter" id="dfp-active-step-counter">Step 1 / 5</div>
-        <button class="btn btn-outline" style="padding:6px 12px;font-size:12px" onclick="dfpCloseBlock()">✕ Close</button>
+        <button class="btn btn-outline" style="padding:6px 12px;font-size:12px" data-action="dfpCloseBlock()">✕ Close</button>
       </div>
     </div>
     <!-- Step progress dots -->
@@ -4383,11 +4351,11 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
     <div id="dfp-active-content"></div>
     <!-- Navigation -->
     <div class="dfp-active-nav">
-      <button class="btn btn-outline" id="dfp-prev-btn" onclick="dfpPrevStep()">← Prev</button>
+      <button class="btn btn-outline" id="dfp-prev-btn" data-action="dfpPrevStep()">← Prev</button>
       <div style="display:flex;gap:12px;align-items:center">
         <span class="dfp-active-step-counter" id="dfp-step-label-bottom"></span>
       </div>
-      <button class="btn btn-primary" id="dfp-next-btn" onclick="dfpNextStep()">Next →</button>
+      <button class="btn btn-primary" id="dfp-next-btn" data-action="dfpNextStep()">Next →</button>
     </div>
   </div>
 
@@ -4417,9 +4385,9 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
           </div>
         </div>
         <div class="pomo-controls">
-          <button class="btn btn-primary" id="pomo-btn" onclick="togglePomo()">▶ Start</button>
-          <button class="btn btn-outline" onclick="resetPomo()">↺ Reset</button>
-          <button class="btn btn-outline" onclick="skipPomo()">⏭ Skip</button>
+          <button class="btn btn-primary" id="pomo-btn" data-action="togglePomo()">▶ Start</button>
+          <button class="btn btn-outline" data-action="resetPomo()">↺ Reset</button>
+          <button class="btn btn-outline" data-action="skipPomo()">⏭ Skip</button>
         </div>
         <div class="pomo-sessions">Sessions today: <span id="pomo-session-count">0</span>/4</div>
         <div class="pomo-dots" id="pomo-dots">
@@ -4639,9 +4607,9 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
   </div>
   <div class="kmap-wrapper">
     <div class="kmap-toolbar">
-      <button class="anim-btn" onclick="kmapReset()">↺ Reset View</button>
-      <button class="anim-btn" onclick="kmapZoomIn()">＋ Zoom</button>
-      <button class="anim-btn" onclick="kmapZoomOut()">− Zoom</button>
+      <button class="anim-btn" data-action="kmapReset()">↺ Reset View</button>
+      <button class="anim-btn" data-action="kmapZoomIn()">＋ Zoom</button>
+      <button class="anim-btn" data-action="kmapZoomOut()">− Zoom</button>
       <span style="font-size:12px;color:var(--text3);font-family:'JetBrains Mono',monospace">Click a node to explore. Drag to pan. Scroll to zoom.</span>
     </div>
     <canvas id="kmap-canvas" class="kmap-canvas" height="580"></canvas>
@@ -4684,7 +4652,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
   <div class="grid grid-2" style="margin-bottom:24px">
 
     <!-- Case 1: Niigata 1964 -->
-    <div class="case-card" onclick="expandCase('niigata')">
+    <div class="case-card" data-action="expandCase('niigata')">
       <div class="case-img">
         <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Earthquake damage" loading="lazy" onerror="this.style.background='#181c24';this.src=''">
         <div class="case-year-badge">1964</div>
@@ -4704,7 +4672,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
     </div>
 
     <!-- Case 2: Tohoku 2011 -->
-    <div class="case-card" onclick="expandCase('tohoku')">
+    <div class="case-card" data-action="expandCase('tohoku')">
       <div class="case-img">
         <img src="https://images.unsplash.com/photo-1547473078-9d0e3b8f6f8b?w=600&q=80" alt="Tsunami damage" loading="lazy" onerror="this.style.background='#181c24';this.src=''">
         <div class="case-year-badge">2011</div>
@@ -4724,7 +4692,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
     </div>
 
     <!-- Case 3: Vaiont Dam -->
-    <div class="case-card" onclick="expandCase('vaiont')">
+    <div class="case-card" data-action="expandCase('vaiont')">
       <div class="case-img">
         <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80" alt="Mountain landslide" loading="lazy" onerror="this.style.background='#181c24';this.src=''">
         <div class="case-year-badge">1963</div>
@@ -4744,7 +4712,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
     </div>
 
     <!-- Case 4: Kobe 1995 -->
-    <div class="case-card" onclick="expandCase('kobe')">
+    <div class="case-card" data-action="expandCase('kobe')">
       <div class="case-img">
         <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80" alt="Urban earthquake" loading="lazy" onerror="this.style.background='#181c24';this.src=''">
         <div class="case-year-badge">1995</div>
@@ -4764,7 +4732,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
     </div>
 
     <!-- Case 5: Ashikaga Slope -->
-    <div class="case-card" onclick="expandCase('ashikaga')">
+    <div class="case-card" data-action="expandCase('ashikaga')">
       <div class="case-img">
         <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80" alt="Slope failure" loading="lazy" onerror="this.style.background='#181c24';this.src=''">
         <div class="case-year-badge">2011</div>
@@ -4784,7 +4752,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
     </div>
 
     <!-- Case 6: Leaning Tower Pisa -->
-    <div class="case-card" onclick="expandCase('pisa')">
+    <div class="case-card" data-action="expandCase('pisa')">
       <div class="case-img">
         <img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=600&q=80" alt="Leaning structure" loading="lazy" onerror="this.style.background='#181c24';this.src=''">
         <div class="case-year-badge">1173</div>
@@ -4944,6 +4912,298 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
 <div class="notif" id="notif"></div>
 
 <script>
+
+// ── CSP-compatible delegated click handler ──────────────────────────
+// Converts data-action="..." attributes → proper JS event listeners.
+// Replaces blocked inline onclick handlers for iframe/CSP environments.
+(function(){
+
+  function parseValue(s) {
+    s = s.trim();
+    if (s === 'true') return true;
+    if (s === 'false') return false;
+    if (s === 'null') return null;
+    if (s !== '' && !isNaN(s)) return Number(s);
+    if ((s[0]==='"'&&s[s.length-1]==='"')||(s[0]==="'"&&s[s.length-1]==="'")) return s.slice(1,-1);
+    return s;
+  }
+
+  // Tokenize comma-separated args respecting nested parens + quotes
+  function tokenizeArgs(s) {
+    var tokens=[], depth=0, cur='', inStr=false, strChar='';
+    for (var i=0; i<s.length; i++) {
+      var c=s[i];
+      if (inStr) { cur+=c; if(c===strChar) inStr=false; }
+      else if(c==='"'||c==="'") { inStr=true; strChar=c; cur+=c; }
+      else if(c==='(') { depth++; cur+=c; }
+      else if(c===')') { depth--; cur+=c; }
+      else if(c===','&&depth===0) { tokens.push(cur.trim()); cur=''; }
+      else cur+=c;
+    }
+    if(cur.trim()) tokens.push(cur.trim());
+    return tokens;
+  }
+
+  function execStmt(stmt, el) {
+    stmt = stmt.trim();
+    if (!stmt) return;
+
+    // Function call: name(args)
+    var callM = stmt.match(/^([a-zA-Z_$][w$]*)(([sS]*))$/);
+    if (callM) {
+      var fn = window[callM[1]];
+      if (typeof fn === 'function') {
+        var argsStr = callM[2].trim();
+        var args = [];
+        if (argsStr) {
+          tokenizeArgs(argsStr).forEach(function(t) {
+            args.push(t === 'this' ? el : parseValue(t));
+          });
+        }
+        fn.apply(el, args);
+        return;
+      }
+    }
+
+    // Property assignment: lhs = rhs
+    var setM = stmt.match(/^(.+?)s*=s*([^=][sS]*)$/);
+    if (setM) {
+      var lhs = setM[1].trim();
+      var rhs = parseValue(setM[2].trim());
+      // document.getElementById('id').style.prop  or  .prop.prop
+      var gepM = lhs.match(/^document.getElementById(['"]([^'"]+)['"]).(.+)$/);
+      if (gepM) {
+        var target = document.getElementById(gepM[1]);
+        if (target) {
+          var parts = gepM[2].split('.');
+          var obj = target;
+          for (var i=0; i<parts.length-1; i++) obj = obj[parts[i]];
+          if (obj) obj[parts[parts.length-1]] = rhs;
+        }
+        return;
+      }
+      // window.varName = value
+      if (/^[a-zA-Z_$][w$]*$/.test(lhs)) { window[lhs] = rhs; return; }
+    }
+    console.warn('[geolearn] unhandled action:', stmt);
+  }
+
+  // Execute a (possibly multi-statement) action string
+  function execAction(code, el) {
+    var stmts=[], depth=0, inStr=false, strChar='', cur='';
+    for (var i=0; i<code.length; i++) {
+      var c=code[i];
+      if(inStr) { cur+=c; if(c===strChar) inStr=false; }
+      else if(c==='"'||c==="'") { inStr=true; strChar=c; cur+=c; }
+      else if(c==='(') { depth++; cur+=c; }
+      else if(c===')') { depth--; cur+=c; }
+      else if(c===';'&&depth===0) { stmts.push(cur); cur=''; }
+      else cur+=c;
+    }
+    if(cur.trim()) stmts.push(cur);
+    stmts.forEach(function(s){ execStmt(s, el); });
+  }
+
+  // Convert onclick → data-action on a DOM subtree
+  function convertOnclicks(root) {
+    var els=[];
+    if(root.hasAttribute&&root.hasAttribute('onclick')) els.push(root);
+    if(root.querySelectorAll) root.querySelectorAll('[onclick]').forEach(function(e){ els.push(e); });
+    els.forEach(function(e){
+      e.setAttribute('data-action', e.getAttribute('onclick'));
+      e.removeAttribute('onclick');
+    });
+  }
+
+  // Delegated click listener
+  document.addEventListener('click', function(e) {
+    var t = e.target;
+    while (t && t !== document) {
+      if (t.hasAttribute && t.hasAttribute('data-action')) {
+        execAction(t.getAttribute('data-action'), t);
+        return;
+      }
+      t = t.parentNode;
+    }
+  }, false);
+
+  // MutationObserver: handle dynamically-injected onclick elements (quiz, etc.)
+  function startObserver() {
+    new MutationObserver(function(muts) {
+      muts.forEach(function(m) {
+        m.addedNodes.forEach(function(n) {
+          if (n.nodeType===1) convertOnclicks(n);
+        });
+      });
+    }).observe(document.body, {childList:true, subtree:true});
+    convertOnclicks(document.body);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', startObserver);
+  } else {
+    startObserver();
+  }
+
+})();
+// ─────────────────────────────────────────────────────────────────────
+
+
+
+// ── CSP-compatible delegated click handler ──────────────────────────
+// Replaces all onclick="..." with data-action="..." for CSP compliance
+(function(){
+
+  function parseValue(s) {
+    s = s.trim();
+    if (s === 'true') return true;
+    if (s === 'false') return false;
+    if (s === 'null') return null;
+    if (!isNaN(s) && s !== '') return Number(s);
+    if ((s[0]==='"'&&s[s.length-1]==='"') || (s[0]==="'"&&s[s.length-1]==="'")) return s.slice(1,-1);
+    return s;
+  }
+
+  // Tokenize a comma-separated arg list, respecting nested parens and quotes
+  function tokenizeArgs(s) {
+    var tokens = [], depth = 0, cur = '', inStr = false, strChar = '';
+    for (var i = 0; i < s.length; i++) {
+      var c = s[i];
+      if (inStr) {
+        cur += c;
+        if (c === strChar) inStr = false;
+      } else if (c === '"' || c === "'") {
+        inStr = true; strChar = c; cur += c;
+      } else if (c === '(') {
+        depth++; cur += c;
+      } else if (c === ')') {
+        depth--; cur += c;
+      } else if (c === ',' && depth === 0) {
+        tokens.push(cur.trim()); cur = '';
+      } else {
+        cur += c;
+      }
+    }
+    if (cur.trim()) tokens.push(cur.trim());
+    return tokens;
+  }
+
+  // Execute a single statement
+  function execStmt(stmt, el) {
+    stmt = stmt.trim();
+    if (!stmt) return;
+
+    // Match function call: name(args)
+    var callM = stmt.match(/^([a-zA-Z_$][\w$]*)\((.*)\)$/s);
+    if (callM) {
+      var fn = window[callM[1]];
+      if (typeof fn === 'function') {
+        var argsStr = callM[2].trim();
+        var args = [];
+        if (argsStr) {
+          var tokens = tokenizeArgs(argsStr);
+          args = tokens.map(function(t) {
+            return t === 'this' ? el : parseValue(t);
+          });
+        }
+        fn.apply(el, args);
+        return;
+      }
+    }
+
+    // Match property setter: expr = value (handles getElementById(...).style.x)
+    var setM = stmt.match(/^(.+?)\s*=\s*([^=].*)$/);
+    if (setM) {
+      var lhsStr = setM[1].trim();
+      var rhsVal = parseValue(setM[2].trim());
+
+      // document.getElementById('id').style.prop
+      var gepM = lhsStr.match(/^document\.getElementById\(['"]([^'"]+)['"]\)\.(.+)$/);
+      if (gepM) {
+        var targetEl = document.getElementById(gepM[1]);
+        if (targetEl) {
+          var parts = gepM[2].split('.');
+          var obj = targetEl;
+          for (var i = 0; i < parts.length - 1; i++) obj = obj[parts[i]];
+          if (obj) obj[parts[parts.length - 1]] = rhsVal;
+        }
+        return;
+      }
+
+      // Simple window property: varName = value
+      if (lhsStr.match(/^[a-zA-Z_$][\w$]*$/)) {
+        window[lhsStr] = rhsVal;
+        return;
+      }
+    }
+
+    console.warn('[geolearn] unhandled action:', stmt);
+  }
+
+  // Execute a (possibly multi-statement) action string
+  function execAction(code, el) {
+    // Split on ; but not inside strings or parens
+    var stmts = [], depth = 0, inStr = false, strChar = '', cur = '';
+    for (var i = 0; i < code.length; i++) {
+      var c = code[i];
+      if (inStr) {
+        cur += c;
+        if (c === strChar) inStr = false;
+      } else if (c === '"' || c === "'") {
+        inStr = true; strChar = c; cur += c;
+      } else if (c === '(') { depth++; cur += c; }
+      else if (c === ')') { depth--; cur += c; }
+      else if (c === ';' && depth === 0) {
+        stmts.push(cur); cur = '';
+      } else { cur += c; }
+    }
+    if (cur.trim()) stmts.push(cur);
+    stmts.forEach(function(s) { execStmt(s, el); });
+  }
+
+  // Helper: convert onclick attrs on a subtree to data-action
+  function convertOnclicks(root) {
+    var els = [];
+    if (root.hasAttribute && root.hasAttribute('onclick')) els.push(root);
+    if (root.querySelectorAll) {
+      root.querySelectorAll('[onclick]').forEach(function(e){ els.push(e); });
+    }
+    els.forEach(function(e) {
+      e.setAttribute('data-action', e.getAttribute('onclick'));
+      e.removeAttribute('onclick');
+    });
+  }
+
+  // Delegated click handler — catches data-action on any element
+  document.addEventListener('click', function(e) {
+    var target = e.target;
+    while (target && target !== document) {
+      if (target.hasAttribute && target.hasAttribute('data-action')) {
+        e.stopPropagation();
+        execAction(target.getAttribute('data-action'), target);
+        return;
+      }
+      target = target.parentNode;
+    }
+  }, false);
+
+  // MutationObserver: convert onclick on dynamically-inserted elements
+  var obs = new MutationObserver(function(muts) {
+    muts.forEach(function(m) {
+      m.addedNodes.forEach(function(n) {
+        if (n.nodeType === 1) convertOnclicks(n);
+      });
+    });
+  });
+  document.addEventListener('DOMContentLoaded', function() {
+    obs.observe(document.body, { childList: true, subtree: true });
+    convertOnclicks(document.body); // catch anything remaining
+  });
+
+})();
+// ────────────────────────────────────────────────────────────────────────
+
+
 // ============================================================
 // NAVIGATION
 // ============================================================
@@ -13500,8 +13760,6 @@ function expandCase(id) {
 
 
 
-// ── App loaded marker ──
-window.__appLoaded = true;
 </script>
 </body>
 </html>
