@@ -31,11 +31,15 @@
     });
   }
 
-  // Skip security intervals: 3000ms (debugger trap in build.js security layer, 100ms threshold)
-  // 2500ms (shield.js debugger trap), 2000ms (devtools size check + obfuscator debugProtection)
+  // Skip debugger trap intervals only: 3000ms (build.js security layer, 100ms threshold)
+  // and 2500ms (shield.js debugger trap).
+  // NOTE: 2000ms is intentionally NOT blocked — the obfuscator's debugProtection uses a 2000ms
+  // heartbeat interval; blocking it disables the app. The 2000ms shield interval only changes
+  // document.title (harmless), and any actual wipe attempts are already blocked by the innerHTML
+  // override above.
   var _si = window.setInterval;
   window.setInterval = function(fn, delay) {
-    if(typeof fn === 'function' && (delay === 3000 || delay === 2500 || delay === 2000)) {
+    if(typeof fn === 'function' && (delay === 3000 || delay === 2500)) {
       return _si.call(window, function(){}, delay);
     }
     return _si.apply(window, arguments);
