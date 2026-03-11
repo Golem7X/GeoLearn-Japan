@@ -31,27 +31,32 @@
     if(e.ctrlKey && e.key === 's') { e.preventDefault(); return false; }
   }, true);
 
-  // ── 5. Continuous debugger trap ──
-  var _trapActive = true;
-  var _checkDebugger = function(){
-    if(!_trapActive) return;
-    var t0 = performance.now();
-    debugger;
-    if(performance.now() - t0 > 80){
-      _trapActive = false;
-      document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#0a0c10;color:#ff4757;font-family:monospace;font-size:22px;text-align:center;padding:40px"><div>SESSION TERMINATED<br><span style="font-size:13px;color:#8892a4;margin-top:12px;display:block">Debugging tools detected. This application cannot run with developer tools open.</span></div></div>';
-    }
-  };
-  setInterval(_checkDebugger, 2500);
+  // ── 5. Continuous debugger trap (desktop only) ──
+  var _isMobile = /android|iphone|ipad|ipod|mobile/i.test(navigator.userAgent);
+  if(!_isMobile){
+    var _trapActive = true;
+    var _checkDebugger = function(){
+      if(!_trapActive) return;
+      var t0 = performance.now();
+      debugger;
+      if(performance.now() - t0 > 500){
+        _trapActive = false;
+        document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#0a0c10;color:#ff4757;font-family:monospace;font-size:22px;text-align:center;padding:40px"><div>SESSION TERMINATED<br><span style="font-size:13px;color:#8892a4;margin-top:12px;display:block">Debugging tools detected. This application cannot run with developer tools open.</span></div></div>';
+      }
+    };
+    setInterval(_checkDebugger, 2500);
+  }
 
-  // ── 6. DevTools size detection ──
-  var _devWarn = 0;
-  setInterval(function(){
-    if(window.outerWidth - window.innerWidth > 160 || window.outerHeight - window.innerHeight > 160){
-      _devWarn++;
-      if(_devWarn > 3) document.title = 'GeoLearn Japan';
-    } else { _devWarn = 0; }
-  }, 2000);
+  // ── 6. DevTools size detection (desktop only) ──
+  if(!_isMobile){
+    var _devWarn = 0;
+    setInterval(function(){
+      if(window.outerWidth - window.innerWidth > 160 || window.outerHeight - window.innerHeight > 160){
+        _devWarn++;
+        if(_devWarn > 3) document.title = 'GeoLearn Japan';
+      } else { _devWarn = 0; }
+    }, 2000);
+  }
 
   // ── 7. Console silencing ──
   var _noop = function(){};
