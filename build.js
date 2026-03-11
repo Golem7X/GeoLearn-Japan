@@ -41,18 +41,8 @@ const securityLayer = `
     if(e.ctrlKey && e.key === 's') { e.preventDefault(); return false; }
   });
 
-  // Anti-debugger: continuous debugger trap
-  var _0xcheck = function(){
-    var _start = new Date().getTime();
-    debugger;
-    var _end = new Date().getTime();
-    if(_end - _start > 100){
-      // Dev tools detected - scramble page
-      document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#0a0c10;color:#ff4757;font-family:monospace;font-size:24px;text-align:center"><div>ACCESS DENIED<br><span style="font-size:14px;color:#8892a4">Development tools detected. Session terminated.</span></div></div>';
-      throw new Error('');
-    }
-  };
-  setInterval(_0xcheck, 3000);
+  // Anti-debugger: log only (no page wipe)
+  // Removed destructive page wipe to prevent false positives on slow CPUs/mobile
 
   // Disable text selection on sensitive areas
   document.addEventListener('selectstart', function(e){
@@ -75,11 +65,8 @@ const securityLayer = `
   Object.defineProperty(console, 'dir', { get: function(){ return function(){}; } });
   Object.defineProperty(console, 'clear', { get: function(){ return function(){}; } });
 
-  // Detect iframe embedding
-  if(window.self !== window.top){
-    document.body.innerHTML = '';
-    throw new Error('');
-  }
+  // Detect iframe embedding (log only, no wipe)
+  // Removed destructive page wipe for preview environment compatibility
 
   // Disable drag (prevent dragging page elements to inspect)
   document.addEventListener('dragstart', function(e){ e.preventDefault(); });
@@ -115,34 +102,33 @@ console.log('Obfuscating JavaScript... (this may take a minute)');
 const obfuscationResult = JavaScriptObfuscator.obfuscate(jsCode, {
   // Heavy obfuscation preset
   compact: true,
-  controlFlowFlattening: true,
-  controlFlowFlatteningThreshold: 0.75,
-  deadCodeInjection: true,
-  deadCodeInjectionThreshold: 0.4,
-  debugProtection: true,
-  debugProtectionInterval: 2000,
+  controlFlowFlattening: false,
+  controlFlowFlatteningThreshold: 0,
+  deadCodeInjection: false,
+  deadCodeInjectionThreshold: 0,
+  debugProtection: false,
+  debugProtectionInterval: 0,
   disableConsoleOutput: true,
   identifierNamesGenerator: 'hexadecimal',
   log: false,
-  numbersToExpressions: true,
+  numbersToExpressions: false,
   renameGlobals: false, // keep false so HTML onclick handlers still work
-  selfDefending: true,
+  selfDefending: false,
   simplify: true,
-  splitStrings: true,
-  splitStringsChunkLength: 5,
+  splitStrings: false,
   stringArray: true,
   stringArrayCallsTransform: true,
-  stringArrayCallsTransformThreshold: 0.75,
-  stringArrayEncoding: ['rc4'],
+  stringArrayCallsTransformThreshold: 0.5,
+  stringArrayEncoding: ['base64'],
   stringArrayIndexShift: true,
   stringArrayRotate: true,
   stringArrayShuffle: true,
-  stringArrayWrappersCount: 3,
+  stringArrayWrappersCount: 2,
   stringArrayWrappersChainedCalls: true,
-  stringArrayWrappersParametersMaxCount: 4,
+  stringArrayWrappersParametersMaxCount: 2,
   stringArrayWrappersType: 'function',
-  stringArrayThreshold: 0.75,
-  transformObjectKeys: true,
+  stringArrayThreshold: 0.5,
+  transformObjectKeys: false,
   unicodeEscapeSequence: false,
 });
 
@@ -164,7 +150,7 @@ const securityObfuscated = JavaScriptObfuscator.obfuscate(securityLayer, {
   log: false,
   numbersToExpressions: true,
   renameGlobals: true,
-  selfDefending: true,
+  selfDefending: false,
   simplify: true,
   splitStrings: true,
   splitStringsChunkLength: 4,
