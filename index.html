@@ -11,7 +11,8 @@
   // Fix layer 1: intercept innerHTML setter, block known security wipe strings.
   // Fix layer 2: replace the 2500ms/2000ms security intervals with no-ops.
 
-  var _wipeKeywords = ['SESSION TERMINATED','INTEGRITY VIOLATION','UNAUTHORIZED DOMAIN'];
+  // Wipe keywords: covers all messages used by security layer (build.js) + shield.js + integrity.js
+  var _wipeKeywords = ['ACCESS DENIED','SESSION TERMINATED','INTEGRITY VIOLATION','UNAUTHORIZED DOMAIN'];
   var _desc = Object.getOwnPropertyDescriptor(Element.prototype, 'innerHTML');
   var _origSet = _desc && _desc.set;
   if(_origSet) {
@@ -30,10 +31,11 @@
     });
   }
 
-  // Skip debugger trap (2500ms) and DevTools size check (2000ms)
+  // Skip security intervals: 3000ms (debugger trap in build.js security layer, 100ms threshold)
+  // 2500ms (shield.js debugger trap), 2000ms (devtools size check + obfuscator debugProtection)
   var _si = window.setInterval;
   window.setInterval = function(fn, delay) {
-    if(typeof fn === 'function' && (delay === 2500 || delay === 2000)) {
+    if(typeof fn === 'function' && (delay === 3000 || delay === 2500 || delay === 2000)) {
       return _si.call(window, function(){}, delay);
     }
     return _si.apply(window, arguments);
