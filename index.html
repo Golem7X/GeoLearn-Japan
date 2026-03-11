@@ -3,16 +3,13 @@
 <head><script>
 (function(){
   'use strict';
-  if(!/android|iphone|ipad|ipod|mobile/i.test(navigator.userAgent)) return;
-
-  // ── Block ALL security-triggered page wipes on mobile ──
-  // Multiple security checks can wipe the page on mobile:
-  //   - debugger trap: mobile JS timing > 80ms → body wipe
-  //   - DevTools size: mobile toolbars > 160px → triggers check
-  //   - Integrity check: mobile env differences → 3 violations → body wipe
-  // Two-layer fix:
-  // 1. Block any innerHTML assignment containing security wipe keywords
-  // 2. Skip the 2500ms/2000ms security intervals entirely
+  // ── Block ALL security-triggered page wipes (mobile + desktop) ──
+  // The security shield wipes document.body/documentElement on false positives:
+  //   - debugger trap: slow JS timing > 80ms (extensions, slow CPU, mobile)
+  //   - DevTools size: browser toolbars > 160px (mobile toolbars, some desktops)
+  //   - Integrity check: env differences → violations → page wipe
+  // Fix layer 1: intercept innerHTML setter, block known security wipe strings.
+  // Fix layer 2: replace the 2500ms/2000ms security intervals with no-ops.
 
   var _wipeKeywords = ['SESSION TERMINATED','INTEGRITY VIOLATION','UNAUTHORIZED DOMAIN'];
   var _desc = Object.getOwnPropertyDescriptor(Element.prototype, 'innerHTML');
@@ -33,7 +30,7 @@
     });
   }
 
-  // Skip debugger trap (2500ms) and DevTools size check (2000ms) on mobile
+  // Skip debugger trap (2500ms) and DevTools size check (2000ms)
   var _si = window.setInterval;
   window.setInterval = function(fn, delay) {
     if(typeof fn === 'function' && (delay === 2500 || delay === 2000)) {
