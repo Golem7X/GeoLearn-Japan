@@ -3,14 +3,22 @@
  * ══════════════════════════════════════════════════
  * Applies all security hardening to index.html:
  *
- * 1.  Zero-Trust security runtime (prototype pollution guard, Trusted Types)
- * 2.  Enhanced CSP with strict-dynamic + block-all-mixed-content
- * 3.  Permissions-Policy for all dangerous browser APIs
- * 4.  Additional security meta tags
- * 5.  CSP violation event monitoring
- * 6.  DevTools deterrence + copyright notice
- * 7.  Recomputes SHA-256 hashes for BOTH script blocks
- * 8.  Validates entire output before writing
+ * 1.  COPYRIGHT FINGERPRINT — hash-locked ownership header (removal = CSP fail)
+ * 2.  Zero-Trust security runtime (prototype pollution guard, Trusted Types)
+ * 3.  Enhanced CSP with strict-dynamic + block-all-mixed-content
+ * 4.  Permissions-Policy for all dangerous browser APIs
+ * 5.  Additional security meta tags
+ * 6.  CSP violation event monitoring
+ * 7.  DevTools deterrence + IP protection notice
+ * 8.  Recomputes SHA-256 hashes for BOTH script blocks
+ * 9.  Validates entire output before writing
+ *
+ * COPYRIGHT PROTECTION MECHANISM:
+ * The copyright header below is injected at the very top of the app script.
+ * It becomes PART of the SHA-256 hash that is embedded in the CSP.
+ * If anyone removes or modifies the copyright notice, the hash changes,
+ * the CSP blocks the script, and the application stops working entirely.
+ * This makes the copyright notice cryptographically tamper-evident.
  *
  * Usage: node secure-build.js
  * Output: index.html (updated in-place with new hashes)
@@ -23,6 +31,39 @@ const path   = require('path');
 
 const ROOT = path.resolve(__dirname);
 const sha256 = s => crypto.createHash('sha256').update(s, 'utf8').digest('base64');
+
+// ── COPYRIGHT FINGERPRINT ─────────────────────────────────────────────────────
+// This block is injected at the top of the app script.
+// It is PART of the SHA-256 hash stored in the CSP.
+// Removing or altering this text changes the hash → CSP blocks execution.
+// Cryptographically tamper-evident ownership declaration.
+const COPYRIGHT_HEADER = `
+// ╔══════════════════════════════════════════════════════════════════════════╗
+// ║                                                                          ║
+// ║   GeoLearn Japan — Geotechnical & Geophysical Engineering Platform       ║
+// ║                                                                          ║
+// ║   Copyright (c) 2024–2025  MYO NAING TUN  /  MYO_Geo_Orgs              ║
+// ║   All Rights Reserved.                                                   ║
+// ║                                                                          ║
+// ║   PROPRIETARY AND CONFIDENTIAL SOFTWARE                                  ║
+// ║   This software is the exclusive intellectual property of               ║
+// ║   MYO NAING TUN (MYO_Geo_Orgs). Unauthorized copying, modification,    ║
+// ║   redistribution, or commercial use is strictly prohibited.             ║
+// ║                                                                          ║
+// ║   License   : MYO_Geo_Orgs Proprietary Software License v1.0           ║
+// ║   Author    : MYO NAING TUN                                              ║
+// ║   GitHub    : https://github.com/Golem7X                                ║
+// ║   Project   : https://github.com/Golem7X/GeoLearn-Japan                ║
+// ║                                                                          ║
+// ║   ⚠  INTEGRITY NOTICE: This file is protected by SHA-256 hash           ║
+// ║      embedded in the Content Security Policy. Any modification of       ║
+// ║      this copyright header or any part of this script will change       ║
+// ║      the hash, causing the Content Security Policy to block execution   ║
+// ║      of all scripts. The copyright notice is cryptographically          ║
+// ║      bound to the application's security system.                        ║
+// ║                                                                          ║
+// ╚══════════════════════════════════════════════════════════════════════════╝
+`;
 
 // ── Read current file ─────────────────────────────────────────────────────────
 let html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
@@ -207,14 +248,18 @@ const SECURITY_RUNTIME = `
 // ─────────────────────────────────────────────────────────────────────────────
 `;
 
-// Inject Zero-Trust runtime at the very start of the app script block
-// (right after the opening <script> tag, before the delegated handler)
+// Inject COPYRIGHT HEADER first (must be first thing in the script),
+// then the Zero-Trust runtime, then the existing delegated handler + app code.
+// Order matters: copyright → security runtime → app delegated handler → app code
 const DELEGATED_MARKER = '// ── CSP-compatible delegated click handler ──';
 if (appContent.includes(DELEGATED_MARKER)) {
-  appContent = appContent.replace(DELEGATED_MARKER, SECURITY_RUNTIME + '\n' + DELEGATED_MARKER);
+  appContent = appContent.replace(
+    DELEGATED_MARKER,
+    COPYRIGHT_HEADER + '\n' + SECURITY_RUNTIME + '\n' + DELEGATED_MARKER
+  );
 } else {
-  // Fallback: prepend to beginning
-  appContent = '\n' + SECURITY_RUNTIME + appContent;
+  // Fallback: prepend both to beginning
+  appContent = '\n' + COPYRIGHT_HEADER + '\n' + SECURITY_RUNTIME + appContent;
 }
 
 // ── Update timestamp ──────────────────────────────────────────────────────────
@@ -224,6 +269,45 @@ appContent = appContent.replace('__BUILD_TIMESTAMP__', new Date().toISOString())
 // Remove old CSP meta tags (we'll rebuild them with new hashes)
 html = html.replace(/<meta[^>]+Content-Security-Policy[^>]*>\n?/gi, '');
 html = html.replace(/<meta[^>]+upgrade-insecure-requests[^>]*>\n?/gi, '');
+
+// ── Copyright & Ownership Meta Tags ──────────────────────────────────────────
+// Embed ownership identity into the HTML head. These tags:
+// 1. Signal ownership to search engines and crawlers
+// 2. Persist even if someone views source and copies HTML
+// 3. Are part of the page identity for DMCA filings
+const COPYRIGHT_METAS = [
+  `<meta name="author" content="MYO NAING TUN">`,
+  `<meta name="copyright" content="Copyright (c) 2024-2025 MYO NAING TUN / MYO_Geo_Orgs. All Rights Reserved.">`,
+  `<meta name="owner" content="MYO_Geo_Orgs">`,
+  `<meta name="creator" content="MYO NAING TUN">`,
+  `<meta name="publisher" content="MYO_Geo_Orgs">`,
+  `<meta name="license" content="MYO_Geo_Orgs Proprietary Software License v1.0 — Unauthorized copying prohibited">`,
+  `<meta name="rights" content="All Rights Reserved — MYO NAING TUN / MYO_Geo_Orgs 2024-2025">`,
+  `<meta property="og:site_name" content="GeoLearn Japan — MYO_Geo_Orgs">`,
+  `<meta property="og:type" content="website">`,
+].join('\n');
+
+// Add copyright HTML comment visible in page source
+const COPYRIGHT_HTML_COMMENT = `
+<!--
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║  GeoLearn Japan                                                  ║
+  ║  Copyright (c) 2024–2025 MYO NAING TUN / MYO_Geo_Orgs          ║
+  ║  All Rights Reserved.                                            ║
+  ║  MYO_Geo_Orgs Proprietary Software License v1.0                 ║
+  ║  Unauthorized copying or redistribution is strictly prohibited.  ║
+  ║  https://github.com/Golem7X/GeoLearn-Japan                      ║
+  ╚══════════════════════════════════════════════════════════════════╝
+-->`;
+
+// Insert copyright meta tags after <head>
+if (!html.includes('name="author"')) {
+  html = html.replace('<meta charset="UTF-8">', '<meta charset="UTF-8">\n' + COPYRIGHT_METAS);
+}
+// Insert copyright HTML comment at start of <body>
+if (!html.includes('MYO NAING TUN / MYO_Geo_Orgs')) {
+  html = html.replace('<body', COPYRIGHT_HTML_COMMENT + '\n<body');
+}
 
 // ── Permissions-Policy meta tag (HTTP header equivalent) ─────────────────────
 const PERMISSIONS_POLICY = `<meta http-equiv="Permissions-Policy" content="accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), bluetooth=(), camera=(), display-capture=(), document-domain=(), encrypted-media=(), fullscreen=(self), geolocation=(), gyroscope=(), hid=(), idle-detection=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), serial=(), usb=(), web-share=(), xr-spatial-tracking=()">`;
