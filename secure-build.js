@@ -198,8 +198,8 @@ const SECURITY_RUNTIME = `
           'color:#ff6b35;font-size:16px;font-weight:bold;font-family:monospace'
         );
         console.warn(
-          '%cThis application is protected by enterprise-grade security.\n' +
-          'Unauthorized copying, analysis, or redistribution is prohibited\n' +
+          '%cThis application is protected by enterprise-grade security.\\n' +
+          'Unauthorized copying, analysis, or redistribution is prohibited\\n' +
           'and may constitute a violation of intellectual property law.',
           'color:#ff6b35;font-size:12px;font-family:monospace'
         );
@@ -232,14 +232,14 @@ const SECURITY_RUNTIME = `
 
   // ── 6. Security Banner ────────────────────────────────────────────────────
   console.log(
-    '%c\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\n' +
-    '\u2588  GeoLearn Japan  \u2502  Security v2.0  \u2588\n' +
-    '\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\n' +
-    '\u2588  CSP strict-dynamic + SHA-256 hashes  \u2588\n' +
-    '\u2588  DOMPurify 3.x + Trusted Types API    \u2588\n' +
-    '\u2588  Zero inline event handlers           \u2588\n' +
-    '\u2588  Prototype pollution guard            \u2588\n' +
-    '\u2588  Permissions-Policy enforced          \u2588\n' +
+    '%c\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\\n' +
+    '\u2588  GeoLearn Japan  \u2502  Security v2.0  \u2588\\n' +
+    '\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\\n' +
+    '\u2588  CSP strict-dynamic + SHA-256 hashes  \u2588\\n' +
+    '\u2588  DOMPurify 3.x + Trusted Types API    \u2588\\n' +
+    '\u2588  Zero inline event handlers           \u2588\\n' +
+    '\u2588  Prototype pollution guard            \u2588\\n' +
+    '\u2588  Permissions-Policy enforced          \u2588\\n' +
     '\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588',
     'color:#00d4ff;background:#0a0c10;font-family:monospace;font-size:9px;line-height:1.4'
   );
@@ -248,15 +248,30 @@ const SECURITY_RUNTIME = `
 // ─────────────────────────────────────────────────────────────────────────────
 `;
 
-// Inject COPYRIGHT HEADER first (must be first thing in the script),
-// then the Zero-Trust runtime, then the existing delegated handler + app code.
-// Order matters: copyright → security runtime → app delegated handler → app code
+// Inject COPYRIGHT HEADER + SECURITY RUNTIME before the delegated handler marker.
+// Idempotent: strip any previous injection first, then re-inject exactly once.
 const DELEGATED_MARKER = '// ── CSP-compatible delegated click handler ──';
-if (appContent.includes(DELEGATED_MARKER)) {
-  appContent = appContent.replace(
-    DELEGATED_MARKER,
-    COPYRIGHT_HEADER + '\n' + SECURITY_RUNTIME + '\n' + DELEGATED_MARKER
-  );
+const COPYRIGHT_START  = '// ╔══════════════════════════════════════════════════════════════════════════╗\n// ║  GeoLearn Japan — Zero-Trust';
+const COPYRIGHT_BOX    = '// ╔══════════════════════════════════════════════════════════════════════════╗\n// ║\n// ║   GeoLearn Japan — Geotechnical';
+
+// Strip ALL previously-injected copyright + security runtime blocks so the script
+// is idempotent regardless of how many times it has been run before.
+// Strategy: remove everything between the first copyright/runtime box and the
+// first DELEGATED_MARKER, then re-inject exactly once.
+const markerIdx = appContent.indexOf(DELEGATED_MARKER);
+if (markerIdx !== -1) {
+  // Find the earliest injection boundary (copyright or runtime box)
+  const copyrightBoxIdx = appContent.indexOf('// ╔══════════════════════════════════════════════════════════════════════════╗');
+  const injectionStart = (copyrightBoxIdx !== -1 && copyrightBoxIdx < markerIdx)
+    ? copyrightBoxIdx
+    : markerIdx;
+
+  // Keep everything before the injection start, then inject once, then keep from marker
+  const before = appContent.substring(0, injectionStart);
+  const from   = appContent.indexOf(DELEGATED_MARKER);
+  const after  = appContent.substring(from);
+
+  appContent = before + '\n' + COPYRIGHT_HEADER + '\n' + SECURITY_RUNTIME + '\n' + after;
 } else {
   // Fallback: prepend both to beginning
   appContent = '\n' + COPYRIGHT_HEADER + '\n' + SECURITY_RUNTIME + appContent;
