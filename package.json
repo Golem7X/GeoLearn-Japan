@@ -1,24 +1,27 @@
 {
-  "name": "my-geo-app",
-  "version": "1.0.0",
-  "description": "",
+  "name": "geolearn-japan",
+  "version": "2.0.0",
+  "description": "GeoLearn Japan — Geotechnical & Geophysical Engineering Platform by MYO NAING TUN / MYO_Geo_Orgs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "node secure-build.js",
+    "security-check": "node scripts/security-check.js",
+    "verify-hashes": "node scripts/verify-csp-hashes.js",
+    "test": "npm run security-check && npm run verify-hashes"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Golem7X/GeoLearn-Japan.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["geotechnical", "education", "engineering", "japan"],
+  "author": "MYO NAING TUN <MYO_Geo_Orgs>",
+  "license": "SEE LICENSE IN LICENSE",
   "type": "commonjs",
   "bugs": {
     "url": "https://github.com/Golem7X/GeoLearn-Japan/issues"
   },
   "homepage": "https://github.com/Golem7X/GeoLearn-Japan#readme",
-  "dependencies": {
-    "javascript-obfuscator": "^5.3.0"
+  "devDependencies": {
+    "dompurify": "^3.1.6"
   }
 }

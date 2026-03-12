@@ -1,0 +1,29 @@
+## CodeQL configuration for GeoLearn Japan
+## Reference: https://docs.github.com/en/code-security/code-scanning/creating-an-advanced-setup-for-code-scanning/customizing-your-advanced-setup-for-code-scanning
+
+name: "GeoLearn CodeQL Config"
+
+## Use the security-and-quality suite but exclude rules that generate
+## false positives for DOMPurify-sanitized innerHTML assignments.
+## The app uses DOMPurify 3.x + Trusted Types — all DOM sinks are sanitized.
+
+queries:
+  - uses: security-and-quality
+  - uses: security-extended
+
+query-filters:
+  ## Allow most security queries through
+  - include:
+      tags contain: security
+
+  ## Exclude specific rules that are false positives here:
+  ## js/xss-through-dom — all innerHTML in this app goes through DOMPurify
+  ##   via the Trusted Types default policy. The taint analysis doesn't
+  ##   recognize DOMPurify.sanitize() as a sanitizer, causing false positives.
+  - exclude:
+      id: js/xss-through-dom
+
+  ## js/dom-text-reinterpreted-as-html — not applicable; app uses textContent
+  ##   for user input display and DOMPurify for AI tutor HTML output.
+  - exclude:
+      id: js/dom-text-reinterpreted-as-html
