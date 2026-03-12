@@ -57,10 +57,10 @@
   # • frame-ancestors: none — prevents all embedding (clickjacking)
   # • block-all-mixed-content: hard-blocks HTTP sub-resources
   #
-  # NOTE: Replace QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg= and rKdDVvvUCz7c7Ty/9tKqwaUKzkALodCQNlxeKhM7A6g= with actual SHA-256 hashes
+  # NOTE: Replace QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg= and wxoIiP5Ifpq7a2mGcMoO7B0BcCiw4rgAfC9lrrbfG2o= with actual SHA-256 hashes
   # from the build process. These are computed automatically by secure-build.js.
   # Run: node secure-build.js to get the current hashes.
-  Content-Security-Policy: default-src 'none'; script-src 'strict-dynamic' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-rKdDVvvUCz7c7Ty/9tKqwaUKzkALodCQNlxeKhM7A6g='; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' https://images.unsplash.com data: blob:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'none'; script-src 'strict-dynamic' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-wxoIiP5Ifpq7a2mGcMoO7B0BcCiw4rgAfC9lrrbfG2o='; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' https://images.unsplash.com data: blob:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests
 
   # ── Cache Control ───────────────────────────────────────────────
   Cache-Control: no-store, no-cache, must-revalidate
