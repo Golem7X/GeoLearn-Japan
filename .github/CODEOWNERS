@@ -1,0 +1,17 @@
+## CODEOWNERS — GeoLearn Japan
+## These users are automatically requested as reviewers on PRs.
+## Reference: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+## Default owner for everything in the repo
+*                     @Golem7X
+
+## Security-sensitive files require explicit review
+index.html            @Golem7X
+_headers              @Golem7X
+SECURITY.md           @Golem7X
+secure-build.js       @Golem7X
+scripts/              @Golem7X
+
+## CI/CD pipeline changes
+.github/              @Golem7X
+.github/workflows/    @Golem7X

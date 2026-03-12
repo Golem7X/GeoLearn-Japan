@@ -1,0 +1,297 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║          MYO_GEO_ORGS PROPRIETARY SOFTWARE LICENSE                          ║
+║                                 Version 1.0                                  ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+Copyright (c) 2024–2025 MYO NAING TUN
+Organization: MYO_Geo_Orgs
+All Rights Reserved.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PREAMBLE
+
+This License governs the use, reproduction, modification, and distribution of
+software, applications, tools, educational content, documentation, and all
+associated materials produced by MYO NAING TUN and released under the brand
+MYO_Geo_Orgs ("the Organization"). This License is designed to protect the
+intellectual property of the creator while providing authorized access for
+legitimate end users.
+
+By accessing, downloading, installing, or using any software covered by this
+License, you ("the User") agree to be bound by the terms and conditions set
+forth below.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SECTION 1 — DEFINITIONS
+
+1.1  "Software" means the GeoLearn-Japan application and any and all other
+     applications, tools, systems, modules, or programs created, authored,
+     or published by MYO NAING TUN under MYO_Geo_Orgs, including all
+     associated source code, compiled code, scripts, stylesheets, assets,
+     animations, graphics, UI designs, and educational content.
+
+1.2  "Creator" means MYO NAING TUN, the sole founder, owner, and author of
+     all Software published under MYO_Geo_Orgs.
+
+1.3  "Organization" means MYO_Geo_Orgs, the software brand and development
+     organization founded and operated exclusively by MYO NAING TUN.
+
+1.4  "User" means any individual or entity that accesses, installs, runs,
+     or otherwise uses the Software in any form.
+
+1.5  "Derivative Work" means any work that is based upon, incorporates, or
+     is adapted from the Software or any part thereof.
+
+1.6  "Commercial Use" means use of the Software in any manner that is
+     primarily intended for commercial advantage, monetary compensation,
+     or business gain.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SECTION 2 — OWNERSHIP DECLARATION
+
+2.1  SOLE OWNERSHIP.  All Software developed and published under MYO_Geo_Orgs
+     is the exclusive intellectual property of MYO NAING TUN. This includes
+     but is not limited to:
+
+       (a) All source code, in any programming language or format;
+       (b) Software architecture, system design, and technical structure;
+       (c) All user interface (UI) layouts, visual designs, and styles;
+       (d) All animations, interactive elements, and motion design;
+       (e) All graphics, icons, imagery, and visual assets;
+       (f) All educational content, curriculum structure, and learning
+           materials embedded in or distributed with the Software;
+       (g) All documentation, tutorials, and written materials associated
+           with the Software;
+       (h) All trade names, product names, organizational names, and
+           branding used in association with the Software.
+
+2.2  ORGANIZATION OWNERSHIP.  The name "MYO_Geo_Orgs," its logo, branding,
+     and all associated intellectual property are the exclusive property of
+     MYO NAING TUN.
+
+2.3  RESERVATION OF RIGHTS.  All rights not explicitly granted under this
+     License are reserved by MYO NAING TUN.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SECTION 3 — PERMITTED USE
+
+Subject to strict compliance with this License, the User is granted a limited,
+non-exclusive, non-transferable, revocable license to:
+
+3.1  ACCESS the Software for personal, educational, or non-commercial purposes
+     via an authorized distribution channel (e.g., the official website or
+     GitHub Pages deployment).
+
+3.2  USE the features and functionality of the Software as intended by the
+     Creator for learning, reference, and personal study.
+
+3.3  SHARE a link to the official, unmodified hosted version of the Software
+     for educational or informational purposes, provided that clear attribution
+     to MYO NAING TUN and MYO_Geo_Orgs is given.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SECTION 4 — RESTRICTIONS AND PROHIBITIONS
+
+THE FOLLOWING ACTIONS ARE STRICTLY PROHIBITED without prior written
+authorization from MYO NAING TUN:
+
+4.1  COPYING.  Reproducing, duplicating, copying, or cloning the Software,
+     its source code, UI design, content, or any portion thereof, in whole
+     or in part, by any means.
+
+4.2  MODIFICATION.  Altering, adapting, translating, disassembling,
+     decompiling, reverse-engineering, or creating Derivative Works based
+     on the Software or any of its components.
+
+4.3  REDISTRIBUTION.  Distributing, publishing, sublicensing, selling,
+     lending, transferring, or otherwise making available the Software,
+     its source code, or any portion thereof to any third party.
+
+4.4  COMMERCIAL EXPLOITATION.  Using the Software, its design, architecture,
+     content, or any derived material for any commercial purpose, including
+     but not limited to monetization, SaaS deployment, resale, or integration
+     into paid products or services.
+
+4.5  MISREPRESENTATION OF OWNERSHIP.  Claiming authorship, ownership, or
+     original creation of the Software, its design, content, or any part
+     thereof. Representing the Software as your own work is strictly prohibited.
+
+4.6  TRADEMARK INFRINGEMENT.  Using the name "MYO_Geo_Orgs," "GeoLearn Japan,"
+     or any associated branding, logos, or trademarks without explicit written
+     permission from MYO NAING TUN.
+
+4.7  UNAUTHORIZED HOSTING.  Deploying, hosting, or serving the Software or
+     any modified version thereof on any server, platform, or domain other
+     than the official deployment authorized by the Creator.
+
+4.8  CIRCUMVENTING SECURITY.  Attempting to bypass, disable, remove, or
+     circumvent any technical protection measures, security systems, digital
+     rights management, copyright notices, watermarks, or ownership markers
+     embedded in the Software.
+
+4.9  AUTOMATED EXTRACTION.  Using bots, scrapers, crawlers, or automated
+     tools to extract, harvest, or collect the content, code structure,
+     UI design, or educational material from the Software.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SECTION 5 — INTELLECTUAL PROPERTY PROTECTION
+
+5.1  COPYRIGHT.  The Software and all associated materials are protected by
+     copyright law. Unauthorized copying or reproduction constitutes copyright
+     infringement, which may result in civil and criminal penalties under
+     applicable law, including the Digital Millennium Copyright Act (DMCA),
+     and equivalent intellectual property laws in other jurisdictions.
+
+5.2  TECHNICAL MEASURES.  The Software incorporates multiple technical
+     protection measures including but not limited to:
+
+       (a) Cryptographic hash fingerprinting of source code;
+       (b) Content Security Policy with hash-locked script execution;
+       (c) Embedded ownership metadata and digital watermarks;
+       (d) Runtime integrity verification.
+
+     Circumventing these measures constitutes a violation of both this
+     License and applicable anti-circumvention laws.
+
+5.3  DMCA PROTECTION.  This Software is registered under the protection of
+     the Digital Millennium Copyright Act (DMCA). Unauthorized copies or
+     infringing content may be subject to DMCA takedown notices.
+
+5.4  INTERNATIONAL PROTECTION.  Copyright protection extends to all
+     jurisdictions where the Berne Convention for the Protection of Literary
+     and Artistic Works applies, providing worldwide intellectual property
+     protection.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SECTION 6 — DISCLAIMER OF WARRANTIES
+
+6.1  THE SOFTWARE IS PROVIDED "AS IS" AND "AS AVAILABLE," WITHOUT WARRANTY
+     OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+     WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE,
+     ACCURACY, RELIABILITY, OR NON-INFRINGEMENT.
+
+6.2  THE CREATOR DOES NOT WARRANT THAT:
+
+       (a) The Software will be error-free, uninterrupted, or secure;
+       (b) Defects will be corrected;
+       (c) The Software or server is free of viruses or harmful components;
+       (d) The educational content is complete, accurate, or current.
+
+6.3  THE USER ASSUMES ALL RISK arising from the use of or inability to use
+     the Software.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SECTION 7 — LIMITATION OF LIABILITY
+
+7.1  TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, MYO NAING TUN AND
+     MYO_GEO_ORGS SHALL NOT BE LIABLE FOR ANY:
+
+       (a) Direct, indirect, incidental, special, or consequential damages;
+       (b) Loss of profits, data, business, or goodwill;
+       (c) Damages arising from reliance on the accuracy of educational content;
+       (d) Damages arising from unauthorized access to the Software.
+
+7.2  This limitation of liability applies regardless of the legal theory
+     (contract, tort, negligence, strict liability, or otherwise) even if
+     the Creator has been advised of the possibility of such damages.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SECTION 8 — ATTRIBUTION REQUIREMENT
+
+8.1  Any authorized reproduction of educational content from this Software
+     (where expressly permitted in writing) must include the following
+     attribution:
+
+     "Source: GeoLearn Japan by MYO NAING TUN / MYO_Geo_Orgs.
+      All Rights Reserved. Used with permission."
+
+8.2  No removal, modification, or obscuring of copyright notices, author
+     credits, ownership statements, or watermarks embedded in the Software
+     is permitted under any circumstances.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SECTION 9 — TERMINATION
+
+9.1  This License and all rights granted hereunder terminate automatically
+     and immediately upon any breach of its terms by the User.
+
+9.2  Upon termination, the User must immediately:
+
+       (a) Cease all use of the Software;
+       (b) Destroy all copies of the Software in their possession;
+       (c) Remove any unauthorized deployments or reproductions.
+
+9.3  The Creator reserves the right to pursue legal remedies for any
+     violation of this License.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SECTION 10 — FUTURE MODIFICATION OF THIS LICENSE
+
+10.1 MYO NAING TUN reserves the right to revise, update, or replace this
+     License at any time, with or without prior notice.
+
+10.2 Updated license terms will be published in the official repository and
+     will take effect from the date of publication.
+
+10.3 Continued use of the Software after license updates constitutes
+     acceptance of the revised terms.
+
+10.4 Previous versions of the Software distributed under earlier license
+     versions remain subject to those earlier versions of the license.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SECTION 11 — GOVERNING LAW
+
+11.1 This License shall be governed by and construed in accordance with
+     applicable international intellectual property law, including the Berne
+     Convention and the TRIPS Agreement.
+
+11.2 Any disputes arising under this License shall be subject to the
+     jurisdiction chosen by MYO NAING TUN.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SECTION 12 — CONTACT AND PERMISSIONS
+
+For licensing inquiries, permission requests, or to report violations:
+
+  Developer : MYO NAING TUN
+  Organization : MYO_Geo_Orgs
+  GitHub : https://github.com/Golem7X
+  Project : https://github.com/Golem7X/GeoLearn-Japan
+
+To request permission for uses not covered by this License, contact the
+Creator through the GitHub profile listed above.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STANDARD COPYRIGHT NOTICE
+(Use in all future MYO_Geo_Orgs projects)
+
+  Copyright (c) [YEAR] MYO NAING TUN / MYO_Geo_Orgs
+  All Rights Reserved.
+
+  This software is proprietary and confidential.
+  Unauthorized copying, modification, or distribution is strictly prohibited.
+  Licensed under the MYO_Geo_Orgs Proprietary Software License v1.0.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  MYO_Geo_Orgs Proprietary Software License, Version 1.0
+  Copyright (c) 2024–2025 MYO NAING TUN. All Rights Reserved.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
