@@ -198,8 +198,8 @@ const SECURITY_RUNTIME = `
           'color:#ff6b35;font-size:16px;font-weight:bold;font-family:monospace'
         );
         console.warn(
-          '%cThis application is protected by enterprise-grade security.\n' +
-          'Unauthorized copying, analysis, or redistribution is prohibited\n' +
+          '%cThis application is protected by enterprise-grade security.\\n' +
+          'Unauthorized copying, analysis, or redistribution is prohibited\\n' +
           'and may constitute a violation of intellectual property law.',
           'color:#ff6b35;font-size:12px;font-family:monospace'
         );
@@ -232,14 +232,14 @@ const SECURITY_RUNTIME = `
 
   // ── 6. Security Banner ────────────────────────────────────────────────────
   console.log(
-    '%c\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\n' +
-    '\u2588  GeoLearn Japan  \u2502  Security v2.0  \u2588\n' +
-    '\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\n' +
-    '\u2588  CSP strict-dynamic + SHA-256 hashes  \u2588\n' +
-    '\u2588  DOMPurify 3.x + Trusted Types API    \u2588\n' +
-    '\u2588  Zero inline event handlers           \u2588\n' +
-    '\u2588  Prototype pollution guard            \u2588\n' +
-    '\u2588  Permissions-Policy enforced          \u2588\n' +
+    '%c\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\\n' +
+    '\u2588  GeoLearn Japan  \u2502  Security v2.0  \u2588\\n' +
+    '\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\\n' +
+    '\u2588  CSP strict-dynamic + SHA-256 hashes  \u2588\\n' +
+    '\u2588  DOMPurify 3.x + Trusted Types API    \u2588\\n' +
+    '\u2588  Zero inline event handlers           \u2588\\n' +
+    '\u2588  Prototype pollution guard            \u2588\\n' +
+    '\u2588  Permissions-Policy enforced          \u2588\\n' +
     '\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588',
     'color:#00d4ff;background:#0a0c10;font-family:monospace;font-size:9px;line-height:1.4'
   );
