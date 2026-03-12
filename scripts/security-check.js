@@ -32,7 +32,7 @@ function check(name, result, level = 'error') {
 }
 
 // ── Parse HTML sections ───────────────────────────────────────────────────────
-const scriptBlocks = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)];
+const scriptBlocks = [...html.matchAll(/<script>([\s\S]*?)<\/script>/gi)];
 const firstScriptPos = html.indexOf('<script>');
 const htmlBody = html.substring(0, firstScriptPos);
 const allJs = scriptBlocks.map(m => m[1]).join('\n');
@@ -99,7 +99,7 @@ check('Permissions-Policy blocks payment', html.includes('payment=()'));
 console.log('\n▸ External Resources');
 const httpResources = html.match(/(?:src|href)=["']http:\/\/[^"']+/g) || [];
 check('No HTTP (non-HTTPS) external resources', httpResources.length === 0);
-check('Google Fonts preconnect hint', html.includes('preconnect') && html.includes('fonts.gstatic.com'));
+check('Google Fonts preconnect hint', html.includes('preconnect') && /href=["']https:\/\/fonts\.gstatic\.com["']/.test(html));
 check('Google Fonts crossorigin attribute', html.includes('crossorigin="anonymous"'));
 
 // Check for external scripts loaded without SRI (excluding inline scripts)

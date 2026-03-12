@@ -10,7 +10,7 @@ const path = require('path');
 
 const html = fs.readFileSync(path.resolve(__dirname, '../index.html'), 'utf8');
 
-const scriptBlocks = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)];
+const scriptBlocks = [...html.matchAll(/<script>([\s\S]*?)<\/script>/gi)];
 const cspMatch = html.match(/Content-Security-Policy[^>]*content="([^"]+)"/i);
 
 if (!cspMatch) {
