@@ -73,9 +73,9 @@ jobs:
             const html = fs.readFileSync('index.html', 'utf8');
             const scriptPos = html.indexOf('<script>');
             const htmlBody = html.substring(0, scriptPos);
-            ## Check only onclick — other handlers (onchange, onerror, onkeydown) are now
-            ## converted to data-change, data-error, data-keydown attributes.
-            ## onfocus/onblur are handled purely via CSS :focus rules.
+            // Check only onclick — other handlers (onchange, onerror, onkeydown) are now
+            // converted to data-change, data-error, data-keydown attributes.
+            // onfocus/onblur are handled purely via CSS :focus rules.
             const pattern = /\bon(click)=/g;
             const matches = htmlBody.match(pattern) || [];
             if (matches.length > 0) {
