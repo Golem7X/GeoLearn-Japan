@@ -164,6 +164,23 @@ body::before{
 .stat-num{font-size:32px;font-weight:800;color:var(--accent)}
 .stat-label{font-size:12px;color:var(--text2);font-family:'JetBrains Mono',monospace;margin-top:4px}
 
+/* ── OWNERSHIP ELEMENTS ──────────────────────────────────────────────── */
+.nav-owner{margin-top:auto;padding:14px 10px 10px;border-top:1px solid var(--border);text-align:center;}
+.nav-owner-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:11px;color:var(--accent);letter-spacing:0.5px;line-height:1.3;}
+.nav-owner-name{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text2);margin-top:2px;letter-spacing:0.3px;}
+.nav-owner-badge{display:inline-block;margin-top:5px;background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);border-radius:4px;padding:2px 7px;font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--text2);letter-spacing:0.5px;}
+.hero-owner{display:flex;align-items:center;gap:10px;margin-top:20px;padding:10px 14px;background:rgba(0,212,255,0.04);border:1px solid rgba(0,212,255,0.15);border-radius:8px;width:fit-content;}
+.hero-owner-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;box-shadow:0 0 6px var(--accent);}
+.hero-owner-text{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text2);line-height:1.5;}
+.hero-owner-text strong{color:var(--accent);font-size:12px;}
+.app-footer{margin-top:40px;padding:20px 24px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;background:rgba(0,0,0,0.15);}
+.app-footer-left{display:flex;flex-direction:column;gap:3px;}
+.app-footer-brand{font-family:'Syne',sans-serif;font-weight:800;font-size:13px;color:var(--accent);letter-spacing:0.3px;}
+.app-footer-copy{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text2);letter-spacing:0.3px;}
+.app-footer-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.app-footer-tag{font-family:'JetBrains Mono',monospace;font-size:9px;background:rgba(0,212,255,0.07);border:1px solid rgba(0,212,255,0.18);border-radius:4px;padding:3px 8px;color:var(--text2);letter-spacing:0.4px;}
+@media(max-width:600px){.app-footer{flex-direction:column;align-items:flex-start;}.hero-owner{width:100%;}}
+
 /* PROGRESS */
 .progress-bar{
   background:var(--border);border-radius:999px;height:6px;overflow:hidden;
@@ -2801,6 +2818,13 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
   <div class="nav-item" data-action="showPage('photos')">
     <span class="nav-icon">📷</span><span class="nav-label">Photo Gallery</span>
   </div>
+
+  <!-- OWNER BADGE -->
+  <div class="nav-owner">
+    <div class="nav-owner-logo">MYO_Geo_Orgs</div>
+    <div class="nav-owner-name">MYO NAING TUN</div>
+    <div class="nav-owner-badge">© 2024–2025 All Rights Reserved</div>
+  </div>
 </nav>
 
 <!-- MAIN CONTENT -->
@@ -2816,6 +2840,13 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
       <button class="btn btn-primary" data-action="showPage('study')">▶ Start Studying</button>
       <button class="btn btn-outline" data-action="showPage('flashcards')">🃏 Flashcards</button>
       <button class="btn btn-outline" data-action="showPage('quiz')">⚡ Quick Quiz</button>
+    </div>
+    <div class="hero-owner">
+      <div class="hero-owner-dot"></div>
+      <div class="hero-owner-text">
+        <strong>MYO NAING TUN</strong> &nbsp;/&nbsp; MYO_Geo_Orgs<br>
+        © 2024–2025 All Rights Reserved &nbsp;·&nbsp; Proprietary Software
+      </div>
     </div>
   </div>
 
@@ -4937,6 +4968,19 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
   </div>
 </div>
 
+  <!-- GLOBAL FOOTER -->
+  <footer class="app-footer">
+    <div class="app-footer-left">
+      <div class="app-footer-brand">GeoLearn Japan &nbsp;·&nbsp; MYO_Geo_Orgs</div>
+      <div class="app-footer-copy">© 2024–2025 MYO NAING TUN &nbsp;/&nbsp; MYO_Geo_Orgs. All Rights Reserved.</div>
+      <div class="app-footer-copy" style="margin-top:2px;">Proprietary software — unauthorized copying, redistribution, or commercial use is prohibited.</div>
+    </div>
+    <div class="app-footer-right">
+      <span class="app-footer-tag">MYO_Geo_Orgs Software License v2.0</span>
+      <span class="app-footer-tag">SHA-256 Hash-Locked</span>
+      <span class="app-footer-tag">CSP Protected</span>
+    </div>
+  </footer>
 </main>
 
 <!-- NOTIFICATION -->
