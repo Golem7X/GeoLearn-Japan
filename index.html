@@ -2,42 +2,29 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; img-src * data: blob:; style-src * 'unsafe-inline'; font-src * data:; script-src * 'unsafe-inline' 'unsafe-eval';">
+<!-- ═══════════════════════════════════════════════════
+     SECURITY HEADERS
+     X-Frame-Options and X-Content-Type-Options must be
+     set as HTTP response headers on the server.
+     GitHub Pages does not support custom headers natively.
+     Use Cloudflare or a _headers file (Netlify/CF Pages)
+     for full header-level protection.
+     ═══════════════════════════════════════════════════ -->
+<!-- Referrer Policy: never leak full URL to third parties -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- Prevent MIME-type sniffing (HTTP header equivalent) -->
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<!-- Prevent embedding in frames (HTTP header equivalent — limited browser support via meta) -->
+<meta http-equiv="X-Frame-Options" content="DENY">
+<!-- Prevent mixed content upgrade requests -->
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+<!-- CSP will be replaced below after hash computation -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-EKxRvUnKkh62Mi7RcAxQap+S8AjAOVfnQhXgEkBVigM='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' https://images.unsplash.com data: blob:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; upgrade-insecure-requests">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GeoLearn Japan — Geotechnical & Geophysical Engineering</title>
-<script>
-// ── Diagnostic + CSP fallback ──
-// This runs FIRST to test if JS works and provide onclick fallback
-(function(){
-  // Mark that JS is running
-  window.__jsOK = true;
-
-  // Fallback: if inline onclick handlers are blocked by CSP,
-  // re-bind them as event listeners after DOM loads
-  document.addEventListener('DOMContentLoaded', function(){
-    var els = document.querySelectorAll('[onclick]');
-    if (els.length === 0) {
-      // onclick attributes were stripped by CSP - find elements that SHOULD have handlers
-      // This means CSP is blocking inline handlers, need alternative approach
-    }
-    // Add visual indicator that JS is working
-    var test = document.getElementById('topics-count');
-    if (test && !window.__appLoaded) {
-      // JS ran but app script may have failed
-    }
-  });
-
-  // Error handler to catch and show any JS errors visually
-  window.onerror = function(msg, src, line, col, err) {
-    var d = document.createElement('div');
-    d.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:#ff0;color:#000;padding:8px;font:12px monospace;z-index:99999;max-height:120px;overflow:auto';
-    d.textContent = 'JS Error: ' + msg + ' (line ' + line + ')';
-    document.body.appendChild(d);
-    return false;
-  };
-})();
-</script>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet" crossorigin="anonymous">
 <style>
 :root {
   --bg: #0a0c10;
@@ -2706,7 +2693,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
 <div class="spaced-review-note" id="spaced-note">
   <div class="spaced-note-header">
     <span>📚 Spaced Review</span>
-    <span class="spaced-note-close" onclick="closeSpacedNote()">✕</span>
+    <span class="spaced-note-close" data-action="closeSpacedNote()">✕</span>
   </div>
   <div class="spaced-note-term" id="spaced-note-term"></div>
   <div class="spaced-note-def" id="spaced-note-def"></div>
@@ -2714,19 +2701,19 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
 
 <!-- STUDY TOOLBAR -->
 <div id="study-toolbar">
-  <button class="toolbar-btn" onclick="toggleStudyMode()" id="study-mode-btn" title="Switch between dark engineering mode and soft study mode">
+  <button class="toolbar-btn" data-action="toggleStudyMode()" id="study-mode-btn" title="Switch between dark engineering mode and soft study mode">
     ☀️ Study Mode
   </button>
-  <button class="toolbar-btn study-only" onclick="toggleFocusMode()" id="focus-mode-btn" title="Focus Mode: hides sidebar, increases text size">
+  <button class="toolbar-btn study-only" data-action="toggleFocusMode()" id="focus-mode-btn" title="Focus Mode: hides sidebar, increases text size">
     🎯 Focus Mode
   </button>
-  <button class="toolbar-btn study-only" onclick="toggleHighlightMode()" id="highlight-btn" title="Toggle key term highlighting">
+  <button class="toolbar-btn study-only" data-action="toggleHighlightMode()" id="highlight-btn" title="Toggle key term highlighting">
     🖊 Highlight Terms
   </button>
-  <button class="toolbar-btn study-only" onclick="showSpacedReview()" title="Show a random spaced review card">
+  <button class="toolbar-btn study-only" data-action="showSpacedReview()" title="Show a random spaced review card">
     🔁 Quick Review
   </button>
-  <button class="toolbar-btn focus-hide-tb" onclick="scrollToTop()" title="Back to top">
+  <button class="toolbar-btn focus-hide-tb" data-action="scrollToTop()" title="Back to top">
     ↑ Top
   </button>
 </div>
@@ -2736,70 +2723,70 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
 <!-- SIDEBAR -->
 <nav class="sidebar">
   <div class="nav-logo">G</div>
-  <div class="nav-item active" onclick="showPage('home')">
+  <div class="nav-item active" data-action="showPage('home')">
     <span class="nav-icon">⌂</span><span class="nav-label">Home</span>
   </div>
-  <div class="nav-item" onclick="showPage('study')">
+  <div class="nav-item" data-action="showPage('study')">
     <span class="nav-icon">📚</span><span class="nav-label">Study Modules</span>
   </div>
-  <div class="nav-item" onclick="showPage('animations')">
+  <div class="nav-item" data-action="showPage('animations')">
     <span class="nav-icon">▶</span><span class="nav-label">Animations</span>
   </div>
-  <div class="nav-item" onclick="showPage('calculator')">
+  <div class="nav-item" data-action="showPage('calculator')">
     <span class="nav-icon">🔬</span><span class="nav-label">Field Calculator</span>
   </div>
-  <div class="nav-item" onclick="showPage('flashcards')">
+  <div class="nav-item" data-action="showPage('flashcards')">
     <span class="nav-icon">🃏</span><span class="nav-label">Flashcards</span>
   </div>
-  <div class="nav-item" onclick="showPage('quiz')">
+  <div class="nav-item" data-action="showPage('quiz')">
     <span class="nav-icon">⚡</span><span class="nav-label">Quiz</span>
   </div>
-  <div class="nav-item" onclick="showPage('game')">
+  <div class="nav-item" data-action="showPage('game')">
     <span class="nav-icon">🎮</span><span class="nav-label">Memory Game</span>
   </div>
-  <div class="nav-item" onclick="showPage('resources')">
+  <div class="nav-item" data-action="showPage('resources')">
     <span class="nav-icon">🌐</span><span class="nav-label">Resources</span>
   </div>
-  <div class="nav-item" onclick="showPage('career')">
+  <div class="nav-item" data-action="showPage('career')">
     <span class="nav-icon">🗾</span><span class="nav-label">Career Roadmap</span>
   </div>
-  <div class="nav-item" onclick="showPage('ai')">
+  <div class="nav-item" data-action="showPage('ai')">
     <span class="nav-icon">🤖</span><span class="nav-label">AI Tutor</span>
   </div>
-  <div class="nav-item" onclick="showPage('professor')">
+  <div class="nav-item" data-action="showPage('professor')">
     <span class="nav-icon">🎓</span><span class="nav-label">Professor Mode</span>
   </div>
-  <div class="nav-item" onclick="showPage('fielddata')">
+  <div class="nav-item" data-action="showPage('fielddata')">
     <span class="nav-icon">📈</span><span class="nav-label">Field Data Lab</span>
   </div>
-  <div class="nav-item" onclick="showPage('studyplan')">
+  <div class="nav-item" data-action="showPage('studyplan')">
     <span class="nav-icon">📅</span><span class="nav-label">Study Plan</span>
   </div>
-  <div class="nav-item" onclick="showPage('vocab')">
+  <div class="nav-item" data-action="showPage('vocab')">
     <span class="nav-icon">📖</span><span class="nav-label">Vocabulary Hub</span>
   </div>
-  <div class="nav-item" onclick="showPage('jlpt')">
+  <div class="nav-item" data-action="showPage('jlpt')">
     <span class="nav-icon">🇯🇵</span><span class="nav-label">JLPT Study Hub</span>
   </div>
-  <div class="nav-item" onclick="showPage('analytics')">
+  <div class="nav-item" data-action="showPage('analytics')">
     <span class="nav-icon">📊</span><span class="nav-label">Analytics</span>
   </div>
-  <div class="nav-item" onclick="showPage('smart')">
+  <div class="nav-item" data-action="showPage('smart')">
     <span class="nav-icon">🧠</span><span class="nav-label">Smart Study</span>
   </div>
-  <div class="nav-item" onclick="showPage('dailyfocus')">
+  <div class="nav-item" data-action="showPage('dailyfocus')">
     <span class="nav-icon">🎯</span><span class="nav-label">Daily Focus</span>
   </div>
-  <div class="nav-item" onclick="showPage('simulations')">
+  <div class="nav-item" data-action="showPage('simulations')">
     <span class="nav-icon">🧪</span><span class="nav-label">Simulations</span>
   </div>
-  <div class="nav-item" onclick="showPage('kmap')">
+  <div class="nav-item" data-action="showPage('kmap')">
     <span class="nav-icon">🕸</span><span class="nav-label">Knowledge Map</span>
   </div>
-  <div class="nav-item" onclick="showPage('casestudies')">
+  <div class="nav-item" data-action="showPage('casestudies')">
     <span class="nav-icon">🏛</span><span class="nav-label">Case Studies</span>
   </div>
-  <div class="nav-item" onclick="showPage('photos')">
+  <div class="nav-item" data-action="showPage('photos')">
     <span class="nav-icon">📷</span><span class="nav-label">Photo Gallery</span>
   </div>
 </nav>
@@ -2814,9 +2801,9 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
     <div class="hero-jp">地質・地盤工学学習システム</div>
     <div class="hero-desc">Master Geotechnical & Geophysical Engineering for Japanese licensing. 22 interactive topics — including full modules for Borehole Camera, Pressuremeter, GPR, Plate Load Test & RQD — plus animations, field calculators, and exam prep.</div>
     <div class="hero-actions">
-      <button class="btn btn-primary" onclick="showPage('study')">▶ Start Studying</button>
-      <button class="btn btn-outline" onclick="showPage('flashcards')">🃏 Flashcards</button>
-      <button class="btn btn-outline" onclick="showPage('quiz')">⚡ Quick Quiz</button>
+      <button class="btn btn-primary" data-action="showPage('study')">▶ Start Studying</button>
+      <button class="btn btn-outline" data-action="showPage('flashcards')">🃏 Flashcards</button>
+      <button class="btn btn-outline" data-action="showPage('quiz')">⚡ Quick Quiz</button>
     </div>
   </div>
 
@@ -2833,8 +2820,8 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
   <div class="card" style="max-width:400px;margin-bottom:24px">
     <div class="timer-display" id="timer-display">00:00:00</div>
     <div style="display:flex;gap:8px;justify-content:center">
-      <button class="btn btn-primary" id="timer-btn" onclick="toggleTimer()">▶ Start</button>
-      <button class="btn btn-outline" onclick="resetTimer()">↺ Reset</button>
+      <button class="btn btn-primary" id="timer-btn" data-action="toggleTimer()">▶ Start</button>
+      <button class="btn btn-outline" data-action="resetTimer()">↺ Reset</button>
     </div>
   </div>
 
@@ -2882,28 +2869,28 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
   <div id="topic-list">
     <div class="section-header"><div class="section-title">// SOIL MECHANICS 土質力学</div><div class="section-line"></div></div>
     <div class="grid grid-3" style="margin-bottom:24px">
-      <div class="topic-card" onclick="showTopic('effective-stress')">
+      <div class="topic-card" data-action="showTopic('effective-stress')">
         <div class="topic-icon">⚖️</div>
         <div class="topic-name">Effective Stress</div>
         <div class="topic-jp">有効応力</div>
         <div class="topic-desc">The stress carried by the soil skeleton. Foundation of all soil strength analysis.</div>
         <div class="topic-badge">σ' = σ - u</div>
       </div>
-      <div class="topic-card" onclick="showTopic('shear-strength')">
+      <div class="topic-card" data-action="showTopic('shear-strength')">
         <div class="topic-icon">⚡</div>
         <div class="topic-name">Shear Strength</div>
         <div class="topic-jp">せん断強さ</div>
         <div class="topic-desc">Mohr-Coulomb criterion. Controls slope stability, bearing capacity, and retaining walls.</div>
         <div class="topic-badge">τ = c' + σ'tanφ'</div>
       </div>
-      <div class="topic-card" onclick="showTopic('consolidation')">
+      <div class="topic-card" data-action="showTopic('consolidation')">
         <div class="topic-icon">📉</div>
         <div class="topic-name">Consolidation</div>
         <div class="topic-jp">圧密</div>
         <div class="topic-desc">Time-dependent compression of saturated clay. Terzaghi 1D consolidation theory.</div>
         <div class="topic-badge">Tv = cv·t/H²</div>
       </div>
-      <div class="topic-card" onclick="showTopic('liquefaction')">
+      <div class="topic-card" data-action="showTopic('liquefaction')">
         <div class="topic-icon">💧</div>
         <div class="topic-name">Liquefaction</div>
         <div class="topic-jp">液状化</div>
@@ -2914,21 +2901,21 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
 
     <div class="section-header"><div class="section-title">// WAVE PROPAGATION 波動伝播</div><div class="section-line"></div></div>
     <div class="grid grid-3" style="margin-bottom:24px">
-      <div class="topic-card" onclick="showTopic('p-wave')">
+      <div class="topic-card" data-action="showTopic('p-wave')">
         <div class="topic-icon">→</div>
         <div class="topic-name">P-Wave (Primary)</div>
         <div class="topic-jp">P波（縦波）</div>
         <div class="topic-desc">Compressional wave. Travels through solids and liquids. Used in seismic refraction surveys.</div>
         <div class="topic-badge">Vp = √(M/ρ)</div>
       </div>
-      <div class="topic-card" onclick="showTopic('s-wave')">
+      <div class="topic-card" data-action="showTopic('s-wave')">
         <div class="topic-icon">〜</div>
         <div class="topic-name">S-Wave (Shear)</div>
         <div class="topic-jp">S波（横波）</div>
         <div class="topic-desc">Shear wave. Cannot travel through liquids. Key for Vs30 calculation and site amplification.</div>
         <div class="topic-badge">Vs = √(G/ρ)</div>
       </div>
-      <div class="topic-card" onclick="showTopic('vs30')">
+      <div class="topic-card" data-action="showTopic('vs30')">
         <div class="topic-icon">📊</div>
         <div class="topic-name">Vs30 & Site Class</div>
         <div class="topic-jp">地盤種別</div>
@@ -2939,21 +2926,21 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
 
     <div class="section-header"><div class="section-title">// IN-SITU TESTING 原位置試験</div><div class="section-line"></div></div>
     <div class="grid grid-3" style="margin-bottom:24px">
-      <div class="topic-card" onclick="showTopic('spt')">
+      <div class="topic-card" data-action="showTopic('spt')">
         <div class="topic-icon">🔨</div>
         <div class="topic-name">SPT (Standard Penetration Test)</div>
         <div class="topic-jp">標準貫入試験</div>
         <div class="topic-desc">N-value from 63.5kg hammer drop. Most common soil investigation in Japan.</div>
         <div class="topic-badge">N60 = N·(ER/60)</div>
       </div>
-      <div class="topic-card" onclick="showTopic('cpt')">
+      <div class="topic-card" data-action="showTopic('cpt')">
         <div class="topic-icon">📍</div>
         <div class="topic-name">CPTu (Cone Penetration Test)</div>
         <div class="topic-jp">コーン貫入試験</div>
         <div class="topic-desc">Continuous profile of tip resistance, sleeve friction, and pore pressure.</div>
         <div class="topic-badge">Ic = √((3.47-log Qt)²+...)</div>
       </div>
-      <div class="topic-card" onclick="showTopic('ps-logging')">
+      <div class="topic-card" data-action="showTopic('ps-logging')">
         <div class="topic-icon">📡</div>
         <div class="topic-name">PS Logging</div>
         <div class="topic-jp">PS検層</div>
@@ -2964,28 +2951,28 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
 
     <div class="section-header"><div class="section-title">// GEOPHYSICAL METHODS 物理探査</div><div class="section-line"></div></div>
     <div class="grid grid-3" style="margin-bottom:24px">
-      <div class="topic-card" onclick="showTopic('seismic-refraction')">
+      <div class="topic-card" data-action="showTopic('seismic-refraction')">
         <div class="topic-icon">↗</div>
         <div class="topic-name">Seismic Refraction</div>
         <div class="topic-jp">屈折法地震探査</div>
         <div class="topic-desc">Surface seismic method mapping velocity layers. Uses first arrival times.</div>
         <div class="topic-badge">t = x/V1 + 2h·cosθc/V1</div>
       </div>
-      <div class="topic-card" onclick="showTopic('resistivity')">
+      <div class="topic-card" data-action="showTopic('resistivity')">
         <div class="topic-icon">⚡</div>
         <div class="topic-name">Electrical Resistivity Survey</div>
         <div class="topic-jp">電気探査</div>
         <div class="topic-desc">Wenner, Schlumberger, dipole-dipole arrays. Map subsurface resistivity variations.</div>
         <div class="topic-badge">ρ = 2πa·(V/I)</div>
       </div>
-      <div class="topic-card" onclick="showTopic('masw')">
+      <div class="topic-card" data-action="showTopic('masw')">
         <div class="topic-icon">🌊</div>
         <div class="topic-name">MASW Surface Wave Survey</div>
         <div class="topic-jp">表面波探査・微動探査</div>
         <div class="topic-desc">Surface wave analysis for Vs profiling. MASW and H/V spectral ratio methods.</div>
         <div class="topic-badge">Vs(z) from dispersion</div>
       </div>
-      <div class="topic-card" onclick="showTopic('gpr')">
+      <div class="topic-card" data-action="showTopic('gpr')">
         <div class="topic-icon">📡</div>
         <div class="topic-name">Ground Penetrating Radar</div>
         <div class="topic-jp">地中レーダー探査</div>
@@ -2996,21 +2983,21 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
 
     <div class="section-header"><div class="section-title">// BOREHOLE INVESTIGATION 孔内調査</div><div class="section-line"></div></div>
     <div class="grid grid-3" style="margin-bottom:24px">
-      <div class="topic-card" onclick="showTopic('borehole-camera')">
+      <div class="topic-card" data-action="showTopic('borehole-camera')">
         <div class="topic-icon">🎥</div>
         <div class="topic-name">Borehole Camera</div>
         <div class="topic-jp">孔内カメラ</div>
         <div class="topic-desc">Visual inspection of borehole walls. Reveals fractures, joints, weathering, groundwater inflow.</div>
         <div class="topic-badge">Fracture orientation & RQD</div>
       </div>
-      <div class="topic-card" onclick="showTopic('pressuremeter')">
+      <div class="topic-card" data-action="showTopic('pressuremeter')">
         <div class="topic-icon">🔵</div>
         <div class="topic-name">Pressuremeter Test</div>
         <div class="topic-jp">孔内水平載荷試験</div>
         <div class="topic-desc">Inflatable probe measures lateral stress-strain in borehole. Gives Em and limit pressure PL.</div>
         <div class="topic-badge">Em = 2(1+ν)·V·ΔP/ΔV</div>
       </div>
-      <div class="topic-card" onclick="showTopic('rqd')">
+      <div class="topic-card" data-action="showTopic('rqd')">
         <div class="topic-icon">🪨</div>
         <div class="topic-name">Rock Quality Designation (RQD)</div>
         <div class="topic-jp">岩盤品質指標</div>
@@ -3021,21 +3008,21 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
 
     <div class="section-header"><div class="section-title">// LOAD TESTING 載荷試験</div><div class="section-line"></div></div>
     <div class="grid grid-3">
-      <div class="topic-card" onclick="showTopic('plate-load-test')">
+      <div class="topic-card" data-action="showTopic('plate-load-test')">
         <div class="topic-icon">🏗️</div>
         <div class="topic-name">Plate Load Test</div>
         <div class="topic-jp">平板載荷試験</div>
         <div class="topic-desc">Direct measurement of bearing capacity and settlement modulus at foundation level. JIS A 1215.</div>
         <div class="topic-badge">K30 = p/s · (1/0.125)</div>
       </div>
-      <div class="topic-card" onclick="showTopic('cpt')">
+      <div class="topic-card" data-action="showTopic('cpt')">
         <div class="topic-icon">📍</div>
         <div class="topic-name">CPTu (Cone Penetration Test)</div>
         <div class="topic-jp">コーン貫入試験</div>
         <div class="topic-desc">Continuous profile of tip resistance, sleeve friction, and pore pressure.</div>
         <div class="topic-badge">Ic = √((3.47-log Qt)²+...)</div>
       </div>
-      <div class="topic-card" onclick="showTopic('spt')">
+      <div class="topic-card" data-action="showTopic('spt')">
         <div class="topic-icon">🔨</div>
         <div class="topic-name">SPT (Standard Penetration Test)</div>
         <div class="topic-jp">標準貫入試験</div>
@@ -3047,7 +3034,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
 
   <!-- TOPIC DETAIL VIEW -->
   <div id="topic-detail" style="display:none">
-    <button class="btn btn-outline" style="margin-bottom:20px" onclick="hideTopic()">← Back</button>
+    <button class="btn btn-outline" style="margin-bottom:20px" data-action="hideTopic()">← Back</button>
     <div id="topic-content"></div>
   </div>
 </div>
@@ -3070,8 +3057,8 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
     </select>
     <canvas class="anim-canvas" id="anim-canvas" width="800" height="280"></canvas>
     <div class="anim-controls">
-      <button class="anim-btn" id="play-btn" onclick="toggleAnim()">▶ Play</button>
-      <button class="anim-btn" onclick="resetAnim()">↺ Reset</button>
+      <button class="anim-btn" id="play-btn" data-action="toggleAnim()">▶ Play</button>
+      <button class="anim-btn" data-action="resetAnim()">↺ Reset</button>
       <div id="anim-info" style="font-size:13px;color:var(--text2);font-family:'JetBrains Mono',monospace;margin-left:auto"></div>
     </div>
   </div>
@@ -3087,10 +3074,10 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
   </div>
 
   <div class="tabs">
-    <div class="tab active" onclick="switchCalc(this,'spt-calc')">🔨 SPT Analysis</div>
-    <div class="tab" onclick="switchCalc(this,'vs30-calc')">📡 Vs30 Calculator</div>
-    <div class="tab" onclick="switchCalc(this,'liq-calc')">💧 Liquefaction FL</div>
-    <div class="tab" onclick="switchCalc(this,'bearing-calc')">🏗 Bearing Capacity</div>
+    <div class="tab active" data-action="switchCalc(this,'spt-calc')">🔨 SPT Analysis</div>
+    <div class="tab" data-action="switchCalc(this,'vs30-calc')">📡 Vs30 Calculator</div>
+    <div class="tab" data-action="switchCalc(this,'liq-calc')">💧 Liquefaction FL</div>
+    <div class="tab" data-action="switchCalc(this,'bearing-calc')">🏗 Bearing Capacity</div>
   </div>
 
   <div id="spt-calc">
@@ -3119,7 +3106,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
         <div style="font-size:12px;color:var(--text2);margin-top:10px;font-family:'JetBrains Mono',monospace">
           Click "Add Layer" to build a soil column profile
         </div>
-        <button class="btn btn-outline" style="margin-top:10px;width:100%" onclick="addSoilLayer()">+ Add Layer</button>
+        <button class="btn btn-outline" style="margin-top:10px;width:100%" data-action="addSoilLayer()">+ Add Layer</button>
       </div>
     </div>
   </div>
@@ -3129,7 +3116,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
       <div style="font-weight:700;margin-bottom:16px;font-size:16px">📡 Vs30 Calculation — 地盤種別判定</div>
       <div style="color:var(--text2);font-size:13px;margin-bottom:16px">Enter up to 10 soil layers (hi = thickness in m, Vsi = shear wave velocity in m/s)</div>
       <div id="vs30-layers" style="display:grid;gap:8px"></div>
-      <button class="btn btn-outline" style="margin-top:12px" onclick="addVs30Layer()">+ Add Layer</button>
+      <button class="btn btn-outline" style="margin-top:12px" data-action="addVs30Layer()">+ Add Layer</button>
       <div class="result-box" style="margin-top:16px" id="vs30-result">
         <div class="result-item"><span>Vs30 (m/s)</span><span class="result-val" id="r-vs30">—</span></div>
         <div class="result-item"><span>Site Class (NEHRP)</span><span class="result-val" id="r-site-class">—</span></div>
@@ -3209,14 +3196,14 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
   </div>
 
   <div class="tabs">
-    <div class="tab active" onclick="switchFCDeck(this,'all')">All (40)</div>
-    <div class="tab" onclick="switchFCDeck(this,'soil')">Soil Mechanics</div>
-    <div class="tab" onclick="switchFCDeck(this,'wave')">Waves</div>
-    <div class="tab" onclick="switchFCDeck(this,'test')">Field Tests</div>
-    <div class="tab" onclick="switchFCDeck(this,'jp')">Japanese Terms</div>
+    <div class="tab active" data-action="switchFCDeck(this,'all')">All (40)</div>
+    <div class="tab" data-action="switchFCDeck(this,'soil')">Soil Mechanics</div>
+    <div class="tab" data-action="switchFCDeck(this,'wave')">Waves</div>
+    <div class="tab" data-action="switchFCDeck(this,'test')">Field Tests</div>
+    <div class="tab" data-action="switchFCDeck(this,'jp')">Japanese Terms</div>
   </div>
 
-  <div class="flashcard-scene" onclick="flipCard()">
+  <div class="flashcard-scene" data-action="flipCard()">
     <div class="flashcard" id="flashcard">
       <div class="flashcard-face flashcard-front">
         <div class="fc-jp" id="fc-front-jp"></div>
@@ -3231,14 +3218,14 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
   </div>
 
   <div class="fc-nav">
-    <button class="btn btn-outline" onclick="prevCard()">← Prev</button>
+    <button class="btn btn-outline" data-action="prevCard()">← Prev</button>
     <div class="fc-counter" id="fc-counter">1 / 40</div>
-    <button class="btn btn-primary" onclick="nextCard()">Next →</button>
+    <button class="btn btn-primary" data-action="nextCard()">Next →</button>
   </div>
   <div style="display:flex;gap:8px;justify-content:center;margin-top:12px">
-    <button class="btn btn-outline" onclick="shuffleCards()">🔀 Shuffle</button>
-    <button class="btn btn-outline" onclick="markKnown()">✓ Know it</button>
-    <button class="btn btn-outline" onclick="markUnknown()">✗ Review</button>
+    <button class="btn btn-outline" data-action="shuffleCards()">🔀 Shuffle</button>
+    <button class="btn btn-outline" data-action="markKnown()">✓ Know it</button>
+    <button class="btn btn-outline" data-action="markUnknown()">✗ Review</button>
   </div>
   <div style="text-align:center;margin-top:12px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text2)" id="fc-status"></div>
 </div>
@@ -3256,10 +3243,10 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
       <div style="font-size:22px;font-weight:700;margin-bottom:8px">Ready to Test?</div>
       <div style="color:var(--text2);margin-bottom:24px;font-size:14px">60 questions across all topics. Choose your category.</div>
       <div style="display:grid;gap:8px;margin-bottom:20px">
-        <button class="btn btn-outline" style="justify-content:center" onclick="startQuiz('all')">🌐 All Topics (20 Q)</button>
-        <button class="btn btn-outline" style="justify-content:center" onclick="startQuiz('soil')">⚖️ Soil Mechanics (10 Q)</button>
-        <button class="btn btn-outline" style="justify-content:center" onclick="startQuiz('wave')">〜 Wave & Geophysics (10 Q)</button>
-        <button class="btn btn-outline" style="justify-content:center" onclick="startQuiz('test')">🔨 Field Testing (10 Q)</button>
+        <button class="btn btn-outline" style="justify-content:center" data-action="startQuiz('all')">🌐 All Topics (20 Q)</button>
+        <button class="btn btn-outline" style="justify-content:center" data-action="startQuiz('soil')">⚖️ Soil Mechanics (10 Q)</button>
+        <button class="btn btn-outline" style="justify-content:center" data-action="startQuiz('wave')">〜 Wave & Geophysics (10 Q)</button>
+        <button class="btn btn-outline" style="justify-content:center" data-action="startQuiz('test')">🔨 Field Testing (10 Q)</button>
       </div>
     </div>
   </div>
@@ -3271,7 +3258,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
       <div class="quiz-q" id="q-text"></div>
       <div class="quiz-options" id="q-options"></div>
       <div id="q-explain" class="quiz-explain" style="display:none"></div>
-      <button class="btn btn-primary" id="q-next" style="display:none" onclick="nextQuestion()">Next →</button>
+      <button class="btn btn-primary" id="q-next" style="display:none" data-action="nextQuestion()">Next →</button>
     </div>
   </div>
 
@@ -3281,8 +3268,8 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
       <div class="score-big" id="final-score"></div>
       <div id="score-grade" style="font-size:24px;font-weight:700;margin:8px 0"></div>
       <div id="score-msg" style="color:var(--text2);margin-bottom:24px;font-size:14px"></div>
-      <button class="btn btn-primary" onclick="restartQuiz()">Try Again</button>
-      <button class="btn btn-outline" style="margin-left:12px" onclick="showPage('flashcards')">📚 Review Flashcards</button>
+      <button class="btn btn-primary" data-action="restartQuiz()">Try Again</button>
+      <button class="btn btn-outline" style="margin-left:12px" data-action="showPage('flashcards')">📚 Review Flashcards</button>
     </div>
   </div>
 </div>
@@ -3313,7 +3300,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
     </div>
     <div style="flex:1"></div>
     <div>
-      <button class="btn btn-primary" onclick="startGame()">🔄 New Game</button>
+      <button class="btn btn-primary" data-action="startGame()">🔄 New Game</button>
       <select class="anim-select" id="game-level" style="margin-left:8px">
         <option value="easy">Easy (6 pairs)</option>
         <option value="medium" selected>Medium (8 pairs)</option>
@@ -3327,7 +3314,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
     <div style="font-size:48px">🎉</div>
     <div style="font-size:24px;font-weight:700;margin:8px 0">Complete!</div>
     <div id="game-final-msg" style="color:var(--text2);margin-bottom:16px"></div>
-    <button class="btn btn-primary" onclick="startGame()">Play Again</button>
+    <button class="btn btn-primary" data-action="startGame()">Play Again</button>
   </div>
 </div>
 
@@ -3517,7 +3504,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
           <div style="font-size:14px;font-weight:700">Personal AI Tutor</div>
           <div style="font-size:11px;color:var(--accent3);font-family:'JetBrains Mono',monospace">● OFFLINE · 20 Lessons · No API</div>
         </div>
-        <button onclick="clearTutorChat()" title="New conversation" style="margin-left:auto;background:rgba(255,71,87,0.1);border:1px solid rgba(255,71,87,0.2);color:var(--danger);border-radius:8px;padding:5px 10px;cursor:pointer;font-size:12px;font-family:'Syne',sans-serif;font-weight:600">🗑 Clear</button>
+        <button data-action="clearTutorChat()" title="New conversation" style="margin-left:auto;background:rgba(255,71,87,0.1);border:1px solid rgba(255,71,87,0.2);color:var(--danger);border-radius:8px;padding:5px 10px;cursor:pointer;font-size:12px;font-family:'Syne',sans-serif;font-weight:600">🗑 Clear</button>
       </div>
       <div id="tutor-msgs" style="height:460px;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px">
         <div class="msg msg-ai" style="border-radius:12px 12px 12px 4px"><strong style="color:var(--accent)">🤖 AI Tutor:</strong><br><br>
@@ -3533,7 +3520,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
       </div>
       <div style="padding:12px 14px;border-top:1px solid var(--border);display:flex;gap:8px">
         <input id="tutor-input" style="flex:1;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:10px 14px;font-family:'Syne',sans-serif;font-size:14px;outline:none;transition:border-color .2s" placeholder="Type a topic or question..." onkeydown="if(event.key==='Enter')tutorSend()" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'">
-        <button class="btn btn-primary" onclick="tutorSend()">Ask →</button>
+        <button class="btn btn-primary" data-action="tutorSend()">Ask →</button>
       </div>
     </div>
 
@@ -3563,15 +3550,15 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
   </div>
 
   <div class="module-tabs" id="prof-module-tabs">
-    <div class="module-tab active" onclick="selectProfModule(this,'soil')">🌱 M1 Soil Mechanics</div>
-    <div class="module-tab" onclick="selectProfModule(this,'rock')">🪨 M2 Rock Mechanics</div>
-    <div class="module-tab" onclick="selectProfModule(this,'wave')">〜 M3 Wave Propagation</div>
-    <div class="module-tab" onclick="selectProfModule(this,'insitu')">🔨 M4 In-situ Testing</div>
-    <div class="module-tab" onclick="selectProfModule(this,'geo')">⚡ M5 Geophysical Exploration</div>
-    <div class="module-tab" onclick="selectProfModule(this,'found')">🏗 M6 Foundation Engineering</div>
-    <div class="module-tab" onclick="selectProfModule(this,'liq')">💧 M7 Liquefaction</div>
-    <div class="module-tab" onclick="selectProfModule(this,'interp')">📊 M8 Field Data Interpretation</div>
-    <div class="module-tab" onclick="selectProfModule(this,'investigation')">🔬 M9 Investigation Methods</div>
+    <div class="module-tab active" data-action="selectProfModule(this,'soil')">🌱 M1 Soil Mechanics</div>
+    <div class="module-tab" data-action="selectProfModule(this,'rock')">🪨 M2 Rock Mechanics</div>
+    <div class="module-tab" data-action="selectProfModule(this,'wave')">〜 M3 Wave Propagation</div>
+    <div class="module-tab" data-action="selectProfModule(this,'insitu')">🔨 M4 In-situ Testing</div>
+    <div class="module-tab" data-action="selectProfModule(this,'geo')">⚡ M5 Geophysical Exploration</div>
+    <div class="module-tab" data-action="selectProfModule(this,'found')">🏗 M6 Foundation Engineering</div>
+    <div class="module-tab" data-action="selectProfModule(this,'liq')">💧 M7 Liquefaction</div>
+    <div class="module-tab" data-action="selectProfModule(this,'interp')">📊 M8 Field Data Interpretation</div>
+    <div class="module-tab" data-action="selectProfModule(this,'investigation')">🔬 M9 Investigation Methods</div>
   </div>
 
   <div id="prof-content"></div>
@@ -3587,11 +3574,11 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
   </div>
 
   <div class="tabs">
-    <div class="tab active" onclick="switchFieldTab(this,'spt-log')">🔨 SPT Log</div>
-    <div class="tab" onclick="switchFieldTab(this,'cptu-log')">📍 CPTu Graph</div>
-    <div class="tab" onclick="switchFieldTab(this,'ps-log')">📡 PS Logging</div>
-    <div class="tab" onclick="switchFieldTab(this,'pmt-log')">🔵 Pressuremeter</div>
-    <div class="tab" onclick="switchFieldTab(this,'calc-quiz')">🧮 Calc Problems</div>
+    <div class="tab active" data-action="switchFieldTab(this,'spt-log')">🔨 SPT Log</div>
+    <div class="tab" data-action="switchFieldTab(this,'cptu-log')">📍 CPTu Graph</div>
+    <div class="tab" data-action="switchFieldTab(this,'ps-log')">📡 PS Logging</div>
+    <div class="tab" data-action="switchFieldTab(this,'pmt-log')">🔵 Pressuremeter</div>
+    <div class="tab" data-action="switchFieldTab(this,'calc-quiz')">🧮 Calc Problems</div>
   </div>
 
   <!-- SPT LOG -->
@@ -3749,7 +3736,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
       <div style="font-weight:700;margin-bottom:10px">📊 Weekly Progress Tracker</div>
       <div id="week-tracker" style="display:grid;grid-template-columns:repeat(7,1fr);gap:8px;text-align:center">
       </div>
-      <button class="btn btn-outline" style="width:100%;margin-top:12px;font-size:12px" onclick="resetWeekTracker()">↺ Reset Week</button>
+      <button class="btn btn-outline" style="width:100%;margin-top:12px;font-size:12px" data-action="resetWeekTracker()">↺ Reset Week</button>
     </div>
   </div>
 
@@ -3776,23 +3763,23 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
   </div>
 
   <div class="tabs" style="margin-bottom:16px">
-    <div class="tab active" onclick="switchVocabMode(this,'browse')">🔍 Browse</div>
-    <div class="tab" onclick="switchVocabMode(this,'flashcard')">🃏 Flashcard Mode</div>
-    <div class="tab" onclick="switchVocabMode(this,'spaced')">🔁 Spaced Review</div>
-    <div class="tab" onclick="switchVocabMode(this,'quiz')">⚡ Vocab Quiz</div>
+    <div class="tab active" data-action="switchVocabMode(this,'browse')">🔍 Browse</div>
+    <div class="tab" data-action="switchVocabMode(this,'flashcard')">🃏 Flashcard Mode</div>
+    <div class="tab" data-action="switchVocabMode(this,'spaced')">🔁 Spaced Review</div>
+    <div class="tab" data-action="switchVocabMode(this,'quiz')">⚡ Vocab Quiz</div>
   </div>
 
   <!-- BROWSE MODE -->
   <div id="vocab-browse">
     <input class="vocab-search" id="vocab-search-input" placeholder="Search Japanese or English... 検索" oninput="filterVocab()">
     <div style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0" id="vocab-filters">
-      <button class="filter-btn active" onclick="setVocabFilter('all',this)">All</button>
-      <button class="filter-btn" onclick="setVocabFilter('soil',this)">🌱 Soil</button>
-      <button class="filter-btn" onclick="setVocabFilter('seismic',this)">🌊 Seismic</button>
-      <button class="filter-btn" onclick="setVocabFilter('testing',this)">🔬 Testing</button>
-      <button class="filter-btn" onclick="setVocabFilter('foundation',this)">🏗 Foundation</button>
-      <button class="filter-btn" onclick="setVocabFilter('geophysics',this)">⚡ Geophysics</button>
-      <button class="filter-btn" onclick="setVocabFilter('jlpt',this)">🇯🇵 JLPT</button>
+      <button class="filter-btn active" data-action="setVocabFilter('all',this)">All</button>
+      <button class="filter-btn" data-action="setVocabFilter('soil',this)">🌱 Soil</button>
+      <button class="filter-btn" data-action="setVocabFilter('seismic',this)">🌊 Seismic</button>
+      <button class="filter-btn" data-action="setVocabFilter('testing',this)">🔬 Testing</button>
+      <button class="filter-btn" data-action="setVocabFilter('foundation',this)">🏗 Foundation</button>
+      <button class="filter-btn" data-action="setVocabFilter('geophysics',this)">⚡ Geophysics</button>
+      <button class="filter-btn" data-action="setVocabFilter('jlpt',this)">🇯🇵 JLPT</button>
     </div>
     <div style="font-size:12px;color:var(--text2);font-family:'JetBrains Mono',monospace;margin-bottom:12px" id="vocab-count-label"></div>
     <div class="grid grid-3" id="vocab-grid"></div>
@@ -3801,7 +3788,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
   <!-- FLASHCARD MODE -->
   <div id="vocab-flashcard" style="display:none">
     <div class="vocab-fc-container">
-      <div id="vocab-fc-card" class="vocab-fc" onclick="revealVocabFC()">
+      <div id="vocab-fc-card" class="vocab-fc" data-action="revealVocabFC()">
         <div id="vocab-fc-jp" class="vocab-jp" style="font-size:32px"></div>
         <div id="vocab-fc-kana" class="vocab-kana"></div>
         <div id="vocab-fc-hint" style="font-size:11px;color:var(--text3);margin-top:16px;font-family:'JetBrains Mono',monospace">Click to reveal meaning</div>
@@ -3812,9 +3799,9 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
         </div>
       </div>
       <div class="fc-nav" style="margin-top:16px">
-        <button class="btn btn-outline" onclick="prevVocabFC()">← Prev</button>
+        <button class="btn btn-outline" data-action="prevVocabFC()">← Prev</button>
         <span class="fc-counter" id="vocab-fc-counter">0/0</span>
-        <button class="btn btn-outline" onclick="nextVocabFC()">Next →</button>
+        <button class="btn btn-outline" data-action="nextVocabFC()">Next →</button>
       </div>
     </div>
   </div>
@@ -3832,12 +3819,12 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
         <div id="vocab-sr-en" style="font-size:20px;font-weight:700"></div>
         <div id="vocab-sr-def" style="font-size:13px;color:var(--text2);margin-top:8px"></div>
       </div>
-      <button class="btn btn-outline" style="margin-top:16px" id="vocab-sr-show-btn" onclick="showVocabSRAnswer()">Show Answer</button>
+      <button class="btn btn-outline" style="margin-top:16px" id="vocab-sr-show-btn" data-action="showVocabSRAnswer()">Show Answer</button>
     </div>
     <div class="sr-controls" id="vocab-sr-controls" style="display:none">
-      <button class="sr-btn-hard" onclick="rateVocabSR(1)">😰 Hard (1 day)</button>
-      <button class="sr-btn-good" onclick="rateVocabSR(3)">👍 Good (3 days)</button>
-      <button class="sr-btn-easy" onclick="rateVocabSR(7)">⭐ Easy (7 days)</button>
+      <button class="sr-btn-hard" data-action="rateVocabSR(1)">😰 Hard (1 day)</button>
+      <button class="sr-btn-good" data-action="rateVocabSR(3)">👍 Good (3 days)</button>
+      <button class="sr-btn-easy" data-action="rateVocabSR(7)">⭐ Easy (7 days)</button>
     </div>
     <div style="text-align:center;margin-top:16px;font-size:12px;color:var(--text2);font-family:'JetBrains Mono',monospace" id="vocab-sr-next-info"></div>
   </div>
@@ -3849,10 +3836,10 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
         <div style="font-size:24px;font-weight:800;margin-bottom:8px">Vocabulary Quiz</div>
         <div style="color:var(--text2);margin-bottom:20px">Test your Japanese technical vocabulary knowledge</div>
         <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-          <button class="btn btn-outline" onclick="startVocabQuiz('soil')">🌱 Soil</button>
-          <button class="btn btn-outline" onclick="startVocabQuiz('seismic')">🌊 Seismic</button>
-          <button class="btn btn-outline" onclick="startVocabQuiz('jlpt')">🇯🇵 JLPT</button>
-          <button class="btn btn-primary" onclick="startVocabQuiz('all')">All Vocab</button>
+          <button class="btn btn-outline" data-action="startVocabQuiz('soil')">🌱 Soil</button>
+          <button class="btn btn-outline" data-action="startVocabQuiz('seismic')">🌊 Seismic</button>
+          <button class="btn btn-outline" data-action="startVocabQuiz('jlpt')">🇯🇵 JLPT</button>
+          <button class="btn btn-primary" data-action="startVocabQuiz('all')">All Vocab</button>
         </div>
       </div>
     </div>
@@ -3862,12 +3849,12 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
       <div class="quiz-q" id="vq-question"></div>
       <div class="quiz-options" id="vq-options"></div>
       <div class="quiz-explain" id="vq-explain" style="display:none"></div>
-      <button class="btn btn-primary" id="vq-next" style="display:none;margin-top:12px" onclick="nextVocabQuestion()">Next →</button>
+      <button class="btn btn-primary" id="vq-next" style="display:none;margin-top:12px" data-action="nextVocabQuestion()">Next →</button>
     </div>
     <div id="vocab-quiz-end" style="display:none;text-align:center;padding:32px">
       <div class="score-big" id="vq-final-score"></div>
       <div id="vq-grade" style="font-size:18px;font-weight:700;margin-top:8px"></div>
-      <button class="btn btn-primary" style="margin-top:16px" onclick="document.getElementById('vocab-quiz-end').style.display='none';document.getElementById('vocab-quiz-start').style.display='block'">Try Again</button>
+      <button class="btn btn-primary" style="margin-top:16px" data-action="document.getElementById('vocab-quiz-end').style.display='none';document.getElementById('vocab-quiz-start').style.display='block'">Try Again</button>
     </div>
   </div>
 </div>
@@ -3884,13 +3871,13 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
   <!-- Level selector -->
   <div id="jlpt-home">
     <div class="grid grid-2" style="max-width:700px;margin:0 auto 32px">
-      <div class="jlpt-level-card" onclick="enterJLPTLevel('N2')">
+      <div class="jlpt-level-card" data-action="enterJLPTLevel('N2')">
         <div class="jlpt-level-num" style="color:var(--accent)">N2</div>
         <div class="jlpt-level-jp">日本語能力試験N2</div>
         <div class="jlpt-level-desc">Upper intermediate Japanese. Required for many engineering firms in Japan.</div>
         <div class="jlpt-stat" id="n2-progress-text">0 / 6000 vocab · 0% ready</div>
       </div>
-      <div class="jlpt-level-card" onclick="enterJLPTLevel('N1')">
+      <div class="jlpt-level-card" data-action="enterJLPTLevel('N1')">
         <div class="jlpt-level-num" style="color:var(--purple)">N1</div>
         <div class="jlpt-level-jp">日本語能力試験N1</div>
         <div class="jlpt-level-desc">Advanced mastery. Required for technical report writing and client communication.</div>
@@ -3935,36 +3922,36 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
 
   <!-- JLPT Level content -->
   <div id="jlpt-level-content" style="display:none">
-    <button class="btn btn-outline" style="margin-bottom:16px" onclick="document.getElementById('jlpt-home').style.display='block';document.getElementById('jlpt-level-content').style.display='none'">← Back to Levels</button>
+    <button class="btn btn-outline" style="margin-bottom:16px" data-action="document.getElementById('jlpt-home').style.display='block';document.getElementById('jlpt-level-content').style.display='none'">← Back to Levels</button>
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
       <div style="font-size:28px;font-weight:800" id="jlpt-level-title"></div>
       <span class="mode-badge mode-normal" id="jlpt-level-badge"></span>
     </div>
     <div class="jlpt-sub-tabs">
-      <div class="jlpt-sub-tab active" onclick="showJLPTSection(this,'jlpt-vocab-section')">📚 Vocabulary</div>
-      <div class="jlpt-sub-tab" onclick="showJLPTSection(this,'jlpt-kanji-section')">漢字 Kanji</div>
-      <div class="jlpt-sub-tab" onclick="showJLPTSection(this,'jlpt-grammar-section');initGrammarHub('grammar-hub-container')">📝 Grammar</div>
-      <div class="jlpt-sub-tab" onclick="showJLPTSection(this,'jlpt-reading-section')">📖 Reading</div>
-      <div class="jlpt-sub-tab" onclick="showJLPTSection(this,'jlpt-listening-section')">🎧 Listening</div>
-      <div class="jlpt-sub-tab" onclick="showJLPTSection(this,'jlpt-mock-section')">📋 Mock Exam</div>
+      <div class="jlpt-sub-tab active" data-action="showJLPTSection(this,'jlpt-vocab-section')">📚 Vocabulary</div>
+      <div class="jlpt-sub-tab" data-action="showJLPTSection(this,'jlpt-kanji-section')">漢字 Kanji</div>
+      <div class="jlpt-sub-tab" data-action="showJLPTSection(this,'jlpt-grammar-section');initGrammarHub('grammar-hub-container')">📝 Grammar</div>
+      <div class="jlpt-sub-tab" data-action="showJLPTSection(this,'jlpt-reading-section')">📖 Reading</div>
+      <div class="jlpt-sub-tab" data-action="showJLPTSection(this,'jlpt-listening-section')">🎧 Listening</div>
+      <div class="jlpt-sub-tab" data-action="showJLPTSection(this,'jlpt-mock-section')">📋 Mock Exam</div>
     </div>
 
     <!-- JLPT VOCABULARY -->
     <div id="jlpt-vocab-section">
       <div class="tabs" style="margin-bottom:16px">
-        <div class="tab active" onclick="switchJLPTVocabMode(this,'jv-browse')">Browse</div>
-        <div class="tab" onclick="switchJLPTVocabMode(this,'jv-flashcard')">Flashcards</div>
-        <div class="tab" onclick="switchJLPTVocabMode(this,'jv-quiz')">Quiz</div>
+        <div class="tab active" data-action="switchJLPTVocabMode(this,'jv-browse')">Browse</div>
+        <div class="tab" data-action="switchJLPTVocabMode(this,'jv-flashcard')">Flashcards</div>
+        <div class="tab" data-action="switchJLPTVocabMode(this,'jv-quiz')">Quiz</div>
       </div>
       <div id="jv-browse">
         <div class="grid grid-3" id="jlpt-vocab-grid"></div>
         <div style="text-align:center;margin-top:20px">
-          <button class="btn btn-outline" onclick="loadMoreJLPTVocab()">Load More 続き</button>
+          <button class="btn btn-outline" data-action="loadMoreJLPTVocab()">Load More 続き</button>
         </div>
       </div>
       <div id="jv-flashcard" style="display:none">
         <div class="vocab-fc-container">
-          <div class="vocab-fc" id="jlpt-fc-card" onclick="flipJLPTFC()">
+          <div class="vocab-fc" id="jlpt-fc-card" data-action="flipJLPTFC()">
             <div id="jlpt-fc-front">
               <div id="jlpt-fc-jp" class="vocab-jp" style="font-size:32px"></div>
               <div id="jlpt-fc-kana" class="vocab-kana"></div>
@@ -3977,26 +3964,26 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
             </div>
           </div>
           <div class="fc-nav">
-            <button class="btn btn-outline" onclick="prevJLPTFC()">← Prev</button>
+            <button class="btn btn-outline" data-action="prevJLPTFC()">← Prev</button>
             <span class="fc-counter" id="jlpt-fc-counter">0/0</span>
-            <button class="btn btn-outline" onclick="nextJLPTFC()">Next →</button>
+            <button class="btn btn-outline" data-action="nextJLPTFC()">Next →</button>
           </div>
         </div>
       </div>
       <div id="jv-quiz" style="display:none">
         <div id="jlpt-vq-area">
-          <button class="btn btn-primary" onclick="startJLPTVocabQuiz()" style="margin-bottom:16px">Start Vocabulary Quiz</button>
+          <button class="btn btn-primary" data-action="startJLPTVocabQuiz()" style="margin-bottom:16px">Start Vocabulary Quiz</button>
           <div id="jlpt-vq-question" style="display:none">
             <div class="quiz-progress"><div class="quiz-progress-fill" id="jlpt-vq-fill"></div></div>
             <div class="quiz-q" id="jlpt-vq-q" style="font-family:'Noto Sans JP',sans-serif"></div>
             <div class="quiz-options" id="jlpt-vq-opts"></div>
             <div class="quiz-explain" id="jlpt-vq-explain" style="display:none"></div>
-            <button class="btn btn-primary" id="jlpt-vq-next" style="display:none;margin-top:12px" onclick="nextJLPTVocabQ()">Next →</button>
+            <button class="btn btn-primary" id="jlpt-vq-next" style="display:none;margin-top:12px" data-action="nextJLPTVocabQ()">Next →</button>
           </div>
           <div id="jlpt-vq-end" style="display:none;text-align:center;padding:24px">
             <div class="score-big" id="jlpt-vq-score"></div>
             <div id="jlpt-vq-grade" style="font-size:18px;font-weight:700;margin-top:8px"></div>
-            <button class="btn btn-primary" style="margin-top:12px" onclick="startJLPTVocabQuiz()">Retry</button>
+            <button class="btn btn-primary" style="margin-top:12px" data-action="startJLPTVocabQuiz()">Retry</button>
           </div>
         </div>
       </div>
@@ -4005,24 +3992,24 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
     <!-- KANJI SECTION -->
     <div id="jlpt-kanji-section" style="display:none">
       <div class="tabs" style="margin-bottom:16px">
-        <div class="tab active" onclick="switchKanjiMode(this,'kanji-browse')">Browse</div>
-        <div class="tab" onclick="switchKanjiMode(this,'kanji-quiz')">Quiz</div>
+        <div class="tab active" data-action="switchKanjiMode(this,'kanji-browse')">Browse</div>
+        <div class="tab" data-action="switchKanjiMode(this,'kanji-quiz')">Quiz</div>
       </div>
       <div id="kanji-browse">
         <div class="grid grid-3" id="kanji-grid"></div>
       </div>
       <div id="kanji-quiz" style="display:none">
         <div class="card" style="max-width:480px;margin:0 auto">
-          <button class="btn btn-primary" onclick="startKanjiQuiz()" style="margin-bottom:16px">Start Kanji Quiz</button>
+          <button class="btn btn-primary" data-action="startKanjiQuiz()" style="margin-bottom:16px">Start Kanji Quiz</button>
           <div id="kanji-quiz-area" style="display:none">
             <div class="quiz-q" id="kq-question" style="font-family:'Noto Sans JP',sans-serif;font-size:52px;text-align:center;margin-bottom:16px"></div>
             <div class="quiz-options" id="kq-options"></div>
             <div class="quiz-explain" id="kq-explain" style="display:none"></div>
-            <button class="btn btn-primary" id="kq-next" style="display:none;margin-top:12px" onclick="nextKanjiQ()">Next →</button>
+            <button class="btn btn-primary" id="kq-next" style="display:none;margin-top:12px" data-action="nextKanjiQ()">Next →</button>
           </div>
           <div id="kanji-quiz-end" style="display:none;text-align:center;padding:24px">
             <div class="score-big" id="kq-score"></div>
-            <button class="btn btn-primary" style="margin-top:12px" onclick="startKanjiQuiz()">Retry</button>
+            <button class="btn btn-primary" style="margin-top:12px" data-action="startKanjiQuiz()">Retry</button>
           </div>
         </div>
       </div>
@@ -4039,7 +4026,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
         <div class="grid grid-2" id="reading-passages-grid"></div>
       </div>
       <div id="reading-passage-view" style="display:none">
-        <button class="btn btn-outline" style="margin-bottom:16px" onclick="document.getElementById('reading-list').style.display='block';document.getElementById('reading-passage-view').style.display='none'">← Back</button>
+        <button class="btn btn-outline" style="margin-bottom:16px" data-action="document.getElementById('reading-list').style.display='block';document.getElementById('reading-passage-view').style.display='none'">← Back</button>
         <div class="passage-card" id="active-passage-content"></div>
         <div style="margin-top:16px" id="reading-questions-area"></div>
       </div>
@@ -4069,7 +4056,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
             <div class="stat-card"><div class="stat-num" id="mock-reading-count">5</div><div class="stat-label">Reading Qs</div></div>
           </div>
           <div style="font-size:13px;color:var(--text2);margin-bottom:16px">⏱ Duration: <span id="mock-duration-label">105 minutes</span> (simulated)</div>
-          <button class="btn btn-primary" onclick="startMockExam()">▶ Begin Mock Exam</button>
+          <button class="btn btn-primary" data-action="startMockExam()">▶ Begin Mock Exam</button>
         </div>
       </div>
 
@@ -4082,7 +4069,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
         <div id="mock-q-num" style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text2);margin:8px 0"></div>
         <div class="quiz-q" id="mock-question" style="font-family:'Noto Sans JP',sans-serif"></div>
         <div class="quiz-options" id="mock-options"></div>
-        <button class="btn btn-primary" id="mock-next-btn" style="display:none;margin-top:12px" onclick="nextMockQuestion()">Next →</button>
+        <button class="btn btn-primary" id="mock-next-btn" style="display:none;margin-top:12px" data-action="nextMockQuestion()">Next →</button>
       </div>
 
       <div id="mock-results" style="display:none">
@@ -4105,7 +4092,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
             </div>
           </div>
         </div>
-        <button class="btn btn-primary" style="margin-top:16px" onclick="document.getElementById('mock-results').style.display='none';document.getElementById('mock-start').style.display='block'">Try Again</button>
+        <button class="btn btn-primary" style="margin-top:16px" data-action="document.getElementById('mock-results').style.display='none';document.getElementById('mock-start').style.display='block'">Try Again</button>
       </div>
     </div>
   </div>
@@ -4121,7 +4108,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
   </div>
 
   <div id="analytics-mode-row" style="margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
-    <div id="analytics-fast-toggle" class="fast-learner-toggle" onclick="toggleFastLearner()" style="max-width:320px">
+    <div id="analytics-fast-toggle" class="fast-learner-toggle" data-action="toggleFastLearner()" style="max-width:320px">
       <div class="toggle-switch" id="fast-toggle-switch"><div class="toggle-knob"></div></div>
       <div>
         <div class="fast-label">⚡ Fast Learner Mode</div>
@@ -4308,8 +4295,8 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
       <div class="dfp-block-progress-bar"><div class="dfp-block-progress-fill" id="bpf-0" style="width:0%"></div></div>
       <div class="dfp-block-body" id="dfp-block-body-0"></div>
       <div class="dfp-block-footer">
-        <button class="btn btn-primary" onclick="dfpStartBlock(0)">▶ Start Block 1</button>
-        <button class="btn btn-outline" onclick="showPage('jlpt')">Open JLPT Hub →</button>
+        <button class="btn btn-primary" data-action="dfpStartBlock(0)">▶ Start Block 1</button>
+        <button class="btn btn-outline" data-action="showPage('jlpt')">Open JLPT Hub →</button>
       </div>
     </div>
 
@@ -4326,8 +4313,8 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
       <div class="dfp-block-progress-bar"><div class="dfp-block-progress-fill" id="bpf-1" style="width:0%"></div></div>
       <div class="dfp-block-body" id="dfp-block-body-1"></div>
       <div class="dfp-block-footer">
-        <button class="btn btn-primary" onclick="dfpStartBlock(1)">▶ Start Block 2</button>
-        <button class="btn btn-outline" onclick="showPage('vocab')">Open Vocab Hub →</button>
+        <button class="btn btn-primary" data-action="dfpStartBlock(1)">▶ Start Block 2</button>
+        <button class="btn btn-outline" data-action="showPage('vocab')">Open Vocab Hub →</button>
       </div>
     </div>
 
@@ -4344,8 +4331,8 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
       <div class="dfp-block-progress-bar"><div class="dfp-block-progress-fill" id="bpf-2" style="width:0%"></div></div>
       <div class="dfp-block-body" id="dfp-block-body-2"></div>
       <div class="dfp-block-footer">
-        <button class="btn btn-primary" onclick="dfpStartBlock(2)">▶ Start Block 3</button>
-        <button class="btn btn-outline" onclick="showPage('study')">Open Modules →</button>
+        <button class="btn btn-primary" data-action="dfpStartBlock(2)">▶ Start Block 3</button>
+        <button class="btn btn-outline" data-action="showPage('study')">Open Modules →</button>
       </div>
     </div>
 
@@ -4362,8 +4349,8 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
       <div class="dfp-block-progress-bar"><div class="dfp-block-progress-fill" id="bpf-3" style="width:0%"></div></div>
       <div class="dfp-block-body" id="dfp-block-body-3"></div>
       <div class="dfp-block-footer">
-        <button class="btn btn-primary" onclick="dfpStartBlock(3)">▶ Start Block 4</button>
-        <button class="btn btn-outline" onclick="showPage('flashcards')">Open Flashcards →</button>
+        <button class="btn btn-primary" data-action="dfpStartBlock(3)">▶ Start Block 4</button>
+        <button class="btn btn-outline" data-action="showPage('flashcards')">Open Flashcards →</button>
       </div>
     </div>
   </div>
@@ -4374,7 +4361,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
       <div id="dfp-active-title" class="dfp-active-title"></div>
       <div style="display:flex;gap:8px;align-items:center">
         <div class="dfp-active-step-counter" id="dfp-active-step-counter">Step 1 / 5</div>
-        <button class="btn btn-outline" style="padding:6px 12px;font-size:12px" onclick="dfpCloseBlock()">✕ Close</button>
+        <button class="btn btn-outline" style="padding:6px 12px;font-size:12px" data-action="dfpCloseBlock()">✕ Close</button>
       </div>
     </div>
     <!-- Step progress dots -->
@@ -4383,11 +4370,11 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
     <div id="dfp-active-content"></div>
     <!-- Navigation -->
     <div class="dfp-active-nav">
-      <button class="btn btn-outline" id="dfp-prev-btn" onclick="dfpPrevStep()">← Prev</button>
+      <button class="btn btn-outline" id="dfp-prev-btn" data-action="dfpPrevStep()">← Prev</button>
       <div style="display:flex;gap:12px;align-items:center">
         <span class="dfp-active-step-counter" id="dfp-step-label-bottom"></span>
       </div>
-      <button class="btn btn-primary" id="dfp-next-btn" onclick="dfpNextStep()">Next →</button>
+      <button class="btn btn-primary" id="dfp-next-btn" data-action="dfpNextStep()">Next →</button>
     </div>
   </div>
 
@@ -4417,9 +4404,9 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
           </div>
         </div>
         <div class="pomo-controls">
-          <button class="btn btn-primary" id="pomo-btn" onclick="togglePomo()">▶ Start</button>
-          <button class="btn btn-outline" onclick="resetPomo()">↺ Reset</button>
-          <button class="btn btn-outline" onclick="skipPomo()">⏭ Skip</button>
+          <button class="btn btn-primary" id="pomo-btn" data-action="togglePomo()">▶ Start</button>
+          <button class="btn btn-outline" data-action="resetPomo()">↺ Reset</button>
+          <button class="btn btn-outline" data-action="skipPomo()">⏭ Skip</button>
         </div>
         <div class="pomo-sessions">Sessions today: <span id="pomo-session-count">0</span>/4</div>
         <div class="pomo-dots" id="pomo-dots">
@@ -4639,9 +4626,9 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
   </div>
   <div class="kmap-wrapper">
     <div class="kmap-toolbar">
-      <button class="anim-btn" onclick="kmapReset()">↺ Reset View</button>
-      <button class="anim-btn" onclick="kmapZoomIn()">＋ Zoom</button>
-      <button class="anim-btn" onclick="kmapZoomOut()">− Zoom</button>
+      <button class="anim-btn" data-action="kmapReset()">↺ Reset View</button>
+      <button class="anim-btn" data-action="kmapZoomIn()">＋ Zoom</button>
+      <button class="anim-btn" data-action="kmapZoomOut()">− Zoom</button>
       <span style="font-size:12px;color:var(--text3);font-family:'JetBrains Mono',monospace">Click a node to explore. Drag to pan. Scroll to zoom.</span>
     </div>
     <canvas id="kmap-canvas" class="kmap-canvas" height="580"></canvas>
@@ -4684,7 +4671,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
   <div class="grid grid-2" style="margin-bottom:24px">
 
     <!-- Case 1: Niigata 1964 -->
-    <div class="case-card" onclick="expandCase('niigata')">
+    <div class="case-card" data-action="expandCase('niigata')">
       <div class="case-img">
         <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Earthquake damage" loading="lazy" onerror="this.style.background='#181c24';this.src=''">
         <div class="case-year-badge">1964</div>
@@ -4704,7 +4691,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
     </div>
 
     <!-- Case 2: Tohoku 2011 -->
-    <div class="case-card" onclick="expandCase('tohoku')">
+    <div class="case-card" data-action="expandCase('tohoku')">
       <div class="case-img">
         <img src="https://images.unsplash.com/photo-1547473078-9d0e3b8f6f8b?w=600&q=80" alt="Tsunami damage" loading="lazy" onerror="this.style.background='#181c24';this.src=''">
         <div class="case-year-badge">2011</div>
@@ -4724,7 +4711,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
     </div>
 
     <!-- Case 3: Vaiont Dam -->
-    <div class="case-card" onclick="expandCase('vaiont')">
+    <div class="case-card" data-action="expandCase('vaiont')">
       <div class="case-img">
         <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80" alt="Mountain landslide" loading="lazy" onerror="this.style.background='#181c24';this.src=''">
         <div class="case-year-badge">1963</div>
@@ -4744,7 +4731,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
     </div>
 
     <!-- Case 4: Kobe 1995 -->
-    <div class="case-card" onclick="expandCase('kobe')">
+    <div class="case-card" data-action="expandCase('kobe')">
       <div class="case-img">
         <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80" alt="Urban earthquake" loading="lazy" onerror="this.style.background='#181c24';this.src=''">
         <div class="case-year-badge">1995</div>
@@ -4764,7 +4751,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
     </div>
 
     <!-- Case 5: Ashikaga Slope -->
-    <div class="case-card" onclick="expandCase('ashikaga')">
+    <div class="case-card" data-action="expandCase('ashikaga')">
       <div class="case-img">
         <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80" alt="Slope failure" loading="lazy" onerror="this.style.background='#181c24';this.src=''">
         <div class="case-year-badge">2011</div>
@@ -4784,7 +4771,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
     </div>
 
     <!-- Case 6: Leaning Tower Pisa -->
-    <div class="case-card" onclick="expandCase('pisa')">
+    <div class="case-card" data-action="expandCase('pisa')">
       <div class="case-img">
         <img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=600&q=80" alt="Leaning structure" loading="lazy" onerror="this.style.background='#181c24';this.src=''">
         <div class="case-year-badge">1173</div>
@@ -4944,6 +4931,322 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
 <div class="notif" id="notif"></div>
 
 <script>
+/*! @license DOMPurify 3.1.6 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/3.1.6/LICENSE */
+!function(e,t){"object"==typeof exports&&"undefined"!=typeof module?module.exports=t():"function"==typeof define&&define.amd?define(t):(e="undefined"!=typeof globalThis?globalThis:e||self).DOMPurify=t()}(this,(function(){"use strict";const{entries:e,setPrototypeOf:t,isFrozen:n,getPrototypeOf:o,getOwnPropertyDescriptor:r}=Object;let{freeze:i,seal:a,create:l}=Object,{apply:c,construct:s}="undefined"!=typeof Reflect&&Reflect;i||(i=function(e){return e}),a||(a=function(e){return e}),c||(c=function(e,t,n){return e.apply(t,n)}),s||(s=function(e,t){return new e(...t)});const u=b(Array.prototype.forEach),m=b(Array.prototype.pop),p=b(Array.prototype.push),f=b(String.prototype.toLowerCase),d=b(String.prototype.toString),h=b(String.prototype.match),g=b(String.prototype.replace),T=b(String.prototype.indexOf),y=b(String.prototype.trim),E=b(Object.prototype.hasOwnProperty),_=b(RegExp.prototype.test),A=(N=TypeError,function(){for(var e=arguments.length,t=new Array(e),n=0;n<e;n++)t[n]=arguments[n];return s(N,t)});var N;function b(e){return function(t){for(var n=arguments.length,o=new Array(n>1?n-1:0),r=1;r<n;r++)o[r-1]=arguments[r];return c(e,t,o)}}function S(e,o){let r=arguments.length>2&&void 0!==arguments[2]?arguments[2]:f;t&&t(e,null);let i=o.length;for(;i--;){let t=o[i];if("string"==typeof t){const e=r(t);e!==t&&(n(o)||(o[i]=e),t=e)}e[t]=!0}return e}function R(e){for(let t=0;t<e.length;t++){E(e,t)||(e[t]=null)}return e}function w(t){const n=l(null);for(const[o,r]of e(t)){E(t,o)&&(Array.isArray(r)?n[o]=R(r):r&&"object"==typeof r&&r.constructor===Object?n[o]=w(r):n[o]=r)}return n}function C(e,t){for(;null!==e;){const n=r(e,t);if(n){if(n.get)return b(n.get);if("function"==typeof n.value)return b(n.value)}e=o(e)}return function(){return null}}const L=i(["a","abbr","acronym","address","area","article","aside","audio","b","bdi","bdo","big","blink","blockquote","body","br","button","canvas","caption","center","cite","code","col","colgroup","content","data","datalist","dd","decorator","del","details","dfn","dialog","dir","div","dl","dt","element","em","fieldset","figcaption","figure","font","footer","form","h1","h2","h3","h4","h5","h6","head","header","hgroup","hr","html","i","img","input","ins","kbd","label","legend","li","main","map","mark","marquee","menu","menuitem","meter","nav","nobr","ol","optgroup","option","output","p","picture","pre","progress","q","rp","rt","ruby","s","samp","section","select","shadow","small","source","spacer","span","strike","strong","style","sub","summary","sup","table","tbody","td","template","textarea","tfoot","th","thead","time","tr","track","tt","u","ul","var","video","wbr"]),D=i(["svg","a","altglyph","altglyphdef","altglyphitem","animatecolor","animatemotion","animatetransform","circle","clippath","defs","desc","ellipse","filter","font","g","glyph","glyphref","hkern","image","line","lineargradient","marker","mask","metadata","mpath","path","pattern","polygon","polyline","radialgradient","rect","stop","style","switch","symbol","text","textpath","title","tref","tspan","view","vkern"]),v=i(["feBlend","feColorMatrix","feComponentTransfer","feComposite","feConvolveMatrix","feDiffuseLighting","feDisplacementMap","feDistantLight","feDropShadow","feFlood","feFuncA","feFuncB","feFuncG","feFuncR","feGaussianBlur","feImage","feMerge","feMergeNode","feMorphology","feOffset","fePointLight","feSpecularLighting","feSpotLight","feTile","feTurbulence"]),O=i(["animate","color-profile","cursor","discard","font-face","font-face-format","font-face-name","font-face-src","font-face-uri","foreignobject","hatch","hatchpath","mesh","meshgradient","meshpatch","meshrow","missing-glyph","script","set","solidcolor","unknown","use"]),x=i(["math","menclose","merror","mfenced","mfrac","mglyph","mi","mlabeledtr","mmultiscripts","mn","mo","mover","mpadded","mphantom","mroot","mrow","ms","mspace","msqrt","mstyle","msub","msup","msubsup","mtable","mtd","mtext","mtr","munder","munderover","mprescripts"]),k=i(["maction","maligngroup","malignmark","mlongdiv","mscarries","mscarry","msgroup","mstack","msline","msrow","semantics","annotation","annotation-xml","mprescripts","none"]),M=i(["#text"]),I=i(["accept","action","align","alt","autocapitalize","autocomplete","autopictureinpicture","autoplay","background","bgcolor","border","capture","cellpadding","cellspacing","checked","cite","class","clear","color","cols","colspan","controls","controlslist","coords","crossorigin","datetime","decoding","default","dir","disabled","disablepictureinpicture","disableremoteplayback","download","draggable","enctype","enterkeyhint","face","for","headers","height","hidden","high","href","hreflang","id","inputmode","integrity","ismap","kind","label","lang","list","loading","loop","low","max","maxlength","media","method","min","minlength","multiple","muted","name","nonce","noshade","novalidate","nowrap","open","optimum","pattern","placeholder","playsinline","popover","popovertarget","popovertargetaction","poster","preload","pubdate","radiogroup","readonly","rel","required","rev","reversed","role","rows","rowspan","spellcheck","scope","selected","shape","size","sizes","span","srclang","start","src","srcset","step","style","summary","tabindex","title","translate","type","usemap","valign","value","width","wrap","xmlns","slot"]),U=i(["accent-height","accumulate","additive","alignment-baseline","ascent","attributename","attributetype","azimuth","basefrequency","baseline-shift","begin","bias","by","class","clip","clippathunits","clip-path","clip-rule","color","color-interpolation","color-interpolation-filters","color-profile","color-rendering","cx","cy","d","dx","dy","diffuseconstant","direction","display","divisor","dur","edgemode","elevation","end","fill","fill-opacity","fill-rule","filter","filterunits","flood-color","flood-opacity","font-family","font-size","font-size-adjust","font-stretch","font-style","font-variant","font-weight","fx","fy","g1","g2","glyph-name","glyphref","gradientunits","gradienttransform","height","href","id","image-rendering","in","in2","k","k1","k2","k3","k4","kerning","keypoints","keysplines","keytimes","lang","lengthadjust","letter-spacing","kernelmatrix","kernelunitlength","lighting-color","local","marker-end","marker-mid","marker-start","markerheight","markerunits","markerwidth","maskcontentunits","maskunits","max","mask","media","method","mode","min","name","numoctaves","offset","operator","opacity","order","orient","orientation","origin","overflow","paint-order","path","pathlength","patterncontentunits","patterntransform","patternunits","points","preservealpha","preserveaspectratio","primitiveunits","r","rx","ry","radius","refx","refy","repeatcount","repeatdur","restart","result","rotate","scale","seed","shape-rendering","specularconstant","specularexponent","spreadmethod","startoffset","stddeviation","stitchtiles","stop-color","stop-opacity","stroke-dasharray","stroke-dashoffset","stroke-linecap","stroke-linejoin","stroke-miterlimit","stroke-opacity","stroke","stroke-width","style","surfacescale","systemlanguage","tabindex","targetx","targety","transform","transform-origin","text-anchor","text-decoration","text-rendering","textlength","type","u1","u2","unicode","values","viewbox","visibility","version","vert-adv-y","vert-origin-x","vert-origin-y","width","word-spacing","wrap","writing-mode","xchannelselector","ychannelselector","x","x1","x2","xmlns","y","y1","y2","z","zoomandpan"]),P=i(["accent","accentunder","align","bevelled","close","columnsalign","columnlines","columnspan","denomalign","depth","dir","display","displaystyle","encoding","fence","frame","height","href","id","largeop","length","linethickness","lspace","lquote","mathbackground","mathcolor","mathsize","mathvariant","maxsize","minsize","movablelimits","notation","numalign","open","rowalign","rowlines","rowspacing","rowspan","rspace","rquote","scriptlevel","scriptminsize","scriptsizemultiplier","selection","separator","separators","stretchy","subscriptshift","supscriptshift","symmetric","voffset","width","xmlns"]),F=i(["xlink:href","xml:id","xlink:title","xml:space","xmlns:xlink"]),H=a(/\{\{[\w\W]*|[\w\W]*\}\}/gm),z=a(/<%[\w\W]*|[\w\W]*%>/gm),B=a(/\${[\w\W]*}/gm),W=a(/^data-[\-\w.\u00B7-\uFFFF]/),G=a(/^aria-[\-\w]+$/),Y=a(/^(?:(?:(?:f|ht)tps?|mailto|tel|callto|sms|cid|xmpp):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i),j=a(/^(?:\w+script|data):/i),X=a(/[\u0000-\u0020\u00A0\u1680\u180E\u2000-\u2029\u205F\u3000]/g),q=a(/^html$/i),$=a(/^[a-z][.\w]*(-[.\w]+)+$/i);var K=Object.freeze({__proto__:null,MUSTACHE_EXPR:H,ERB_EXPR:z,TMPLIT_EXPR:B,DATA_ATTR:W,ARIA_ATTR:G,IS_ALLOWED_URI:Y,IS_SCRIPT_OR_DATA:j,ATTR_WHITESPACE:X,DOCTYPE_NAME:q,CUSTOM_ELEMENT:$});const V=1,Z=3,J=7,Q=8,ee=9,te=function(){return"undefined"==typeof window?null:window};var ne=function t(){let n=arguments.length>0&&void 0!==arguments[0]?arguments[0]:te();const o=e=>t(e);if(o.version="3.1.6",o.removed=[],!n||!n.document||n.document.nodeType!==ee)return o.isSupported=!1,o;let{document:r}=n;const a=r,c=a.currentScript,{DocumentFragment:s,HTMLTemplateElement:N,Node:b,Element:R,NodeFilter:H,NamedNodeMap:z=n.NamedNodeMap||n.MozNamedAttrMap,HTMLFormElement:B,DOMParser:W,trustedTypes:G}=n,j=R.prototype,X=C(j,"cloneNode"),$=C(j,"remove"),ne=C(j,"nextSibling"),oe=C(j,"childNodes"),re=C(j,"parentNode");if("function"==typeof N){const e=r.createElement("template");e.content&&e.content.ownerDocument&&(r=e.content.ownerDocument)}let ie,ae="";const{implementation:le,createNodeIterator:ce,createDocumentFragment:se,getElementsByTagName:ue}=r,{importNode:me}=a;let pe={};o.isSupported="function"==typeof e&&"function"==typeof re&&le&&void 0!==le.createHTMLDocument;const{MUSTACHE_EXPR:fe,ERB_EXPR:de,TMPLIT_EXPR:he,DATA_ATTR:ge,ARIA_ATTR:Te,IS_SCRIPT_OR_DATA:ye,ATTR_WHITESPACE:Ee,CUSTOM_ELEMENT:_e}=K;let{IS_ALLOWED_URI:Ae}=K,Ne=null;const be=S({},[...L,...D,...v,...x,...M]);let Se=null;const Re=S({},[...I,...U,...P,...F]);let we=Object.seal(l(null,{tagNameCheck:{writable:!0,configurable:!1,enumerable:!0,value:null},attributeNameCheck:{writable:!0,configurable:!1,enumerable:!0,value:null},allowCustomizedBuiltInElements:{writable:!0,configurable:!1,enumerable:!0,value:!1}})),Ce=null,Le=null,De=!0,ve=!0,Oe=!1,xe=!0,ke=!1,Me=!0,Ie=!1,Ue=!1,Pe=!1,Fe=!1,He=!1,ze=!1,Be=!0,We=!1,Ge=!0,Ye=!1,je={},Xe=null;const qe=S({},["annotation-xml","audio","colgroup","desc","foreignobject","head","iframe","math","mi","mn","mo","ms","mtext","noembed","noframes","noscript","plaintext","script","style","svg","template","thead","title","video","xmp"]);let $e=null;const Ke=S({},["audio","video","img","source","image","track"]);let Ve=null;const Ze=S({},["alt","class","for","id","label","name","pattern","placeholder","role","summary","title","value","style","xmlns"]),Je="http://www.w3.org/1998/Math/MathML",Qe="http://www.w3.org/2000/svg",et="http://www.w3.org/1999/xhtml";let tt=et,nt=!1,ot=null;const rt=S({},[Je,Qe,et],d);let it=null;const at=["application/xhtml+xml","text/html"];let lt=null,ct=null;const st=r.createElement("form"),ut=function(e){return e instanceof RegExp||e instanceof Function},mt=function(){let e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{};if(!ct||ct!==e){if(e&&"object"==typeof e||(e={}),e=w(e),it=-1===at.indexOf(e.PARSER_MEDIA_TYPE)?"text/html":e.PARSER_MEDIA_TYPE,lt="application/xhtml+xml"===it?d:f,Ne=E(e,"ALLOWED_TAGS")?S({},e.ALLOWED_TAGS,lt):be,Se=E(e,"ALLOWED_ATTR")?S({},e.ALLOWED_ATTR,lt):Re,ot=E(e,"ALLOWED_NAMESPACES")?S({},e.ALLOWED_NAMESPACES,d):rt,Ve=E(e,"ADD_URI_SAFE_ATTR")?S(w(Ze),e.ADD_URI_SAFE_ATTR,lt):Ze,$e=E(e,"ADD_DATA_URI_TAGS")?S(w(Ke),e.ADD_DATA_URI_TAGS,lt):Ke,Xe=E(e,"FORBID_CONTENTS")?S({},e.FORBID_CONTENTS,lt):qe,Ce=E(e,"FORBID_TAGS")?S({},e.FORBID_TAGS,lt):{},Le=E(e,"FORBID_ATTR")?S({},e.FORBID_ATTR,lt):{},je=!!E(e,"USE_PROFILES")&&e.USE_PROFILES,De=!1!==e.ALLOW_ARIA_ATTR,ve=!1!==e.ALLOW_DATA_ATTR,Oe=e.ALLOW_UNKNOWN_PROTOCOLS||!1,xe=!1!==e.ALLOW_SELF_CLOSE_IN_ATTR,ke=e.SAFE_FOR_TEMPLATES||!1,Me=!1!==e.SAFE_FOR_XML,Ie=e.WHOLE_DOCUMENT||!1,Fe=e.RETURN_DOM||!1,He=e.RETURN_DOM_FRAGMENT||!1,ze=e.RETURN_TRUSTED_TYPE||!1,Pe=e.FORCE_BODY||!1,Be=!1!==e.SANITIZE_DOM,We=e.SANITIZE_NAMED_PROPS||!1,Ge=!1!==e.KEEP_CONTENT,Ye=e.IN_PLACE||!1,Ae=e.ALLOWED_URI_REGEXP||Y,tt=e.NAMESPACE||et,we=e.CUSTOM_ELEMENT_HANDLING||{},e.CUSTOM_ELEMENT_HANDLING&&ut(e.CUSTOM_ELEMENT_HANDLING.tagNameCheck)&&(we.tagNameCheck=e.CUSTOM_ELEMENT_HANDLING.tagNameCheck),e.CUSTOM_ELEMENT_HANDLING&&ut(e.CUSTOM_ELEMENT_HANDLING.attributeNameCheck)&&(we.attributeNameCheck=e.CUSTOM_ELEMENT_HANDLING.attributeNameCheck),e.CUSTOM_ELEMENT_HANDLING&&"boolean"==typeof e.CUSTOM_ELEMENT_HANDLING.allowCustomizedBuiltInElements&&(we.allowCustomizedBuiltInElements=e.CUSTOM_ELEMENT_HANDLING.allowCustomizedBuiltInElements),ke&&(ve=!1),He&&(Fe=!0),je&&(Ne=S({},M),Se=[],!0===je.html&&(S(Ne,L),S(Se,I)),!0===je.svg&&(S(Ne,D),S(Se,U),S(Se,F)),!0===je.svgFilters&&(S(Ne,v),S(Se,U),S(Se,F)),!0===je.mathMl&&(S(Ne,x),S(Se,P),S(Se,F))),e.ADD_TAGS&&(Ne===be&&(Ne=w(Ne)),S(Ne,e.ADD_TAGS,lt)),e.ADD_ATTR&&(Se===Re&&(Se=w(Se)),S(Se,e.ADD_ATTR,lt)),e.ADD_URI_SAFE_ATTR&&S(Ve,e.ADD_URI_SAFE_ATTR,lt),e.FORBID_CONTENTS&&(Xe===qe&&(Xe=w(Xe)),S(Xe,e.FORBID_CONTENTS,lt)),Ge&&(Ne["#text"]=!0),Ie&&S(Ne,["html","head","body"]),Ne.table&&(S(Ne,["tbody"]),delete Ce.tbody),e.TRUSTED_TYPES_POLICY){if("function"!=typeof e.TRUSTED_TYPES_POLICY.createHTML)throw A('TRUSTED_TYPES_POLICY configuration option must provide a "createHTML" hook.');if("function"!=typeof e.TRUSTED_TYPES_POLICY.createScriptURL)throw A('TRUSTED_TYPES_POLICY configuration option must provide a "createScriptURL" hook.');ie=e.TRUSTED_TYPES_POLICY,ae=ie.createHTML("")}else void 0===ie&&(ie=function(e,t){if("object"!=typeof e||"function"!=typeof e.createPolicy)return null;let n=null;const o="data-tt-policy-suffix";t&&t.hasAttribute(o)&&(n=t.getAttribute(o));const r="dompurify"+(n?"#"+n:"");try{return e.createPolicy(r,{createHTML:e=>e,createScriptURL:e=>e})}catch(e){return console.warn("TrustedTypes policy "+r+" could not be created."),null}}(G,c)),null!==ie&&"string"==typeof ae&&(ae=ie.createHTML(""));i&&i(e),ct=e}},pt=S({},["mi","mo","mn","ms","mtext"]),ft=S({},["foreignobject","annotation-xml"]),dt=S({},["title","style","font","a","script"]),ht=S({},[...D,...v,...O]),gt=S({},[...x,...k]),Tt=function(e){p(o.removed,{element:e});try{re(e).removeChild(e)}catch(t){$(e)}},yt=function(e,t){try{p(o.removed,{attribute:t.getAttributeNode(e),from:t})}catch(e){p(o.removed,{attribute:null,from:t})}if(t.removeAttribute(e),"is"===e&&!Se[e])if(Fe||He)try{Tt(t)}catch(e){}else try{t.setAttribute(e,"")}catch(e){}},Et=function(e){let t=null,n=null;if(Pe)e="<remove></remove>"+e;else{const t=h(e,/^[\r\n\t ]+/);n=t&&t[0]}"application/xhtml+xml"===it&&tt===et&&(e='<html xmlns="http://www.w3.org/1999/xhtml"><head></head><body>'+e+"</body></html>");const o=ie?ie.createHTML(e):e;if(tt===et)try{t=(new W).parseFromString(o,it)}catch(e){}if(!t||!t.documentElement){t=le.createDocument(tt,"template",null);try{t.documentElement.innerHTML=nt?ae:o}catch(e){}}const i=t.body||t.documentElement;return e&&n&&i.insertBefore(r.createTextNode(n),i.childNodes[0]||null),tt===et?ue.call(t,Ie?"html":"body")[0]:Ie?t.documentElement:i},_t=function(e){return ce.call(e.ownerDocument||e,e,H.SHOW_ELEMENT|H.SHOW_COMMENT|H.SHOW_TEXT|H.SHOW_PROCESSING_INSTRUCTION|H.SHOW_CDATA_SECTION,null)},At=function(e){return e instanceof B&&("string"!=typeof e.nodeName||"string"!=typeof e.textContent||"function"!=typeof e.removeChild||!(e.attributes instanceof z)||"function"!=typeof e.removeAttribute||"function"!=typeof e.setAttribute||"string"!=typeof e.namespaceURI||"function"!=typeof e.insertBefore||"function"!=typeof e.hasChildNodes)},Nt=function(e){return"function"==typeof b&&e instanceof b},bt=function(e,t,n){pe[e]&&u(pe[e],(e=>{e.call(o,t,n,ct)}))},St=function(e){let t=null;if(bt("beforeSanitizeElements",e,null),At(e))return Tt(e),!0;const n=lt(e.nodeName);if(bt("uponSanitizeElement",e,{tagName:n,allowedTags:Ne}),e.hasChildNodes()&&!Nt(e.firstElementChild)&&_(/<[/\w]/g,e.innerHTML)&&_(/<[/\w]/g,e.textContent))return Tt(e),!0;if(e.nodeType===J)return Tt(e),!0;if(Me&&e.nodeType===Q&&_(/<[/\w]/g,e.data))return Tt(e),!0;if(!Ne[n]||Ce[n]){if(!Ce[n]&&wt(n)){if(we.tagNameCheck instanceof RegExp&&_(we.tagNameCheck,n))return!1;if(we.tagNameCheck instanceof Function&&we.tagNameCheck(n))return!1}if(Ge&&!Xe[n]){const t=re(e)||e.parentNode,n=oe(e)||e.childNodes;if(n&&t){for(let o=n.length-1;o>=0;--o){const r=X(n[o],!0);r.__removalCount=(e.__removalCount||0)+1,t.insertBefore(r,ne(e))}}}return Tt(e),!0}return e instanceof R&&!function(e){let t=re(e);t&&t.tagName||(t={namespaceURI:tt,tagName:"template"});const n=f(e.tagName),o=f(t.tagName);return!!ot[e.namespaceURI]&&(e.namespaceURI===Qe?t.namespaceURI===et?"svg"===n:t.namespaceURI===Je?"svg"===n&&("annotation-xml"===o||pt[o]):Boolean(ht[n]):e.namespaceURI===Je?t.namespaceURI===et?"math"===n:t.namespaceURI===Qe?"math"===n&&ft[o]:Boolean(gt[n]):e.namespaceURI===et?!(t.namespaceURI===Qe&&!ft[o])&&!(t.namespaceURI===Je&&!pt[o])&&!gt[n]&&(dt[n]||!ht[n]):!("application/xhtml+xml"!==it||!ot[e.namespaceURI]))}(e)?(Tt(e),!0):"noscript"!==n&&"noembed"!==n&&"noframes"!==n||!_(/<\/no(script|embed|frames)/i,e.innerHTML)?(ke&&e.nodeType===Z&&(t=e.textContent,u([fe,de,he],(e=>{t=g(t,e," ")})),e.textContent!==t&&(p(o.removed,{element:e.cloneNode()}),e.textContent=t)),bt("afterSanitizeElements",e,null),!1):(Tt(e),!0)},Rt=function(e,t,n){if(Be&&("id"===t||"name"===t)&&(n in r||n in st))return!1;if(ve&&!Le[t]&&_(ge,t));else if(De&&_(Te,t));else if(!Se[t]||Le[t]){if(!(wt(e)&&(we.tagNameCheck instanceof RegExp&&_(we.tagNameCheck,e)||we.tagNameCheck instanceof Function&&we.tagNameCheck(e))&&(we.attributeNameCheck instanceof RegExp&&_(we.attributeNameCheck,t)||we.attributeNameCheck instanceof Function&&we.attributeNameCheck(t))||"is"===t&&we.allowCustomizedBuiltInElements&&(we.tagNameCheck instanceof RegExp&&_(we.tagNameCheck,n)||we.tagNameCheck instanceof Function&&we.tagNameCheck(n))))return!1}else if(Ve[t]);else if(_(Ae,g(n,Ee,"")));else if("src"!==t&&"xlink:href"!==t&&"href"!==t||"script"===e||0!==T(n,"data:")||!$e[e]){if(Oe&&!_(ye,g(n,Ee,"")));else if(n)return!1}else;return!0},wt=function(e){return"annotation-xml"!==e&&h(e,_e)},Ct=function(e){bt("beforeSanitizeAttributes",e,null);const{attributes:t}=e;if(!t)return;const n={attrName:"",attrValue:"",keepAttr:!0,allowedAttributes:Se};let r=t.length;for(;r--;){const i=t[r],{name:a,namespaceURI:l,value:c}=i,s=lt(a);let p="value"===a?c:y(c);if(n.attrName=s,n.attrValue=p,n.keepAttr=!0,n.forceKeepAttr=void 0,bt("uponSanitizeAttribute",e,n),p=n.attrValue,Me&&_(/((--!?|])>)|<\/(style|title)/i,p)){yt(a,e);continue}if(n.forceKeepAttr)continue;if(yt(a,e),!n.keepAttr)continue;if(!xe&&_(/\/>/i,p)){yt(a,e);continue}ke&&u([fe,de,he],(e=>{p=g(p,e," ")}));const f=lt(e.nodeName);if(Rt(f,s,p)){if(!We||"id"!==s&&"name"!==s||(yt(a,e),p="user-content-"+p),ie&&"object"==typeof G&&"function"==typeof G.getAttributeType)if(l);else switch(G.getAttributeType(f,s)){case"TrustedHTML":p=ie.createHTML(p);break;case"TrustedScriptURL":p=ie.createScriptURL(p)}try{l?e.setAttributeNS(l,a,p):e.setAttribute(a,p),At(e)?Tt(e):m(o.removed)}catch(e){}}}bt("afterSanitizeAttributes",e,null)},Lt=function e(t){let n=null;const o=_t(t);for(bt("beforeSanitizeShadowDOM",t,null);n=o.nextNode();)bt("uponSanitizeShadowNode",n,null),St(n)||(n.content instanceof s&&e(n.content),Ct(n));bt("afterSanitizeShadowDOM",t,null)};return o.sanitize=function(e){let t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{},n=null,r=null,i=null,l=null;if(nt=!e,nt&&(e="\x3c!--\x3e"),"string"!=typeof e&&!Nt(e)){if("function"!=typeof e.toString)throw A("toString is not a function");if("string"!=typeof(e=e.toString()))throw A("dirty is not a string, aborting")}if(!o.isSupported)return e;if(Ue||mt(t),o.removed=[],"string"==typeof e&&(Ye=!1),Ye){if(e.nodeName){const t=lt(e.nodeName);if(!Ne[t]||Ce[t])throw A("root node is forbidden and cannot be sanitized in-place")}}else if(e instanceof b)n=Et("\x3c!----\x3e"),r=n.ownerDocument.importNode(e,!0),r.nodeType===V&&"BODY"===r.nodeName||"HTML"===r.nodeName?n=r:n.appendChild(r);else{if(!Fe&&!ke&&!Ie&&-1===e.indexOf("<"))return ie&&ze?ie.createHTML(e):e;if(n=Et(e),!n)return Fe?null:ze?ae:""}n&&Pe&&Tt(n.firstChild);const c=_t(Ye?e:n);for(;i=c.nextNode();)St(i)||(i.content instanceof s&&Lt(i.content),Ct(i));if(Ye)return e;if(Fe){if(He)for(l=se.call(n.ownerDocument);n.firstChild;)l.appendChild(n.firstChild);else l=n;return(Se.shadowroot||Se.shadowrootmode)&&(l=me.call(a,l,!0)),l}let m=Ie?n.outerHTML:n.innerHTML;return Ie&&Ne["!doctype"]&&n.ownerDocument&&n.ownerDocument.doctype&&n.ownerDocument.doctype.name&&_(q,n.ownerDocument.doctype.name)&&(m="<!DOCTYPE "+n.ownerDocument.doctype.name+">\n"+m),ke&&u([fe,de,he],(e=>{m=g(m,e," ")})),ie&&ze?ie.createHTML(m):m},o.setConfig=function(){mt(arguments.length>0&&void 0!==arguments[0]?arguments[0]:{}),Ue=!0},o.clearConfig=function(){ct=null,Ue=!1},o.isValidAttribute=function(e,t,n){ct||mt({});const o=lt(e),r=lt(t);return Rt(o,r,n)},o.addHook=function(e,t){"function"==typeof t&&(pe[e]=pe[e]||[],p(pe[e],t))},o.removeHook=function(e){if(pe[e])return m(pe[e])},o.removeHooks=function(e){pe[e]&&(pe[e]=[])},o.removeAllHooks=function(){pe={}},o}();return ne}));
+//# sourceMappingURL=purify.min.js.map
+
+</script><script>
+
+// ── Input validation helpers ───────────────────────────────────────────
+function safeNum(id, fallback, min, max) {
+  const el = document.getElementById(id);
+  if (!el) return fallback;
+  let v = parseFloat(el.value);
+  if (!isFinite(v)) return fallback;
+  if (min !== undefined && v < min) { v = min; el.value = min; }
+  if (max !== undefined && v > max) { v = max; el.value = max; }
+  return v;
+}
+function sanitizeText(s) {
+  // Use DOMPurify when available, otherwise fall back to escHtml
+  if (typeof DOMPurify !== 'undefined') {
+    return DOMPurify.sanitize(String(s), { ALLOWED_TAGS: [], ALLOWED_ATTR: [] });
+  }
+  return escHtml(String(s));
+}
+
+
+// ── CSP-compatible delegated click handler ──────────────────────────
+// Converts data-action="..." attributes → proper JS event listeners.
+// Replaces blocked inline onclick handlers for iframe/CSP environments.
+(function(){
+
+  function parseValue(s) {
+    s = s.trim();
+    if (s === 'true') return true;
+    if (s === 'false') return false;
+    if (s === 'null') return null;
+    if (s !== '' && !isNaN(s)) return Number(s);
+    if ((s[0]==='"'&&s[s.length-1]==='"')||(s[0]==="'"&&s[s.length-1]==="'")) return s.slice(1,-1);
+    return s;
+  }
+
+  // Tokenize comma-separated args respecting nested parens + quotes
+  function tokenizeArgs(s) {
+    var tokens=[], depth=0, cur='', inStr=false, strChar='';
+    for (var i=0; i<s.length; i++) {
+      var c=s[i];
+      if (inStr) { cur+=c; if(c===strChar) inStr=false; }
+      else if(c==='"'||c==="'") { inStr=true; strChar=c; cur+=c; }
+      else if(c==='(') { depth++; cur+=c; }
+      else if(c===')') { depth--; cur+=c; }
+      else if(c===','&&depth===0) { tokens.push(cur.trim()); cur=''; }
+      else cur+=c;
+    }
+    if(cur.trim()) tokens.push(cur.trim());
+    return tokens;
+  }
+
+  function execStmt(stmt, el) {
+    stmt = stmt.trim();
+    if (!stmt) return;
+
+    // Function call: name(args)
+    var callM = stmt.match(/^([a-zA-Z_$][w$]*)(([sS]*))$/);
+    if (callM) {
+      var fn = window[callM[1]];
+      if (typeof fn === 'function') {
+        var argsStr = callM[2].trim();
+        var args = [];
+        if (argsStr) {
+          tokenizeArgs(argsStr).forEach(function(t) {
+            args.push(t === 'this' ? el : parseValue(t));
+          });
+        }
+        fn.apply(el, args);
+        return;
+      }
+    }
+
+    // Property assignment: lhs = rhs
+    var setM = stmt.match(/^(.+?)s*=s*([^=][sS]*)$/);
+    if (setM) {
+      var lhs = setM[1].trim();
+      var rhs = parseValue(setM[2].trim());
+      // document.getElementById('id').style.prop  or  .prop.prop
+      var gepM = lhs.match(/^document.getElementById(['"]([^'"]+)['"]).(.+)$/);
+      if (gepM) {
+        var target = document.getElementById(gepM[1]);
+        if (target) {
+          var parts = gepM[2].split('.');
+          var obj = target;
+          for (var i=0; i<parts.length-1; i++) obj = obj[parts[i]];
+          if (obj) obj[parts[parts.length-1]] = rhs;
+        }
+        return;
+      }
+      // window.varName = value
+      if (/^[a-zA-Z_$][w$]*$/.test(lhs)) { window[lhs] = rhs; return; }
+    }
+    console.warn('[geolearn] unhandled action:', stmt);
+  }
+
+  // Execute a (possibly multi-statement) action string
+  function execAction(code, el) {
+    var stmts=[], depth=0, inStr=false, strChar='', cur='';
+    for (var i=0; i<code.length; i++) {
+      var c=code[i];
+      if(inStr) { cur+=c; if(c===strChar) inStr=false; }
+      else if(c==='"'||c==="'") { inStr=true; strChar=c; cur+=c; }
+      else if(c==='(') { depth++; cur+=c; }
+      else if(c===')') { depth--; cur+=c; }
+      else if(c===';'&&depth===0) { stmts.push(cur); cur=''; }
+      else cur+=c;
+    }
+    if(cur.trim()) stmts.push(cur);
+    stmts.forEach(function(s){ execStmt(s, el); });
+  }
+
+  // Convert onclick → data-action on a DOM subtree
+  function convertOnclicks(root) {
+    var els=[];
+    if(root.hasAttribute&&root.hasAttribute('onclick')) els.push(root);
+    if(root.querySelectorAll) root.querySelectorAll('[onclick]').forEach(function(e){ els.push(e); });
+    els.forEach(function(e){
+      e.setAttribute('data-action', e.getAttribute('onclick'));
+      e.removeAttribute('onclick');
+    });
+  }
+
+  // Delegated click listener
+  document.addEventListener('click', function(e) {
+    var t = e.target;
+    while (t && t !== document) {
+      if (t.hasAttribute && t.hasAttribute('data-action')) {
+        execAction(t.getAttribute('data-action'), t);
+        return;
+      }
+      t = t.parentNode;
+    }
+  }, false);
+
+  // MutationObserver: handle dynamically-injected onclick elements (quiz, etc.)
+  function startObserver() {
+    new MutationObserver(function(muts) {
+      muts.forEach(function(m) {
+        m.addedNodes.forEach(function(n) {
+          if (n.nodeType===1) convertOnclicks(n);
+        });
+      });
+    }).observe(document.body, {childList:true, subtree:true});
+    convertOnclicks(document.body);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', startObserver);
+  } else {
+    startObserver();
+  }
+
+})();
+// ─────────────────────────────────────────────────────────────────────
+
+
+
+// ── CSP-compatible delegated click handler ──────────────────────────
+// Replaces all onclick="..." with data-action="..." for CSP compliance
+(function(){
+
+  function parseValue(s) {
+    s = s.trim();
+    if (s === 'true') return true;
+    if (s === 'false') return false;
+    if (s === 'null') return null;
+    if (!isNaN(s) && s !== '') return Number(s);
+    if ((s[0]==='"'&&s[s.length-1]==='"') || (s[0]==="'"&&s[s.length-1]==="'")) return s.slice(1,-1);
+    return s;
+  }
+
+  // Tokenize a comma-separated arg list, respecting nested parens and quotes
+  function tokenizeArgs(s) {
+    var tokens = [], depth = 0, cur = '', inStr = false, strChar = '';
+    for (var i = 0; i < s.length; i++) {
+      var c = s[i];
+      if (inStr) {
+        cur += c;
+        if (c === strChar) inStr = false;
+      } else if (c === '"' || c === "'") {
+        inStr = true; strChar = c; cur += c;
+      } else if (c === '(') {
+        depth++; cur += c;
+      } else if (c === ')') {
+        depth--; cur += c;
+      } else if (c === ',' && depth === 0) {
+        tokens.push(cur.trim()); cur = '';
+      } else {
+        cur += c;
+      }
+    }
+    if (cur.trim()) tokens.push(cur.trim());
+    return tokens;
+  }
+
+  // Execute a single statement
+  function execStmt(stmt, el) {
+    stmt = stmt.trim();
+    if (!stmt) return;
+
+    // Match function call: name(args)
+    var callM = stmt.match(/^([a-zA-Z_$][\w$]*)\((.*)\)$/s);
+    if (callM) {
+      var fn = window[callM[1]];
+      if (typeof fn === 'function') {
+        var argsStr = callM[2].trim();
+        var args = [];
+        if (argsStr) {
+          var tokens = tokenizeArgs(argsStr);
+          args = tokens.map(function(t) {
+            return t === 'this' ? el : parseValue(t);
+          });
+        }
+        fn.apply(el, args);
+        return;
+      }
+    }
+
+    // Match property setter: expr = value (handles getElementById(...).style.x)
+    var setM = stmt.match(/^(.+?)\s*=\s*([^=].*)$/);
+    if (setM) {
+      var lhsStr = setM[1].trim();
+      var rhsVal = parseValue(setM[2].trim());
+
+      // document.getElementById('id').style.prop
+      var gepM = lhsStr.match(/^document\.getElementById\(['"]([^'"]+)['"]\)\.(.+)$/);
+      if (gepM) {
+        var targetEl = document.getElementById(gepM[1]);
+        if (targetEl) {
+          var parts = gepM[2].split('.');
+          var obj = targetEl;
+          for (var i = 0; i < parts.length - 1; i++) obj = obj[parts[i]];
+          if (obj) obj[parts[parts.length - 1]] = rhsVal;
+        }
+        return;
+      }
+
+      // Simple window property: varName = value
+      if (lhsStr.match(/^[a-zA-Z_$][\w$]*$/)) {
+        window[lhsStr] = rhsVal;
+        return;
+      }
+    }
+
+    console.warn('[geolearn] unhandled action:', stmt);
+  }
+
+  // Execute a (possibly multi-statement) action string
+  function execAction(code, el) {
+    // Split on ; but not inside strings or parens
+    var stmts = [], depth = 0, inStr = false, strChar = '', cur = '';
+    for (var i = 0; i < code.length; i++) {
+      var c = code[i];
+      if (inStr) {
+        cur += c;
+        if (c === strChar) inStr = false;
+      } else if (c === '"' || c === "'") {
+        inStr = true; strChar = c; cur += c;
+      } else if (c === '(') { depth++; cur += c; }
+      else if (c === ')') { depth--; cur += c; }
+      else if (c === ';' && depth === 0) {
+        stmts.push(cur); cur = '';
+      } else { cur += c; }
+    }
+    if (cur.trim()) stmts.push(cur);
+    stmts.forEach(function(s) { execStmt(s, el); });
+  }
+
+  // Helper: convert onclick attrs on a subtree to data-action
+  function convertOnclicks(root) {
+    var els = [];
+    if (root.hasAttribute && root.hasAttribute('onclick')) els.push(root);
+    if (root.querySelectorAll) {
+      root.querySelectorAll('[onclick]').forEach(function(e){ els.push(e); });
+    }
+    els.forEach(function(e) {
+      e.setAttribute('data-action', e.getAttribute('onclick'));
+      e.removeAttribute('onclick');
+    });
+  }
+
+  // Delegated click handler — catches data-action on any element
+  document.addEventListener('click', function(e) {
+    var target = e.target;
+    while (target && target !== document) {
+      if (target.hasAttribute && target.hasAttribute('data-action')) {
+        e.stopPropagation();
+        execAction(target.getAttribute('data-action'), target);
+        return;
+      }
+      target = target.parentNode;
+    }
+  }, false);
+
+  // MutationObserver: convert onclick on dynamically-inserted elements
+  var obs = new MutationObserver(function(muts) {
+    muts.forEach(function(m) {
+      m.addedNodes.forEach(function(n) {
+        if (n.nodeType === 1) convertOnclicks(n);
+      });
+    });
+  });
+  document.addEventListener('DOMContentLoaded', function() {
+    obs.observe(document.body, { childList: true, subtree: true });
+    convertOnclicks(document.body); // catch anything remaining
+  });
+
+})();
+// ────────────────────────────────────────────────────────────────────────
+
+
 // ============================================================
 // NAVIGATION
 // ============================================================
@@ -6944,13 +7247,18 @@ function addTutorMsg(html, type, raw=false){
   div.style.cssText=`padding:12px 16px;border-radius:${isUser?'12px 12px 4px 12px':'12px 12px 12px 4px'};background:${isUser?'rgba(0,212,255,0.08)':'var(--surface2)'};border:1px solid ${isUser?'rgba(0,212,255,0.2)':'var(--border)'};align-self:${isUser?'flex-end':'flex-start'};max-width:100%;font-size:13px;line-height:1.6`;
   div.innerHTML=isUser
     ?`<strong style="color:var(--accent2)">You:</strong> ${escHtml(html)}`
-    :`<strong style="color:var(--accent)">🤖 AI Tutor:</strong><br><br>${raw?html:escHtml(html)}`;
+    :`<strong style="color:var(--accent)">🤖 AI Tutor:</strong><br><br>${raw?(typeof DOMPurify!=='undefined'?DOMPurify.sanitize(html,{ALLOWED_TAGS:['strong','em','br','button','span','div'],ALLOWED_ATTR:['style','data-action','class']}):escHtml(html)):escHtml(html)}`;
   msgs.appendChild(div);
   msgs.scrollTop=msgs.scrollHeight;
   return div;
 }
 
-function escHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function escHtml(s){
+  if(typeof DOMPurify!=='undefined'){
+    return DOMPurify.sanitize(String(s),{ALLOWED_TAGS:[],ALLOWED_ATTR:[]});
+  }
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#x27;');
+}
 
 function clearTutorChat(){
   const msgs=document.getElementById('tutor-msgs');
@@ -13500,8 +13808,7 @@ function expandCase(id) {
 
 
 
-// ── App loaded marker ──
-window.__appLoaded = true;
+
 </script>
 </body>
 </html>
