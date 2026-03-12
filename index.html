@@ -2694,7 +2694,7 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
 #tutor-input:focus { border-color: var(--accent) !important; }
 #tutor-input:not(:focus) { border-color: var(--border) !important; }
 </style>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-m2cHccR0tpg2Pg8+AG+6yeEmvvK4NF/6HMimDLXWqx0='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-ejmfzE6QaoV6EPW8ywRdMrqoAgYrHy8gvtVRnGzSnsk='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
 </head>
 <body>
 
@@ -5195,7 +5195,7 @@ function sanitizeText(s) {
     if (!stmt) return;
 
     // Function call: name(args)
-    var callM = stmt.match(/^([a-zA-Z_$][w$]*)(([sS]*))$/);
+    var callM = stmt.match(/^([a-zA-Z_$][\w$]*)\(([\s\S]*)\)$/);
     if (callM) {
       var fn = window[callM[1]];
       if (typeof fn === 'function') {
@@ -5212,12 +5212,12 @@ function sanitizeText(s) {
     }
 
     // Property assignment: lhs = rhs
-    var setM = stmt.match(/^(.+?)s*=s*([^=][sS]*)$/);
+    var setM = stmt.match(/^(.+?)\s*=\s*([^=][\s\S]*)$/);
     if (setM) {
       var lhs = setM[1].trim();
       var rhs = parseValue(setM[2].trim());
       // document.getElementById('id').style.prop  or  .prop.prop
-      var gepM = lhs.match(/^document.getElementById(['"]([^'"]+)['"]).(.+)$/);
+      var gepM = lhs.match(/^document\.getElementById\(['"]([^'"]+)['"]\)\.(.+)$/);
       if (gepM) {
         var target = document.getElementById(gepM[1]);
         if (target) {
@@ -5229,7 +5229,7 @@ function sanitizeText(s) {
         return;
       }
       // window.varName = value
-      if (/^[a-zA-Z_$][w$]*$/.test(lhs)) { window[lhs] = rhs; return; }
+      if (/^[a-zA-Z_$][\w$]*$/.test(lhs)) { window[lhs] = rhs; return; }
     }
     console.warn('[geolearn] unhandled action:', stmt);
   }
