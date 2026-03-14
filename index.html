@@ -2718,14 +2718,15 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
 /* ── Language Switcher ──────────────────────────────────────────────── */
 .lang-switcher {
   display: flex;
-  gap: 4px;
-  justify-content: center;
+  flex-direction: column;
+  gap: 3px;
+  align-items: center;
   margin-top: 10px;
-  padding: 0 8px;
+  padding: 0 6px;
 }
 .lang-btn {
-  flex: 1;
-  padding: 5px 2px;
+  width: 42px;
+  padding: 6px 2px;
   font-family: 'Syne', sans-serif;
   font-weight: 700;
   font-size: 10px;
@@ -2738,6 +2739,16 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
   transition: all .2s;
   text-align: center;
   line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.sidebar:hover .lang-switcher {
+  flex-direction: row;
+  padding: 0 12px;
+}
+.sidebar:hover .lang-btn {
+  flex: 1;
+  width: auto;
 }
 .lang-btn:hover {
   border-color: var(--accent);
