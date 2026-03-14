@@ -1,373 +1,373 @@
 [
   {
     "deck": "soil",
-    "jp": "[MM] 有効応力",
-    "en": "Effective Stress",
+    "jp": "有効応力",
+    "en": "ထိရောက်သော ဖိအား (Effective Stress)",
     "eq": "σ' = σ - u",
-    "back": "[MM] ဖိအား carried by soil skeleton. Controls ဖြတ်ခံနိုင်ရည်, ပေါင်းစည်းခြင်း, and အရည်ပြောင်းခြင်း. σ = စုစုပေါင်း ဖိအား, u = အပေါက်ရေ ဖိအား. Foundation of all geotechnical analysis (တာဇာဂီ 1925)."
+    "back": "ဖိအား (Stress) carried by soil skeleton. Controls ဖြတ်ခံနိုင်ရည် (shear strength), ပေါင်းစည်းခြင်း (consolidation), and အရည်ပြောင်းခြင်း (liquefaction). σ = စုစုပေါင်း ဖိအား (total stress), u = အပေါက်ရေ ဖိအား (pore water pressure). Foundation of all geotechnical analysis (တာဇာဂီ (Terzaghi) 1925)."
   },
   {
     "deck": "soil",
-    "jp": "[MM] せん断強さ",
-    "en": "Shear Strength",
+    "jp": "せん断強さ",
+    "en": "ဖြတ်ခံနိုင်ရည် (Shear Strength)",
     "eq": "τf = c' + σ'tanφ'",
-    "back": "[MM] မော-ကူလုံ failure criterion. c' = effective ကပ်ငြိတွယ်ကပ်နိုင်ရည် (soil bonding). φ' = ပွတ်တိုက်ထောင့် (particle interlocking). Both depend on drainage conditions. CD/CU/UU tests in lab."
+    "back": "မော-ကူလုံ (Mohr-Coulomb) failure criterion. c' = effective ကပ်ငြိတွယ်ကပ်နိုင်ရည် (cohesion) (soil bonding). φ' = ပွတ်တိုက်ထောင့် (friction angle) (particle interlocking). Both depend on drainage conditions. CD/CU/UU tests in lab."
   },
   {
     "deck": "soil",
-    "jp": "[MM] 圧密",
-    "en": "Consolidation",
+    "jp": "圧密",
+    "en": "ပေါင်းစည်းခြင်း (Consolidation)",
     "eq": "Tv = cv·t/H²",
-    "back": "[MM] Time-dependent compression of saturated ရွှံ့မြေ as excess pore pressure dissipates. Tv = time factor. cv = coefficient of ပေါင်းစည်းခြင်း. H = drainage path. Longer drainage = more time."
+    "back": "Time-dependent compression of saturated ရွှံ့မြေ (clay) as excess pore pressure dissipates. Tv = time factor. cv = coefficient of ပေါင်းစည်းခြင်း (consolidation). H = drainage path. Longer drainage = more time."
   },
   {
     "deck": "soil",
-    "jp": "[MM] 液状化",
-    "en": "Liquefaction",
+    "jp": "液状化",
+    "en": "အရည်ပြောင်းခြင်း (Liquefaction)",
     "eq": "FL = CRR/CSR",
-    "back": "[MM] Saturated loose သဲ loses strength when σ' → 0 during ငလျင်. FL < 1.0 = liquefiable. CSR = cyclic ဖိအား ratio from ငလျင်. CRR = cyclic resistance ratio from N-တန်ဖိုး or Vs."
+    "back": "Saturated loose သဲ (sand) loses strength when σ' → 0 during ငလျင် (earthquake). FL < 1.0 = liquefiable. CSR = cyclic ဖိအား (stress) ratio from ငလျင် (earthquake). CRR = cyclic resistance ratio from N-တန်ဖိုး (N-value) or Vs."
   },
   {
     "deck": "soil",
-    "jp": "[MM] 間隙比",
-    "en": "Void Ratio",
+    "jp": "間隙比",
+    "en": "အပေါက်အချိုး (Void Ratio)",
     "eq": "e = Vv/Vs",
-    "back": "[MM] Volume of voids / volume of solids. Loose သဲ: e ≈ 0.7-0.9. Dense သဲ: e ≈ 0.4-0.6. Related to porosity: n = e/(1+e). Decreases during ပေါင်းစည်းခြင်း."
+    "back": "Volume of voids / volume of solids. Loose သဲ (sand): e ≈ 0.7-0.9. Dense သဲ (sand): e ≈ 0.4-0.6. Related to porosity: n = e/(1+e). Decreases during ပေါင်းစည်းခြင်း (consolidation)."
   },
   {
     "deck": "soil",
-    "jp": "[MM] 相対密度",
-    "en": "Relative Density",
+    "jp": "相対密度",
+    "en": "Relative သိပ်သည်းဆ (Density)",
     "eq": "Dr = (emax-e)/(emax-emin)",
-    "back": "[MM] State of compaction relative to loosest and densest states. Dr < 35% = loose. 35-65% = medium. 65-85% = dense. >85% = very dense. Correlated to စံထိုးဖောက်စမ်းသပ်ခြင်း N-တန်ဖိုး and ကုန်းထိုးဖောက်စမ်းသပ်ခြင်း qc."
+    "back": "State of compaction relative to loosest and densest states. Dr < 35% = loose. 35-65% = medium. 65-85% = dense. >85% = very dense. Correlated to စံထိုးဖောက်စမ်းသပ်ခြင်း (SPT) N-တန်ဖိုး (N-value) and ကုန်းထိုးဖောက်စမ်းသပ်ခြင်း (CPT) qc."
   },
   {
     "deck": "soil",
-    "jp": "[MM] 透水係数",
+    "jp": "透水係数",
     "en": "Hydraulic Conductivity",
     "eq": "v = k·i  (Darcy's Law)",
-    "back": "[MM] Rate of water flow through soil per unit area per unit hydraulic gradient. ရွှံ့မြေ: k = 10⁻⁸-10⁻¹⁰ m/s. နုန်းမြေ: 10⁻⁶-10⁻⁸. သဲ: 10⁻³-10⁻⁵. ကျောက်စရစ်: >10⁻³."
+    "back": "Rate of water flow through soil per unit area per unit hydraulic gradient. ရွှံ့မြေ (Clay): k = 10⁻⁸-10⁻¹⁰ m/s. နုန်းမြေ (Silt): 10⁻⁶-10⁻⁸. သဲ (Sand): 10⁻³-10⁻⁵. ကျောက်စရစ် (Gravel): >10⁻³."
   },
   {
     "deck": "soil",
-    "jp": "[MM] 支持力",
-    "en": "Bearing Capacity",
+    "jp": "支持力",
+    "en": "ဝန်ခံနိုင်ရည် (Bearing Capacity)",
     "eq": "qu = cNc + qNq + 0.5γBNγ",
-    "back": "[MM] တာဇာဂီ's general ဝန်ခံနိုင်ရည် equation. Nc, Nq, Nγ = dimensionless factors depending on φ'. q = surcharge = γDf. Allowable: qa = qu/FS (FS=3 typical)."
+    "back": "တာဇာဂီ (Terzaghi)'s general ဝန်ခံနိုင်ရည် (bearing capacity) equation. Nc, Nq, Nγ = dimensionless factors depending on φ'. q = surcharge = γDf. Allowable: qa = qu/FS (FS=3 typical)."
   },
   {
     "deck": "soil",
-    "jp": "[MM] 沈下",
-    "en": "Settlement",
+    "jp": "沈下",
+    "en": "နစ်ကျခြင်း (Settlement)",
     "eq": "Sc = Cc·H·log(σ'f/σ'0)/(1+e0)",
-    "back": "[MM] Primary ပေါင်းစည်းခြင်း နစ်ကျခြင်း. Cc = compression index. H = layer thickness. e0 = initial အပေါက်အချိုး. σ'f = final ထိရောက်သော ဖိအား. σ'0 = initial. Use Cs for unloading/reloading."
+    "back": "Primary ပေါင်းစည်းခြင်း (consolidation) နစ်ကျခြင်း (settlement). Cc = compression index. H = layer thickness. e0 = initial အပေါက်အချိုး (void ratio). σ'f = final ထိရောက်သော ဖိအား (effective stress). σ'0 = initial. Use Cs for unloading/reloading."
   },
   {
     "deck": "soil",
-    "jp": "[MM] 一軸圧縮強さ",
+    "jp": "一軸圧縮強さ",
     "en": "Unconfined Compressive Strength",
     "eq": "qu = 2·cu  →  cu = qu/2",
-    "back": "[MM] Uniaxial compression of cohesive soil. Undrained ဖြတ်ခံနိုင်ရည် cu = qu/2. Used for soft ရွှံ့မြေ classification. qu < 25 kPa = very soft. 25-50 = soft. 50-100 = medium. >200 = hard."
+    "back": "Uniaxial compression of cohesive soil. Undrained ဖြတ်ခံနိုင်ရည် (shear strength) cu = qu/2. Used for soft ရွှံ့မြေ (clay) classification. qu < 25 kPa = very soft. 25-50 = soft. 50-100 = medium. >200 = hard."
   },
   {
     "deck": "wave",
-    "jp": "[MM] P波（縦波）",
-    "en": "P-Wave (Compressional)",
+    "jp": "P波（縦波）",
+    "en": "P-လှိုင်း (P-Wave) (Compressional)",
     "eq": "Vp = √(M/ρ)",
-    "back": "[MM] Primary wave. Particle motion parallel to propagation. Travels in solids and liquids. Typical in soil: 200-2000 m/s. Saturated soil dominated by water: Vp ≈ 1500 m/s. Used in refraction surveys."
+    "back": "Primary wave. Particle motion parallel to propagation. Travels in solids and liquids. Typical in soil: 200-2000 m/s. Saturated soil dominated by water: Vp ≈ 1500 m/s. Used in refraction surveys."
   },
   {
     "deck": "wave",
-    "jp": "[MM] S波（横波）",
-    "en": "S-Wave (Shear)",
+    "jp": "S波（横波）",
+    "en": "S-လှိုင်း (S-Wave) (Shear)",
     "eq": "Vs = √(G/ρ)",
-    "back": "[MM] Secondary wave. Particle motion perpendicular to propagation. Cannot travel through liquids. Key for Vs30, site classification, and dynamic ကိန်းဆက်. G = ρVs² (small ပုံပျက်ခြင်း shear ကိန်းဆက်)."
+    "back": "Secondary wave. Particle motion perpendicular to propagation. Cannot travel through liquids. Key for Vs30 (Vs30), site classification, and dynamic ကိန်းဆက် (modulus). G = ρVs² (small ပုံပျက်ခြင်း (strain) shear ကိန်းဆက် (modulus))."
   },
   {
     "deck": "wave",
     "jp": "Vs30",
     "en": "Average Shear Velocity (top 30m)",
     "eq": "Vs30 = 30/Σ(hi/Vsi)",
-    "back": "[MM] Time-average Vs in top 30m. Used for seismic site classification. Japan: 告示1457号. Class A: Vs30 > 600 m/s. Class B/C: 150-600. Class D (軟弱地盤): < 150 m/s."
+    "back": "Time-average Vs in top 30m. Used for seismic site classification. Japan: 告示1457号. Class A: Vs30 (Vs30) > 600 m/s. Class B/C: 150-600. Class D (軟弱地盤): < 150 m/s."
   },
   {
     "deck": "wave",
-    "jp": "[MM] レイリー波",
+    "jp": "レイリー波",
     "en": "Rayleigh Wave",
     "eq": "VR ≈ 0.92·Vs",
-    "back": "[MM] Surface wave. Retrograde elliptical particle motion. Dispersive in layered media. Velocity depends on frequency (wavelength). Longer wavelengths sample deeper layers. Used in မျက်နှာပြင်လှိုင်း စူးစမ်းခြင်း surveys."
+    "back": "Surface wave. Retrograde elliptical particle motion. Dispersive in layered media. Velocity depends on frequency (wavelength). Longer wavelengths sample deeper layers. Used in မျက်နှာပြင်လှိုင်း စူးစမ်းခြင်း (MASW) surveys."
   },
   {
     "deck": "wave",
-    "jp": "[MM] 弾性率",
+    "jp": "弾性率",
     "en": "Elastic Moduli from Waves",
     "eq": "G = ρVs²   E = 2G(1+ν)   ν = (Vp²-2Vs²)/(2(Vp²-Vs²))",
-    "back": "[MM] Dynamic (small-ပုံပျက်ခြင်း) moduli from seismic velocities. G = shear ကိန်းဆက်. E = Young's ကိန်းဆက်. ν = Poisson's ratio. For saturated soil: ν → 0.5 (undrained). Dry သဲ: ν ≈ 0.25-0.35."
+    "back": "Dynamic (small-ပုံပျက်ခြင်း (strain)) moduli from seismic velocities. G = shear ကိန်းဆက် (modulus). E = Young's ကိန်းဆက် (modulus). ν = Poisson's ratio. For saturated soil: ν → 0.5 (undrained). Dry သဲ (sand): ν ≈ 0.25-0.35."
   },
   {
     "deck": "wave",
-    "jp": "[MM] スネルの法則",
+    "jp": "スネルの法則",
     "en": "Snell's Law (Refraction)",
     "eq": "sin(θ₁)/V₁ = sin(θ₂)/V₂",
-    "back": "[MM] Wave refraction at interface. At critical angle ic = arcsin(V₁/V₂), wave travels along interface as head wave. ic = arcsin(V₁/V₂). Used in ငလျင်အကွေ့ဆိုင်ရာ to find layer depths."
+    "back": "Wave refraction at interface. At critical angle ic = arcsin(V₁/V₂), wave travels along interface as head wave. ic = arcsin(V₁/V₂). Used in ငလျင်အကွေ့ဆိုင်ရာ (seismic refraction) to find layer depths."
   },
   {
     "deck": "test",
-    "jp": "[MM] 標準貫入試験",
-    "en": "Standard Penetration Test (SPT)",
+    "jp": "標準貫入試験",
+    "en": "Standard Penetration Test (စံထိုးဖောက်စမ်းသပ်ခြင်း (SPT))",
     "eq": "N₆₀ = N·(ER/60)",
-    "back": "[MM] 63.5 kg hammer, 760 mm drop. N = blows per 300 mm. Energy correction to 60% (N60). Overburden correction: (N1)60 = CN·N60. JIS A 1219. Japanese ER ≈ 72% (auto hammer)."
+    "back": "63.5 kg hammer, 760 mm drop. N = blows per 300 mm. Energy correction to 60% (N60). Overburden correction: (N1)60 = CN·N60. JIS A 1219. Japanese ER ≈ 72% (auto hammer)."
   },
   {
     "deck": "test",
-    "jp": "[MM] コーン貫入試験",
+    "jp": "コーン貫入試験",
     "en": "CPTu (Cone Penetration Test)",
     "eq": "Ic = √((3.47-logQt)²+(1.22+logFr)²)",
-    "back": "[MM] Continuous profile of qc, fs, u2 at 20 mm/s. Qt = normalized tip resistance. Fr = friction ratio (%). Ic = soil behavior type index. Ic < 2.05: သဲ. Ic > 2.95: ရွှံ့မြေ."
+    "back": "Continuous profile of qc, fs, u2 at 20 mm/s. Qt = normalized tip resistance. Fr = friction ratio (%). Ic = soil behavior type index. Ic < 2.05: သဲ (sand). Ic > 2.95: ရွှံ့မြေ (clay)."
   },
   {
     "deck": "test",
-    "jp": "[MM] PS検層",
-    "en": "PS Logging (Downhole)",
+    "jp": "PS検層",
+    "en": "PS မှတ်တမ်းတင်ခြင်း (PS Logging) (Downhole)",
     "eq": "V = Δd/Δt",
-    "back": "[MM] တွင်းဖော် seismic method measuring Vp and Vs at depth intervals. Surface source (hammer), downhole receiver. JGS 3511. Used for Vs30, dynamic moduli, seismic design. More accurate than surface မျက်နှာပြင်လှိုင်း စူးစမ်းခြင်း."
+    "back": "တွင်းဖော် (Borehole) seismic method measuring Vp and Vs at depth intervals. Surface source (hammer), downhole receiver. JGS 3511. Used for Vs30 (Vs30), dynamic moduli, seismic design. More accurate than surface မျက်နှာပြင်လှိုင်း စူးစမ်းခြင်း (MASW)."
   },
   {
     "deck": "test",
-    "jp": "[MM] プレッシャーメーター試験",
-    "en": "Pressuremeter Test",
+    "jp": "プレッシャーメーター試験",
+    "en": "ဖိအားတိုင်းကိရိယာ (Pressuremeter) Test",
     "eq": "Ep = 2(1+ν)·V·ΔP/ΔV",
-    "back": "[MM] In-situ lateral ဖိအား-ပုံပျက်ခြင်း measurement. Inflatable probe in တွင်းဖော်. Ep = ဖိအားတိုင်းကိရိယာ ကိန်းဆက်. PL = limit pressure (ultimate). Useful in soft ကျောက်, stiff ရွှံ့မြေs. Ménard ဖိအားတိုင်းကိရိယာ."
+    "back": "In-situ lateral ဖိအား (stress)-ပုံပျက်ခြင်း (strain) measurement. Inflatable probe in တွင်းဖော် (borehole). Ep = ဖိအားတိုင်းကိရိယာ (pressuremeter) ကိန်းဆက် (modulus). PL = limit pressure (ultimate). Useful in soft ကျောက် (rock), stiff clays. Ménard ဖိအားတိုင်းကိရိယာ (pressuremeter)."
   },
   {
     "deck": "test",
-    "jp": "[MM] 電気探査",
-    "en": "Electrical Resistivity Survey",
+    "jp": "電気探査",
+    "en": "Electrical ခံနိုင်ရည် (Resistivity) Survey",
     "eq": "ρa = K·(V/I)  K=2πa (Wenner)",
-    "back": "[MM] Measure bulk ခံနိုင်ရည် to map geology. 4-electrode arrays. Wenner (lateral), Schlumberger (depth sounding), dipole-dipole (2D imaging). Saltwater: 0.2 Ωm. ကျောက်: 1000+ Ωm."
+    "back": "Measure bulk ခံနိုင်ရည် (resistivity) to map geology. 4-electrode arrays. Wenner (lateral), Schlumberger (depth sounding), dipole-dipole (2D imaging). Saltwater: 0.2 Ωm. ကျောက် (Rock): 1000+ Ωm."
   },
   {
     "deck": "test",
-    "jp": "[MM] 屈折法地震探査",
-    "en": "Seismic Refraction Survey",
+    "jp": "屈折法地震探査",
+    "en": "ငလျင်အကွေ့ဆိုင်ရာ (Seismic Refraction) Survey",
     "eq": "t = x/V₁ + 2h·cosθc/V₁",
-    "back": "[MM] Surface seismic method using first arrivals. Maps velocity layers. Requires V increasing with depth. Good for bedကျောက် depth, water table. Equipment: geophones + seismograph. 24-96 channel arrays."
+    "back": "Surface seismic method using first arrivals. Maps velocity layers. Requires V increasing with depth. Good for bedrock depth, water table. Equipment: geophones + seismograph. 24-96 channel arrays."
   },
   {
     "deck": "jp",
-    "jp": "[MM] 地盤調査",
+    "jp": "地盤調査",
     "en": "Ground Investigation / Site Investigation",
     "eq": "",
-    "back": "[MM] Comprehensive geotechnical investigation of a site. Includes boring, sampling, in-situ tests (စံထိုးဖောက်စမ်းသပ်ခြင်း, ကုန်းထိုးဖောက်စမ်းသပ်ခြင်း, PS မှတ်တမ်းတင်ခြင်း), lab tests, and reporting. Required for all major construction in Japan."
+    "back": "Comprehensive geotechnical investigation of a site. Includes boring, sampling, in-situ tests (စံထိုးဖောက်စမ်းသပ်ခြင်း (SPT), ကုန်းထိုးဖောက်စမ်းသပ်ခြင်း (CPT), PS မှတ်တမ်းတင်ခြင်း (PS logging)), lab tests, and reporting. Required for all major construction in Japan."
   },
   {
     "deck": "jp",
-    "jp": "[MM] 液状化判定",
-    "en": "Liquefaction Assessment",
+    "jp": "液状化判定",
+    "en": "အရည်ပြောင်းခြင်း (Liquefaction) Assessment",
     "eq": "FL = CRR/CSR ≥ 1.0",
-    "back": "[MM] Japanese method per 道路橋示方書 (Road Bridge Specification). Calculate CSR from ငလျင် acceleration. CRR from (N1)60cs. FL < 1.0 = liquefiable. Check at each soil layer. Typically < 20m depth."
+    "back": "Japanese method per 道路橋示方書 (Road Bridge Specification). Calculate CSR from ငလျင် (earthquake) acceleration. CRR from (N1)60cs. FL < 1.0 = liquefiable. Check at each soil layer. Typically < 20m depth."
   },
   {
     "deck": "jp",
-    "jp": "[MM] 地盤種別",
+    "jp": "地盤種別",
     "en": "Ground Classification (Seismic)",
     "eq": "Vs30 based",
-    "back": "[MM] Japanese seismic site classification per 告示1457号. 第1種地盤: ကျောက်/stiff (Vs30>600). 第2種地盤: ordinary. 第3種地盤: soft (Vs30<150). TG (site period) also used."
+    "back": "Japanese seismic site classification per 告示1457号. 第1種地盤: ကျောက် (rock)/stiff (Vs30 (Vs30)>600). 第2種地盤: ordinary. 第3種地盤: soft (Vs30 (Vs30)<150). TG (site period) also used."
   },
   {
     "deck": "jp",
-    "jp": "[MM] N値",
-    "en": "N-value (SPT blow count)",
+    "jp": "N値",
+    "en": "N-တန်ဖိုး (N-value) (စံထိုးဖောက်စမ်းသပ်ခြင်း (SPT) blow count)",
     "eq": "N = blows/300mm",
-    "back": "[MM] Standard penetration test result. N < 4: very soft/loose. N = 4-10: soft/loose. N = 10-30: medium. N = 30-50: dense. N > 50: very dense or ကျောက်. Key parameter for Japanese foundation design."
+    "back": "Standard penetration test result. N < 4: very soft/loose. N = 4-10: soft/loose. N = 10-30: medium. N = 30-50: dense. N > 50: very dense or ကျောက် (rock). Key parameter for Japanese foundation design."
   },
   {
     "deck": "jp",
-    "jp": "[MM] 圧密沈下",
-    "en": "Consolidation Settlement",
+    "jp": "圧密沈下",
+    "en": "ပေါင်းစည်းခြင်း (Consolidation) နစ်ကျခြင်း (Settlement)",
     "eq": "Sc = Cc·H·log(σ'f/σ'0)/(1+e0)",
-    "back": "[MM] Long-term နစ်ကျခြင်း of soft ရွှံ့မြေ under load. May take years to decades. Important in Tokyo, Osaka bay areas with thick alluvial ရွှံ့မြေ. Monitoring with နစ်ကျခြင်း plates and piezometers."
+    "back": "Long-term နစ်ကျခြင်း (settlement) of soft ရွှံ့မြေ (clay) under load. May take years to decades. Important in Tokyo, Osaka bay areas with thick alluvial ရွှံ့မြေ (clay). Monitoring with နစ်ကျခြင်း (settlement) plates and piezometers."
   },
   {
     "deck": "jp",
-    "jp": "[MM] 支持力",
-    "en": "Bearing Capacity / Ground Support Capacity",
+    "jp": "支持力",
+    "en": "ဝန်ခံနိုင်ရည် (Bearing Capacity) / Ground Support Capacity",
     "eq": "qu = cNc + qNq + 0.5γBNγ",
-    "back": "[MM] Maximum load a foundation can support without shear failure. Ultimate: qu. Allowable: qa = qu/FS. FS = 3 (static). Japanese foundation design: 建築基礎構造設計指針."
+    "back": "Maximum load a foundation can support without shear failure. Ultimate: qu. Allowable: qa = qu/FS. FS = 3 (static). Japanese foundation design: 建築基礎構造設計指針."
   },
   {
     "deck": "jp",
-    "jp": "[MM] 物理探査",
+    "jp": "物理探査",
     "en": "Geophysical Exploration",
     "eq": "",
-    "back": "[MM] Investigation using physical properties of ground. Seismic (弾性波), electrical (電気探査), electromagnetic (電磁探査), gravity (重力探査). Non-invasive subsurface mapping. License: 物理探査技士."
+    "back": "Investigation using physical properties of ground. Seismic (弾性波), electrical (電気探査), electromagnetic (電磁探査), gravity (重力探査). Non-invasive subsurface mapping. License: 物理探査技士."
   },
   {
     "deck": "jp",
-    "jp": "[MM] 弾性波探査",
+    "jp": "弾性波探査",
     "en": "Seismic (Elastic Wave) Exploration",
     "eq": "V = d/t",
-    "back": "[MM] Uses elastic wave propagation (P-လှိုင်း, S-လှိုင်း) for subsurface imaging. Methods: refraction (屈折法), reflection (反射法), မျက်နှာပြင်လှိုင်း စူးစမ်းခြင်း (表面波), PS မှတ်တမ်းတင်ခြင်း (PS検層). Fundamental to 物理探査技士 exam."
+    "back": "Uses elastic wave propagation (P-လှိုင်း (P-wave), S-လှိုင်း (S-wave)) for subsurface imaging. Methods: refraction (屈折法), reflection (反射法), မျက်နှာပြင်လှိုင်း စူးစမ်းခြင်း (MASW) (表面波), PS မှတ်တမ်းတင်ခြင်း (PS logging) (PS検層). Fundamental to 物理探査技士 exam."
   },
   {
     "deck": "jp",
-    "jp": "[MM] 岩盤",
-    "en": "Bedrock / Rock Mass",
+    "jp": "岩盤",
+    "en": "Bedrock / ကျောက် (Rock) Mass",
     "eq": "RQD = (Σ core pieces ≥ 100mm)/L × 100%",
-    "back": "[MM] Solid ကျောက် beneath soil overburden. ကျောက်တုံးအရည်အသွေးညွှန်း = ကျောက် Quality Designation. ကျောက်တုံးအရည်အသွေးညွှန်း > 90%: excellent. 75-90%: good. 50-75%: fair. 25-50%: poor. <25%: very poor. Key for tunnel design."
+    "back": "Solid ကျောက် (rock) beneath soil overburden. ကျောက်တုံးအရည်အသွေးညွှန်း (RQD) = ကျောက် (Rock) Quality Designation. ကျောက်တုံးအရည်အသွေးညွှန်း (RQD) > 90%: excellent. 75-90%: good. 50-75%: fair. 25-50%: poor. <25%: very poor. Key for tunnel design."
   },
   {
     "deck": "soil",
-    "jp": "[MM] 過圧密比",
+    "jp": "過圧密比",
     "en": "Overconsolidation Ratio (OCR)",
     "eq": "OCR = σ'pc / σ'v0",
-    "back": "[MM] Ratio of preပေါင်းစည်းခြင်း ဖိအား to current ထိရောက်သော ဖိအား. OCR = 1: normally consolidated. OCR > 1: overconsolidated (stronger). Important for နစ်ကျခြင်း prediction and Ko estimation."
+    "back": "Ratio of preconsolidation ဖိအား (stress) to current ထိရောက်သော ဖိအား (effective stress). OCR = 1: normally consolidated. OCR > 1: overconsolidated (stronger). Important for နစ်ကျခြင်း (settlement) prediction and Ko estimation."
   },
   {
     "deck": "wave",
-    "jp": "[MM] 微動探査",
+    "jp": "微動探査",
     "en": "Microtremor Survey (H/V Method)",
     "eq": "f0 = Vs/4H  (H/V peak)",
-    "back": "[MM] Ambient noise (microtremors) recorded with 3-component seismometer. H/V spectral ratio peak = site resonant frequency f0. Non-invasive. Used for rapid site screening. Nakamura method (1989)."
+    "back": "Ambient noise (microtremors) recorded with 3-component seismometer. H/V spectral ratio peak = site resonant frequency f0. Non-invasive. Used for rapid site screening. Nakamura method (1989)."
   },
   {
     "deck": "test",
-    "jp": "[MM] ロータリーボーリング",
+    "jp": "ロータリーボーリング",
     "en": "Rotary Boring",
     "eq": "",
-    "back": "[MM] Standard ground investigation method in Japan. Rotary drilling with water flush. JIS A 1220. Recovers core samples for logging. Enables စံထိုးဖောက်စမ်းသပ်ခြင်း, sampling, PS မှတ်တမ်းတင်ခြင်း, ဖိအားတိုင်းကိရိယာ tests at depth."
+    "back": "Standard ground investigation method in Japan. Rotary drilling with water flush. JIS A 1220. Recovers core samples for logging. Enables စံထိုးဖောက်စမ်းသပ်ခြင်း (SPT), sampling, PS မှတ်တမ်းတင်ခြင်း (PS logging), ဖိအားတိုင်းကိရိယာ (pressuremeter) tests at depth."
   },
   {
     "deck": "jp",
-    "jp": "[MM] 地質調査技士",
+    "jp": "地質調査技士",
     "en": "Geological Survey Engineer License",
     "eq": "",
-    "back": "[MM] Japanese national license for geological investigation. Categories: surface investigation, boring investigation, physical exploration. Required to supervise investigations for public works. Exam: written + practical."
+    "back": "Japanese national license for geological investigation. Categories: surface investigation, boring investigation, physical exploration. Required to supervise investigations for public works. Exam: written + practical."
   },
   {
     "deck": "jp",
-    "jp": "[MM] 技術士",
+    "jp": "技術士",
     "en": "Professional Engineer (Japan)",
     "eq": "",
-    "back": "[MM] Highest engineering qualification in Japan. Equivalent to international PE license. Geotechnical field: 応用理学部門 or 建設部門. Requires 7+ years experience + PE exam. Required for major design sign-off."
+    "back": "Highest engineering qualification in Japan. Equivalent to international PE license. Geotechnical field: 応用理学部門 or 建設部門. Requires 7+ years experience + PE exam. Required for major design sign-off."
   },
   {
     "deck": "soil",
-    "jp": "[MM] モール・クーロン破壊基準",
-    "en": "Mohr-Coulomb Failure Criterion",
+    "jp": "モール・クーロン破壊基準",
+    "en": "မော-ကူလုံ (Mohr-Coulomb) Failure Criterion",
     "eq": "τf = c' + σ'·tan(φ')",
-    "back": "[MM] Defines the ဖိအား state at failure. Failure envelope is linear in τ-σ' space. Parameters c' and φ' from drained triaxial or direct shear tests. Most fundamental equation in မြေသားသိပ္ပံ."
+    "back": "Defines the ဖိအား (stress) state at failure. Failure envelope is linear in τ-σ' space. Parameters c' and φ' from drained triaxial or direct shear tests. Most fundamental equation in မြေသားသိပ္ပံ (soil mechanics)."
   },
   {
     "deck": "wave",
-    "jp": "[MM] 表面波探査",
-    "en": "MASW (Surface Wave Survey)",
+    "jp": "表面波探査",
+    "en": "မျက်နှာပြင်လှိုင်း စူးစမ်းခြင်း (MASW) (Surface Wave Survey)",
     "eq": "Vs(z) from dispersion inversion",
-    "back": "[MM] Multichannel Analysis of Surface Waves. Measures Rayleigh wave dispersion curve from geophone array. Inverts to get Vs profile. No တွင်းဖော် needed. 24 channels, 4.5Hz geophones, 2-5m spacing typical."
+    "back": "Multichannel Analysis of Surface Waves. Measures Rayleigh wave dispersion curve from geophone array. Inverts to get Vs profile. No တွင်းဖော် (borehole) needed. 24 channels, 4.5Hz geophones, 2-5m spacing typical."
   },
   {
     "deck": "soil",
-    "jp": "[MM] 間隙水圧",
-    "en": "Pore Water Pressure",
+    "jp": "間隙水圧",
+    "en": "အပေါက်ရေ ဖိအား (Pore Water Pressure)",
     "eq": "u = γw·h  (hydrostatic)",
-    "back": "[MM] Water pressure in soil voids. Hydrostatic (静水圧). Excess (過剰間隙水圧) from loading or ငလျင်s. Measured by piezometer (ピエゾメーター). Excess u = 0 at equilibrium (fully consolidated)."
+    "back": "Water pressure in soil voids. Hydrostatic (静水圧). Excess (過剰間隙水圧) from loading or earthquakes. Measured by piezometer (ピエゾメーター). Excess u = 0 at equilibrium (fully consolidated)."
   },
   {
     "deck": "test",
-    "jp": "[MM] 検層",
-    "en": "Well Logging / Borehole Logging",
+    "jp": "検層",
+    "en": "Well Logging / တွင်းဖော် (Borehole) Logging",
     "eq": "",
-    "back": "[MM] Measurement of physical properties in တွင်းဖော်s. PS မှတ်တမ်းတင်ခြင်း (弾性波検層), electrical logging, gamma-ray logging. Essential for stratigraphy correlation and geophysical parameter measurement at depth in Japan."
+    "back": "Measurement of physical properties in boreholes. PS မှတ်တမ်းတင်ခြင်း (PS logging) (弾性波検層), electrical logging, gamma-ray logging. Essential for stratigraphy correlation and geophysical parameter measurement at depth in Japan."
   },
   {
     "deck": "test",
-    "jp": "[MM] 孔内カメラ",
-    "en": "Borehole Camera",
+    "jp": "孔内カメラ",
+    "en": "တွင်းတွင်းကင်မရာ (Borehole Camera)",
     "eq": "Visual fracture log",
-    "back": "[MM] Waterproof optical probe lowered into တွင်းဖော် to observe wall conditions. Reveals: fracture orientation, aperture, joint infill, weathering grade, မြေအောက်ရေ inflow depth. 360° panoramic models available. Essential for tunnel and slope design in jointed ကျောက်. Used in conjunction with core logging."
+    "back": "Waterproof optical probe lowered into တွင်းဖော် (borehole) to observe wall conditions. Reveals: fracture orientation, aperture, joint infill, weathering grade, မြေအောက်ရေ (groundwater) inflow depth. 360° panoramic models available. Essential for tunnel and slope design in jointed ကျောက် (rock). Used in conjunction with core logging."
   },
   {
     "deck": "test",
-    "jp": "[MM] 亀裂傾斜",
+    "jp": "亀裂傾斜",
     "en": "Fracture Dip Angle",
     "eq": "α = arctan(Δz/Δr)",
-    "back": "[MM] Inclination of fractures observed in တွင်းတွင်းကင်မရာ footage. Measured from horizontal. Steep dip (>60°) toward tunnel face = high wedge failure risk. Camera orientation sensor allows 3D fracture orientation mapping. Critical input for kinematic stability analysis."
+    "back": "Inclination of fractures observed in တွင်းတွင်းကင်မရာ (borehole camera) footage. Measured from horizontal. Steep dip (>60°) toward tunnel face = high wedge failure risk. Camera orientation sensor allows 3D fracture orientation mapping. Critical input for kinematic stability analysis."
   },
   {
     "deck": "test",
-    "jp": "[MM] 孔内水平載荷試験",
-    "en": "Pressuremeter Test (PMT)",
+    "jp": "孔内水平載荷試験",
+    "en": "ဖိအားတိုင်းကိရိယာ (Pressuremeter) Test (PMT)",
     "eq": "Em = 2(1+ν)·Vm·ΔP/ΔV",
-    "back": "[MM] In-situ lateral ဖိအား-ပုံပျက်ခြင်း test using inflatable probe in တွင်းဖော်. Ménard ဖိအားတိုင်းကိရိယာ. Measures Em (ဖိအားတိုင်းကိရိယာ ကိန်းဆက်) and PL (limit pressure). Em used in foundation နစ်ကျခြင်း calculation. PL = lateral ground failure pressure. Best for soft ကျောက် and stiff ရွှံ့မြေ."
+    "back": "In-situ lateral ဖိအား (stress)-ပုံပျက်ခြင်း (strain) test using inflatable probe in တွင်းဖော် (borehole). Ménard ဖိအားတိုင်းကိရိယာ (pressuremeter). Measures Em (ဖိအားတိုင်းကိရိယာ (pressuremeter) ကိန်းဆက် (modulus)) and PL (limit pressure). Em used in foundation နစ်ကျခြင်း (settlement) calculation. PL = lateral ground failure pressure. Best for soft ကျောက် (rock) and stiff ရွှံ့မြေ (clay)."
   },
   {
     "deck": "test",
-    "jp": "[MM] 限界圧力",
+    "jp": "限界圧力",
     "en": "Limit Pressure (PL)",
     "eq": "PL = pressure at volumetric failure",
-    "back": "[MM] ဖိအားတိုင်းကိရိယာ limit pressure — the asymptotic pressure at which soil/ကျောက် fails laterally. Analogous to ဝန်ခံနိုင်ရည် in the lateral direction. PL correlates to undrained ဖြတ်ခံနိုင်ရည် (cu ≈ PL/5.5) and pile lateral capacity. Key design parameter from Ménard ဖိအားတိုင်းကိရိယာ test."
+    "back": "ဖိအားတိုင်းကိရိယာ (Pressuremeter) limit pressure — the asymptotic pressure at which soil/ကျောက် (rock) fails laterally. Analogous to ဝန်ခံနိုင်ရည် (bearing capacity) in the lateral direction. PL correlates to undrained ဖြတ်ခံနိုင်ရည် (shear strength) (cu ≈ PL/5.5) and pile lateral capacity. Key design parameter from Ménard ဖိအားတိုင်းကိရိယာ (pressuremeter) test."
   },
   {
     "deck": "wave",
-    "jp": "[MM] 地中レーダー探査",
-    "en": "Ground Penetrating Radar (GPR)",
+    "jp": "地中レーダー探査",
+    "en": "Ground Penetrating Radar (မြေအောက် ရေဒါ (GPR))",
     "eq": "d = v·t/2  v = c/√εr",
-    "back": "[MM] Electromagnetic pulse radar for shallow subsurface imaging. Speed v depends on dielectric constant εr: dry သဲ v≈0.15 m/ns, wet ရွှံ့မြေ v≈0.07 m/ns. Depth range: 0.5m (2GHz) to ~30m (25MHz). Best in dry resistive ground. Poor in ရွှံ့မြေ/saltwater. Used for utilities, voids, rebar, layer boundaries."
+    "back": "Electromagnetic pulse radar for shallow subsurface imaging. Speed v depends on dielectric constant εr: dry သဲ (sand) v≈0.15 m/ns, wet ရွှံ့မြေ (clay) v≈0.07 m/ns. Depth range: 0.5m (2GHz) to ~30m (25MHz). Best in dry resistive ground. Poor in ရွှံ့မြေ (clay)/saltwater. Used for utilities, voids, rebar, layer boundaries."
   },
   {
     "deck": "wave",
-    "jp": "[MM] 誘電率",
+    "jp": "誘電率",
     "en": "Dielectric Permittivity (εr)",
     "eq": "v = c / √εr   (c = 3×10⁸ m/s)",
-    "back": "[MM] Controls electromagnetic wave speed in soil. Air εr=1. Dry သဲ εr=4-6. Moist သဲ εr=10-15. Saturated ရွှံ့မြေ εr=25-40. Water εr=81. High ရေပါဝင်နှုန်း = slow wave = poor မြေအောက် ရေဒါ depth. Calibrated in field using known target depth or CMP survey."
+    "back": "Controls electromagnetic wave speed in soil. Air εr=1. Dry သဲ (sand) εr=4-6. Moist သဲ (sand) εr=10-15. Saturated ရွှံ့မြေ (clay) εr=25-40. Water εr=81. High ရေပါဝင်နှုန်း (water content) = slow wave = poor မြေအောက် ရေဒါ (GPR) depth. Calibrated in field using known target depth or CMP survey."
   },
   {
     "deck": "test",
-    "jp": "[MM] 平板載荷試験",
-    "en": "Plate Load Test (JIS A 1215)",
+    "jp": "平板載荷試験",
+    "en": "ပြားတင်စမ်းသပ်ခြင်း (Plate Load Test) (JIS A 1215)",
     "eq": "K30 = p/s  (s=1.25mm, dia=300mm)",
-    "back": "[MM] Direct measurement of ဝန်ခံနိုင်ရည် at foundation level. Steel plate (300mm or 750mm) loaded incrementally. K30 = subgrade reaction coefficient — key for Japanese road design (≥110 MN/m³ for road base). E0 = နစ်ကျခြင်း ကိန်းဆက် from elastic theory. Scale effect: real footing larger than plate."
+    "back": "Direct measurement of ဝန်ခံနိုင်ရည် (bearing capacity) at foundation level. Steel plate (300mm or 750mm) loaded incrementally. K30 = subgrade reaction coefficient — key for Japanese road design (≥110 MN/m³ for road base). E0 = နစ်ကျခြင်း (settlement) ကိန်းဆက် (modulus) from elastic theory. Scale effect: real footing larger than plate."
   },
   {
     "deck": "test",
-    "jp": "[MM] 地盤反力係数",
+    "jp": "地盤反力係数",
     "en": "Subgrade Reaction Coefficient K30",
     "eq": "K30 = 110 MN/m³ (road base min.)",
-    "back": "[MM] Ratio of applied pressure to plate နစ်ကျခြင်း at s=1.25mm during ပြားတင်စမ်းသပ်ခြင်း (300mm plate). Used in Japanese road design to verify compaction. K30 = p(1.25mm) / 1.25mm × 1000. Also used for pile design and railroad track design in Japan (JIS A 1215). Values: soft ရွှံ့မြေ 10-30, သဲ 50-150, ကျောက်စရစ် >200 MN/m³."
+    "back": "Ratio of applied pressure to plate နစ်ကျခြင်း (settlement) at s=1.25mm during ပြားတင်စမ်းသပ်ခြင်း (plate load test) (300mm plate). Used in Japanese road design to verify compaction. K30 = p(1.25mm) / 1.25mm × 1000. Also used for pile design and railroad track design in Japan (JIS A 1215). Values: soft ရွှံ့မြေ (clay) 10-30, သဲ (sand) 50-150, ကျောက်စရစ် (gravel) >200 MN/m³."
   },
   {
     "deck": "test",
-    "jp": "[MM] 岩盤品質指標",
-    "en": "RQD (Rock Quality Designation)",
+    "jp": "岩盤品質指標",
+    "en": "ကျောက်တုံးအရည်အသွေးညွှန်း (RQD) (ကျောက် (Rock) Quality Designation)",
     "eq": "RQD = Σ(≥100mm)/L × 100%",
-    "back": "[MM] Core-based measure of ကျောက် mass fracturing degree. Only natural breaks counted — mechanical drill breaks excluded. Classification: Excellent 90-100%, Good 75-90%, Fair 50-75%, Poor 25-50%, Very Poor <25%. Foundation of RMR and Q-system. Introduced by Deere (1963). Standard in Japanese tunnel and dam investigation."
+    "back": "Core-based measure of ကျောက် (rock) mass fracturing degree. Only natural breaks counted — mechanical drill breaks excluded. Classification: Excellent 90-100%, Good 75-90%, Fair 50-75%, Poor 25-50%, Very Poor <25%. Foundation of RMR and Q-system. Introduced by Deere (1963). Standard in Japanese tunnel and dam investigation."
   },
   {
     "deck": "test",
-    "jp": "[MM] コア回収率",
+    "jp": "コア回収率",
     "en": "Core Recovery Rate (TCR)",
     "eq": "TCR = (recovered core) / L × 100%",
-    "back": "[MM] Total core recovery from drilling. Different from ကျောက်တုံးအရည်အသွေးညွှန်း — TCR counts ALL recovered pieces including short ones. TCR=100% means perfect recovery, common in intact ကျောက်. TCR<ကျောက်တုံးအရည်အသွေးညွှန်း is impossible. Low TCR in soft/fractured zones indicates very poor ကျောက် quality or drilling problems. Both TCR and ကျောက်တုံးအရည်အသွေးညွှန်း are logged on တွင်းဖော် records."
+    "back": "Total core recovery from drilling. Different from ကျောက်တုံးအရည်အသွေးညွှန်း (RQD) — TCR counts ALL recovered pieces including short ones. TCR=100% means perfect recovery, common in intact ကျောက် (rock). TCR<ကျောက်တုံးအရည်အသွေးညွှန်း (RQD) is impossible. Low TCR in soft/fractured zones indicates very poor ကျောက် (rock) quality or drilling problems. Both TCR and ကျောက်တုံးအရည်အသွေးညွှန်း (RQD) are logged on တွင်းဖော် (borehole) records."
   },
   {
     "deck": "wave",
-    "jp": "[MM] 探査深度",
+    "jp": "探査深度",
     "en": "Investigation Depth",
     "eq": "z_max ≈ L_array / 2  (MASW)",
-    "back": "[MM] Maximum investigation depth for surface methods. မျက်နှာပြင်လှိုင်း စူးစမ်းခြင်း: ~half the geophone array length. ငလျင်အကွေ့ဆိုင်ရာ: ~quarter of maximum geophone offset. မြေအောက် ရေဒါ: depends on antenna frequency and soil conductivity. Electrical ခံနိုင်ရည်: depth ~ electrode spacing (Wenner). PS မှတ်တမ်းတင်ခြင်း: unlimited with deep boring. Matching investigation depth to target depth is key survey design skill."
+    "back": "Maximum investigation depth for surface methods. မျက်နှာပြင်လှိုင်း စူးစမ်းခြင်း (MASW): ~half the geophone array length. ငလျင်အကွေ့ဆိုင်ရာ (Seismic refraction): ~quarter of maximum geophone offset. မြေအောက် ရေဒါ (GPR): depends on antenna frequency and soil conductivity. Electrical ခံနိုင်ရည် (resistivity): depth ~ electrode spacing (Wenner). PS မှတ်တမ်းတင်ခြင်း (PS logging): unlimited with deep boring. Matching investigation depth to target depth is key survey design skill."
   },
   {
     "deck": "jp",
-    "jp": "[MM] 岩盤分類",
-    "en": "Rock Mass Classification",
+    "jp": "岩盤分類",
+    "en": "ကျောက် (Rock) Mass Classification",
     "eq": "RMR = Σ(6 parameters, 0–100)",
-    "back": "[MM] Classification of ကျောက် mass engineering quality. RMR (ကျောက် Mass Rating, Bieniawski 1989): 6 parameters scored 0-100. RMR>80: Class I (very good), 61-80: Class II (good), 41-60: Class III (fair), 21-40: Class IV (poor), <21: Class V (very poor). Used directly for tunnel support design and ကျောက် slope analysis in Japan."
+    "back": "Classification of ကျောက် (rock) mass engineering quality. RMR (ကျောက် (Rock) Mass Rating, Bieniawski 1989): 6 parameters scored 0-100. RMR>80: Class I (very good), 61-80: Class II (good), 41-60: Class III (fair), 21-40: Class IV (poor), <21: Class V (very poor). Used directly for tunnel support design and ကျောက် (rock) slope analysis in Japan."
   },
   {
     "deck": "jp",
-    "jp": "[MM] 走向・傾斜",
-    "en": "[MM] Strike & Dip",
+    "jp": "走向・傾斜",
+    "en": "Strike & Dip",
     "eq": "Strike = direction of horizontal line on plane",
-    "back": "[MM] Geometric description of a discontinuity (joint, fault, bedding). Strike = compass direction of horizontal intersection. Dip = maximum angle below horizontal. Critical for assessing instability: planar failure if dip direction = slope direction. Used with တွင်းတွင်းကင်မရာ data and geological mapping. Japan: important for tunnel alignment selection."
+    "back": "Geometric description of a discontinuity (joint, fault, bedding). Strike = compass direction of horizontal intersection. Dip = maximum angle below horizontal. Critical for assessing instability: planar failure if dip direction = slope direction. Used with တွင်းတွင်းကင်မရာ (borehole camera) data and geological mapping. Japan: important for tunnel alignment selection."
   }
 ]

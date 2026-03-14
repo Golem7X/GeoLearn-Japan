@@ -1,131 +1,131 @@
 {
   "soil": [
     {
-      "jp": "[JA] 間隙水圧",
-      "kana": "[JA] かんげきすいあつ",
-      "en": "Pore water pressure",
+      "jp": "間隙水圧",
+      "kana": "かんげきすいあつ",
+      "en": "間隙水圧",
       "formula": "u = γw × h"
     },
     {
-      "jp": "[JA] 圧密沈下",
-      "kana": "[JA] あつみつちんか",
-      "en": "Consolidation settlement",
+      "jp": "圧密沈下",
+      "kana": "あつみつちんか",
+      "en": "圧密沈下",
       "formula": "Sc = Cc·H·log(σf/σo)/(1+e0)"
     },
     {
-      "jp": "[JA] 透水係数",
-      "kana": "[JA] とうすいけいすう",
-      "en": "Coefficient of permeability",
+      "jp": "透水係数",
+      "kana": "とうすいけいすう",
+      "en": "透水係数",
       "formula": "k = Q·L/(A·h·t)"
     }
   ],
   "foundation": [
     {
-      "jp": "[JA] 支持力",
-      "kana": "[JA] しじりょく",
-      "en": "Bearing capacity",
+      "jp": "支持力",
+      "kana": "しじりょく",
+      "en": "支持力",
       "formula": "qu = cNc + qNq + 0.5γBNγ"
     },
     {
-      "jp": "[JA] 杭基礎",
-      "kana": "[JA] くいきそ",
-      "en": "Pile foundation",
+      "jp": "杭基礎",
+      "kana": "くいきそ",
+      "en": "杭基礎",
       "formula": "Ra = Rt + Rs"
     },
     {
-      "jp": "[JA] 直接基礎",
-      "kana": "[JA] ちょくせつきそ",
-      "en": "Shallow foundation",
+      "jp": "直接基礎",
+      "kana": "ちょくせつきそ",
+      "en": "直接基礎",
       "formula": "qallow = qu/Fs"
     },
     {
-      "jp": "[JA] 根入れ深さ",
-      "kana": "[JA] ねいれふかさ",
-      "en": "Embedment depth",
+      "jp": "根入れ深さ",
+      "kana": "ねいれふかさ",
+      "en": "根入れ深さ",
       "formula": "Df ≥ 1.2m (Japan frost depth)"
     },
     {
-      "jp": "[JA] 接地圧",
-      "kana": "[JA] せっちあつ",
-      "en": "Contact pressure",
+      "jp": "接地圧",
+      "kana": "せっちあつ",
+      "en": "接地圧",
       "formula": "q = N/(B×L)"
     }
   ],
   "earthquake": [
     {
-      "jp": "[JA] 液状化",
-      "kana": "[JA] えきじょうか",
-      "en": "Liquefaction",
+      "jp": "液状化",
+      "kana": "えきじょうか",
+      "en": "液状化",
       "formula": "FL = CRR/CSR"
     },
     {
-      "jp": "[JA] 地震動",
-      "kana": "[JA] じしんどう",
-      "en": "Ground motion",
+      "jp": "地震動",
+      "kana": "じしんどう",
+      "en": "地震動",
       "formula": "PGA, PGV, Sa(T)"
     },
     {
-      "jp": "[JA] 地盤増幅",
-      "kana": "[JA] じばんぞうふく",
-      "en": "Site amplification",
+      "jp": "地盤増幅",
+      "kana": "じばんぞうふく",
+      "en": "地盤増幅",
       "formula": "Amp = As/Ar"
     },
     {
-      "jp": "[JA] 耐震設計",
-      "kana": "[JA] たいしんせっけい",
-      "en": "Seismic design",
+      "jp": "耐震設計",
+      "kana": "たいしんせっけい",
+      "en": "耐震設計",
       "formula": "Base shear V = ZRtAiCo·W"
     },
     {
-      "jp": "[JA] 震度",
-      "kana": "[JA] しんど",
-      "en": "Seismic intensity (JMA scale)",
+      "jp": "震度",
+      "kana": "しんど",
+      "en": "震度",
       "formula": "I = 2 log a + 0.94"
     }
   ],
   "geophysics": [
     {
-      "jp": "[JA] 弾性波速度",
-      "kana": "[JA] だんせいはそくど",
-      "en": "Elastic wave velocity",
+      "jp": "弾性波速度",
+      "kana": "だんせいはそくど",
+      "en": "弾性波速度",
       "formula": "Vp = √(M/ρ), Vs = √(G/ρ)"
     },
     {
-      "jp": "[JA] 比抵抗",
-      "kana": "[JA] ひていこう",
-      "en": "Electrical resistivity",
+      "jp": "比抵抗",
+      "kana": "ひていこう",
+      "en": "比抵抗",
       "formula": "ρ = 2πa × V/I (Wenner)"
     },
     {
-      "jp": "[JA] 表面波探査",
-      "kana": "[JA] ひょうめんはたんさ",
-      "en": "Surface wave survey (MASW)",
+      "jp": "表面波探査",
+      "kana": "ひょうめんはたんさ",
+      "en": "表面波探査",
       "formula": "Vs(z) from dispersion"
     },
     {
-      "jp": "[JA] 地中レーダー",
-      "kana": "[JA] ちちゅうれーだー",
-      "en": "Ground Penetrating Radar",
+      "jp": "地中レーダー",
+      "kana": "ちちゅうれーだー",
+      "en": "地中レーダー",
       "formula": "d = v·t/2, v = c/√εr"
     },
     {
-      "jp": "[JA] 屈折法探査",
-      "kana": "[JA] くっせつほうたんさ",
-      "en": "Seismic refraction",
+      "jp": "屈折法探査",
+      "kana": "くっせつほうたんさ",
+      "en": "屈折法探査",
       "formula": "t = x/V1 + 2h cosθc/V1"
     }
   ],
   "investigation": [
     {
-      "jp": "[JA] ボーリング",
-      "kana": "[JA] ぼーりんぐ",
-      "en": "Borehole drilling",
+      "jp": "ボーリング",
+      "kana": "ぼーりんぐ",
+      "en": "ボーリング",
       "formula": "Core recovery = L_core/L_run × 100%"
     },
     {
-      "jp": "[JA] 標準貫入試験",
-      "kana": "[JA] ひょうじゅんかんにゅうしけん",
-      "en": "Standard Penetration Test (SPT)",
+      "jp": "標準貫入試験",
+      "kana": "ひょうじゅんかんにゅうしけん",
+      "en": "標準貫入試験",
       "formula": "N60 = N × ER/60"
     }
   ]

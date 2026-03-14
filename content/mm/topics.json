@@ -1,121 +1,121 @@
 {
   "effective-stress": {
-    "title": "Effective Stress",
-    "jp": "[MM] 有効応力",
-    "theory": "[MM] ထိရောက်သော ဖိအား is the portion of စုစုပေါင်း ဖိအား carried by the soil skeleton — not the pore water. It controls ALL mechanical behavior: ဖြတ်ခံနိုင်ရည်, ပေါင်းစည်းခြင်း, and အရည်ပြောင်းခြင်း resistance.",
-    "explanation": "[MM] When soil is loaded, pore water initially carries the load (excess pore pressure). As water drains, ဖိအား transfers to the soil skeleton (ထိရောက်သော ဖိအား increases). This is ပေါင်းစည်းခြင်း.",
-    "example": "[MM] A ရွှံ့မြေ layer at 5m depth with water table at surface: σ = 18×5 = 90 kPa, u = 10×5 = 50 kPa, σ' = 40 kPa. After drainage: σ' increases → strength increases."
+    "title": "ထိရောက်သော ဖိအား (Effective Stress)",
+    "jp": "有効応力",
+    "theory": "ထိရောက်သော ဖိအား (Effective stress) is the portion of စုစုပေါင်း ဖိအား (total stress) carried by the soil skeleton — not the pore water. It controls ALL mechanical behavior: ဖြတ်ခံနိုင်ရည် (shear strength), ပေါင်းစည်းခြင်း (consolidation), and အရည်ပြောင်းခြင်း (liquefaction) resistance.",
+    "explanation": "When soil is loaded, pore water initially carries the load (excess pore pressure). As water drains, ဖိအား (stress) transfers to the soil skeleton (ထိရောက်သော ဖိအား (effective stress) increases). This is ပေါင်းစည်းခြင်း (consolidation).",
+    "example": "A ရွှံ့မြေ (clay) layer at 5m depth with water table at surface: σ = 18×5 = 90 kPa, u = 10×5 = 50 kPa, σ' = 40 kPa. After drainage: σ' increases → strength increases."
   },
   "shear-strength": {
-    "title": "Shear Strength",
-    "jp": "[MM] せん断強さ",
-    "theory": "[MM] The maximum shear ဖိအား a soil can withstand before failure. Governed by မော-ကူလုံ criterion. Depends on ထိရောက်သော ဖိအား (drained) or စုစုပေါင်း ဖိအား (undrained).",
-    "explanation": "[MM] c' = effective ကပ်ငြိတွယ်ကပ်နိုင်ရည် (kPa) — true bonding between particles. φ' = ပွတ်တိုက်ထောင့် (°) — depends on particle shape, mineralogy. သဲ: c'≈0, φ'=28-42°. ရွှံ့မြေ: c'>0, φ'=20-30°.",
-    "example": "[MM] Slope failure in ရွှံ့မြေ: τ along failure surface reaches τf. Stability number Ns = cu/γH. For rotational slip: ဘေးကင်းမှုအချိုး = ΣResisting moments / ΣDriving moments."
+    "title": "ဖြတ်ခံနိုင်ရည် (Shear Strength)",
+    "jp": "せん断強さ",
+    "theory": "The maximum shear ဖိအား (stress) a soil can withstand before failure. Governed by မော-ကူလုံ (Mohr-Coulomb) criterion. Depends on ထိရောက်သော ဖိအား (effective stress) (drained) or စုစုပေါင်း ဖိအား (total stress) (undrained).",
+    "explanation": "c' = effective ကပ်ငြိတွယ်ကပ်နိုင်ရည် (cohesion) (kPa) — true bonding between particles. φ' = ပွတ်တိုက်ထောင့် (friction angle) (°) — depends on particle shape, mineralogy. သဲ (Sand): c'≈0, φ'=28-42°. ရွှံ့မြေ (Clay): c'>0, φ'=20-30°.",
+    "example": "Slope failure in ရွှံ့မြေ (clay): τ along failure surface reaches τf. Stability number Ns = cu/γH. For rotational slip: ဘေးကင်းမှုအချိုး (Factor of Safety) = ΣResisting moments / ΣDriving moments."
   },
   "consolidation": {
-    "title": "Consolidation",
-    "jp": "[MM] 圧密",
-    "theory": "[MM] Time-dependent compression of saturated fine-grained soils as excess အပေါက်ရေ ဖိအား dissipates. တာဇာဂီ 1D theory applies to normally consolidated ရွှံ့မြေs.",
-    "explanation": "[MM] Tv = time factor (dimensionless). cv = coefficient of ပေါင်းစည်းခြင်း (m²/year). H = drainage path (half layer for double drainage). U = degree of ပေါင်းစည်းခြင်း.",
-    "example": "[MM] 5m ရွှံ့မြေ layer, cv = 2 m²/year, double drainage. Time for 90% ပေါင်းစည်းခြင်း: T90 = 0.848, t = 0.848×(2.5)²/2 = 2.65 years."
+    "title": "ပေါင်းစည်းခြင်း (Consolidation)",
+    "jp": "圧密",
+    "theory": "Time-dependent compression of saturated fine-grained soils as excess အပေါက်ရေ ဖိအား (pore water pressure) dissipates. တာဇာဂီ (Terzaghi) 1D theory applies to normally consolidated clays.",
+    "explanation": "Tv = time factor (dimensionless). cv = coefficient of ပေါင်းစည်းခြင်း (consolidation) (m²/year). H = drainage path (half layer for double drainage). U = degree of ပေါင်းစည်းခြင်း (consolidation).",
+    "example": "5m ရွှံ့မြေ (clay) layer, cv = 2 m²/year, double drainage. Time for 90% ပေါင်းစည်းခြင်း (consolidation): T90 = 0.848, t = 0.848×(2.5)²/2 = 2.65 years."
   },
   "liquefaction": {
-    "title": "Liquefaction",
-    "jp": "[MM] 液状化",
-    "theory": "[MM] Saturated loose သဲy soils lose ထိရောက်သော ဖိအား (and thus strength) during cyclic ငလျင် loading. Excess pore pressure builds up until u = σ, causing σ' = 0 — soil behaves like a liquid.",
-    "explanation": "[MM] FL < 1.0: Liquefiable. FL = 1.0–1.5: Marginal. FL > 1.5: Safe. Critical for Japan — the 1964 Niigata ငလျင်, 1995 Kobe, and 2011 Tohoku all caused massive အရည်ပြောင်းခြင်း.",
-    "example": "[MM] Niigata (1964): Showa Bridge collapsed due to အရည်ပြောင်းခြင်း of loose river သဲ deposits. amax=0.16g, N<10 သဲs with water table at 1m depth → σ'v very small → FL<1 in most areas."
+    "title": "အရည်ပြောင်းခြင်း (Liquefaction)",
+    "jp": "液状化",
+    "theory": "Saturated loose sandy soils lose ထိရောက်သော ဖိအား (effective stress) (and thus strength) during cyclic ငလျင် (earthquake) loading. Excess pore pressure builds up until u = σ, causing σ' = 0 — soil behaves like a liquid.",
+    "explanation": "FL < 1.0: Liquefiable. FL = 1.0–1.5: Marginal. FL > 1.5: Safe. Critical for Japan — the 1964 Niigata ငလျင် (earthquake), 1995 Kobe, and 2011 Tohoku all caused massive အရည်ပြောင်းခြင်း (liquefaction).",
+    "example": "Niigata (1964): Showa Bridge collapsed due to အရည်ပြောင်းခြင်း (liquefaction) of loose river သဲ (sand) deposits. amax=0.16g, N<10 sands with water table at 1m depth → σ'v very small → FL<1 in most areas."
   },
   "p-wave": {
-    "title": "P-Wave (Primary / Compressional)",
-    "jp": "[MM] P波（縦波）",
-    "theory": "[MM] P-လှိုင်းs are compressional body waves. Particle motion is parallel to propagation direction (push-pull). Fastest ငလျင်လှိုင်း. Can travel through solids AND liquids/gases.",
-    "explanation": "[MM] Typical Vp values: Air 340 m/s. Water 1500 m/s. Loose သဲ 200-800 m/s. Dense သဲ 800-2000 m/s. ကျောက် 3000-6000 m/s. Saturated soil: Vp dominated by water (≈1500 m/s).",
-    "example": "[MM] ငလျင်အကွေ့ဆိုင်ရာ survey: Layer 1 Vp1=400 m/s (loose fill), Layer 2 Vp2=1600 m/s (saturated သဲ), Layer 3 Vp3=4000 m/s (bedကျောက်). Crossover distances determine layer depths."
+    "title": "P-လှိုင်း (P-Wave) (Primary / Compressional)",
+    "jp": "P波（縦波）",
+    "theory": "P-waves are compressional body waves. Particle motion is parallel to propagation direction (push-pull). Fastest ငလျင်လှိုင်း (seismic wave). Can travel through solids AND liquids/gases.",
+    "explanation": "Typical Vp values: Air 340 m/s. Water 1500 m/s. Loose သဲ (sand) 200-800 m/s. Dense သဲ (sand) 800-2000 m/s. ကျောက် (Rock) 3000-6000 m/s. Saturated soil: Vp dominated by water (≈1500 m/s).",
+    "example": "ငလျင်အကွေ့ဆိုင်ရာ (Seismic refraction) survey: Layer 1 Vp1=400 m/s (loose fill), Layer 2 Vp2=1600 m/s (saturated သဲ (sand)), Layer 3 Vp3=4000 m/s (bedrock). Crossover distances determine layer depths."
   },
   "s-wave": {
-    "title": "S-Wave (Shear / Secondary)",
-    "jp": "[MM] S波（横波）",
-    "theory": "[MM] S-လှိုင်းs are shear body waves. Particle motion is perpendicular to propagation direction. Cannot travel through liquids. Fundamental for နေရာတုံ့ပြန်မှု analysis and Vs30 calculation.",
-    "explanation": "[MM] Vs is the KEY parameter for geotechnical site characterization. Measured by PS မှတ်တမ်းတင်ခြင်း, မျက်နှာပြင်လှိုင်း စူးစမ်းခြင်း, seismic ကုန်းထိုးဖောက်စမ်းသပ်ခြင်း, crosshole. Vs30 = average Vs in top 30m, used for Japanese seismic design code site classification.",
-    "example": "[MM] Soft ရွှံ့မြေ: Vs = 80-150 m/s. Dense သဲ: Vs = 200-400 m/s. Soft ကျောက်: Vs = 400-700 m/s. Hard ကျောက်: Vs > 700 m/s. Site Class D (告示): Vs30 < 150 m/s → high amplification."
+    "title": "S-လှိုင်း (S-Wave) (Shear / Secondary)",
+    "jp": "S波（横波）",
+    "theory": "S-waves are shear body waves. Particle motion is perpendicular to propagation direction. Cannot travel through liquids. Fundamental for နေရာတုံ့ပြန်မှု (site response) analysis and Vs30 (Vs30) calculation.",
+    "explanation": "Vs is the KEY parameter for geotechnical site characterization. Measured by PS မှတ်တမ်းတင်ခြင်း (PS logging), မျက်နှာပြင်လှိုင်း စူးစမ်းခြင်း (MASW), seismic ကုန်းထိုးဖောက်စမ်းသပ်ခြင်း (CPT), crosshole. Vs30 (Vs30) = average Vs in top 30m, used for Japanese seismic design code site classification.",
+    "example": "Soft ရွှံ့မြေ (clay): Vs = 80-150 m/s. Dense သဲ (sand): Vs = 200-400 m/s. Soft ကျောက် (rock): Vs = 400-700 m/s. Hard ကျောက် (rock): Vs > 700 m/s. Site Class D (告示): Vs30 (Vs30) < 150 m/s → high amplification."
   },
   "spt": {
-    "title": "Standard Penetration Test (SPT)",
-    "jp": "[MM] 標準貫入試験 (JIS A 1219)",
-    "theory": "[MM] The စံထိုးဖောက်စမ်းသပ်ခြင်း uses a 63.5 kg hammer falling 760 mm to drive a split-spoon sampler 150+300 mm. The blow count for the last 300 mm = N-တန်ဖိုး. Most common soil investigation in Japan.",
-    "explanation": "[MM] N-တန်ဖိုး interpretation: N<4: very loose/soft. N=4-10: loose. N=10-30: medium dense. N=30-50: dense. N>50: very dense/ကျောက်. Japanese practice uses rod energy ratio ER ≈ 72% (automatic hammer).",
-    "example": "[MM] N=25 at 8m depth. σ'v = 130 kPa, ER=72%. N60 = 25×(72/60) = 30. CN = (100/130)^0.5 = 0.877. (N₁)₆₀ = 30×0.877 = 26. Dr = 60%. အရည်ပြောင်းခြင်း: check CRR."
+    "title": "Standard Penetration Test (စံထိုးဖောက်စမ်းသပ်ခြင်း (SPT))",
+    "jp": "標準貫入試験 (JIS A 1219)",
+    "theory": "The စံထိုးဖောက်စမ်းသပ်ခြင်း (SPT) uses a 63.5 kg hammer falling 760 mm to drive a split-spoon sampler 150+300 mm. The blow count for the last 300 mm = N-တန်ဖိုး (N-value). Most common soil investigation in Japan.",
+    "explanation": "N-တန်ဖိုး (N-value) interpretation: N<4: very loose/soft. N=4-10: loose. N=10-30: medium dense. N=30-50: dense. N>50: very dense/ကျောက် (rock). Japanese practice uses rod energy ratio ER ≈ 72% (automatic hammer).",
+    "example": "N=25 at 8m depth. σ'v = 130 kPa, ER=72%. N60 = 25×(72/60) = 30. CN = (100/130)^0.5 = 0.877. (N₁)₆₀ = 30×0.877 = 26. Dr = 60%. အရည်ပြောင်းခြင်း (Liquefaction): check CRR."
   },
   "cpt": {
     "title": "CPTu (Cone Penetration Test with Pore Pressure)",
-    "jp": "[MM] コーン貫入試験",
-    "theory": "[MM] ကုန်းထိုးဖောက်စမ်းသပ်ခြင်းu continuously measures tip resistance (qc), sleeve friction (fs), and pore pressure (u2) as a cone penetrates at 20 mm/s. Provides continuous soil profile without disturbance.",
-    "explanation": "[MM] Ic < 1.31: ကျောက်စရစ်ly သဲ. 1.31-2.05: Clean သဲ. 2.05-2.60: နုန်းမြေy သဲ. 2.60-2.95: သဲy နုန်းမြေ. 2.95-3.60: နုန်းမြေy ရွှံ့မြေ. >3.60: ရွှံ့မြေ. Pore pressure Bq = (u2-u0)/(qt-σv).",
-    "example": "[MM] At 10m: qc=5 MPa, fs=80 kPa, u2=120 kPa. σv=180 kPa, σ'v=100 kPa, u0=80 kPa. qt=5.03 MPa. Qt=48.5. Fr=1.68%. Ic=2.11 → သဲy နုန်းမြေ/နုန်းမြေy သဲ boundary."
+    "jp": "コーン貫入試験",
+    "theory": "CPTu continuously measures tip resistance (qc), sleeve friction (fs), and pore pressure (u2) as a cone penetrates at 20 mm/s. Provides continuous soil profile without disturbance.",
+    "explanation": "Ic < 1.31: Gravelly သဲ (sand). 1.31-2.05: Clean သဲ (sand). 2.05-2.60: Silty သဲ (sand). 2.60-2.95: Sandy နုန်းမြေ (silt). 2.95-3.60: Silty ရွှံ့မြေ (clay). >3.60: ရွှံ့မြေ (Clay). Pore pressure Bq = (u2-u0)/(qt-σv).",
+    "example": "At 10m: qc=5 MPa, fs=80 kPa, u2=120 kPa. σv=180 kPa, σ'v=100 kPa, u0=80 kPa. qt=5.03 MPa. Qt=48.5. Fr=1.68%. Ic=2.11 → Sandy နုန်းမြေ (silt)/silty သဲ (sand) boundary."
   },
   "ps-logging": {
-    "title": "PS Logging (Downhole Seismic)",
-    "jp": "[MM] PS検層 (JGS 3511)",
-    "theory": "[MM] PS မှတ်တမ်းတင်ခြင်း measures P and S wave travel times in a တွင်းဖော် using a downhole receiver and surface source. Provides accurate velocity profile for Vs30 and dynamic property calculation.",
-    "explanation": "[MM] Downhole: single receiver moved down တွင်းဖော်, source at surface offset 1-2m. Interval method: use first arrival times at each depth. Crosshole: source and receiver in separate တွင်းဖော်s — better for soft layers.",
-    "example": "[MM] 10m depth: Δt_P = 14 ms, Δt_S = 32 ms for 1m interval. Vp = 1/0.014 = 71 m/s? No — typical readings: arrival at 10m vs 11m: ΔtP=2ms → Vp=500 m/s. ΔtS=5ms → Vs=200 m/s. G0 = 1800×200² = 72 MPa."
+    "title": "PS မှတ်တမ်းတင်ခြင်း (PS Logging) (Downhole Seismic)",
+    "jp": "PS検層 (JGS 3511)",
+    "theory": "PS မှတ်တမ်းတင်ခြင်း (PS logging) measures P and S wave travel times in a တွင်းဖော် (borehole) using a downhole receiver and surface source. Provides accurate velocity profile for Vs30 (Vs30) and dynamic property calculation.",
+    "explanation": "Downhole: single receiver moved down တွင်းဖော် (borehole), source at surface offset 1-2m. Interval method: use first arrival times at each depth. Crosshole: source and receiver in separate boreholes — better for soft layers.",
+    "example": "10m depth: Δt_P = 14 ms, Δt_S = 32 ms for 1m interval. Vp = 1/0.014 = 71 m/s? No — typical readings: arrival at 10m vs 11m: ΔtP=2ms → Vp=500 m/s. ΔtS=5ms → Vs=200 m/s. G0 = 1800×200² = 72 MPa."
   },
   "seismic-refraction": {
-    "title": "Seismic Refraction Survey",
-    "jp": "[MM] 屈折法地震探査",
-    "theory": "[MM] Surface seismic method that uses first-arrival travel times to map subsurface velocity layers. Waves refract (bend) at interfaces where velocity increases with depth — Snell's Law.",
-    "explanation": "[MM] Geophone array (24-48 channels). Source: sledgehammer or seismic gun. V1 < V2 required (velocity increase with depth). Cannot detect velocity inversions (hidden layers). Used to map bedကျောက် depth, water table, fill thickness.",
-    "example": "[MM] Survey result: V1=400 m/s (fill), V2=1600 m/s (saturated သဲ), V3=4000 m/s (bedကျောက်). Crossover distances: xc12 = 2h1√((V2-V1)/(V2+V1)). Bedကျောက် depth = 12m. Used for tunnel route assessment."
+    "title": "ငလျင်အကွေ့ဆိုင်ရာ (Seismic Refraction) Survey",
+    "jp": "屈折法地震探査",
+    "theory": "Surface seismic method that uses first-arrival travel times to map subsurface velocity layers. Waves refract (bend) at interfaces where velocity increases with depth — Snell's Law.",
+    "explanation": "Geophone array (24-48 channels). Source: sledgehammer or seismic gun. V1 < V2 required (velocity increase with depth). Cannot detect velocity inversions (hidden layers). Used to map bedrock depth, water table, fill thickness.",
+    "example": "Survey result: V1=400 m/s (fill), V2=1600 m/s (saturated သဲ (sand)), V3=4000 m/s (bedrock). Crossover distances: xc12 = 2h1√((V2-V1)/(V2+V1)). Bedrock depth = 12m. Used for tunnel route assessment."
   },
   "resistivity": {
-    "title": "Electrical Resistivity Survey",
-    "jp": "[MM] 電気探査（比抵抗法）",
-    "theory": "[MM] Measures bulk electrical ခံနိုင်ရည် of the ground to map geological structures. Four-electrode arrays: Wenner, Schlumberger, dipole-dipole. Injects current (AB), measures voltage (MN).",
-    "explanation": "[MM] Typical resistivities: Sea water 0.2 Ωm. Saturated ရွှံ့မြေ 1-20 Ωm. Saturated သဲ 20-200 Ωm. Dry သဲ 500-10000 Ωm. Granite 1000-10000 Ωm. Used for: saltwater intrusion, buried waste, fault detection, မြေအောက်ရေ.",
-    "example": "[MM] Coastal site: 2D ခံနိုင်ရည် section shows zone ρ<5 Ωm at 10-20m depth → saltwater intrusion in သဲ aquifer. Used to define freshwater/saltwater interface for well placement."
+    "title": "Electrical ခံနိုင်ရည် (Resistivity) Survey",
+    "jp": "電気探査（比抵抗法）",
+    "theory": "Measures bulk electrical ခံနိုင်ရည် (resistivity) of the ground to map geological structures. Four-electrode arrays: Wenner, Schlumberger, dipole-dipole. Injects current (AB), measures voltage (MN).",
+    "explanation": "Typical resistivities: Sea water 0.2 Ωm. Saturated ရွှံ့မြေ (clay) 1-20 Ωm. Saturated သဲ (sand) 20-200 Ωm. Dry သဲ (sand) 500-10000 Ωm. Granite 1000-10000 Ωm. Used for: saltwater intrusion, buried waste, fault detection, မြေအောက်ရေ (groundwater).",
+    "example": "Coastal site: 2D ခံနိုင်ရည် (resistivity) section shows zone ρ<5 Ωm at 10-20m depth → saltwater intrusion in သဲ (sand) aquifer. Used to define freshwater/saltwater interface for well placement."
   },
   "masw": {
-    "title": "MASW Surface Wave Survey",
-    "jp": "[MM] 表面波探査・微動探査",
-    "theory": "[MM] မျက်နှာပြင်လှိုင်း စူးစမ်းခြင်း (Multichannel Analysis of Surface Waves) measures Rayleigh wave dispersion to invert for Vs profile. Microtremor H/V ratio gives site fundamental frequency. Both methods are non-invasive — no တွင်းဖော် required.",
-    "explanation": "[MM] မျက်နှာပြင်လှိုင်း စူးစမ်းခြင်း: 24-channel array, 4.5 Hz geophones, 2-5 m spacing. Sledgehammer source at one end. Dispersion curve extracted from f-k analysis → inversion → Vs(z) profile. Microtremor uses ambient noise recorded with 3-component seismometer — no active source needed.",
-    "example": "[MM] H/V survey at Tokyo soft ground: f0 = 1.0 Hz → site period T = 1.0 s → thick soft deposits (~40m). H/V amplitude > 4 → strong seismic amplification expected. မျက်နှာပြင်လှိုင်း စူးစမ်းခြင်း confirms Vs30 = 140 m/s → 第3種地盤 classification."
+    "title": "မျက်နှာပြင်လှိုင်း စူးစမ်းခြင်း (MASW) Surface Wave Survey",
+    "jp": "表面波探査・微動探査",
+    "theory": "မျက်နှာပြင်လှိုင်း စူးစမ်းခြင်း (MASW) (Multichannel Analysis of Surface Waves) measures Rayleigh wave dispersion to invert for Vs profile. Microtremor H/V ratio gives site fundamental frequency. Both methods are non-invasive — no တွင်းဖော် (borehole) required.",
+    "explanation": "မျက်နှာပြင်လှိုင်း စူးစမ်းခြင်း (MASW): 24-channel array, 4.5 Hz geophones, 2-5 m spacing. Sledgehammer source at one end. Dispersion curve extracted from f-k analysis → inversion → Vs(z) profile. Microtremor uses ambient noise recorded with 3-component seismometer — no active source needed.",
+    "example": "H/V survey at Tokyo soft ground: f0 = 1.0 Hz → site period T = 1.0 s → thick soft deposits (~40m). H/V amplitude > 4 → strong seismic amplification expected. မျက်နှာပြင်လှိုင်း စူးစမ်းခြင်း (MASW) confirms Vs30 (Vs30) = 140 m/s → 第3種地盤 classification."
   },
   "borehole-camera": {
-    "title": "Borehole Camera Investigation",
-    "jp": "[MM] 孔内カメラ調査",
-    "theory": "[MM] A တွင်းတွင်းကင်မရာ (孔内カメラ) is a waterproof optical probe lowered into a တွင်းဖော် to directly observe the တွင်းဖော် wall. It provides visual images or video of ကျောက် and soil features that cannot be captured by core recovery alone. Used in both soil and ကျောက် investigations.",
-    "explanation": "[MM] Modern တွင်းတွင်းကင်မရာs provide 360° panoramic images at any depth. They reveal fracture orientation, aperture (crack width), weathering condition, joint infill material, and မြေအောက်ရေ inflow locations. Camera data is essential for confirming what the core log shows — and detecting features lost during drilling.",
-    "example": "[MM] Tunnel project in Hokkaido granite. တွင်းတွင်းကင်မရာ at 30–50m depth shows steeply dipping fractures (dip 70°) oriented toward planned tunnel face. Camera reveals open joints with water inflow at 42m. Design changed: increased shotcrete thickness + additional ကျောက် bolts. Without camera, this risk would have been missed."
+    "title": "တွင်းတွင်းကင်မရာ (Borehole Camera) Investigation",
+    "jp": "孔内カメラ調査",
+    "theory": "A တွင်းတွင်းကင်မရာ (borehole camera) (孔内カメラ) is a waterproof optical probe lowered into a တွင်းဖော် (borehole) to directly observe the တွင်းဖော် (borehole) wall. It provides visual images or video of ကျောက် (rock) and soil features that cannot be captured by core recovery alone. Used in both soil and ကျောက် (rock) investigations.",
+    "explanation": "Modern တွင်းဖော် (borehole) cameras provide 360° panoramic images at any depth. They reveal fracture orientation, aperture (crack width), weathering condition, joint infill material, and မြေအောက်ရေ (groundwater) inflow locations. Camera data is essential for confirming what the core log shows — and detecting features lost during drilling.",
+    "example": "Tunnel project in Hokkaido granite. တွင်းတွင်းကင်မရာ (Borehole camera) at 30–50m depth shows steeply dipping fractures (dip 70°) oriented toward planned tunnel face. Camera reveals open joints with water inflow at 42m. Design changed: increased shotcrete thickness + additional ကျောက် (rock) bolts. Without camera, this risk would have been missed."
   },
   "pressuremeter": {
-    "title": "Pressuremeter Test (PMT)",
-    "jp": "[MM] 孔内水平載荷試験",
-    "theory": "[MM] The ဖိအားတိုင်းကိရိယာ test inflates a cylindrical probe inside a တွင်းဖော် to measure the in-situ lateral ဖိအား-ပုံပျက်ခြင်း relationship of the soil or ကျောက်. It directly measures horizontal deformation behavior — something no other standard test provides. Based on the Ménard ဖိအားတိုင်းကိရိယာ (1956).",
-    "explanation": "[MM] The probe is inserted into a pre-drilled တွင်းဖော် at the test depth. Inflation pressure is increased in steps while measuring volume change. Three phases: (1) တွင်းဖော် wall reopening, (2) pseudo-elastic expansion, (3) plastic zone growth. Em is taken from the linear elastic phase. PL is the pressure at which soil fails (limit pressure).",
-    "example": "[MM] Soft ကျောက် tunnel portal in Kyushu. ဖိအားတိုင်းကိရိယာ tests at 3m, 5m, 8m depths. Results: Em = 15, 22, 35 MPa. PL = 0.8, 1.2, 2.1 MPa. Foundation design uses Em/3 ≈ 5-12 MPa as working ကိန်းဆက်. ဖိအားတိုင်းကိရိယာ data more reliable than lab testing for weathered ကျောက် because sample disturbance is minimized."
+    "title": "ဖိအားတိုင်းကိရိယာ (Pressuremeter) Test (PMT)",
+    "jp": "孔内水平載荷試験",
+    "theory": "The ဖိအားတိုင်းကိရိယာ (pressuremeter) test inflates a cylindrical probe inside a တွင်းဖော် (borehole) to measure the in-situ lateral ဖိအား (stress)-ပုံပျက်ခြင်း (strain) relationship of the soil or ကျောက် (rock). It directly measures horizontal deformation behavior — something no other standard test provides. Based on the Ménard ဖိအားတိုင်းကိရိယာ (pressuremeter) (1956).",
+    "explanation": "The probe is inserted into a pre-drilled တွင်းဖော် (borehole) at the test depth. Inflation pressure is increased in steps while measuring volume change. Three phases: (1) တွင်းဖော် (borehole) wall reopening, (2) pseudo-elastic expansion, (3) plastic zone growth. Em is taken from the linear elastic phase. PL is the pressure at which soil fails (limit pressure).",
+    "example": "Soft ကျောက် (rock) tunnel portal in Kyushu. ဖိအားတိုင်းကိရိယာ (Pressuremeter) tests at 3m, 5m, 8m depths. Results: Em = 15, 22, 35 MPa. PL = 0.8, 1.2, 2.1 MPa. Foundation design uses Em/3 ≈ 5-12 MPa as working ကိန်းဆက် (modulus). ဖိအားတိုင်းကိရိယာ (Pressuremeter) data more reliable than lab testing for weathered ကျောက် (rock) because sample disturbance is minimized."
   },
   "rqd": {
-    "title": "Rock Quality Designation (RQD)",
-    "jp": "[MM] 岩盤品質指標",
-    "theory": "[MM] ကျောက်တုံးအရည်အသွေးညွှန်း (ကျောက် Quality Designation) quantifies the degree of jointing or fracturing in a ကျောက် mass. It is measured from drill core as the percentage of intact core pieces longer than 100mm in a given drill run. Developed by Deere (1963) and now the standard for ကျောက် mass classification worldwide.",
-    "explanation": "[MM] Only natural fractures are counted — mechanical breaks from drilling are excluded. ကျောက်တုံးအရည်အသွေးညွှန်း rating: 90-100% Excellent (優良), 75-90% Good (良), 50-75% Fair (普通), 25-50% Poor (不良), <25% Very Poor (極めて不良). ကျောက်တုံးအရည်အသွေးညွှန်း feeds into RMR (Bieniawski 1989) and the NGI Q-system for tunnel support design.",
-    "example": "[MM] Core run in granite tunnel site (Osaka): 2.0m run. Intact pieces (natural breaks only): 8cm, 25cm, 35cm, 42cm, 32cm, 28cm, 15cm = sum 7 pieces. Pieces ≥ 100mm: 25, 35, 42, 32, 28 cm = 162cm. ကျောက်တုံးအရည်အသွေးညွှန်း = 162/200 × 100% = 81% → GOOD. Tunnel support: spot bolts + mesh. No heavy steel sets needed."
+    "title": "ကျောက် (Rock) Quality Designation (ကျောက်တုံးအရည်အသွေးညွှန်း (RQD))",
+    "jp": "岩盤品質指標",
+    "theory": "ကျောက်တုံးအရည်အသွေးညွှန်း (RQD) (ကျောက် (Rock) Quality Designation) quantifies the degree of jointing or fracturing in a ကျောက် (rock) mass. It is measured from drill core as the percentage of intact core pieces longer than 100mm in a given drill run. Developed by Deere (1963) and now the standard for ကျောက် (rock) mass classification worldwide.",
+    "explanation": "Only natural fractures are counted — mechanical breaks from drilling are excluded. ကျောက်တုံးအရည်အသွေးညွှန်း (RQD) rating: 90-100% Excellent (優良), 75-90% Good (良), 50-75% Fair (普通), 25-50% Poor (不良), <25% Very Poor (極めて不良). ကျောက်တုံးအရည်အသွေးညွှန်း (RQD) feeds into RMR (Bieniawski 1989) and the NGI Q-system for tunnel support design.",
+    "example": "Core run in granite tunnel site (Osaka): 2.0m run. Intact pieces (natural breaks only): 8cm, 25cm, 35cm, 42cm, 32cm, 28cm, 15cm = sum 7 pieces. Pieces ≥ 100mm: 25, 35, 42, 32, 28 cm = 162cm. ကျောက်တုံးအရည်အသွေးညွှန်း (RQD) = 162/200 × 100% = 81% → GOOD. Tunnel support: spot bolts + mesh. No heavy steel sets needed."
   },
   "plate-load-test": {
-    "title": "Plate Load Test",
-    "jp": "[MM] 平板載荷試験 (JIS A 1215)",
-    "theory": "[MM] The ပြားတင်စမ်းသပ်ခြင်း directly measures the ဝန်ခံနိုင်ရည် and deformation ကိန်းဆက် of soil or ကျောက် at the foundation level. A rigid steel plate (typically 300mm or 750mm diameter) is loaded in increments while measuring နစ်ကျခြင်း. It is the most direct measurement of ground response under real foundation conditions.",
-    "explanation": "[MM] The test is performed at the design foundation level in a pit or directly on the ground surface. A hydraulic jack applies load through the steel plate onto the soil. နစ်ကျခြင်း is measured with dial gauges or LVDTs. Load-နစ်ကျခြင်း curve defines: elastic zone, yield point, ultimate ဝန်ခံနိုင်ရည်. Japanese road design uses K30 as the primary subgrade parameter.",
-    "example": "[MM] Road subgrade test in Saitama. 300mm plate on compacted fill. Load applied in 5 steps: 50, 100, 150, 200, 250 kPa. နစ်ကျခြင်း at 250 kPa: 12mm. K30 = (250 kPa at s=1.25mm): K30 = p(at 1.25mm)/1.25mm × 1000 = 120 MN/m³. Japanese specification: K30 ≥ 110 MN/m³ for road base → PASS. E0 = (1-0.3²)×0.785×p×0.3/s = ~65 MPa."
+    "title": "ပြားတင်စမ်းသပ်ခြင်း (Plate Load Test)",
+    "jp": "平板載荷試験 (JIS A 1215)",
+    "theory": "The ပြားတင်စမ်းသပ်ခြင်း (plate load test) directly measures the ဝန်ခံနိုင်ရည် (bearing capacity) and deformation ကိန်းဆက် (modulus) of soil or ကျောက် (rock) at the foundation level. A rigid steel plate (typically 300mm or 750mm diameter) is loaded in increments while measuring နစ်ကျခြင်း (settlement). It is the most direct measurement of ground response under real foundation conditions.",
+    "explanation": "The test is performed at the design foundation level in a pit or directly on the ground surface. A hydraulic jack applies load through the steel plate onto the soil. နစ်ကျခြင်း (Settlement) is measured with dial gauges or LVDTs. Load-နစ်ကျခြင်း (settlement) curve defines: elastic zone, yield point, ultimate ဝန်ခံနိုင်ရည် (bearing capacity). Japanese road design uses K30 as the primary subgrade parameter.",
+    "example": "Road subgrade test in Saitama. 300mm plate on compacted fill. Load applied in 5 steps: 50, 100, 150, 200, 250 kPa. နစ်ကျခြင်း (Settlement) at 250 kPa: 12mm. K30 = (250 kPa at s=1.25mm): K30 = p(at 1.25mm)/1.25mm × 1000 = 120 MN/m³. Japanese specification: K30 ≥ 110 MN/m³ for road base → PASS. E0 = (1-0.3²)×0.785×p×0.3/s = ~65 MPa."
   },
   "gpr": {
-    "title": "Ground Penetrating Radar (GPR)",
-    "jp": "[MM] 地中レーダー探査",
-    "theory": "[MM] Ground Penetrating Radar emits short pulses of electromagnetic energy into the ground and records the reflections from subsurface interfaces. The reflection time (two-way travel time) and wave velocity allow calculation of depth to reflectors. မြေအောက် ရေဒါ is the primary non-invasive method for detecting shallow features: buried utilities, voids, rebar, and geological boundaries.",
-    "explanation": "[MM] မြေအောက် ရေဒါ antennas range from 25 MHz (deep penetration, low resolution) to 2 GHz (high resolution, shallow). In Japan, 200-500 MHz antennas are most common for geotechnical work. မြေအောက် ရေဒါ works best in dry, resistive soils. Wet ရွှံ့မြေ and seawater-saturated ground severely attenuate the signal. Output is a radargram showing reflection hyperbolas from point targets (pipes, rebars) and continuous reflectors (layer boundaries).",
-    "example": "[MM] Pre-construction utility survey in Tokyo. 500 MHz antenna survey reveals: water pipe at 0.8m depth (hyperbolic reflection), old gas line at 1.2m (metallic reflection, strong), unknown void at 2.1m depth (bright reflection from top, no signal below). မြေအောက် ရေဒါ data allows safe excavation planning. Also used for bridge deck rebar detection and tunnel lining inspection in Japan."
+    "title": "Ground Penetrating Radar (မြေအောက် ရေဒါ (GPR))",
+    "jp": "地中レーダー探査",
+    "theory": "Ground Penetrating Radar emits short pulses of electromagnetic energy into the ground and records the reflections from subsurface interfaces. The reflection time (two-way travel time) and wave velocity allow calculation of depth to reflectors. မြေအောက် ရေဒါ (GPR) is the primary non-invasive method for detecting shallow features: buried utilities, voids, rebar, and geological boundaries.",
+    "explanation": "မြေအောက် ရေဒါ (GPR) antennas range from 25 MHz (deep penetration, low resolution) to 2 GHz (high resolution, shallow). In Japan, 200-500 MHz antennas are most common for geotechnical work. မြေအောက် ရေဒါ (GPR) works best in dry, resistive soils. Wet ရွှံ့မြေ (clay) and seawater-saturated ground severely attenuate the signal. Output is a radargram showing reflection hyperbolas from point targets (pipes, rebars) and continuous reflectors (layer boundaries).",
+    "example": "Pre-construction utility survey in Tokyo. 500 MHz antenna survey reveals: water pipe at 0.8m depth (hyperbolic reflection), old gas line at 1.2m (metallic reflection, strong), unknown void at 2.1m depth (bright reflection from top, no signal below). မြေအောက် ရေဒါ (GPR) data allows safe excavation planning. Also used for bridge deck rebar detection and tunnel lining inspection in Japan."
   }
 }

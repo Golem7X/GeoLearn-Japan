@@ -3038,7 +3038,7 @@ body.mobile-nav-open .mobile-hamburger span:nth-child(3) {
   body.focus-mode .mobile-hamburger { display: none; }
 }
 </style>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-BpvvZjTyjeS7f11hsZbo1NovjPpWkR3wMp/hJystksI='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-wL6GQ8oLLx6TJH9LtU695+MmQmhERaH0XNyveP8suGU='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
 </head>
 <body>
 
@@ -5895,6 +5895,63 @@ function getTranslated(type, id, field, fallback) {
 // Helper: get current language code
 function getLang() { return currentLang; }
 
+// Re-render active content when language changes
+window.addEventListener('langchange', function() {
+  // Re-render flashcards if visible
+  if (document.getElementById('page-flashcards') &&
+      document.getElementById('page-flashcards').classList.contains('active')) {
+    if (typeof renderFC === 'function') renderFC();
+  }
+  // Re-render quiz if in progress
+  if (document.getElementById('quiz-question') &&
+      document.getElementById('quiz-question').style.display !== 'none') {
+    if (typeof renderQuestion === 'function') renderQuestion();
+  }
+  // Re-render topic detail if visible
+  if (document.getElementById('topic-detail') &&
+      document.getElementById('topic-detail').style.display === 'block') {
+    var titleEl = document.querySelector('.sr-title[data-topic-id]');
+    if (titleEl && typeof showTopic === 'function') {
+      showTopic(titleEl.getAttribute('data-topic-id'));
+    }
+  }
+
+  // Update static nav labels
+  updateNavLabels();
+
+  // Update topic cards on study page
+  document.querySelectorAll('.topic-card').forEach(function(card) {
+    var actionAttr = card.getAttribute('data-action') || card.getAttribute('onclick') || '';
+    var m = actionAttr.match(/showTopic\('([^']+)'\)/);
+    if (m && TOPICS[m[1]]) {
+      var tid = m[1];
+      var nameEl = card.querySelector('.topic-name');
+      var jpEl = card.querySelector('.topic-jp');
+      if (nameEl) {
+        nameEl.textContent = getTranslated('topics', tid, 'title', TOPICS[tid].title);
+      }
+      if (jpEl) {
+        jpEl.textContent = (currentLang === 'en') ? TOPICS[tid].jp : TOPICS[tid].title;
+      }
+    }
+  });
+});
+
+// Navigation label translations
+var NAV_LABELS = {
+  en: ['Home','Study Modules','Animations','Field Calculator','Flashcards','Quiz','Match Game','Resources','Career','AI Tutor','Deep Module','Field Data','Study Plan','Vocabulary','JLPT','Analytics','Smart','Daily Focus','Simulations','Knowledge Map','Case Studies','Photo Gallery'],
+  ja: ['ホーム','学習モジュール','アニメーション','現場計算','フラッシュカード','クイズ','マッチゲーム','資料','キャリア','AIチューター','深層モジュール','現場データ','学習計画','語彙','JLPT','分析','スマート','デイリーフォーカス','シミュレーション','知識マップ','事例研究','写真ギャラリー'],
+  mm: ['ပင်မ','သင်ခန်းစာ','အန်နီမေးရှင်း','ကွင်းဆင်း တွက်ချက်','ကဒ်ပြား','ပဟေဠိ','တူညီတွဲ','အရင်းအမြစ်','အသက်မွေး','AI သင်ကြား','အဆင့်မြင့်','ကွင်းဆင်းဒေတာ','လေ့လာစီစဉ်','ဝေါဟာရ','JLPT','ခွဲခြမ်းစိတ်ဖြာ','စမတ်','နေ့စဉ်','သရုပ်ပြ','အသိပညာ','ဖြစ်ရပ်','ဓာတ်ပုံ']
+};
+
+function updateNavLabels() {
+  var labels = NAV_LABELS[currentLang] || NAV_LABELS.en;
+  var navItems = document.querySelectorAll('.nav-item .nav-label');
+  navItems.forEach(function(el, i) {
+    if (labels[i]) el.textContent = labels[i];
+  });
+}
+
 // ============================================================
 // MOBILE MENU TOGGLE
 // ============================================================
@@ -6238,6 +6295,11 @@ const TOPICS={
 
 function showTopic(id){
   const t=TOPICS[id];if(!t)return;
+  // Apply translations if not English
+  var tTitle = getTranslated('topics', id, 'title', t.title);
+  var tTheory = getTranslated('topics', id, 'theory', t.theory);
+  var tExplanation = getTranslated('topics', id, 'explanation', t.explanation);
+  var tExample = getTranslated('topics', id, 'example', t.example);
   document.getElementById('topic-list').style.display='none';
   document.getElementById('topic-detail').style.display='block';
   window.scrollTo(0,0);
@@ -6292,11 +6354,11 @@ function showTopic(id){
   const sectionData=[
     {
       id:'s1',icon:'💡',label:'1 · Simple Meaning',
-      content:`<div class="sr-simple">${t.theory}</div>`
+      content:`<div class="sr-simple">${tTheory}</div>`
     },
     {
       id:'s2',icon:'📖',label:'2 · Detailed Explanation',
-      content:`<div class="sr-body">${highlightKeyTerms(t.explanation)}</div>`
+      content:`<div class="sr-body">${highlightKeyTerms(tExplanation)}</div>`
     },
     {
       id:'s3',icon:'🌐',label:'3 · Why It Matters in Engineering',
@@ -6304,7 +6366,7 @@ function showTopic(id){
     },
     {
       id:'s4',icon:'🌏',label:'4 · Real-World Example (Japan & Global)',
-      content:`<div class="sr-example">${t.example}</div>`
+      content:`<div class="sr-example">${tExample}</div>`
     },
     {
       id:'s5',icon:'🔑',label:'5 · Key Points for Exam & Field',
@@ -6316,7 +6378,7 @@ function showTopic(id){
     },
     {
       id:'s7',icon:'⚡',label:'7 · Quick Summary',
-      content:`<div class="sr-summary">${t.theory.split('.')[0]}. Key equation: <strong>${t.eq}</strong> — ${t.eqLabel}. Remember: ${t.keyPoints[0]}.</div>`
+      content:`<div class="sr-summary">${tTheory.split('.')[0]}. Key equation: <strong>${t.eq}</strong> — ${t.eqLabel}. Remember: ${t.keyPoints[0]}.</div>`
     },
   ];
 
@@ -6359,8 +6421,8 @@ function showTopic(id){
 
   document.getElementById('topic-content').innerHTML=`
     <div style="margin-bottom:28px">
-      <div class="sr-title">${t.title}</div>
-      <div class="sr-jp">${t.jp}</div>
+      <div class="sr-title" data-topic-id="${id}">${tTitle}</div>
+      <div class="sr-jp">${currentLang==='en'?t.jp:t.title}</div>
       ${dotsHTML}
     </div>
     ${eqHTML}
@@ -7098,18 +7160,22 @@ function getCurrentDeck(){
 function renderFC(){
   const deck=getCurrentDeck();
   if(!deck.length)return;
-  const card=deck[fcIndex%deck.length];
+  const ci2=fcIndex%deck.length;
+  const card=deck[ci2];
   const fc=document.getElementById('flashcard');
   if(fc)fc.classList.remove('flipped');
   fcFlipped=false;
+  // Apply translations
+  var fcEn = getTranslated('flashcards', String(FLASHCARDS.indexOf(card)), 'en', card.en);
+  var fcBack = getTranslated('flashcards', String(FLASHCARDS.indexOf(card)), 'back', card.back);
   document.getElementById('fc-front-jp').textContent=card.jp;
-  document.getElementById('fc-front-en').textContent=card.en;
+  document.getElementById('fc-front-en').textContent=fcEn;
   document.getElementById('fc-front-eq').textContent=card.eq;
   document.getElementById('fc-back-content').innerHTML=`
     <div class="fc-jp" style="font-size:20px">${card.jp}</div>
-    <div class="fc-en" style="font-size:14px;margin-top:4px">${card.en}</div>
+    <div class="fc-en" style="font-size:14px;margin-top:4px">${fcEn}</div>
     ${card.eq?`<div class="fc-eq" style="font-size:16px">${card.eq}</div>`:''}
-    <div class="fc-desc">${card.back}</div>`;
+    <div class="fc-desc">${fcBack}</div>`;
   const ci=fcIndex%deck.length;
   document.getElementById('fc-counter').textContent=`${ci+1} / ${deck.length}`;
   const knownCount=fcKnown.size,reviewCount=fcReview.size;
@@ -7207,18 +7273,21 @@ function startQuiz(cat){
 function renderQuestion(){
   const q=quizSet[qIndex];
   const total=quizSet.length;
+  var qIdx=QUIZ_DATA.indexOf(q);
   qAnswered=false;
   document.getElementById('qprogress').style.width=`${qIndex/total*100}%`;
   document.getElementById('q-num').textContent=`Question ${qIndex+1} of ${total} | Score: ${qScore}`;
-  document.getElementById('q-text').textContent=q.q;
+  document.getElementById('q-text').textContent=getTranslated('quiz',String(qIdx),'q',q.q);
   document.getElementById('q-explain').style.display='none';
   document.getElementById('q-next').style.display='none';
   const optContainer=document.getElementById('q-options');
   optContainer.innerHTML='';
+  var trOpts=(langCache[currentLang]&&langCache[currentLang].quiz&&langCache[currentLang].quiz[qIdx])?langCache[currentLang].quiz[qIdx].opts:null;
   q.opts.forEach((opt,i)=>{
     const btn=document.createElement('div');
     btn.className='quiz-opt';
-    btn.innerHTML=`<span style="font-family:'JetBrains Mono',monospace;color:var(--text2)">${String.fromCharCode(65+i)}.</span> ${opt}`;
+    var optText=(trOpts&&trOpts[i])?trOpts[i]:opt;
+    btn.innerHTML=`<span style="font-family:'JetBrains Mono',monospace;color:var(--text2)">${String.fromCharCode(65+i)}.</span> ${optText}`;
     btn.onclick=()=>answerQuestion(i,btn);
     optContainer.appendChild(btn);
   });
@@ -7240,7 +7309,8 @@ function answerQuestion(chosen,btn){
     btn.classList.add('wrong');
     showNotif('✗ Incorrect. Review the explanation.');
   }
-  document.getElementById('q-explain').textContent=q.explain;
+  var qIdx2=QUIZ_DATA.indexOf(q);
+  document.getElementById('q-explain').textContent=getTranslated('quiz',String(qIdx2),'explain',q.explain);
   document.getElementById('q-explain').style.display='block';
   document.getElementById('q-next').style.display='block';
 }
