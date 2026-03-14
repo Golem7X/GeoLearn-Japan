@@ -359,9 +359,9 @@ console.log(`  App code:  sha256-${appHash}`);
 const CSP_DIRECTIVES = [
   `default-src 'none'`,
   `script-src 'strict-dynamic' 'sha256-${domPurifyHash}' 'sha256-${appHash}'`,
-  `style-src 'unsafe-inline' https://fonts.googleapis.com`,
-  `font-src https://fonts.gstatic.com data:`,
-  `img-src 'self' https://images.unsplash.com data: blob:`,
+  `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com`,
+  `font-src https://fonts.gstatic.com`,
+  `img-src 'self' data: blob:`,
   `connect-src 'none'`,
   `object-src 'none'`,
   `base-uri 'self'`,
