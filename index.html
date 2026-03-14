@@ -2715,6 +2715,68 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
    MOBILE & RESPONSIVE OVERHAUL
    ═══════════════════════════════════════════════════════════════════ */
 
+/* ── Language Switcher ──────────────────────────────────────────────── */
+.lang-switcher {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  margin-top: 10px;
+  padding: 0 8px;
+}
+.lang-btn {
+  flex: 1;
+  padding: 5px 2px;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  color: var(--text2);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all .2s;
+  text-align: center;
+  line-height: 1;
+}
+.lang-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.lang-btn.active {
+  background: rgba(0,212,255,0.12);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+body.study-mode .lang-btn {
+  border-color: #D1DCF0;
+  color: #555;
+}
+body.study-mode .lang-btn.active {
+  background: rgba(79,70,229,0.1);
+  border-color: #4F46E5;
+  color: #4F46E5;
+}
+.lang-loading {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  background: var(--surface);
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-family: 'Syne', sans-serif;
+  font-size: 12px;
+  color: var(--accent);
+  z-index: 2000;
+  display: none;
+  animation: langPulse 1s infinite;
+}
+@keyframes langPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
 /* ── Hamburger Button ─────────────────────────────────────────────── */
 .mobile-hamburger {
   display: none;
@@ -2976,7 +3038,7 @@ body.mobile-nav-open .mobile-hamburger span:nth-child(3) {
   body.focus-mode .mobile-hamburger { display: none; }
 }
 </style>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-FNudb8li0LhPDnwdrYe4svRC2ve5FEQr4/QR5ykR8Lk='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-BpvvZjTyjeS7f11hsZbo1NovjPpWkR3wMp/hJystksI='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
 </head>
 <body>
 
@@ -3013,6 +3075,9 @@ body.mobile-nav-open .mobile-hamburger span:nth-child(3) {
 </div>
 
 <div class="app">
+
+<!-- LANGUAGE LOADING INDICATOR -->
+<div class="lang-loading" id="lang-loading">Loading translations...</div>
 
 <!-- MOBILE HAMBURGER & OVERLAY -->
 <button class="mobile-hamburger" data-action="toggleMobileMenu()" aria-label="Open menu">
@@ -3091,6 +3156,12 @@ body.mobile-nav-open .mobile-hamburger span:nth-child(3) {
   </div>
 
   <!-- OWNER BADGE -->
+  <!-- Language Switcher -->
+  <div class="lang-switcher">
+    <button class="lang-btn active" data-action="switchLang('en')" title="English">EN</button>
+    <button class="lang-btn" data-action="switchLang('ja')" title="日本語">JA</button>
+    <button class="lang-btn" data-action="switchLang('mm')" title="မြန်မာ">MM</button>
+  </div>
   <div class="nav-owner">
     <div class="nav-owner-logo">MYO_Geo_Orgs</div>
     <div class="nav-owner-name">MYO NAING TUN</div>
@@ -5691,6 +5762,138 @@ function sanitizeText(s) {
 
 })();
 
+
+// ============================================================
+// MULTILINGUAL CONTENT SYSTEM
+// ============================================================
+var currentLang = localStorage.getItem('geoLang') || 'en';
+var langCache = {};  // { ja: { topics: {...}, flashcards: [...], ... }, mm: {...} }
+var LANG_NAMES = { en: 'English', ja: '日本語', mm: 'မြန်မာ' };
+
+// Initialize language UI on load
+(function initLangUI() {
+  // Restore saved language on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    var btns = document.querySelectorAll('.lang-btn');
+    btns.forEach(function(b) {
+      b.classList.remove('active');
+    });
+    var activeBtn = document.querySelector('.lang-btn[data-action*="' + currentLang + '"]');
+    if (activeBtn) activeBtn.classList.add('active');
+  });
+})();
+
+// Switch language
+function switchLang(lang) {
+  if (lang === currentLang) return;
+  currentLang = lang;
+  localStorage.setItem('geoLang', lang);
+
+  // Update active button
+  document.querySelectorAll('.lang-btn').forEach(function(b) { b.classList.remove('active'); });
+  var activeBtn = document.querySelector('.lang-btn[data-action*="' + lang + '"]');
+  if (activeBtn) activeBtn.classList.add('active');
+
+  // Load translations if needed
+  if (lang !== 'en' && !langCache[lang]) {
+    loadAllTranslations(lang);
+  } else {
+    applyLanguage(lang);
+  }
+}
+
+// Load all translation JSON files for a language
+function loadAllTranslations(lang) {
+  var loader = document.getElementById('lang-loading');
+  if (loader) loader.style.display = 'block';
+
+  var files = ['topics', 'flashcards', 'quiz', 'vocabulary'];
+  var loaded = 0;
+  langCache[lang] = {};
+
+  files.forEach(function(type) {
+    fetch('content/' + lang + '/' + type + '.json')
+      .then(function(res) { return res.ok ? res.json() : null; })
+      .then(function(data) {
+        if (data) langCache[lang][type] = data;
+        loaded++;
+        if (loaded === files.length) {
+          if (loader) loader.style.display = 'none';
+          applyLanguage(lang);
+        }
+      })
+      .catch(function() {
+        loaded++;
+        if (loaded === files.length) {
+          if (loader) loader.style.display = 'none';
+          applyLanguage(lang);
+        }
+      });
+  });
+}
+
+// Apply language to visible content
+function applyLanguage(lang) {
+  // Update all elements with data-i18n attribute
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    var key = el.getAttribute('data-i18n');
+    var parts = key.split('.');  // e.g. "topics.effective-stress.title"
+    var type = parts[0];
+    var id = parts[1];
+    var field = parts[2];
+
+    if (lang === 'en') {
+      // Restore original English from data-i18n-en
+      var original = el.getAttribute('data-i18n-en');
+      if (original) el.textContent = original;
+      return;
+    }
+
+    // Save original English text on first translation
+    if (!el.getAttribute('data-i18n-en')) {
+      el.setAttribute('data-i18n-en', el.textContent);
+    }
+
+    // Look up translation
+    if (langCache[lang] && langCache[lang][type]) {
+      var data = langCache[lang][type];
+      var translated = null;
+
+      if (Array.isArray(data)) {
+        // flashcards / quiz — by index
+        var idx = parseInt(id);
+        if (!isNaN(idx) && data[idx] && data[idx][field]) {
+          translated = data[idx][field];
+        }
+      } else if (data[id] && data[id][field]) {
+        translated = data[id][field];
+      }
+
+      if (translated) el.textContent = translated;
+    }
+  });
+
+  // Dispatch custom event for dynamic content
+  window.dispatchEvent(new CustomEvent('langchange', { detail: { lang: lang } }));
+}
+
+// Helper: get translated text for a content item
+function getTranslated(type, id, field, fallback) {
+  if (currentLang === 'en') return fallback;
+  if (langCache[currentLang] && langCache[currentLang][type]) {
+    var data = langCache[currentLang][type];
+    if (Array.isArray(data)) {
+      var idx = parseInt(id);
+      if (!isNaN(idx) && data[idx] && data[idx][field]) return data[idx][field];
+    } else if (data[id] && data[id][field]) {
+      return data[id][field];
+    }
+  }
+  return fallback;
+}
+
+// Helper: get current language code
+function getLang() { return currentLang; }
 
 // ============================================================
 // MOBILE MENU TOGGLE
