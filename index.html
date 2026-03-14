@@ -2715,40 +2715,36 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
    MOBILE & RESPONSIVE OVERHAUL
    ═══════════════════════════════════════════════════════════════════ */
 
-/* ── Language Switcher ──────────────────────────────────────────────── */
-.lang-switcher {
+/* ── Language Switcher (PC: fixed top-right, Mobile: in sidebar) ──── */
+.lang-switcher-fixed {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 1002;
   display: flex;
-  flex-direction: column;
-  gap: 3px;
-  align-items: center;
-  margin-top: 10px;
-  padding: 0 6px;
+  gap: 4px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 4px;
+}
+.lang-switcher-sidebar {
+  display: none;
 }
 .lang-btn {
-  width: 42px;
-  padding: 6px 2px;
+  padding: 6px 10px;
   font-family: 'Syne', sans-serif;
   font-weight: 700;
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.5px;
   color: var(--text2);
   background: transparent;
-  border: 1px solid var(--border);
+  border: 1px solid transparent;
   border-radius: 6px;
   cursor: pointer;
   transition: all .2s;
   text-align: center;
   line-height: 1;
-  white-space: nowrap;
-  overflow: hidden;
-}
-.sidebar:hover .lang-switcher {
-  flex-direction: row;
-  padding: 0 12px;
-}
-.sidebar:hover .lang-btn {
-  flex: 1;
-  width: auto;
 }
 .lang-btn:hover {
   border-color: var(--accent);
@@ -2759,14 +2755,31 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
   border-color: var(--accent);
   color: var(--accent);
 }
-body.study-mode .lang-btn {
+body.study-mode .lang-switcher-fixed {
+  background: #fff;
   border-color: #D1DCF0;
+}
+body.study-mode .lang-btn {
   color: #555;
 }
 body.study-mode .lang-btn.active {
   background: rgba(79,70,229,0.1);
   border-color: #4F46E5;
   color: #4F46E5;
+}
+@media (max-width: 768px) {
+  .lang-switcher-fixed { display: none; }
+  .lang-switcher-sidebar {
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+    margin-top: 10px;
+    padding: 0 12px;
+  }
+  .lang-switcher-sidebar .lang-btn {
+    flex: 1;
+    border: 1px solid var(--border);
+  }
 }
 .lang-loading {
   position: fixed;
@@ -3087,6 +3100,13 @@ body.mobile-nav-open .mobile-hamburger span:nth-child(3) {
 
 <div class="app">
 
+<!-- LANGUAGE SWITCHER (PC: fixed top-right) -->
+<div class="lang-switcher-fixed">
+  <button class="lang-btn active" data-action="switchLang('en')" title="English">EN</button>
+  <button class="lang-btn" data-action="switchLang('ja')" title="日本語">JA</button>
+  <button class="lang-btn" data-action="switchLang('mm')" title="မြန်မာ">MM</button>
+</div>
+
 <!-- LANGUAGE LOADING INDICATOR -->
 <div class="lang-loading" id="lang-loading">Loading translations...</div>
 
@@ -3167,8 +3187,8 @@ body.mobile-nav-open .mobile-hamburger span:nth-child(3) {
   </div>
 
   <!-- OWNER BADGE -->
-  <!-- Language Switcher -->
-  <div class="lang-switcher">
+  <!-- Language Switcher (Mobile: in sidebar) -->
+  <div class="lang-switcher-sidebar">
     <button class="lang-btn active" data-action="switchLang('en')" title="English">EN</button>
     <button class="lang-btn" data-action="switchLang('ja')" title="日本語">JA</button>
     <button class="lang-btn" data-action="switchLang('mm')" title="မြန်မာ">MM</button>
