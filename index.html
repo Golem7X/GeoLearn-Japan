@@ -2976,7 +2976,7 @@ body.mobile-nav-open .mobile-hamburger span:nth-child(3) {
   body.focus-mode .mobile-hamburger { display: none; }
 }
 </style>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-Cg4byvJj0PPHh/dYRd0vAtDY+Gd8OyQiuWc2hkMahK8='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-FNudb8li0LhPDnwdrYe4svRC2ve5FEQr4/QR5ykR8Lk='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
 </head>
 <body>
 
@@ -5351,7 +5351,17 @@ function sanitizeText(s) {
       window.trustedTypes.createPolicy('default', {
         createHTML: function(dirty) {
           if (typeof DOMPurify !== 'undefined') {
-            return DOMPurify.sanitize(dirty, {
+            // Pre-convert onclick/onmouseover/onmouseout → data-action/data-hover-on/data-hover-off
+            // so DOMPurify doesn't strip them (DOMPurify always removes on* event attrs).
+            // The MutationObserver + delegated handler will execute data-action on click.
+            var converted = dirty
+              .replace(/ onclick="/g, ' data-action="')
+              .replace(/ onclick='/g, " data-action='")
+              .replace(/ onmouseover="/g, ' data-hover-on="')
+              .replace(/ onmouseover='/g, " data-hover-on='")
+              .replace(/ onmouseout="/g, ' data-hover-off="')
+              .replace(/ onmouseout='/g, " data-hover-off='");
+            return DOMPurify.sanitize(converted, {
               ALLOWED_TAGS: [
                 'a','b','br','button','canvas','code','col','colgroup',
                 'div','em','h1','h2','h3','h4','h5','h6','hr','i','img',
@@ -5360,14 +5370,15 @@ function sanitizeText(s) {
                 'textarea','th','thead','tr','ul'
               ],
               ALLOWED_ATTR: [
-                'class','style','data-action','id','title','type',
+                'class','style','data-action','data-hover-on','data-hover-off',
+                'data-done','data-error','data-change','data-keydown',
+                'id','title','type',
                 'value','min','max','step','placeholder','disabled',
                 'checked','selected','for','name','readonly',
-                'width','height','src','alt','rows','cols',
-                'onclick','onmouseover','onmouseout'
+                'width','height','src','alt','rows','cols'
               ],
               FORBID_ATTR: [
-                'onerror','onload','onchange',
+                'onerror','onload','onclick','onmouseover','onmouseout','onchange',
                 'onsubmit','onfocus','onblur','onkeydown','onkeyup',
                 'onkeypress','ondblclick','oncontextmenu','onresize'
               ],
@@ -5586,6 +5597,20 @@ function sanitizeText(s) {
         return;
       }
       t = t.parentNode;
+    }
+  }, false);
+
+  // Delegated mouseover/mouseout listeners (data-hover-on / data-hover-off)
+  document.addEventListener('mouseover', function(e) {
+    var t = e.target;
+    if (t && t.hasAttribute && t.hasAttribute('data-hover-on')) {
+      execAction(t.getAttribute('data-hover-on'), t);
+    }
+  }, false);
+  document.addEventListener('mouseout', function(e) {
+    var t = e.target;
+    if (t && t.hasAttribute && t.hasAttribute('data-hover-off')) {
+      execAction(t.getAttribute('data-hover-off'), t);
     }
   }, false);
 
@@ -6094,7 +6119,7 @@ function showTopic(id){
 
   const sectionsHTML=sectionData.map((s,i)=>`
     <div class="sr-section" id="${s.id}" onclick="focusSection('${s.id}')">
-      <div class="sr-section-header" onclick="toggleSection('${s.id}-body',event)">
+      <div class="sr-section-header" onclick="toggleSection('${s.id}-body')">
         <div class="sr-section-header-left">
           <span class="sr-section-icon">${s.icon}</span>
           <span class="sr-section-label">${s.label}</span>
@@ -6107,7 +6132,7 @@ function showTopic(id){
   // Equations section
   const eqHTML=`
     <div class="sr-section">
-      <div class="sr-section-header" onclick="toggleSection('eq-body',event)">
+      <div class="sr-section-header" onclick="toggleSection('eq-body')">
         <div class="sr-section-header-left">
           <span class="sr-section-icon">📐</span>
           <span class="sr-section-label">Key Equations</span>
@@ -6160,7 +6185,7 @@ function highlightKeyTerms(text){
 }
 
 function toggleSection(bodyId, event){
-  if(event){event.stopPropagation();}
+  if(event&&typeof event.stopPropagation==='function'){event.stopPropagation();}
   const body=document.getElementById(bodyId);
   if(!body)return;
   const btn=document.getElementById(bodyId.replace('-body','-btn'));
