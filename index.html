@@ -2976,7 +2976,7 @@ body.mobile-nav-open .mobile-hamburger span:nth-child(3) {
   body.focus-mode .mobile-hamburger { display: none; }
 }
 </style>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-bHdDWsJCfPZrY9rBt3XGFfqfW09pKepgY2UVOtnYnb4='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-Cg4byvJj0PPHh/dYRd0vAtDY+Gd8OyQiuWc2hkMahK8='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
 </head>
 <body>
 
@@ -5363,10 +5363,11 @@ function sanitizeText(s) {
                 'class','style','data-action','id','title','type',
                 'value','min','max','step','placeholder','disabled',
                 'checked','selected','for','name','readonly',
-                'width','height','src','alt','rows','cols'
+                'width','height','src','alt','rows','cols',
+                'onclick','onmouseover','onmouseout'
               ],
               FORBID_ATTR: [
-                'onerror','onload','onclick','onmouseover','onchange',
+                'onerror','onload','onchange',
                 'onsubmit','onfocus','onblur','onkeydown','onkeyup',
                 'onkeypress','ondblclick','oncontextmenu','onresize'
               ],
