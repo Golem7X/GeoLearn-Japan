@@ -3062,7 +3062,7 @@ body.mobile-nav-open .mobile-hamburger span:nth-child(3) {
   body.focus-mode .mobile-hamburger { display: none; }
 }
 </style>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-wL6GQ8oLLx6TJH9LtU695+MmQmhERaH0XNyveP8suGU='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-dhz/PYUzziAYK+sUuYPRF6Jw1zicBUog9RwR1CXrOuI='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
 </head>
 <body>
 
@@ -3608,15 +3608,33 @@ body.mobile-nav-open .mobile-hamburger span:nth-child(3) {
 <div id="page-flashcards" class="page">
   <div class="page-header">
     <div class="page-title">Flash<span>cards</span></div>
-    <div class="page-sub">// フラッシュカード — Click card to flip</div>
+    <div class="page-sub">// フラッシュカード — Spaced Repetition Learning</div>
+  </div>
+
+  <!-- SRS Stats Bar -->
+  <div class="card" style="margin-bottom:16px;padding:14px 20px">
+    <div style="display:flex;gap:24px;justify-content:center;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px">
+      <div style="text-align:center"><div style="font-size:20px;font-weight:700;color:var(--accent)" id="srs-studied">0</div><div style="color:var(--text2)" id="srs-studied-label">Studied Today</div></div>
+      <div style="text-align:center"><div style="font-size:20px;font-weight:700;color:var(--accent3)" id="srs-accuracy">0%</div><div style="color:var(--text2)" id="srs-accuracy-label">Accuracy</div></div>
+      <div style="text-align:center"><div style="font-size:20px;font-weight:700;color:var(--accent2)" id="srs-streak">0</div><div style="color:var(--text2)" id="srs-streak-label">Day Streak</div></div>
+      <div style="text-align:center"><div style="font-size:20px;font-weight:700;color:var(--purple)" id="srs-mastered">0</div><div style="color:var(--text2)" id="srs-mastered-label">Mastered</div></div>
+    </div>
+  </div>
+
+  <!-- Learning Mode Toggle -->
+  <div style="display:flex;gap:6px;justify-content:center;margin-bottom:16px">
+    <button class="btn btn-outline" style="font-size:11px;padding:6px 12px" data-action="setFCMode('single')" id="fc-mode-single">Single</button>
+    <button class="btn btn-outline" style="font-size:11px;padding:6px 12px" data-action="setFCMode('bilingual')" id="fc-mode-bilingual">Bilingual</button>
+    <button class="btn btn-outline" style="font-size:11px;padding:6px 12px" data-action="setFCMode('trilingual')" id="fc-mode-trilingual">Trilingual</button>
   </div>
 
   <div class="tabs">
-    <div class="tab active" data-action="switchFCDeck(this,'all')">All (40)</div>
-    <div class="tab" data-action="switchFCDeck(this,'soil')">Soil Mechanics</div>
-    <div class="tab" data-action="switchFCDeck(this,'wave')">Waves</div>
-    <div class="tab" data-action="switchFCDeck(this,'test')">Field Tests</div>
-    <div class="tab" data-action="switchFCDeck(this,'jp')">Japanese Terms</div>
+    <div class="tab active" data-action="switchFCDeck(this,'all')">All</div>
+    <div class="tab" data-action="switchFCDeck(this,'soil')">Soil</div>
+    <div class="tab" data-action="switchFCDeck(this,'foundation')">Foundation</div>
+    <div class="tab" data-action="switchFCDeck(this,'earthquake')">Earthquake</div>
+    <div class="tab" data-action="switchFCDeck(this,'geophysics')">Geophysics</div>
+    <div class="tab" data-action="switchFCDeck(this,'investigation')">Investigation</div>
   </div>
 
   <div class="flashcard-scene" data-action="flipCard()">
@@ -3630,6 +3648,20 @@ body.mobile-nav-open .mobile-hamburger span:nth-child(3) {
       <div class="flashcard-face flashcard-back">
         <div id="fc-back-content"></div>
       </div>
+    </div>
+  </div>
+
+  <!-- SRS Difficulty Buttons (shown after flip) -->
+  <div id="srs-buttons" style="display:none;margin-top:16px">
+    <div style="text-align:center;font-size:11px;color:var(--text2);margin-bottom:8px">How well did you know this?</div>
+    <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+      <button class="btn" style="background:#ef4444;color:#fff;min-width:80px;font-size:12px" data-action="rateSRS(1)">😓 Again</button>
+      <button class="btn" style="background:#f97316;color:#fff;min-width:80px;font-size:12px" data-action="rateSRS(2)">😐 Hard</button>
+      <button class="btn" style="background:#22c55e;color:#fff;min-width:80px;font-size:12px" data-action="rateSRS(3)">👍 Good</button>
+      <button class="btn" style="background:#3b82f6;color:#fff;min-width:80px;font-size:12px" data-action="rateSRS(4)">⭐ Easy</button>
+    </div>
+    <div style="display:flex;gap:16px;justify-content:center;margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text2)">
+      <span>5 min</span><span>1 day</span><span id="srs-good-interval">3 days</span><span id="srs-easy-interval">7 days</span>
     </div>
   </div>
 
@@ -5795,120 +5827,108 @@ function sanitizeText(s) {
 
 
 // ============================================================
-// MULTILINGUAL CONTENT SYSTEM
+// LANGUAGE ENGINE — Central Multilingual Controller
 // ============================================================
 var currentLang = localStorage.getItem('geoLang') || 'en';
-var langCache = {};  // { ja: { topics: {...}, flashcards: [...], ... }, mm: {...} }
-var LANG_NAMES = { en: 'English', ja: '日本語', mm: 'မြန်မာ' };
+var langCache = {};
+var uiStrings = {};
 
-// Initialize language UI on load
+// Load UI strings for a language
+function loadUIStrings(lang) {
+  return fetch('languages/ui_' + lang + '.json')
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .catch(function() { return null; });
+}
+
+// Get a UI string by key
+function t(key) {
+  if (uiStrings[currentLang] && uiStrings[currentLang][key]) return uiStrings[currentLang][key];
+  if (uiStrings.en && uiStrings.en[key]) return uiStrings.en[key];
+  return key;
+}
+
+// Initialize language on page load
 (function initLangUI() {
-  // Restore saved language on page load
   document.addEventListener('DOMContentLoaded', function() {
-    var btns = document.querySelectorAll('.lang-btn');
-    btns.forEach(function(b) {
-      b.classList.remove('active');
-    });
-    var activeBtn = document.querySelector('.lang-btn[data-action*="' + currentLang + '"]');
-    if (activeBtn) activeBtn.classList.add('active');
+    // Sync button state
+    document.querySelectorAll('.lang-btn').forEach(function(b) { b.classList.remove('active'); });
+    var ab = document.querySelector('.lang-btn[data-action*="' + currentLang + '"]');
+    if (ab) ab.classList.add('active');
+    // Pre-load EN + current lang UI strings
+    loadUIStrings('en').then(function(d) { if (d) uiStrings.en = d; });
+    if (currentLang !== 'en') {
+      loadUIStrings(currentLang).then(function(d) { if (d) uiStrings[currentLang] = d; });
+      loadAllTranslations(currentLang);
+    }
   });
 })();
 
-// Switch language
+// Switch language globally
 function switchLang(lang) {
   if (lang === currentLang) return;
   currentLang = lang;
   localStorage.setItem('geoLang', lang);
 
-  // Update active button
+  // Sync all lang buttons (fixed + sidebar)
   document.querySelectorAll('.lang-btn').forEach(function(b) { b.classList.remove('active'); });
-  var activeBtn = document.querySelector('.lang-btn[data-action*="' + lang + '"]');
-  if (activeBtn) activeBtn.classList.add('active');
+  document.querySelectorAll('.lang-btn[data-action*="' + lang + '"]').forEach(function(b) { b.classList.add('active'); });
 
-  // Load translations if needed
-  if (lang !== 'en' && !langCache[lang]) {
-    loadAllTranslations(lang);
-  } else {
-    applyLanguage(lang);
-  }
-}
+  // Load UI strings + content
+  var p1 = uiStrings[lang] ? Promise.resolve() : loadUIStrings(lang).then(function(d) { if (d) uiStrings[lang] = d; });
+  var p2 = (lang === 'en' || langCache[lang]) ? Promise.resolve() : loadAllTranslationsPromise(lang);
 
-// Load all translation JSON files for a language
-function loadAllTranslations(lang) {
   var loader = document.getElementById('lang-loading');
   if (loader) loader.style.display = 'block';
 
-  var files = ['topics', 'flashcards', 'quiz', 'vocabulary'];
-  var loaded = 0;
-  langCache[lang] = {};
-
-  files.forEach(function(type) {
-    fetch('content/' + lang + '/' + type + '.json')
-      .then(function(res) { return res.ok ? res.json() : null; })
-      .then(function(data) {
-        if (data) langCache[lang][type] = data;
-        loaded++;
-        if (loaded === files.length) {
-          if (loader) loader.style.display = 'none';
-          applyLanguage(lang);
-        }
-      })
-      .catch(function() {
-        loaded++;
-        if (loaded === files.length) {
-          if (loader) loader.style.display = 'none';
-          applyLanguage(lang);
-        }
-      });
+  Promise.all([p1, p2]).then(function() {
+    if (loader) loader.style.display = 'none';
+    applyLanguage(lang);
   });
 }
 
-// Apply language to visible content
+// Load all translation JSON files (returns Promise)
+function loadAllTranslationsPromise(lang) {
+  var files = ['topics', 'flashcards', 'quiz', 'vocabulary'];
+  langCache[lang] = langCache[lang] || {};
+  return Promise.all(files.map(function(type) {
+    return fetch('content/' + lang + '/' + type + '.json')
+      .then(function(r) { return r.ok ? r.json() : null; })
+      .then(function(d) { if (d) langCache[lang][type] = d; })
+      .catch(function() {});
+  }));
+}
+function loadAllTranslations(lang) { loadAllTranslationsPromise(lang).then(function() { applyLanguage(lang); }); }
+
+// Apply language to all visible content
 function applyLanguage(lang) {
-  // Update all elements with data-i18n attribute
+  // 1. Update data-i18n elements
   document.querySelectorAll('[data-i18n]').forEach(function(el) {
     var key = el.getAttribute('data-i18n');
-    var parts = key.split('.');  // e.g. "topics.effective-stress.title"
-    var type = parts[0];
-    var id = parts[1];
-    var field = parts[2];
-
-    if (lang === 'en') {
-      // Restore original English from data-i18n-en
-      var original = el.getAttribute('data-i18n-en');
-      if (original) el.textContent = original;
+    // UI string key (no dots)
+    if (key.indexOf('.') === -1) {
+      el.textContent = t(key);
       return;
     }
-
-    // Save original English text on first translation
-    if (!el.getAttribute('data-i18n-en')) {
-      el.setAttribute('data-i18n-en', el.textContent);
+    var parts = key.split('.');
+    var type = parts[0], id = parts[1], field = parts[2];
+    if (lang === 'en') {
+      var orig = el.getAttribute('data-i18n-en');
+      if (orig) el.textContent = orig;
+      return;
     }
-
-    // Look up translation
-    if (langCache[lang] && langCache[lang][type]) {
-      var data = langCache[lang][type];
-      var translated = null;
-
-      if (Array.isArray(data)) {
-        // flashcards / quiz — by index
-        var idx = parseInt(id);
-        if (!isNaN(idx) && data[idx] && data[idx][field]) {
-          translated = data[idx][field];
-        }
-      } else if (data[id] && data[id][field]) {
-        translated = data[id][field];
-      }
-
-      if (translated) el.textContent = translated;
-    }
+    if (!el.getAttribute('data-i18n-en')) el.setAttribute('data-i18n-en', el.textContent);
+    var tr = getTranslated(type, id, field, null);
+    if (tr) el.textContent = tr;
   });
 
-  // Dispatch custom event for dynamic content
+  // 2. Update nav labels
+  updateNavLabels();
+
+  // 3. Dispatch event for dynamic re-rendering
   window.dispatchEvent(new CustomEvent('langchange', { detail: { lang: lang } }));
 }
 
-// Helper: get translated text for a content item
+// Get translated content
 function getTranslated(type, id, field, fallback) {
   if (currentLang === 'en') return fallback;
   if (langCache[currentLang] && langCache[currentLang][type]) {
@@ -5916,71 +5936,189 @@ function getTranslated(type, id, field, fallback) {
     if (Array.isArray(data)) {
       var idx = parseInt(id);
       if (!isNaN(idx) && data[idx] && data[idx][field]) return data[idx][field];
-    } else if (data[id] && data[id][field]) {
-      return data[id][field];
-    }
+    } else if (data[id] && data[id][field]) return data[id][field];
   }
   return fallback;
 }
-
-// Helper: get current language code
 function getLang() { return currentLang; }
 
-// Re-render active content when language changes
+// Update nav labels from UI strings
+function updateNavLabels() {
+  var menuKeys = ['menu_home','menu_study','menu_animations','menu_calculator','menu_flashcards','menu_quiz','menu_game','menu_resources','menu_career','menu_ai','menu_professor','menu_fielddata','menu_studyplan','menu_vocab','menu_jlpt','menu_analytics','menu_smart','menu_dailyfocus','menu_simulations','menu_kmap','menu_casestudies','menu_photos'];
+  var items = document.querySelectorAll('.nav-item .nav-label');
+  items.forEach(function(el, i) { if (menuKeys[i]) el.textContent = t(menuKeys[i]); });
+}
+
+// Re-render active content on language change
 window.addEventListener('langchange', function() {
-  // Re-render flashcards if visible
-  if (document.getElementById('page-flashcards') &&
-      document.getElementById('page-flashcards').classList.contains('active')) {
-    if (typeof renderFC === 'function') renderFC();
+  if (typeof renderFC === 'function') {
+    var fcPage = document.getElementById('page-flashcards');
+    if (fcPage && fcPage.classList.contains('active')) renderFC();
   }
-  // Re-render quiz if in progress
-  if (document.getElementById('quiz-question') &&
-      document.getElementById('quiz-question').style.display !== 'none') {
-    if (typeof renderQuestion === 'function') renderQuestion();
+  if (typeof renderQuestion === 'function') {
+    var qEl = document.getElementById('quiz-question');
+    if (qEl && qEl.style.display !== 'none') renderQuestion();
   }
-  // Re-render topic detail if visible
-  if (document.getElementById('topic-detail') &&
-      document.getElementById('topic-detail').style.display === 'block') {
-    var titleEl = document.querySelector('.sr-title[data-topic-id]');
-    if (titleEl && typeof showTopic === 'function') {
-      showTopic(titleEl.getAttribute('data-topic-id'));
-    }
+  var titleEl = document.querySelector('.sr-title[data-topic-id]');
+  if (titleEl && document.getElementById('topic-detail') && document.getElementById('topic-detail').style.display === 'block') {
+    if (typeof showTopic === 'function') showTopic(titleEl.getAttribute('data-topic-id'));
   }
-
-  // Update static nav labels
-  updateNavLabels();
-
-  // Update topic cards on study page
+  // Update topic cards
   document.querySelectorAll('.topic-card').forEach(function(card) {
-    var actionAttr = card.getAttribute('data-action') || card.getAttribute('onclick') || '';
-    var m = actionAttr.match(/showTopic\('([^']+)'\)/);
+    var aa = card.getAttribute('data-action') || '';
+    var m = aa.match(/showTopic\('([^']+)'\)/);
     if (m && TOPICS[m[1]]) {
       var tid = m[1];
-      var nameEl = card.querySelector('.topic-name');
-      var jpEl = card.querySelector('.topic-jp');
-      if (nameEl) {
-        nameEl.textContent = getTranslated('topics', tid, 'title', TOPICS[tid].title);
-      }
-      if (jpEl) {
-        jpEl.textContent = (currentLang === 'en') ? TOPICS[tid].jp : TOPICS[tid].title;
-      }
+      var ne = card.querySelector('.topic-name');
+      var je = card.querySelector('.topic-jp');
+      if (ne) ne.textContent = getTranslated('topics', tid, 'title', TOPICS[tid].title);
+      if (je) je.textContent = (currentLang === 'en') ? TOPICS[tid].jp : TOPICS[tid].title;
     }
   });
+  // Update hero text
+  var ht = document.querySelector('.hero-title');
+  if (ht) ht.textContent = t('hero_title');
+  var hs = document.querySelector('.hero-jp');
+  if (hs) hs.textContent = t('hero_subtitle');
+  var hd = document.querySelector('.hero-desc');
+  if (hd) hd.textContent = t('hero_desc');
 });
 
-// Navigation label translations
-var NAV_LABELS = {
-  en: ['Home','Study Modules','Animations','Field Calculator','Flashcards','Quiz','Match Game','Resources','Career','AI Tutor','Deep Module','Field Data','Study Plan','Vocabulary','JLPT','Analytics','Smart','Daily Focus','Simulations','Knowledge Map','Case Studies','Photo Gallery'],
-  ja: ['ホーム','学習モジュール','アニメーション','現場計算','フラッシュカード','クイズ','マッチゲーム','資料','キャリア','AIチューター','深層モジュール','現場データ','学習計画','語彙','JLPT','分析','スマート','デイリーフォーカス','シミュレーション','知識マップ','事例研究','写真ギャラリー'],
-  mm: ['ပင်မ','သင်ခန်းစာ','အန်နီမေးရှင်း','ကွင်းဆင်း တွက်ချက်','ကဒ်ပြား','ပဟေဠိ','တူညီတွဲ','အရင်းအမြစ်','အသက်မွေး','AI သင်ကြား','အဆင့်မြင့်','ကွင်းဆင်းဒေတာ','လေ့လာစီစဉ်','ဝေါဟာရ','JLPT','ခွဲခြမ်းစိတ်ဖြာ','စမတ်','နေ့စဉ်','သရုပ်ပြ','အသိပညာ','ဖြစ်ရပ်','ဓာတ်ပုံ']
+// ============================================================
+// SPACED REPETITION FLASHCARD ENGINE
+// ============================================================
+var SRS = {
+  // Load SRS data from localStorage
+  getData: function() {
+    try { return JSON.parse(localStorage.getItem('geoSRS') || '{}'); }
+    catch(e) { return {}; }
+  },
+  save: function(data) {
+    localStorage.setItem('geoSRS', JSON.stringify(data));
+  },
+  // Get card SRS state
+  getCard: function(cardId) {
+    var d = this.getData();
+    return d[cardId] || { interval: 0, ease: 2.5, due: 0, reps: 0, lapses: 0, state: 'new' };
+  },
+  // Rate a card: 1=Again, 2=Hard, 3=Good, 4=Easy
+  rate: function(cardId, rating) {
+    var d = this.getData();
+    var c = d[cardId] || { interval: 0, ease: 2.5, due: 0, reps: 0, lapses: 0, state: 'new' };
+    var now = Date.now();
+
+    if (rating === 1) { // Again
+      c.interval = 5 * 60 * 1000; // 5 minutes
+      c.lapses++;
+      c.ease = Math.max(1.3, c.ease - 0.2);
+      c.state = 'learning';
+    } else if (rating === 2) { // Hard
+      c.interval = Math.max(1, c.interval * 1.2) || 1 * 24 * 60 * 60 * 1000; // 1 day min
+      c.ease = Math.max(1.3, c.ease - 0.15);
+      c.reps++;
+      c.state = 'review';
+    } else if (rating === 3) { // Good
+      if (c.state === 'new' || c.interval === 0) {
+        c.interval = 1 * 24 * 60 * 60 * 1000; // 1 day
+      } else {
+        c.interval = c.interval * c.ease;
+      }
+      c.reps++;
+      c.state = 'review';
+    } else if (rating === 4) { // Easy
+      if (c.state === 'new' || c.interval === 0) {
+        c.interval = 4 * 24 * 60 * 60 * 1000; // 4 days
+      } else {
+        c.interval = c.interval * c.ease * 1.3;
+      }
+      c.ease += 0.15;
+      c.reps++;
+      c.state = 'review';
+    }
+
+    c.due = now + c.interval;
+    d[cardId] = c;
+    this.save(d);
+
+    // Track daily stats
+    this.trackDaily(rating >= 3);
+    return c;
+  },
+  // Get cards due for review
+  getDueCards: function(allCards) {
+    var now = Date.now();
+    var d = this.getData();
+    var due = [];
+    var newCards = [];
+
+    allCards.forEach(function(card, i) {
+      var id = card.deck + '_' + i;
+      var srs = d[id];
+      if (!srs) {
+        newCards.push({ card: card, idx: i, id: id, state: 'new' });
+      } else if (srs.due <= now) {
+        due.push({ card: card, idx: i, id: id, state: srs.state });
+      }
+    });
+
+    // Return due cards + up to 10 new cards
+    return due.concat(newCards.slice(0, 10));
+  },
+  // Daily stats tracking
+  trackDaily: function(correct) {
+    var today = new Date().toISOString().split('T')[0];
+    var stats = JSON.parse(localStorage.getItem('geoSRS_stats') || '{}');
+    if (!stats[today]) stats[today] = { studied: 0, correct: 0 };
+    stats[today].studied++;
+    if (correct) stats[today].correct++;
+    localStorage.setItem('geoSRS_stats', JSON.stringify(stats));
+  },
+  getStats: function() {
+    var stats = JSON.parse(localStorage.getItem('geoSRS_stats') || '{}');
+    var d = this.getData();
+    var today = new Date().toISOString().split('T')[0];
+    var todayStats = stats[today] || { studied: 0, correct: 0 };
+
+    // Count states
+    var mastered = 0, learning = 0, newCount = 0;
+    var keys = Object.keys(d);
+    keys.forEach(function(k) {
+      if (d[k].reps >= 5 && d[k].interval > 7 * 24 * 60 * 60 * 1000) mastered++;
+      else if (d[k].state === 'review' || d[k].state === 'learning') learning++;
+      else newCount++;
+    });
+
+    // Calculate streak
+    var streak = 0;
+    var checkDate = new Date();
+    for (var i = 0; i < 365; i++) {
+      var ds = checkDate.toISOString().split('T')[0];
+      if (stats[ds] && stats[ds].studied > 0) {
+        streak++;
+        checkDate.setDate(checkDate.getDate() - 1);
+      } else {
+        break;
+      }
+    }
+
+    return {
+      studiedToday: todayStats.studied,
+      correctToday: todayStats.correct,
+      accuracy: todayStats.studied ? Math.round(todayStats.correct / todayStats.studied * 100) : 0,
+      streak: streak,
+      mastered: mastered,
+      learning: learning,
+      total: keys.length
+    };
+  }
 };
 
-function updateNavLabels() {
-  var labels = NAV_LABELS[currentLang] || NAV_LABELS.en;
-  var navItems = document.querySelectorAll('.nav-item .nav-label');
-  navItems.forEach(function(el, i) {
-    if (labels[i]) el.textContent = labels[i];
-  });
+// Flashcard learning mode
+var fcLearnMode = localStorage.getItem('geoFCMode') || 'single';
+function setFCMode(mode) {
+  fcLearnMode = mode;
+  localStorage.setItem('geoFCMode', mode);
+  if (typeof renderFC === 'function') renderFC();
 }
 
 // ============================================================
@@ -7196,26 +7334,91 @@ function renderFC(){
   const fc=document.getElementById('flashcard');
   if(fc)fc.classList.remove('flipped');
   fcFlipped=false;
+  // Hide SRS buttons until flip
+  var srsEl=document.getElementById('srs-buttons');
+  if(srsEl)srsEl.style.display='none';
+
   // Apply translations
-  var fcEn = getTranslated('flashcards', String(FLASHCARDS.indexOf(card)), 'en', card.en);
-  var fcBack = getTranslated('flashcards', String(FLASHCARDS.indexOf(card)), 'back', card.back);
-  document.getElementById('fc-front-jp').textContent=card.jp;
-  document.getElementById('fc-front-en').textContent=fcEn;
+  var globalIdx=FLASHCARDS.indexOf(card);
+  var fcEn=getTranslated('flashcards',String(globalIdx),'en',card.en);
+  var fcBack=getTranslated('flashcards',String(globalIdx),'back',card.back);
+  var fcJpTr=getTranslated('flashcards',String(globalIdx),'jp',card.jp);
+
+  // Learning mode display
+  if(fcLearnMode==='bilingual'){
+    document.getElementById('fc-front-jp').textContent=card.jp;
+    document.getElementById('fc-front-en').textContent='';
+  }else if(fcLearnMode==='trilingual'){
+    document.getElementById('fc-front-jp').textContent=card.jp;
+    document.getElementById('fc-front-en').textContent='';
+  }else{
+    document.getElementById('fc-front-jp').textContent=card.jp;
+    document.getElementById('fc-front-en').textContent=fcEn;
+  }
   document.getElementById('fc-front-eq').textContent=card.eq;
-  document.getElementById('fc-back-content').innerHTML=`
-    <div class="fc-jp" style="font-size:20px">${card.jp}</div>
-    <div class="fc-en" style="font-size:14px;margin-top:4px">${fcEn}</div>
-    ${card.eq?`<div class="fc-eq" style="font-size:16px">${card.eq}</div>`:''}
-    <div class="fc-desc">${fcBack}</div>`;
+
+  // Back content — bilingual/trilingual
+  var backHTML='<div class="fc-jp" style="font-size:20px">'+card.jp+'</div>';
+  backHTML+='<div class="fc-en" style="font-size:14px;margin-top:4px">'+fcEn+'</div>';
+  if(fcLearnMode==='trilingual'){
+    var mmEn=getTranslated('flashcards',String(globalIdx),'en',card.en);
+    // Show MM translation if available
+    if(langCache.mm&&langCache.mm.flashcards&&langCache.mm.flashcards[globalIdx]){
+      backHTML+='<div style="font-size:13px;margin-top:4px;color:var(--accent2)">'+langCache.mm.flashcards[globalIdx].en+'</div>';
+    }
+  }
+  if(card.eq)backHTML+='<div class="fc-eq" style="font-size:16px">'+card.eq+'</div>';
+  backHTML+='<div class="fc-desc">'+fcBack+'</div>';
+
+  document.getElementById('fc-back-content').innerHTML=backHTML;
+
+  // Counter & status
   const ci=fcIndex%deck.length;
-  document.getElementById('fc-counter').textContent=`${ci+1} / ${deck.length}`;
+  document.getElementById('fc-counter').textContent=(ci+1)+' / '+deck.length;
   const knownCount=fcKnown.size,reviewCount=fcReview.size;
-  document.getElementById('fc-status').textContent=`✓ Known: ${knownCount}  ✗ Review: ${reviewCount}`;
+  document.getElementById('fc-status').textContent='\u2713 '+t('label_known')+': '+knownCount+'  \u2717 '+t('label_review')+': '+reviewCount;
+
+  // SRS interval preview
+  var srsCard=SRS.getCard(card.deck+'_'+globalIdx);
+  var goodDays=srsCard.interval?Math.round(srsCard.interval*srsCard.ease/(24*60*60*1000)):1;
+  var easyDays=srsCard.interval?Math.round(srsCard.interval*srsCard.ease*1.3/(24*60*60*1000)):4;
+  var gi=document.getElementById('srs-good-interval');
+  var ei=document.getElementById('srs-easy-interval');
+  if(gi)gi.textContent=goodDays+(goodDays===1?' day':' days');
+  if(ei)ei.textContent=easyDays+(easyDays===1?' day':' days');
+
+  // Update SRS stats display
+  updateSRSStats();
+
+  // Highlight active learning mode
+  ['single','bilingual','trilingual'].forEach(function(m){
+    var btn=document.getElementById('fc-mode-'+m);
+    if(btn){btn.style.borderColor=(m===fcLearnMode)?'var(--accent)':'';btn.style.color=(m===fcLearnMode)?'var(--accent)':'';}
+  });
 }
 function flipCard(){
   const fc=document.getElementById('flashcard');
   fc.classList.toggle('flipped');
   fcFlipped=!fcFlipped;
+  // Show SRS difficulty buttons on flip
+  var srsEl=document.getElementById('srs-buttons');
+  if(srsEl)srsEl.style.display=fcFlipped?'block':'none';
+}
+function rateSRS(rating){
+  var deck=getCurrentDeck();
+  var card=deck[fcIndex%deck.length];
+  var globalIdx=FLASHCARDS.indexOf(card);
+  SRS.rate(card.deck+'_'+globalIdx,rating);
+  var labels=['','😓 Again — 5 min','😐 Hard — 1 day','👍 Good','⭐ Easy'];
+  showNotif(labels[rating]||'Rated');
+  nextCard();
+}
+function updateSRSStats(){
+  var s=SRS.getStats();
+  var el1=document.getElementById('srs-studied');if(el1)el1.textContent=s.studiedToday;
+  var el2=document.getElementById('srs-accuracy');if(el2)el2.textContent=s.accuracy+'%';
+  var el3=document.getElementById('srs-streak');if(el3)el3.textContent=s.streak;
+  var el4=document.getElementById('srs-mastered');if(el4)el4.textContent=s.mastered;
 }
 function nextCard(){
   const deck=getCurrentDeck();
@@ -7233,14 +7436,18 @@ function shuffleCards(){
 }
 function markKnown(){
   const deck=getCurrentDeck();
-  fcKnown.add(deck[fcIndex%deck.length].jp);
-  showNotif('✓ Marked as known');
+  var card=deck[fcIndex%deck.length];
+  fcKnown.add(card.jp);
+  SRS.rate(card.deck+'_'+FLASHCARDS.indexOf(card),4); // Easy
+  showNotif('✓ '+t('label_known'));
   nextCard();
 }
 function markUnknown(){
   const deck=getCurrentDeck();
-  fcReview.add(deck[fcIndex%deck.length].jp);
-  showNotif('✗ Added to review');
+  var card=deck[fcIndex%deck.length];
+  fcReview.add(card.jp);
+  SRS.rate(card.deck+'_'+FLASHCARDS.indexOf(card),1); // Again
+  showNotif('✗ '+t('label_review'));
   nextCard();
 }
 
