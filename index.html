@@ -2710,8 +2710,273 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
 /* Replaces removed onfocus/onblur inline handlers on tutor input */
 #tutor-input:focus { border-color: var(--accent) !important; }
 #tutor-input:not(:focus) { border-color: var(--border) !important; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   MOBILE & RESPONSIVE OVERHAUL
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── Hamburger Button ─────────────────────────────────────────────── */
+.mobile-hamburger {
+  display: none;
+  position: fixed;
+  top: 12px; left: 12px;
+  z-index: 1001;
+  width: 44px; height: 44px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 0;
+}
+.mobile-hamburger span {
+  display: block;
+  width: 20px; height: 2px;
+  background: var(--text);
+  border-radius: 1px;
+  transition: all .3s;
+}
+/* Animate hamburger → X */
+body.mobile-nav-open .mobile-hamburger span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+body.mobile-nav-open .mobile-hamburger span:nth-child(2) {
+  opacity: 0;
+}
+body.mobile-nav-open .mobile-hamburger span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* ── Mobile Overlay ───────────────────────────────────────────────── */
+.mobile-overlay {
+  display: none;
+}
+
+/* ── Touch-Friendly: Active States for Touch Devices ──────────────── */
+@media (hover: none) and (pointer: coarse) {
+  .card:hover { transform: none; }
+  .topic-card:hover { transform: none; }
+  .vocab-card:hover { transform: none; }
+  .jlpt-level-card:hover { transform: none; }
+  .res-card:hover { border-color: var(--border); }
+  .photo-section:hover .photo-img-wrap img { transform: none; }
+  .sidebar:hover { width: 72px; }
+
+  .card:active { border-color: var(--accent); }
+  .topic-card:active { border-color: var(--accent); background: rgba(0,212,255,0.04); }
+  .nav-item:active { background: rgba(0,212,255,0.1); color: var(--accent); }
+  .quiz-opt:active:not(.disabled) { border-color: var(--accent); color: var(--accent); }
+  .match-card:active { border-color: var(--accent); }
+  .btn:active { opacity: 0.85; transform: scale(0.97); }
+  .vocab-card:active { border-color: var(--accent); }
+  .module-tab:active { border-color: var(--accent); color: var(--accent); }
+  .tab:active { background: rgba(0,212,255,0.15); }
+}
+
+/* ── TABLET / MOBILE BREAKPOINT (≤768px) ──────────────────────────── */
+@media (max-width: 768px) {
+  /* Show hamburger */
+  .mobile-hamburger { display: flex; }
+
+  /* Overlay */
+  .mobile-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s;
+  }
+  body.mobile-nav-open .mobile-overlay {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Sidebar → slide-in drawer */
+  .sidebar {
+    transform: translateX(-100%);
+    width: 260px !important;
+    transition: transform .3s cubic-bezier(.4,0,.2,1);
+    z-index: 1000;
+    overflow-y: auto;
+  }
+  .sidebar:hover { width: 260px !important; }
+  body.mobile-nav-open .sidebar {
+    transform: translateX(0);
+  }
+  .sidebar .nav-label {
+    opacity: 1 !important;
+    transform: translateX(0) !important;
+    width: auto !important;
+  }
+
+  /* Remove sidebar offset from main content */
+  .main { margin-left: 0 !important; }
+
+  /* Prevent horizontal overflow */
+  body { overflow-x: hidden; }
+
+  /* Page spacing */
+  .page { padding: 16px; padding-top: 60px; }
+
+  /* Typography */
+  .page-title { font-size: 24px; letter-spacing: -0.5px; }
+  .page-sub { font-size: 12px; }
+  .hero { padding: 24px; border-radius: 16px; }
+  .hero-title { font-size: 28px; letter-spacing: -1px; }
+  .hero-jp { font-size: 16px; }
+  .hero-desc { font-size: 13px; }
+
+  /* Hero actions stack vertically */
+  .hero-actions { flex-direction: column; }
+  .hero-actions .btn { width: 100%; justify-content: center; }
+
+  /* Cards */
+  .card { padding: 16px; border-radius: 12px; }
+  .theory-panel { padding: 18px; }
+  .eq-box { padding: 12px 14px; font-size: 14px; word-break: break-all; overflow-x: auto; }
+
+  /* Grids → single column */
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+
+  /* Touch targets */
+  .btn { padding: 14px 24px; min-height: 48px; }
+  .anim-btn { padding: 10px 16px; min-height: 44px; }
+  .nav-item { padding: 14px 16px; min-height: 48px; }
+  .quiz-opt { padding: 16px 18px; min-height: 48px; }
+  .match-card { min-height: 60px; padding: 14px 10px; }
+  .tab { padding: 10px 16px; min-height: 44px; }
+  .module-tab { padding: 10px 14px; min-height: 44px; }
+  .fc-nav .btn { min-height: 48px; }
+
+  /* Range sliders — bigger thumbs for touch */
+  .sim-range::-webkit-slider-thumb { width: 28px; height: 28px; }
+  .sim-range::-moz-range-thumb { width: 28px; height: 28px; }
+  .sim-range { height: 8px; }
+
+  /* Match game grid */
+  .match-grid { grid-template-columns: repeat(3, 1fr); }
+
+  /* Flashcard auto-height */
+  .flashcard { height: auto; min-height: 220px; }
+  .flashcard-face { padding: 24px 18px; }
+  .fc-jp { font-size: 22px; }
+  .fc-eq { font-size: 18px; }
+
+  /* Chat */
+  .chat-msgs { height: 260px; }
+  .chat-input-row { flex-direction: column; gap: 8px; }
+
+  /* Animation canvas */
+  .anim-canvas { height: 200px; }
+  .anim-controls { flex-wrap: wrap; gap: 8px; padding: 10px 12px; }
+
+  /* Tabs → horizontal scroll */
+  .tabs { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { white-space: nowrap; flex-shrink: 0; }
+
+  /* Module tabs */
+  .module-tabs { gap: 4px; flex-wrap: wrap; }
+  .module-tab { font-size: 11px; padding: 8px 10px; }
+
+  /* Stats */
+  .stat-num { font-size: 24px; }
+
+  /* Timer */
+  .timer-display { font-size: 36px; }
+
+  /* Simulations */
+  .sim-controls { grid-template-columns: 1fr !important; }
+
+  /* Daily Focus */
+  .daily-focus-panel { padding: 20px; border-radius: 16px; }
+  .dfp-command-bar { padding: 12px 14px; flex-direction: column; align-items: stretch; gap: 8px; }
+  .dfp-weekly-grid { grid-template-columns: repeat(4, 1fr); }
+  .dfp-mp-blocks { grid-template-columns: repeat(2, 1fr); }
+
+  /* JLPT */
+  .jlpt-level-num { font-size: 42px; }
+
+  /* Vocab */
+  .vocab-card { padding: 14px; }
+  .vocab-jp { font-size: 18px; }
+
+  /* Knowledge map */
+  .kmap-canvas { min-height: 300px; }
+  .kmap-toolbar { flex-wrap: wrap; gap: 6px; }
+
+  /* Photo gallery */
+  .photo-grid { grid-template-columns: 1fr !important; }
+
+  /* Roadmap */
+  .roadmap::before { left: 20px; }
+  .road-dot { width: 40px; height: 40px; font-size: 16px; }
+  .road-stage { gap: 12px; }
+
+  /* Calculator results */
+  .result-item { flex-direction: column; align-items: flex-start; gap: 4px; }
+
+  /* Notification */
+  .notif { left: 16px; right: 16px; bottom: 16px; }
+
+  /* Footer */
+  .app-footer { padding: 16px; }
+
+  /* Table overflow */
+  table { display: block; overflow-x: auto; }
+  .concept-map { overflow-x: auto; max-width: 100%; }
+  .res-link { word-break: break-all; }
+
+  /* Prevent iOS input zoom (must be ≥16px) */
+  .calc-input, .chat-input, .vocab-search, select,
+  input[type="text"], input[type="number"], textarea {
+    font-size: 16px !important;
+  }
+
+  /* Toolbar repositioning */
+  .toolbar { bottom: 12px; right: 12px; }
+}
+
+/* ── SMALL PHONE BREAKPOINT (≤480px) ──────────────────────────────── */
+@media (max-width: 480px) {
+  .page { padding: 12px; padding-top: 56px; }
+  .page-title { font-size: 22px; }
+  .hero-title { font-size: 24px; }
+  .hero { padding: 18px; }
+  .card { padding: 14px; }
+  .match-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+  .match-card { font-size: 11px; min-height: 56px; }
+  .flashcard-face { padding: 18px 14px; }
+  .fc-jp { font-size: 18px; }
+  .road-dot { width: 32px; height: 32px; font-size: 14px; }
+  .roadmap::before { left: 16px; }
+  .dfp-weekly-grid { grid-template-columns: repeat(3, 1fr); }
+  .stat-num { font-size: 20px; }
+  .score-big { font-size: 48px; }
+}
+
+/* ── Study Mode Mobile Compatibility ──────────────────────────────── */
+@media (max-width: 768px) {
+  body.study-mode .mobile-hamburger {
+    background: #fff;
+    border-color: #D1DCF0;
+  }
+  body.study-mode .mobile-hamburger span {
+    background: #1A1A2E;
+  }
+  body.study-mode .mobile-overlay {
+    background: rgba(0,0,0,0.3);
+  }
+  body.focus-mode .mobile-hamburger { display: none; }
+}
 </style>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-nHWgDr86T5T46X+cEEwzR5Uv0wdqHFslv66y75em7fA='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-bHdDWsJCfPZrY9rBt3XGFfqfW09pKepgY2UVOtnYnb4='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
 </head>
 <body>
 
@@ -2748,6 +3013,12 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
 </div>
 
 <div class="app">
+
+<!-- MOBILE HAMBURGER & OVERLAY -->
+<button class="mobile-hamburger" data-action="toggleMobileMenu()" aria-label="Open menu">
+  <span></span><span></span><span></span>
+</button>
+<div class="mobile-overlay" data-action="toggleMobileMenu()"></div>
 
 <!-- SIDEBAR -->
 <nav class="sidebar">
@@ -5396,9 +5667,17 @@ function sanitizeText(s) {
 
 
 // ============================================================
+// MOBILE MENU TOGGLE
+// ============================================================
+function toggleMobileMenu(){
+  document.body.classList.toggle('mobile-nav-open');
+}
+
+// ============================================================
 // NAVIGATION
 // ============================================================
 function showPage(name){
+  document.body.classList.remove('mobile-nav-open');
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   const pageEl=document.getElementById('page-'+name);
