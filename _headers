@@ -57,10 +57,10 @@
   # • frame-ancestors: none — prevents all embedding (clickjacking)
   # • block-all-mixed-content: hard-blocks HTTP sub-resources
   #
-  # NOTE: Replace __DOMPURIFY_HASH__ and __APP_HASH__ with actual SHA-256 hashes
+  # NOTE: Replace 28rkRAVyIgnGHuRcrIclCG/5ZGYcg0vT71kD9OVYyvw= and g1aBFnVAH2Sge71wI3SA0IxUP2r+0Jjay9feGGplmFQ= with actual SHA-256 hashes
   # from the build process. These are computed automatically by secure-build.js.
   # Run: node secure-build.js to get the current hashes.
-  Content-Security-Policy: default-src 'none'; script-src 'strict-dynamic' 'sha256-__DOMPURIFY_HASH__' 'sha256-__APP_HASH__'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' https://images.unsplash.com data: blob:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'none'; script-src 'strict-dynamic' 'sha256-28rkRAVyIgnGHuRcrIclCG/5ZGYcg0vT71kD9OVYyvw=' 'sha256-g1aBFnVAH2Sge71wI3SA0IxUP2r+0Jjay9feGGplmFQ='; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' https://images.unsplash.com data: blob:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests
 
   # ── Cache Control ───────────────────────────────────────────────
   Cache-Control: no-store, no-cache, must-revalidate
