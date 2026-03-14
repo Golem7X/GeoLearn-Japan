@@ -1,0 +1,75 @@
+## ═══════════════════════════════════════════════════════════════════
+## GeoLearn Japan — HTTP Security Headers
+## For: Cloudflare Pages / Netlify deployment
+## Framework: NIST CSF · OWASP Top 10 · CIS Controls · Zero Trust
+##
+## Deploy on Cloudflare Pages:
+##   1. Connect GitHub repo to Cloudflare Pages
+##   2. Set build output directory to "/" (static site)
+##   3. This file is auto-processed by Cloudflare Pages
+##
+## Deploy on Netlify:
+##   Rename this file to netlify.toml [[headers]] format OR
+##   keep as _headers (Netlify supports both formats)
+## ═══════════════════════════════════════════════════════════════════
+
+/*
+  # ── Transport Security ─────────────────────────────────────────
+  # Force HTTPS for 2 years, include subdomains, request HSTS preload
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+
+  # ── Framing Protection (Clickjacking) ──────────────────────────
+  X-Frame-Options: DENY
+  # CSP frame-ancestors is stronger; X-Frame-Options is fallback
+  # (frame-ancestors cannot be set via meta tag, only HTTP header)
+
+  # ── MIME Sniffing ───────────────────────────────────────────────
+  X-Content-Type-Options: nosniff
+
+  # ── Legacy XSS Auditor ─────────────────────────────────────────
+  # Disable browser XSS auditor — CSP is far superior and auditor can be exploited
+  X-XSS-Protection: 0
+
+  # ── Referrer Policy ────────────────────────────────────────────
+  # Send origin only for same-origin, origin-only for cross-origin HTTPS
+  Referrer-Policy: strict-origin-when-cross-origin
+
+  # ── Cross-Origin Policies (Spectre / side-channel mitigations) ─
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: cross-origin
+  # Note: COEP require-corp omitted — breaks Google Fonts (cross-origin)
+  # Upgrade when fonts are self-hosted
+
+  # ── Permissions Policy ─────────────────────────────────────────
+  # Deny access to all sensitive browser APIs not needed by this app
+  Permissions-Policy: accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), bluetooth=(), camera=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(self), geolocation=(), gyroscope=(), hid=(), idle-detection=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), serial=(), speaker-selection=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()
+
+  # ── Content Security Policy ────────────────────────────────────
+  # This is the authoritative CSP delivered as HTTP header.
+  # The meta-tag CSP in HTML is a fallback for GitHub Pages.
+  # HTTP header CSP takes full precedence and supports frame-ancestors.
+  #
+  # Security model:
+  # • script-src: ONLY the two inline scripts (SHA-256 hashed) — no CDN, no eval
+  # • style-src: unsafe-inline required for inline styles (CSS injection risk is low)
+  # • img-src: self + Unsplash CDN + data URIs for canvas
+  # • connect-src: none — app has no XHR/fetch/WebSocket
+  # • frame-ancestors: none — prevents all embedding (clickjacking)
+  # • block-all-mixed-content: hard-blocks HTTP sub-resources
+  #
+  # NOTE: Replace __DOMPURIFY_HASH__ and __APP_HASH__ with actual SHA-256 hashes
+  # from the build process. These are computed automatically by secure-build.js.
+  # Run: node secure-build.js to get the current hashes.
+  Content-Security-Policy: default-src 'none'; script-src 'strict-dynamic' 'sha256-__DOMPURIFY_HASH__' 'sha256-__APP_HASH__'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' https://images.unsplash.com data: blob:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests
+
+  # ── Cache Control ───────────────────────────────────────────────
+  Cache-Control: no-store, no-cache, must-revalidate
+
+/*.html
+  Cache-Control: no-store, no-cache, must-revalidate
+
+/*.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.css
+  Cache-Control: public, max-age=31536000, immutable
