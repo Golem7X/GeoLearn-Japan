@@ -9,7 +9,7 @@
 <meta name="publisher" content="MYO_Geo_Orgs">
 <meta name="license" content="MYO_Geo_Orgs Proprietary Software License v1.0 — Unauthorized copying prohibited">
 <meta name="rights" content="All Rights Reserved — MYO NAING TUN / MYO_Geo_Orgs 2026">
-<meta property="og:site_name" content="GeoLearn Japan — MYO_Geo_Orgs">
+<meta property="og:site_name" content="GeoLearn Japan — by MYO_Geo_Orgs™">
 <meta property="og:type" content="website">
 <!-- ═══════════════════════════════════════════════════
      SECURITY HEADERS
@@ -30,6 +30,7 @@
 <!-- CSP will be replaced below after hash computation -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GeoLearn Japan — Geotechnical & Geophysical Engineering</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='fg' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%235a6270'/%3E%3Cstop offset='100%25' stop-color='%232d3340'/%3E%3C/linearGradient%3E%3ClinearGradient id='gg' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%236abf4b'/%3E%3Cstop offset='100%25' stop-color='%233d8a2e'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg transform='translate(32,28)'%3E%3Cpath d='M0-22l3-4 4 1 2 5 4-3 3-4 5 3-1 5 5-1 2-5 5 1 1 5 5 2 0-5h5l-1 5 5 2 2-5 4 3-3 4 4 3 4-3 2 5-4 2 2 4 5 0 0 5-5 1 1 5 5 2-2 5-5-1 0 5 4 2-2 5-4-3-3 4 4 3-2 5-5 2 0-5-5 1-1 5-5-1 1-5-5-1-1-5-4 3-3-4-4 3-2-5-4-3 1-5-4-3-4 3-2-5 4-2-2-4-5 0 0-5 5-1-1-5-5-2 2-5 5 1 0-5-4-2 2-5 4 3 3-4z' fill='url(%23fg)' stroke='%231e232d' stroke-width='0.5'/%3E%3Ccircle r='14' fill='%23111318' stroke='%233a4050' stroke-width='1'/%3E%3C/g%3E%3Cg transform='translate(32,21)'%3E%3Ccircle r='10' fill='none' stroke='%234dc8ff' stroke-width='1' opacity='0.9'/%3E%3Cellipse rx='4' ry='10' fill='none' stroke='%234dc8ff' stroke-width='0.5' opacity='0.6'/%3E%3Cline x1='-10' y1='0' x2='10' y2='0' stroke='%234dc8ff' stroke-width='0.5' opacity='0.6'/%3E%3Cline x1='0' y1='-10' x2='0' y2='10' stroke='%234dc8ff' stroke-width='0.4' opacity='0.35'/%3E%3C/g%3E%3Cg transform='translate(32,42)'%3E%3Cpath d='M0-6 L14 0 L0 6 L-14 0Z' fill='url(%23gg)' stroke='%233d8a2e' stroke-width='0.3'/%3E%3Cpath d='M0 6 L14 0 L14 5 L0 11Z' fill='%23c49a3c' stroke='%237a5a18' stroke-width='0.2'/%3E%3Cpath d='M0 6 L-14 0 L-14 5 L0 11Z' fill='%23a0622d' stroke='%235a3210' stroke-width='0.2'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet" crossorigin="anonymous">
@@ -3061,8 +3062,104 @@ body.mobile-nav-open .mobile-hamburger span:nth-child(3) {
   }
   body.focus-mode .mobile-hamburger { display: none; }
 }
+
+/* ── BRAND LOGO SYSTEM ─────────────────────────────────────────────── */
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 0 6px;
+  cursor: default;
+}
+.nav-brand-icon {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+}
+.nav-brand-icon svg {
+  width: 100%;
+  height: 100%;
+}
+.nav-brand-text {
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity .2s, transform .2s;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.sidebar:hover .nav-brand-text {
+  opacity: 1;
+  transform: translateX(0);
+}
+.nav-brand-name {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.2;
+  letter-spacing: -0.3px;
+}
+.nav-brand-name span {
+  color: var(--accent);
+}
+.nav-brand-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--text2);
+  letter-spacing: 0.3px;
+}
+/* Hero brand header */
+.hero-brand-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+.hero-brand-logo {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+}
+.hero-brand-logo svg {
+  width: 100%;
+  height: 100%;
+}
+.hero-brand-info h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.1;
+  letter-spacing: -1px;
+  margin: 0;
+}
+.hero-brand-info h1 span {
+  color: var(--accent);
+}
+.hero-brand-info p {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text2);
+  margin: 2px 0 0 0;
+  letter-spacing: 0.4px;
+}
+/* Study mode overrides for brand */
+body.study-mode .nav-brand-name { color: #1A1A2E; }
+body.study-mode .nav-brand-name span { color: #3A6EA5; }
+body.study-mode .hero-brand-info h1 { color: #1A1A2E; }
+body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
+/* Mobile brand */
+@media (max-width: 768px) {
+  .nav-brand { gap: 6px; padding: 0 4px; }
+  .nav-brand-icon { width: 36px; height: 36px; }
+  .hero-brand-header { gap: 10px; }
+  .hero-brand-logo { width: 44px; height: 44px; }
+  .hero-brand-info h1 { font-size: 22px; }
+  .hero-brand-info p { font-size: 10px; }
+}
 </style>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-dhz/PYUzziAYK+sUuYPRF6Jw1zicBUog9RwR1CXrOuI='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-VvUizx8P0ob0s1iiJiiKnpzJ6gIfgEKQIssU/ypnBg4='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
 </head>
 <body>
 
@@ -3118,7 +3215,55 @@ body.mobile-nav-open .mobile-hamburger span:nth-child(3) {
 
 <!-- SIDEBAR -->
 <nav class="sidebar">
-  <div class="nav-logo">G</div>
+  <div class="nav-brand">
+    <div class="nav-brand-icon">
+      <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="gearGradS" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#5a6270"/><stop offset="100%" stop-color="#2d3340"/></linearGradient>
+          <linearGradient id="globeGradS" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#4dc8ff"/><stop offset="100%" stop-color="#1a7abf"/></linearGradient>
+          <linearGradient id="grassGradS" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#6abf4b"/><stop offset="100%" stop-color="#3d8a2e"/></linearGradient>
+          <linearGradient id="soilGradS" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c49a3c"/><stop offset="100%" stop-color="#8a6b20"/></linearGradient>
+          <linearGradient id="deepGradS" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#a0622d"/><stop offset="100%" stop-color="#6b3a15"/></linearGradient>
+        </defs>
+        <!-- Gear body -->
+        <g transform="translate(60,52)">
+          <path d="M0-40l5-8 8 2 3 9 8-5 6-7 8 5-1 9 9-1 3-9 9 2 2 9 9 3 0-9h10l-2 9 9 3 3-9 8 5-5 8 7 6 7-5 3 9-8 4 4 8 9 0 0 9-9 2 2 9 9 3-3 9-9-1 0 9 8 4-3 9-7-5-5 8 8 5-3 9-9 3 0-9-9 2-2 9-9-2 2-9-9-1-1-9-8 5-6-7-8 5-3-9-8-5 1-9-7-6-7 5-3-9 8-4-4-8-9 0 0-9 9-2-2-9-9-3 3-9 9 1 0-9-8-4 3-9 7 5 5-8z" fill="url(#gearGradS)" stroke="#1e232d" stroke-width="1"/>
+          <circle cx="0" cy="0" r="26" fill="#111318" stroke="#3a4050" stroke-width="1.5"/>
+        </g>
+        <!-- Globe wireframe -->
+        <g transform="translate(60,38)">
+          <circle cx="0" cy="0" r="18" fill="none" stroke="url(#globeGradS)" stroke-width="1.8" opacity="0.9"/>
+          <ellipse cx="0" cy="0" rx="8" ry="18" fill="none" stroke="#4dc8ff" stroke-width="0.8" opacity="0.6"/>
+          <ellipse cx="0" cy="0" rx="14" ry="18" fill="none" stroke="#4dc8ff" stroke-width="0.6" opacity="0.4"/>
+          <line x1="-18" y1="0" x2="18" y2="0" stroke="#4dc8ff" stroke-width="0.8" opacity="0.6"/>
+          <path d="M-17-7 Q0-9 17-7" fill="none" stroke="#4dc8ff" stroke-width="0.6" opacity="0.4"/>
+          <path d="M-17 7 Q0 9 17 7" fill="none" stroke="#4dc8ff" stroke-width="0.6" opacity="0.4"/>
+          <line x1="0" y1="-18" x2="0" y2="18" stroke="#4dc8ff" stroke-width="0.6" opacity="0.35"/>
+          <circle cx="0" cy="0" r="18" fill="rgba(26,122,191,0.08)"/>
+        </g>
+        <!-- 3D Isometric soil block -->
+        <g transform="translate(60,75)">
+          <!-- Top face (grass) -->
+          <path d="M0-12 L26 0 L0 12 L-26 0 Z" fill="url(#grassGradS)" stroke="#3d8a2e" stroke-width="0.5"/>
+          <!-- Front-right face (soil) -->
+          <path d="M0 12 L26 0 L26 10 L0 22 Z" fill="url(#soilGradS)" stroke="#7a5a18" stroke-width="0.3"/>
+          <!-- Front-left face (deep soil) -->
+          <path d="M0 12 L-26 0 L-26 10 L0 22 Z" fill="url(#deepGradS)" stroke="#5a3210" stroke-width="0.3"/>
+          <!-- Grass texture lines -->
+          <path d="M-12-3 L0-9 L12-3" fill="none" stroke="#8adf6a" stroke-width="0.4" opacity="0.5"/>
+          <path d="M-18 0 L0 9 L18 0" fill="none" stroke="#8adf6a" stroke-width="0.3" opacity="0.3"/>
+          <!-- Soil layer line on right face -->
+          <path d="M0 17 L26 5" stroke="#c49a3c" stroke-width="0.4" opacity="0.5"/>
+          <!-- Soil layer line on left face -->
+          <path d="M0 17 L-26 5" stroke="#8a5520" stroke-width="0.4" opacity="0.5"/>
+        </g>
+      </svg>
+    </div>
+    <div class="nav-brand-text">
+      <div class="nav-brand-name">Geo<span>Learn</span></div>
+      <div class="nav-brand-sub">by MYO_Geo_Orgs</div>
+    </div>
+  </div>
   <div class="nav-item active" data-action="showPage('home')">
     <span class="nav-icon">⌂</span><span class="nav-label">Home</span>
   </div>
@@ -3206,6 +3351,46 @@ body.mobile-nav-open .mobile-hamburger span:nth-child(3) {
 <!-- HOME -->
 <div id="page-home" class="page active">
   <div class="hero box-glow">
+    <div class="hero-brand-header">
+      <div class="hero-brand-logo">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="gearGradH" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#5a6270"/><stop offset="100%" stop-color="#2d3340"/></linearGradient>
+            <linearGradient id="globeGradH" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#4dc8ff"/><stop offset="100%" stop-color="#1a7abf"/></linearGradient>
+            <linearGradient id="grassGradH" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#6abf4b"/><stop offset="100%" stop-color="#3d8a2e"/></linearGradient>
+            <linearGradient id="soilGradH" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c49a3c"/><stop offset="100%" stop-color="#8a6b20"/></linearGradient>
+            <linearGradient id="deepGradH" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#a0622d"/><stop offset="100%" stop-color="#6b3a15"/></linearGradient>
+          </defs>
+          <g transform="translate(60,52)">
+            <path d="M0-40l5-8 8 2 3 9 8-5 6-7 8 5-1 9 9-1 3-9 9 2 2 9 9 3 0-9h10l-2 9 9 3 3-9 8 5-5 8 7 6 7-5 3 9-8 4 4 8 9 0 0 9-9 2 2 9 9 3-3 9-9-1 0 9 8 4-3 9-7-5-5 8 8 5-3 9-9 3 0-9-9 2-2 9-9-2 2-9-9-1-1-9-8 5-6-7-8 5-3-9-8-5 1-9-7-6-7 5-3-9 8-4-4-8-9 0 0-9 9-2-2-9-9-3 3-9 9 1 0-9-8-4 3-9 7 5 5-8z" fill="url(#gearGradH)" stroke="#1e232d" stroke-width="1"/>
+            <circle cx="0" cy="0" r="26" fill="#111318" stroke="#3a4050" stroke-width="1.5"/>
+          </g>
+          <g transform="translate(60,38)">
+            <circle cx="0" cy="0" r="18" fill="none" stroke="url(#globeGradH)" stroke-width="1.8" opacity="0.9"/>
+            <ellipse cx="0" cy="0" rx="8" ry="18" fill="none" stroke="#4dc8ff" stroke-width="0.8" opacity="0.6"/>
+            <ellipse cx="0" cy="0" rx="14" ry="18" fill="none" stroke="#4dc8ff" stroke-width="0.6" opacity="0.4"/>
+            <line x1="-18" y1="0" x2="18" y2="0" stroke="#4dc8ff" stroke-width="0.8" opacity="0.6"/>
+            <path d="M-17-7 Q0-9 17-7" fill="none" stroke="#4dc8ff" stroke-width="0.6" opacity="0.4"/>
+            <path d="M-17 7 Q0 9 17 7" fill="none" stroke="#4dc8ff" stroke-width="0.6" opacity="0.4"/>
+            <line x1="0" y1="-18" x2="0" y2="18" stroke="#4dc8ff" stroke-width="0.6" opacity="0.35"/>
+            <circle cx="0" cy="0" r="18" fill="rgba(26,122,191,0.08)"/>
+          </g>
+          <g transform="translate(60,75)">
+            <path d="M0-12 L26 0 L0 12 L-26 0 Z" fill="url(#grassGradH)" stroke="#3d8a2e" stroke-width="0.5"/>
+            <path d="M0 12 L26 0 L26 10 L0 22 Z" fill="url(#soilGradH)" stroke="#7a5a18" stroke-width="0.3"/>
+            <path d="M0 12 L-26 0 L-26 10 L0 22 Z" fill="url(#deepGradH)" stroke="#5a3210" stroke-width="0.3"/>
+            <path d="M-12-3 L0-9 L12-3" fill="none" stroke="#8adf6a" stroke-width="0.4" opacity="0.5"/>
+            <path d="M-18 0 L0 9 L18 0" fill="none" stroke="#8adf6a" stroke-width="0.3" opacity="0.3"/>
+            <path d="M0 17 L26 5" stroke="#c49a3c" stroke-width="0.4" opacity="0.5"/>
+            <path d="M0 17 L-26 5" stroke="#8a5520" stroke-width="0.4" opacity="0.5"/>
+          </g>
+        </svg>
+      </div>
+      <div class="hero-brand-info">
+        <h1>GeoLearn <span>Japan</span></h1>
+        <p>by MYO_Geo_Orgs &nbsp;·&nbsp; Geotechnical Innovation Lab</p>
+      </div>
+    </div>
     <div class="hero-title glow-accent">GeoLearn<br>Japan</div>
     <div class="hero-jp">地質・地盤工学学習システム</div>
     <div class="hero-desc">Master Geotechnical & Geophysical Engineering for Japanese licensing. 22 interactive topics — including full modules for Borehole Camera, Pressuremeter, GPR, Plate Load Test & RQD — plus animations, field calculators, and exam prep.</div>
@@ -3279,11 +3464,11 @@ body.mobile-nav-open .mobile-hamburger span:nth-child(3) {
 <!-- STUDY MODULES -->
 <div id="page-study" class="page">
   <div class="page-header">
-    <div class="page-title">Study <span>Modules</span></div>
-    <div class="page-sub">// 学習モジュール — Select a topic to begin</div>
+    <div class="page-title" data-i18n="study_title">Study <span data-i18n="study_title_span">Modules</span></div>
+    <div class="page-sub" data-i18n="study_sub">// 学習モジュール — Select a topic to begin</div>
   </div>
   <div id="topic-list">
-    <div class="section-header"><div class="section-title">// SOIL MECHANICS 土質力学</div><div class="section-line"></div></div>
+    <div class="section-header"><div class="section-title" data-i18n="study_soil_mechanics">// SOIL MECHANICS 土質力学</div><div class="section-line"></div></div>
     <div class="grid grid-3" style="margin-bottom:24px">
       <div class="topic-card" data-action="showTopic('effective-stress')">
         <div class="topic-icon">⚖️</div>
@@ -3315,7 +3500,7 @@ body.mobile-nav-open .mobile-hamburger span:nth-child(3) {
       </div>
     </div>
 
-    <div class="section-header"><div class="section-title">// WAVE PROPAGATION 波動伝播</div><div class="section-line"></div></div>
+    <div class="section-header"><div class="section-title" data-i18n="study_wave_propagation">// WAVE PROPAGATION 波動伝播</div><div class="section-line"></div></div>
     <div class="grid grid-3" style="margin-bottom:24px">
       <div class="topic-card" data-action="showTopic('p-wave')">
         <div class="topic-icon">→</div>
@@ -3340,7 +3525,7 @@ body.mobile-nav-open .mobile-hamburger span:nth-child(3) {
       </div>
     </div>
 
-    <div class="section-header"><div class="section-title">// IN-SITU TESTING 原位置試験</div><div class="section-line"></div></div>
+    <div class="section-header"><div class="section-title" data-i18n="study_in_situ_testing">// IN-SITU TESTING 原位置試験</div><div class="section-line"></div></div>
     <div class="grid grid-3" style="margin-bottom:24px">
       <div class="topic-card" data-action="showTopic('spt')">
         <div class="topic-icon">🔨</div>
@@ -3365,7 +3550,7 @@ body.mobile-nav-open .mobile-hamburger span:nth-child(3) {
       </div>
     </div>
 
-    <div class="section-header"><div class="section-title">// GEOPHYSICAL METHODS 物理探査</div><div class="section-line"></div></div>
+    <div class="section-header"><div class="section-title" data-i18n="study_geophysical_methods">// GEOPHYSICAL METHODS 物理探査</div><div class="section-line"></div></div>
     <div class="grid grid-3" style="margin-bottom:24px">
       <div class="topic-card" data-action="showTopic('seismic-refraction')">
         <div class="topic-icon">↗</div>
@@ -3397,7 +3582,7 @@ body.mobile-nav-open .mobile-hamburger span:nth-child(3) {
       </div>
     </div>
 
-    <div class="section-header"><div class="section-title">// BOREHOLE INVESTIGATION 孔内調査</div><div class="section-line"></div></div>
+    <div class="section-header"><div class="section-title" data-i18n="study_borehole_investigation">// BOREHOLE INVESTIGATION 孔内調査</div><div class="section-line"></div></div>
     <div class="grid grid-3" style="margin-bottom:24px">
       <div class="topic-card" data-action="showTopic('borehole-camera')">
         <div class="topic-icon">🎥</div>
@@ -3422,7 +3607,7 @@ body.mobile-nav-open .mobile-hamburger span:nth-child(3) {
       </div>
     </div>
 
-    <div class="section-header"><div class="section-title">// LOAD TESTING 載荷試験</div><div class="section-line"></div></div>
+    <div class="section-header"><div class="section-title" data-i18n="study_load_testing">// LOAD TESTING 載荷試験</div><div class="section-line"></div></div>
     <div class="grid grid-3">
       <div class="topic-card" data-action="showTopic('plate-load-test')">
         <div class="topic-icon">🏗️</div>
@@ -3450,7 +3635,7 @@ body.mobile-nav-open .mobile-hamburger span:nth-child(3) {
 
   <!-- TOPIC DETAIL VIEW -->
   <div id="topic-detail" style="display:none">
-    <button class="btn btn-outline" style="margin-bottom:20px" data-action="hideTopic()">← Back</button>
+    <button class="btn btn-outline" style="margin-bottom:20px" data-action="hideTopic()" data-i18n="btn_back_short">← Back</button>
     <div id="topic-content"></div>
   </div>
 </div>
@@ -3607,34 +3792,34 @@ body.mobile-nav-open .mobile-hamburger span:nth-child(3) {
 <!-- FLASHCARDS -->
 <div id="page-flashcards" class="page">
   <div class="page-header">
-    <div class="page-title">Flash<span>cards</span></div>
-    <div class="page-sub">// フラッシュカード — Spaced Repetition Learning</div>
+    <div class="page-title" data-i18n="fc_title">Flash<span data-i18n="fc_title_span">cards</span></div>
+    <div class="page-sub" data-i18n="fc_sub">// フラッシュカード — Spaced Repetition Learning</div>
   </div>
 
   <!-- SRS Stats Bar -->
   <div class="card" style="margin-bottom:16px;padding:14px 20px">
     <div style="display:flex;gap:24px;justify-content:center;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px">
-      <div style="text-align:center"><div style="font-size:20px;font-weight:700;color:var(--accent)" id="srs-studied">0</div><div style="color:var(--text2)" id="srs-studied-label">Studied Today</div></div>
-      <div style="text-align:center"><div style="font-size:20px;font-weight:700;color:var(--accent3)" id="srs-accuracy">0%</div><div style="color:var(--text2)" id="srs-accuracy-label">Accuracy</div></div>
-      <div style="text-align:center"><div style="font-size:20px;font-weight:700;color:var(--accent2)" id="srs-streak">0</div><div style="color:var(--text2)" id="srs-streak-label">Day Streak</div></div>
-      <div style="text-align:center"><div style="font-size:20px;font-weight:700;color:var(--purple)" id="srs-mastered">0</div><div style="color:var(--text2)" id="srs-mastered-label">Mastered</div></div>
+      <div style="text-align:center"><div style="font-size:20px;font-weight:700;color:var(--accent)" id="srs-studied">0</div><div style="color:var(--text2)" id="srs-studied-label" data-i18n="fc_studied_today">Studied Today</div></div>
+      <div style="text-align:center"><div style="font-size:20px;font-weight:700;color:var(--accent3)" id="srs-accuracy">0%</div><div style="color:var(--text2)" id="srs-accuracy-label" data-i18n="fc_accuracy">Accuracy</div></div>
+      <div style="text-align:center"><div style="font-size:20px;font-weight:700;color:var(--accent2)" id="srs-streak">0</div><div style="color:var(--text2)" id="srs-streak-label" data-i18n="fc_streak">Day Streak</div></div>
+      <div style="text-align:center"><div style="font-size:20px;font-weight:700;color:var(--purple)" id="srs-mastered">0</div><div style="color:var(--text2)" id="srs-mastered-label" data-i18n="fc_mastered">Mastered</div></div>
     </div>
   </div>
 
   <!-- Learning Mode Toggle -->
   <div style="display:flex;gap:6px;justify-content:center;margin-bottom:16px">
-    <button class="btn btn-outline" style="font-size:11px;padding:6px 12px" data-action="setFCMode('single')" id="fc-mode-single">Single</button>
-    <button class="btn btn-outline" style="font-size:11px;padding:6px 12px" data-action="setFCMode('bilingual')" id="fc-mode-bilingual">Bilingual</button>
-    <button class="btn btn-outline" style="font-size:11px;padding:6px 12px" data-action="setFCMode('trilingual')" id="fc-mode-trilingual">Trilingual</button>
+    <button class="btn btn-outline" style="font-size:11px;padding:6px 12px" data-action="setFCMode('single')" id="fc-mode-single" data-i18n="fc_mode_single">Single</button>
+    <button class="btn btn-outline" style="font-size:11px;padding:6px 12px" data-action="setFCMode('bilingual')" id="fc-mode-bilingual" data-i18n="fc_mode_bilingual">Bilingual</button>
+    <button class="btn btn-outline" style="font-size:11px;padding:6px 12px" data-action="setFCMode('trilingual')" id="fc-mode-trilingual" data-i18n="fc_mode_trilingual">Trilingual</button>
   </div>
 
   <div class="tabs">
-    <div class="tab active" data-action="switchFCDeck(this,'all')">All</div>
-    <div class="tab" data-action="switchFCDeck(this,'soil')">Soil</div>
-    <div class="tab" data-action="switchFCDeck(this,'foundation')">Foundation</div>
-    <div class="tab" data-action="switchFCDeck(this,'earthquake')">Earthquake</div>
-    <div class="tab" data-action="switchFCDeck(this,'geophysics')">Geophysics</div>
-    <div class="tab" data-action="switchFCDeck(this,'investigation')">Investigation</div>
+    <div class="tab active" data-action="switchFCDeck(this,'all')" data-i18n="fc_deck_all">All</div>
+    <div class="tab" data-action="switchFCDeck(this,'soil')" data-i18n="fc_deck_soil">Soil</div>
+    <div class="tab" data-action="switchFCDeck(this,'foundation')" data-i18n="fc_deck_foundation">Foundation</div>
+    <div class="tab" data-action="switchFCDeck(this,'earthquake')" data-i18n="fc_deck_earthquake">Earthquake</div>
+    <div class="tab" data-action="switchFCDeck(this,'geophysics')" data-i18n="fc_deck_geophysics">Geophysics</div>
+    <div class="tab" data-action="switchFCDeck(this,'investigation')" data-i18n="fc_deck_investigation">Investigation</div>
   </div>
 
   <div class="flashcard-scene" data-action="flipCard()">
@@ -3643,7 +3828,7 @@ body.mobile-nav-open .mobile-hamburger span:nth-child(3) {
         <div class="fc-jp" id="fc-front-jp"></div>
         <div class="fc-en" id="fc-front-en"></div>
         <div class="fc-eq" id="fc-front-eq"></div>
-        <div class="fc-hint">👆 tap to reveal answer</div>
+        <div class="fc-hint" data-i18n="fc_hint">👆 tap to reveal answer</div>
       </div>
       <div class="flashcard-face flashcard-back">
         <div id="fc-back-content"></div>
@@ -3653,27 +3838,27 @@ body.mobile-nav-open .mobile-hamburger span:nth-child(3) {
 
   <!-- SRS Difficulty Buttons (shown after flip) -->
   <div id="srs-buttons" style="display:none;margin-top:16px">
-    <div style="text-align:center;font-size:11px;color:var(--text2);margin-bottom:8px">How well did you know this?</div>
+    <div style="text-align:center;font-size:11px;color:var(--text2);margin-bottom:8px" data-i18n="fc_how_well">How well did you know this?</div>
     <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-      <button class="btn" style="background:#ef4444;color:#fff;min-width:80px;font-size:12px" data-action="rateSRS(1)">😓 Again</button>
-      <button class="btn" style="background:#f97316;color:#fff;min-width:80px;font-size:12px" data-action="rateSRS(2)">😐 Hard</button>
-      <button class="btn" style="background:#22c55e;color:#fff;min-width:80px;font-size:12px" data-action="rateSRS(3)">👍 Good</button>
-      <button class="btn" style="background:#3b82f6;color:#fff;min-width:80px;font-size:12px" data-action="rateSRS(4)">⭐ Easy</button>
+      <button class="btn" style="background:#ef4444;color:#fff;min-width:80px;font-size:12px" data-action="rateSRS(1)" data-i18n="fc_btn_again">😓 Again</button>
+      <button class="btn" style="background:#f97316;color:#fff;min-width:80px;font-size:12px" data-action="rateSRS(2)" data-i18n="fc_btn_hard">😐 Hard</button>
+      <button class="btn" style="background:#22c55e;color:#fff;min-width:80px;font-size:12px" data-action="rateSRS(3)" data-i18n="fc_btn_good">👍 Good</button>
+      <button class="btn" style="background:#3b82f6;color:#fff;min-width:80px;font-size:12px" data-action="rateSRS(4)" data-i18n="fc_btn_easy">⭐ Easy</button>
     </div>
     <div style="display:flex;gap:16px;justify-content:center;margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text2)">
-      <span>5 min</span><span>1 day</span><span id="srs-good-interval">3 days</span><span id="srs-easy-interval">7 days</span>
+      <span data-i18n="fc_interval_5min">5 min</span><span data-i18n="fc_interval_1day">1 day</span><span id="srs-good-interval">3 days</span><span id="srs-easy-interval">7 days</span>
     </div>
   </div>
 
   <div class="fc-nav">
-    <button class="btn btn-outline" data-action="prevCard()">← Prev</button>
+    <button class="btn btn-outline" data-action="prevCard()" data-i18n="btn_prev">← Prev</button>
     <div class="fc-counter" id="fc-counter">1 / 40</div>
-    <button class="btn btn-primary" data-action="nextCard()">Next →</button>
+    <button class="btn btn-primary" data-action="nextCard()" data-i18n="btn_next">Next →</button>
   </div>
   <div style="display:flex;gap:8px;justify-content:center;margin-top:12px">
-    <button class="btn btn-outline" data-action="shuffleCards()">🔀 Shuffle</button>
-    <button class="btn btn-outline" data-action="markKnown()">✓ Know it</button>
-    <button class="btn btn-outline" data-action="markUnknown()">✗ Review</button>
+    <button class="btn btn-outline" data-action="shuffleCards()" data-i18n="btn_shuffle">🔀 Shuffle</button>
+    <button class="btn btn-outline" data-action="markKnown()" data-i18n="btn_know_it">✓ Know it</button>
+    <button class="btn btn-outline" data-action="markUnknown()" data-i18n="btn_review_it">✗ Review</button>
   </div>
   <div style="text-align:center;margin-top:12px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text2)" id="fc-status"></div>
 </div>
@@ -3681,20 +3866,20 @@ body.mobile-nav-open .mobile-hamburger span:nth-child(3) {
 <!-- QUIZ -->
 <div id="page-quiz" class="page">
   <div class="page-header">
-    <div class="page-title">Quiz <span>System</span></div>
-    <div class="page-sub">// クイズ — Test your knowledge</div>
+    <div class="page-title" data-i18n="quiz_title">Quiz <span data-i18n="quiz_title_span">System</span></div>
+    <div class="page-sub" data-i18n="quiz_sub">// クイズ — Test your knowledge</div>
   </div>
 
   <div id="quiz-start">
     <div class="card" style="max-width:500px;margin:0 auto;text-align:center">
       <div style="font-size:48px;margin-bottom:16px">⚡</div>
-      <div style="font-size:22px;font-weight:700;margin-bottom:8px">Ready to Test?</div>
-      <div style="color:var(--text2);margin-bottom:24px;font-size:14px">60 questions across all topics. Choose your category.</div>
+      <div style="font-size:22px;font-weight:700;margin-bottom:8px" data-i18n="quiz_ready">Ready to Test?</div>
+      <div style="color:var(--text2);margin-bottom:24px;font-size:14px" data-i18n="quiz_desc">60 questions across all topics. Choose your category.</div>
       <div style="display:grid;gap:8px;margin-bottom:20px">
-        <button class="btn btn-outline" style="justify-content:center" data-action="startQuiz('all')">🌐 All Topics (20 Q)</button>
-        <button class="btn btn-outline" style="justify-content:center" data-action="startQuiz('soil')">⚖️ Soil Mechanics (10 Q)</button>
-        <button class="btn btn-outline" style="justify-content:center" data-action="startQuiz('wave')">〜 Wave & Geophysics (10 Q)</button>
-        <button class="btn btn-outline" style="justify-content:center" data-action="startQuiz('test')">🔨 Field Testing (10 Q)</button>
+        <button class="btn btn-outline" style="justify-content:center" data-action="startQuiz('all')" data-i18n="quiz_all">🌐 All Topics (20 Q)</button>
+        <button class="btn btn-outline" style="justify-content:center" data-action="startQuiz('soil')" data-i18n="quiz_soil">⚖️ Soil Mechanics (10 Q)</button>
+        <button class="btn btn-outline" style="justify-content:center" data-action="startQuiz('wave')" data-i18n="quiz_wave">〜 Wave & Geophysics (10 Q)</button>
+        <button class="btn btn-outline" style="justify-content:center" data-action="startQuiz('test')" data-i18n="quiz_test">🔨 Field Testing (10 Q)</button>
       </div>
     </div>
   </div>
@@ -3712,12 +3897,12 @@ body.mobile-nav-open .mobile-hamburger span:nth-child(3) {
 
   <div id="quiz-end" style="display:none">
     <div class="quiz-score">
-      <div style="font-size:18px;color:var(--text2);margin-bottom:8px">Final Score</div>
+      <div style="font-size:18px;color:var(--text2);margin-bottom:8px" data-i18n="quiz_final_score">Final Score</div>
       <div class="score-big" id="final-score"></div>
       <div id="score-grade" style="font-size:24px;font-weight:700;margin:8px 0"></div>
       <div id="score-msg" style="color:var(--text2);margin-bottom:24px;font-size:14px"></div>
-      <button class="btn btn-primary" data-action="restartQuiz()">Try Again</button>
-      <button class="btn btn-outline" style="margin-left:12px" data-action="showPage('flashcards')">📚 Review Flashcards</button>
+      <button class="btn btn-primary" data-action="restartQuiz()" data-i18n="btn_try_again">Try Again</button>
+      <button class="btn btn-outline" style="margin-left:12px" data-action="showPage('flashcards')" data-i18n="btn_review_flashcards">📚 Review Flashcards</button>
     </div>
   </div>
 </div>
@@ -4206,28 +4391,28 @@ body.mobile-nav-open .mobile-hamburger span:nth-child(3) {
      ============================================================ -->
 <div id="page-vocab" class="page">
   <div class="page-header">
-    <div class="page-title">Vocabulary <span>Hub</span></div>
-    <div class="page-sub">// 語彙ハブ — Global bilingual technical + JLPT vocabulary system</div>
+    <div class="page-title" data-i18n="vocab_title">Vocabulary <span data-i18n="vocab_title_span">Hub</span></div>
+    <div class="page-sub" data-i18n="vocab_sub">// 語彙ハブ — Global bilingual technical + JLPT vocabulary system</div>
   </div>
 
   <div class="tabs" style="margin-bottom:16px">
-    <div class="tab active" data-action="switchVocabMode(this,'browse')">🔍 Browse</div>
-    <div class="tab" data-action="switchVocabMode(this,'flashcard')">🃏 Flashcard Mode</div>
-    <div class="tab" data-action="switchVocabMode(this,'spaced')">🔁 Spaced Review</div>
-    <div class="tab" data-action="switchVocabMode(this,'quiz')">⚡ Vocab Quiz</div>
+    <div class="tab active" data-action="switchVocabMode(this,'browse')" data-i18n="vocab_tab_browse">🔍 Browse</div>
+    <div class="tab" data-action="switchVocabMode(this,'flashcard')" data-i18n="vocab_tab_flashcard">🃏 Flashcard Mode</div>
+    <div class="tab" data-action="switchVocabMode(this,'spaced')" data-i18n="vocab_tab_spaced">🔁 Spaced Review</div>
+    <div class="tab" data-action="switchVocabMode(this,'quiz')" data-i18n="vocab_tab_quiz">⚡ Vocab Quiz</div>
   </div>
 
   <!-- BROWSE MODE -->
   <div id="vocab-browse">
-    <input class="vocab-search" id="vocab-search-input" placeholder="Search Japanese or English... 検索" oninput="filterVocab()">
+    <input class="vocab-search" id="vocab-search-input" placeholder="Search Japanese or English... 検索" oninput="filterVocab()" data-i18n-placeholder="vocab_search">
     <div style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0" id="vocab-filters">
-      <button class="filter-btn active" data-action="setVocabFilter('all',this)">All</button>
-      <button class="filter-btn" data-action="setVocabFilter('soil',this)">🌱 Soil</button>
-      <button class="filter-btn" data-action="setVocabFilter('seismic',this)">🌊 Seismic</button>
-      <button class="filter-btn" data-action="setVocabFilter('testing',this)">🔬 Testing</button>
-      <button class="filter-btn" data-action="setVocabFilter('foundation',this)">🏗 Foundation</button>
-      <button class="filter-btn" data-action="setVocabFilter('geophysics',this)">⚡ Geophysics</button>
-      <button class="filter-btn" data-action="setVocabFilter('jlpt',this)">🇯🇵 JLPT</button>
+      <button class="filter-btn active" data-action="setVocabFilter('all',this)" data-i18n="vocab_all">All</button>
+      <button class="filter-btn" data-action="setVocabFilter('soil',this)" data-i18n="vocab_filter_soil">🌱 Soil</button>
+      <button class="filter-btn" data-action="setVocabFilter('seismic',this)" data-i18n="vocab_filter_seismic">🌊 Seismic</button>
+      <button class="filter-btn" data-action="setVocabFilter('testing',this)" data-i18n="vocab_filter_testing">🔬 Testing</button>
+      <button class="filter-btn" data-action="setVocabFilter('foundation',this)" data-i18n="vocab_filter_foundation">🏗 Foundation</button>
+      <button class="filter-btn" data-action="setVocabFilter('geophysics',this)" data-i18n="vocab_filter_geophysics">⚡ Geophysics</button>
+      <button class="filter-btn" data-action="setVocabFilter('jlpt',this)" data-i18n="vocab_filter_jlpt">🇯🇵 JLPT</button>
     </div>
     <div style="font-size:12px;color:var(--text2);font-family:'JetBrains Mono',monospace;margin-bottom:12px" id="vocab-count-label"></div>
     <div class="grid grid-3" id="vocab-grid"></div>
@@ -4239,7 +4424,7 @@ body.mobile-nav-open .mobile-hamburger span:nth-child(3) {
       <div id="vocab-fc-card" class="vocab-fc" data-action="revealVocabFC()">
         <div id="vocab-fc-jp" class="vocab-jp" style="font-size:32px"></div>
         <div id="vocab-fc-kana" class="vocab-kana"></div>
-        <div id="vocab-fc-hint" style="font-size:11px;color:var(--text3);margin-top:16px;font-family:'JetBrains Mono',monospace">Click to reveal meaning</div>
+        <div id="vocab-fc-hint" style="font-size:11px;color:var(--text3);margin-top:16px;font-family:'JetBrains Mono',monospace" data-i18n="vocab_click_reveal">Click to reveal meaning</div>
         <div id="vocab-fc-reveal" style="display:none;margin-top:12px">
           <div id="vocab-fc-en" style="font-size:20px;font-weight:700"></div>
           <div id="vocab-fc-def" style="font-size:13px;color:var(--text2);margin-top:8px;max-width:360px;line-height:1.5"></div>
@@ -4247,9 +4432,9 @@ body.mobile-nav-open .mobile-hamburger span:nth-child(3) {
         </div>
       </div>
       <div class="fc-nav" style="margin-top:16px">
-        <button class="btn btn-outline" data-action="prevVocabFC()">← Prev</button>
+        <button class="btn btn-outline" data-action="prevVocabFC()" data-i18n="btn_prev">← Prev</button>
         <span class="fc-counter" id="vocab-fc-counter">0/0</span>
-        <button class="btn btn-outline" data-action="nextVocabFC()">Next →</button>
+        <button class="btn btn-outline" data-action="nextVocabFC()" data-i18n="btn_next">Next →</button>
       </div>
     </div>
   </div>
@@ -4267,12 +4452,12 @@ body.mobile-nav-open .mobile-hamburger span:nth-child(3) {
         <div id="vocab-sr-en" style="font-size:20px;font-weight:700"></div>
         <div id="vocab-sr-def" style="font-size:13px;color:var(--text2);margin-top:8px"></div>
       </div>
-      <button class="btn btn-outline" style="margin-top:16px" id="vocab-sr-show-btn" data-action="showVocabSRAnswer()">Show Answer</button>
+      <button class="btn btn-outline" style="margin-top:16px" id="vocab-sr-show-btn" data-action="showVocabSRAnswer()" data-i18n="btn_show_answer">Show Answer</button>
     </div>
     <div class="sr-controls" id="vocab-sr-controls" style="display:none">
-      <button class="sr-btn-hard" data-action="rateVocabSR(1)">😰 Hard (1 day)</button>
-      <button class="sr-btn-good" data-action="rateVocabSR(3)">👍 Good (3 days)</button>
-      <button class="sr-btn-easy" data-action="rateVocabSR(7)">⭐ Easy (7 days)</button>
+      <button class="sr-btn-hard" data-action="rateVocabSR(1)" data-i18n="vocab_sr_hard">😰 Hard (1 day)</button>
+      <button class="sr-btn-good" data-action="rateVocabSR(3)" data-i18n="vocab_sr_good">👍 Good (3 days)</button>
+      <button class="sr-btn-easy" data-action="rateVocabSR(7)" data-i18n="vocab_sr_easy">⭐ Easy (7 days)</button>
     </div>
     <div style="text-align:center;margin-top:16px;font-size:12px;color:var(--text2);font-family:'JetBrains Mono',monospace" id="vocab-sr-next-info"></div>
   </div>
@@ -4281,13 +4466,13 @@ body.mobile-nav-open .mobile-hamburger span:nth-child(3) {
   <div id="vocab-quiz-mode" style="display:none">
     <div id="vocab-quiz-start">
       <div class="card" style="max-width:400px;margin:0 auto;text-align:center">
-        <div style="font-size:24px;font-weight:800;margin-bottom:8px">Vocabulary Quiz</div>
-        <div style="color:var(--text2);margin-bottom:20px">Test your Japanese technical vocabulary knowledge</div>
+        <div style="font-size:24px;font-weight:800;margin-bottom:8px" data-i18n="vocab_quiz_title">Vocabulary Quiz</div>
+        <div style="color:var(--text2);margin-bottom:20px" data-i18n="vocab_quiz_desc">Test your Japanese technical vocabulary knowledge</div>
         <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-          <button class="btn btn-outline" data-action="startVocabQuiz('soil')">🌱 Soil</button>
-          <button class="btn btn-outline" data-action="startVocabQuiz('seismic')">🌊 Seismic</button>
-          <button class="btn btn-outline" data-action="startVocabQuiz('jlpt')">🇯🇵 JLPT</button>
-          <button class="btn btn-primary" data-action="startVocabQuiz('all')">All Vocab</button>
+          <button class="btn btn-outline" data-action="startVocabQuiz('soil')" data-i18n="vocab_quiz_soil">🌱 Soil</button>
+          <button class="btn btn-outline" data-action="startVocabQuiz('seismic')" data-i18n="vocab_quiz_seismic">🌊 Seismic</button>
+          <button class="btn btn-outline" data-action="startVocabQuiz('jlpt')" data-i18n="vocab_quiz_jlpt">🇯🇵 JLPT</button>
+          <button class="btn btn-primary" data-action="startVocabQuiz('all')" data-i18n="vocab_quiz_all">All Vocab</button>
         </div>
       </div>
     </div>
@@ -5376,7 +5561,7 @@ body.mobile-nav-open .mobile-hamburger span:nth-child(3) {
   <!-- GLOBAL FOOTER -->
   <footer class="app-footer">
     <div class="app-footer-left">
-      <div class="app-footer-brand">GeoLearn Japan &nbsp;·&nbsp; MYO_Geo_Orgs</div>
+      <div class="app-footer-brand">GeoLearn Japan &nbsp;·&nbsp; by MYO_Geo_Orgs™</div>
       <div class="app-footer-copy">© 2026 MYO NAING TUN &nbsp;/&nbsp; MYO_Geo_Orgs. All Rights Reserved.</div>
       <div class="app-footer-copy" style="margin-top:2px;">Proprietary software — unauthorized copying, redistribution, or commercial use is prohibited.</div>
     </div>
@@ -5846,6 +6031,7 @@ function t(key) {
   if (uiStrings.en && uiStrings.en[key]) return uiStrings.en[key];
   return key;
 }
+window.t = t;
 
 // Initialize language on page load
 (function initLangUI() {
@@ -5901,12 +6087,32 @@ function loadAllTranslations(lang) { loadAllTranslationsPromise(lang).then(funct
 
 // Apply language to all visible content
 function applyLanguage(lang) {
-  // 1. Update data-i18n elements
+  // 1. Update data-i18n elements (skip children of page-title that have own data-i18n)
   document.querySelectorAll('[data-i18n]').forEach(function(el) {
     var key = el.getAttribute('data-i18n');
     // UI string key (no dots)
     if (key.indexOf('.') === -1) {
-      el.textContent = t(key);
+      // For page-title elements with child spans that have data-i18n, only set direct text
+      var childI18n = el.querySelector('[data-i18n]');
+      if (childI18n && el.classList.contains('page-title')) {
+        // Set the text node only (before the span)
+        var txt = t(key);
+        var span = el.querySelector('span[data-i18n]');
+        if (span) {
+          // Replace first text node
+          var nodes = el.childNodes;
+          for (var ni = 0; ni < nodes.length; ni++) {
+            if (nodes[ni].nodeType === 3 && nodes[ni].textContent.trim()) {
+              nodes[ni].textContent = txt + ' ';
+              break;
+            }
+          }
+        } else {
+          el.textContent = txt;
+        }
+      } else {
+        el.textContent = t(key);
+      }
       return;
     }
     var parts = key.split('.');
@@ -5919,6 +6125,12 @@ function applyLanguage(lang) {
     if (!el.getAttribute('data-i18n-en')) el.setAttribute('data-i18n-en', el.textContent);
     var tr = getTranslated(type, id, field, null);
     if (tr) el.textContent = tr;
+  });
+
+  // 1b. Update data-i18n-placeholder for inputs
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
+    var key = el.getAttribute('data-i18n-placeholder');
+    el.placeholder = t(key);
   });
 
   // 2. Update nav labels
@@ -5951,14 +6163,17 @@ function updateNavLabels() {
 
 // Re-render active content on language change
 window.addEventListener('langchange', function() {
+  // Flashcards page
   if (typeof renderFC === 'function') {
     var fcPage = document.getElementById('page-flashcards');
     if (fcPage && fcPage.classList.contains('active')) renderFC();
   }
+  // Quiz page
   if (typeof renderQuestion === 'function') {
     var qEl = document.getElementById('quiz-question');
     if (qEl && qEl.style.display !== 'none') renderQuestion();
   }
+  // Topic detail view
   var titleEl = document.querySelector('.sr-title[data-topic-id]');
   if (titleEl && document.getElementById('topic-detail') && document.getElementById('topic-detail').style.display === 'block') {
     if (typeof showTopic === 'function') showTopic(titleEl.getAttribute('data-topic-id'));
@@ -5982,6 +6197,26 @@ window.addEventListener('langchange', function() {
   if (hs) hs.textContent = t('hero_subtitle');
   var hd = document.querySelector('.hero-desc');
   if (hd) hd.textContent = t('hero_desc');
+
+  // Vocabulary page — re-render if active
+  var vocPage = document.getElementById('page-vocab');
+  if (vocPage && vocPage.classList.contains('active')) {
+    if (typeof renderVocabGrid === 'function') renderVocabGrid();
+    if (typeof renderVocabFC === 'function') {
+      var vfcEl = document.getElementById('vocab-flashcard');
+      if (vfcEl && vfcEl.style.display !== 'none') renderVocabFC();
+    }
+    if (typeof renderVocabQuestion === 'function') {
+      var vqActive = document.getElementById('vocab-quiz-active');
+      if (vqActive && vqActive.style.display !== 'none') renderVocabQuestion();
+    }
+  }
+
+  // Vocab due count refresh
+  if (typeof initSpacedReview === 'function') {
+    var srEl = document.getElementById('vocab-spaced');
+    if (srEl && srEl.style.display !== 'none') initSpacedReview();
+  }
 });
 
 // ============================================================
@@ -6519,35 +6754,38 @@ function showTopic(id){
   const mem=memTricks[id]||'Connect this concept to something you already know — find the physical intuition.';
   const why=whyMatters[id]||'This measurement directly influences engineering design decisions affecting safety and serviceability.';
 
+  // t() is shadowed by local variable t=TOPICS[id], so use window-level i18n
+  var _t = window.t || function(k){return k;};
+
   // ---- Build 7-section content ----
   const sectionData=[
     {
-      id:'s1',icon:'💡',label:'1 · Simple Meaning',
+      id:'s1',icon:'💡',label:_t('label_simple_meaning'),
       content:`<div class="sr-simple">${tTheory}</div>`
     },
     {
-      id:'s2',icon:'📖',label:'2 · Detailed Explanation',
+      id:'s2',icon:'📖',label:_t('label_detailed_explanation'),
       content:`<div class="sr-body">${highlightKeyTerms(tExplanation)}</div>`
     },
     {
-      id:'s3',icon:'🌐',label:'3 · Why It Matters in Engineering',
+      id:'s3',icon:'🌐',label:_t('label_why_it_matters'),
       content:`<div class="sr-body">${highlightKeyTerms(why)}</div>`
     },
     {
-      id:'s4',icon:'🌏',label:'4 · Real-World Example (Japan & Global)',
+      id:'s4',icon:'🌏',label:_t('label_real_world_example'),
       content:`<div class="sr-example">${tExample}</div>`
     },
     {
-      id:'s5',icon:'🔑',label:'5 · Key Points for Exam & Field',
+      id:'s5',icon:'🔑',label:_t('label_key_points'),
       content:`<div class="sr-keypoints">${t.keyPoints.map((p,i)=>`<div class="sr-keypoint"><span class="sr-keypoint-num">${String(i+1).padStart(2,'0')}</span><span>${p}</span></div>`).join('')}</div>`
     },
     {
-      id:'s6',icon:'🧠',label:'6 · Memory Trick',
+      id:'s6',icon:'🧠',label:_t('label_memory_trick'),
       content:`<div class="sr-memory">${mem}</div>`
     },
     {
-      id:'s7',icon:'⚡',label:'7 · Quick Summary',
-      content:`<div class="sr-summary">${tTheory.split('.')[0]}. Key equation: <strong>${t.eq}</strong> — ${t.eqLabel}. Remember: ${t.keyPoints[0]}.</div>`
+      id:'s7',icon:'⚡',label:_t('label_quick_summary'),
+      content:`<div class="sr-summary">${tTheory.split('.')[0]}. ${_t('label_key_equations')}: <strong>${t.eq}</strong> — ${t.eqLabel}. </div>`
     },
   ];
 
@@ -6558,7 +6796,7 @@ function showTopic(id){
           <span class="sr-section-icon">${s.icon}</span>
           <span class="sr-section-label">${s.label}</span>
         </div>
-        <button class="sr-toggle-btn" id="${s.id}-btn">▲ Hide</button>
+        <button class="sr-toggle-btn" id="${s.id}-btn">${_t('label_hide')}</button>
       </div>
       <div id="${s.id}-body">${s.content}</div>
     </div>`).join('<div class="study-separator"></div>');
@@ -6569,9 +6807,9 @@ function showTopic(id){
       <div class="sr-section-header" onclick="toggleSection('eq-body')">
         <div class="sr-section-header-left">
           <span class="sr-section-icon">📐</span>
-          <span class="sr-section-label">Key Equations</span>
+          <span class="sr-section-label">${_t('label_key_equations')}</span>
         </div>
-        <button class="sr-toggle-btn" id="eq-btn">▲ Hide</button>
+        <button class="sr-toggle-btn" id="eq-btn">${_t('label_hide')}</button>
       </div>
       <div id="eq-body">
         <div class="sr-eq-label">${t.eqLabel}</div>
@@ -6584,7 +6822,7 @@ function showTopic(id){
 
   // Progress dots
   const dotsHTML=`<div class="sr-progress-row">
-    <span>Sections:</span>
+    <span>${_t('label_sections')}</span>
     ${sectionData.map((s,i)=>`<div class="sr-progress-dot" id="dot-${i}" onclick="scrollToSection('${s.id}')" title="${s.label}"></div>`).join('')}
   </div>`;
 
@@ -6598,10 +6836,10 @@ function showTopic(id){
     <div class="study-separator"></div>
     ${sectionsHTML}
     <div class="sr-nav-actions">
-      <button class="btn btn-primary" onclick="showPage('flashcards')">🃏 Related Flashcards</button>
-      <button class="btn btn-outline" onclick="showPage('quiz')">⚡ Test Yourself</button>
-      <button class="btn btn-outline" onclick="showPage('calculator')">🔬 Calculator</button>
-      <button class="btn btn-outline" onclick="showPage('professor')">🎓 Deep Module</button>
+      <button class="btn btn-primary" onclick="showPage('flashcards')">${_t('btn_related_flashcards')}</button>
+      <button class="btn btn-outline" onclick="showPage('quiz')">${_t('btn_test_yourself')}</button>
+      <button class="btn btn-outline" onclick="showPage('calculator')">${_t('btn_calculator')}</button>
+      <button class="btn btn-outline" onclick="showPage('professor')">${_t('btn_deep_module')}</button>
     </div>`;
 
   // Track reading progress dots
@@ -6624,7 +6862,7 @@ function toggleSection(bodyId, event){
   if(!body)return;
   const btn=document.getElementById(bodyId.replace('-body','-btn'));
   const collapsed=body.classList.toggle('sr-collapsed');
-  if(btn)btn.textContent=collapsed?'▼ Show':'▲ Hide';
+  if(btn)btn.textContent=collapsed?t('label_show'):t('label_hide');
 }
 
 function focusSection(sectionId){
@@ -7384,8 +7622,9 @@ function renderFC(){
   var easyDays=srsCard.interval?Math.round(srsCard.interval*srsCard.ease*1.3/(24*60*60*1000)):4;
   var gi=document.getElementById('srs-good-interval');
   var ei=document.getElementById('srs-easy-interval');
-  if(gi)gi.textContent=goodDays+(goodDays===1?' day':' days');
-  if(ei)ei.textContent=easyDays+(easyDays===1?' day':' days');
+  var dayWord = t('fc_days') || 'days';
+  if(gi)gi.textContent=goodDays+' '+dayWord;
+  if(ei)ei.textContent=easyDays+' '+dayWord;
 
   // Update SRS stats display
   updateSRSStats();
@@ -7409,7 +7648,7 @@ function rateSRS(rating){
   var card=deck[fcIndex%deck.length];
   var globalIdx=FLASHCARDS.indexOf(card);
   SRS.rate(card.deck+'_'+globalIdx,rating);
-  var labels=['','😓 Again — 5 min','😐 Hard — 1 day','👍 Good','⭐ Easy'];
+  var labels=['',t('fc_btn_again')+' — '+t('fc_interval_5min'),t('fc_btn_hard')+' — '+t('fc_interval_1day'),t('fc_btn_good'),t('fc_btn_easy')];
   showNotif(labels[rating]||'Rated');
   nextCard();
 }
@@ -7514,7 +7753,7 @@ function renderQuestion(){
   var qIdx=QUIZ_DATA.indexOf(q);
   qAnswered=false;
   document.getElementById('qprogress').style.width=`${qIndex/total*100}%`;
-  document.getElementById('q-num').textContent=`Question ${qIndex+1} of ${total} | Score: ${qScore}`;
+  document.getElementById('q-num').textContent=t('quiz_question_of').replace('{n}',qIndex+1).replace('{total}',total).replace('{score}',qScore);
   document.getElementById('q-text').textContent=getTranslated('quiz',String(qIdx),'q',q.q);
   document.getElementById('q-explain').style.display='none';
   document.getElementById('q-next').style.display='none';
@@ -9683,7 +9922,7 @@ function rateVocabSR(days) {
   }
   currentSRIndex++;
   showNextSRCard();
-  showNotif(days >= 7 ? '⭐ Marked as mastered!' : days === 3 ? '👍 Good! See you in 3 days.' : '💪 Review again tomorrow.');
+  showNotif(days >= 7 ? t('vocab_mastered_notif') : days === 3 ? t('vocab_good_notif') : t('vocab_hard_notif'));
 }
 
 // ============================================================
@@ -9720,7 +9959,7 @@ function renderVocabGrid() {
   const grid = document.getElementById('vocab-grid');
   if (!grid) return;
   const label = document.getElementById('vocab-count-label');
-  if (label) label.textContent = `${filtered.length} terms found`;
+  if (label) label.textContent = t('vocab_terms_found').replace('{n}', filtered.length);
   const reviews = getVocabReviews();
   grid.innerHTML = filtered.slice(0, 30).map(v => {
     const r = reviews[v.jp];
@@ -9808,9 +10047,9 @@ function renderVocabQuestion() {
   const fill = document.getElementById('vq-progress-fill');
   if (fill) fill.style.width = `${vqIndex / vqSet.length * 100}%`;
   const numEl = document.getElementById('vq-num');
-  if (numEl) numEl.textContent = `Question ${vqIndex + 1} of ${vqSet.length} | Score: ${vqScore}`;
+  if (numEl) numEl.textContent = t('quiz_question_of').replace('{n}',vqIndex+1).replace('{total}',vqSet.length).replace('{score}',vqScore);
   const qEl = document.getElementById('vq-question');
-  if (qEl) qEl.innerHTML = `What is the English meaning of <span style="font-family:'Noto Sans JP',sans-serif;color:var(--accent);font-size:22px">${q.jp}</span>?`;
+  if (qEl) qEl.innerHTML = `${t('vocab_meaning_prompt')} <span style="font-family:'Noto Sans JP',sans-serif;color:var(--accent);font-size:22px">${q.jp}</span>?`;
   // Generate wrong answers
   const wrong = VOCAB_DB.filter(v => v.jp !== q.jp).sort(() => Math.random() - 0.5).slice(0, 3).map(v => v.en);
   const opts = [q.en, ...wrong].sort(() => Math.random() - 0.5);
@@ -9849,7 +10088,7 @@ function nextVocabQuestion() {
     document.getElementById('vocab-quiz-active').style.display = 'none';
     document.getElementById('vocab-quiz-end').style.display = 'block';
     document.getElementById('vq-final-score').textContent = `${vqScore}/${vqSet.length}`;
-    document.getElementById('vq-grade').textContent = pct >= 90 ? 'Excellent! 優秀' : pct >= 70 ? 'Good! 良好' : 'Keep Practicing 要復習';
+    document.getElementById('vq-grade').textContent = pct >= 90 ? t('quiz_excellent') : pct >= 70 ? t('quiz_good') : t('quiz_keep_practicing');
     updateUserProfile('jlpt', vqScore, vqSet.length);
   } else renderVocabQuestion();
 }
