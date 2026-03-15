@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="gear-g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7a8494"/>
+      <stop offset="100%" stop-color="#4a5568"/>
+    </linearGradient>
+    <linearGradient id="globe-g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a6b8a"/>
+      <stop offset="100%" stop-color="#0d4a65"/>
+    </linearGradient>
+    <linearGradient id="grass-g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7ecb56"/>
+      <stop offset="100%" stop-color="#4ea832"/>
+    </linearGradient>
+    <linearGradient id="soil-g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d4a84a"/>
+      <stop offset="100%" stop-color="#b8862e"/>
+    </linearGradient>
+    <linearGradient id="deep-g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#b07038"/>
+      <stop offset="100%" stop-color="#8a5020"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Half-gear (left side) -->
+  <g transform="translate(42,50)">
+    <path d="M2-38 L-3-46 l-9 2-2 9-9-4-4-8-9 4 1 10-8 2-5-8-8 6 3 9-7 4-7-6-6 8 6 7-3 7-9-2-3 9 8 5 0 8-9 1-1 10 9 3 2 8-8 4 0 10 9 0 4 7-7 6 2 10 8-2 4-9" fill="url(#gear-g)" stroke="#6d7a8a" stroke-width="0.8" stroke-linejoin="round"/>
+    <circle r="22" fill="#f0f4f8" stroke="#b0bcc8" stroke-width="1.2"/>
+  </g>
+
+  <!-- Globe -->
+  <g transform="translate(55,35)">
+    <circle r="20" fill="url(#globe-g)" opacity="0.95"/>
+    <circle r="20" fill="none" stroke="#1a5c78" stroke-width="1.5"/>
+    <ellipse rx="9" ry="20" fill="none" stroke="#3aa0c4" stroke-width="0.9" opacity="0.7"/>
+    <ellipse rx="16" ry="20" fill="none" stroke="#3aa0c4" stroke-width="0.6" opacity="0.5"/>
+    <line x1="-20" y1="0" x2="20" y2="0" stroke="#3aa0c4" stroke-width="0.9" opacity="0.7"/>
+    <path d="M-19-8 Q0-10 19-8" fill="none" stroke="#3aa0c4" stroke-width="0.6" opacity="0.5"/>
+    <path d="M-19 8 Q0 10 19 8" fill="none" stroke="#3aa0c4" stroke-width="0.6" opacity="0.5"/>
+    <line x1="0" y1="-20" x2="0" y2="20" stroke="#3aa0c4" stroke-width="0.6" opacity="0.5"/>
+  </g>
+
+  <!-- 3D Isometric soil block -->
+  <g transform="translate(58,78)">
+    <path d="M0-14 L30 0 L0 14 L-30 0 Z" fill="url(#grass-g)" stroke="#4ea832" stroke-width="0.6"/>
+    <path d="M0 14 L30 0 L30 12 L0 26 Z" fill="url(#soil-g)" stroke="#a07828" stroke-width="0.4"/>
+    <path d="M0 14 L-30 0 L-30 12 L0 26 Z" fill="url(#deep-g)" stroke="#7a4818" stroke-width="0.4"/>
+    <path d="M-14-3 L0-10 L14-3" fill="none" stroke="#9adf7a" stroke-width="0.5" opacity="0.6"/>
+    <path d="M-20 1 L0 10 L20 1" fill="none" stroke="#9adf7a" stroke-width="0.4" opacity="0.4"/>
+    <path d="M0 20 L30 6" stroke="#d4a84a" stroke-width="0.5" opacity="0.6"/>
+    <path d="M0 20 L-30 6" stroke="#a06830" stroke-width="0.5" opacity="0.6"/>
+  </g>
+</svg>
