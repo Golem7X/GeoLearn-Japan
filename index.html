@@ -3159,9 +3159,17 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
   .hero-brand-info p { font-size: 10px; }
 }
 </style>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-VvUizx8P0ob0s1iiJiiKnpzJ6gIfgEKQIssU/ypnBg4='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-nzpib4MBNeISm96gSAxauo5d9+ITVfnGOEAhWUlyTWo=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-RlbwNSR6yRuJlEZZSdA//3+UYgIKmEy1DBmStbFWbQs='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob: https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
 </head>
 <body>
+
+<!-- GA4 Analytics (private - developer only) -->
+<script>
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());gtag('config','G-XXXXXXXXXX',{send_page_view:false});
+var s=document.createElement('script');s.async=true;
+s.src='https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX';document.head.appendChild(s);
+</script>
 
 <!-- READING PROGRESS BAR -->
 <div id="reading-progress-bar"></div>
@@ -6376,6 +6384,8 @@ function showPage(name){
   const pageEl=document.getElementById('page-'+name);
   if(!pageEl)return;
   pageEl.classList.add('active');
+  if(typeof gtag==='function'){gtag('event','page_view',{page_title:name,page_location:location.href.split('#')[0]+'#'+name});}
+
   const items=document.querySelectorAll('.nav-item');
   const map={home:0,study:1,animations:2,calculator:3,flashcards:4,quiz:5,game:6,resources:7,career:8,ai:9,professor:10,fielddata:11,studyplan:12,vocab:13,jlpt:14,analytics:15,smart:16,dailyfocus:17,simulations:18,kmap:19,casestudies:20,photos:21};
   if(map[name]!==undefined)items[map[name]]&&items[map[name]].classList.add('active');
