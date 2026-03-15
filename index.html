@@ -3173,49 +3173,20 @@ body.mobile-nav-open .mobile-hamburger span:nth-child(3) {
 .app-header-brand {
   display: flex;
   align-items: center;
-  gap: 12px;
 }
 .app-header-logo {
-  height: 36px;
+  height: 44px;
   width: auto;
+  display: block;
   object-fit: contain;
-}
-.app-header-text {
-  display: flex;
-  flex-direction: column;
-}
-.app-header-title {
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  font-size: 16px;
-  color: var(--text);
-  line-height: 1.2;
-  letter-spacing: -0.3px;
-}
-.app-header-title span { color: var(--accent); }
-.app-header-subtitle {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  color: var(--text2);
-  letter-spacing: 0.5px;
-}
-.app-header-right {
-  display: flex;
-  align-items: center;
-  gap: 8px;
 }
 body.study-mode .app-header {
   background: rgba(245, 245, 250, 0.95);
   border-bottom-color: #dde1e8;
 }
-body.study-mode .app-header-title { color: #1A1A2E; }
-body.study-mode .app-header-title span { color: #3A6EA5; }
 @media (max-width: 768px) {
   .app-header { padding: 8px 16px; }
-  .app-header-logo { height: 28px; }
-  .app-header-title { font-size: 14px; }
-  .app-header-subtitle { font-size: 9px; }
-  .app-header-text { display: none; }
+  .app-header-logo { height: 32px; }
 }
 
 /* Study mode overrides for brand */
@@ -3393,11 +3364,7 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
 <!-- APP HEADER BAR -->
 <header class="app-header">
   <div class="app-header-brand">
-    <img src="assets/brand/geolearn_icon.svg" alt="GeoLearn" class="app-header-logo">
-    <div class="app-header-text">
-      <div class="app-header-title">Geo<span>Learn</span> Japan</div>
-      <div class="app-header-subtitle">by MYO_Geo_Orgs</div>
-    </div>
+    <img src="assets/brand/geolearn_logo.svg" alt="GeoLearn by MYO_Geo_Orgs" class="app-header-logo">
   </div>
 </header>
 
