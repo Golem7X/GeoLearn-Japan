@@ -1,62 +1,67 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 110">
   <defs>
     <linearGradient id="gear-g" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#7a8494"/>
-      <stop offset="100%" stop-color="#4a5568"/>
+      <stop offset="0%" stop-color="#555d68"/>
+      <stop offset="100%" stop-color="#3a4048"/>
     </linearGradient>
     <linearGradient id="globe-g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#1a6b8a"/>
-      <stop offset="100%" stop-color="#0d4a65"/>
+      <stop offset="0%" stop-color="#1b6a87"/>
+      <stop offset="100%" stop-color="#0c4d68"/>
     </linearGradient>
     <linearGradient id="grass-g" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#7ecb56"/>
-      <stop offset="100%" stop-color="#4ea832"/>
+      <stop offset="0%" stop-color="#6fbf3b"/>
+      <stop offset="100%" stop-color="#3f9a1e"/>
     </linearGradient>
     <linearGradient id="soil-g" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#d4a84a"/>
-      <stop offset="100%" stop-color="#b8862e"/>
+      <stop offset="0%" stop-color="#c89838"/>
+      <stop offset="100%" stop-color="#a87828"/>
     </linearGradient>
     <linearGradient id="deep-g" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#b07038"/>
-      <stop offset="100%" stop-color="#8a5020"/>
+      <stop offset="0%" stop-color="#9a5e28"/>
+      <stop offset="100%" stop-color="#7a4418"/>
     </linearGradient>
   </defs>
 
-  <!-- Half-gear (left side) -->
-  <g transform="translate(38,48)">
-    <path d="M2-36 L-3-44 l-8 2-2 8-8-4-4-7-8 4 1 9-7 2-5-7-7 5 3 8-6 4-7-5-5 7 5 6-3 7-8-2-3 8 7 5 0 7-8 1-1 9 8 3 2 7-7 4 0 9 8 0 4 6-6 6 2 9 7-2 3-8" fill="url(#gear-g)" stroke="#5a6570" stroke-width="0.8" stroke-linejoin="round"/>
-    <circle r="21" fill="#f0f4f8" stroke="#b0bcc8" stroke-width="1"/>
+  <!-- Gear (half, left side) - dark charcoal steel -->
+  <g transform="translate(35,42)">
+    <path d="M2-34 L-2-42 l-8 1-2 8-8-3-3-7-8 3 0 9-7 2-4-7-8 5 2 8-6 4-6-5-6 6 5 6-3 7-8-1-2 8 7 4 0 8-8 1-1 9 8 3 2 7-7 4-1 9 9 0 3 7-6 5 1 10 8-1 3-8" fill="url(#gear-g)" stroke="#2e343c" stroke-width="1.2" stroke-linejoin="round"/>
+    <circle r="20" fill="white" stroke="#cdd3da" stroke-width="0.8"/>
   </g>
 
-  <!-- Globe -->
-  <g transform="translate(50,33)">
-    <circle r="19" fill="url(#globe-g)" opacity="0.95"/>
-    <circle r="19" fill="none" stroke="#15586e" stroke-width="1.4"/>
-    <ellipse rx="8" ry="19" fill="none" stroke="#3aa0c4" stroke-width="0.8" opacity="0.7"/>
-    <ellipse rx="14" ry="19" fill="none" stroke="#3aa0c4" stroke-width="0.5" opacity="0.5"/>
-    <line x1="-19" y1="0" x2="19" y2="0" stroke="#3aa0c4" stroke-width="0.8" opacity="0.7"/>
-    <path d="M-18-7 Q0-9 18-7" fill="none" stroke="#3aa0c4" stroke-width="0.5" opacity="0.5"/>
-    <path d="M-18 7 Q0 9 18 7" fill="none" stroke="#3aa0c4" stroke-width="0.5" opacity="0.5"/>
-    <line x1="0" y1="-19" x2="0" y2="19" stroke="#3aa0c4" stroke-width="0.5" opacity="0.5"/>
+  <!-- Globe - solid dark teal -->
+  <g transform="translate(48,28)">
+    <circle r="18" fill="url(#globe-g)"/>
+    <circle r="18" fill="none" stroke="#0f4458" stroke-width="1.2"/>
+    <ellipse rx="7.5" ry="18" fill="none" stroke="#4eaac8" stroke-width="0.7" opacity="0.8"/>
+    <ellipse rx="13" ry="18" fill="none" stroke="#4eaac8" stroke-width="0.5" opacity="0.5"/>
+    <line x1="-18" y1="0" x2="18" y2="0" stroke="#4eaac8" stroke-width="0.7" opacity="0.8"/>
+    <path d="M-17-7 Q0-9 17-7" fill="none" stroke="#4eaac8" stroke-width="0.5" opacity="0.55"/>
+    <path d="M-17 7 Q0 9 17 7" fill="none" stroke="#4eaac8" stroke-width="0.5" opacity="0.55"/>
+    <line x1="0" y1="-18" x2="0" y2="18" stroke="#4eaac8" stroke-width="0.5" opacity="0.5"/>
   </g>
 
-  <!-- 3D Isometric soil block -->
-  <g transform="translate(52,76)">
-    <path d="M0-13 L28 0 L0 13 L-28 0 Z" fill="url(#grass-g)" stroke="#4ea832" stroke-width="0.5"/>
-    <path d="M0 13 L28 0 L28 11 L0 24 Z" fill="url(#soil-g)" stroke="#a07828" stroke-width="0.4"/>
-    <path d="M0 13 L-28 0 L-28 11 L0 24 Z" fill="url(#deep-g)" stroke="#7a4818" stroke-width="0.4"/>
-    <path d="M-13-3 L0-9 L13-3" fill="none" stroke="#9adf7a" stroke-width="0.4" opacity="0.6"/>
-    <path d="M0 19 L28 6" stroke="#d4a84a" stroke-width="0.4" opacity="0.6"/>
-    <path d="M0 19 L-28 6" stroke="#a06830" stroke-width="0.4" opacity="0.6"/>
+  <!-- 3D Isometric soil block - vivid layers -->
+  <g transform="translate(50,70)">
+    <!-- Top face (grass green) -->
+    <path d="M0-12 L26 0 L0 12 L-26 0 Z" fill="url(#grass-g)" stroke="#3a8a1a" stroke-width="0.6"/>
+    <!-- Right face (tan/orange soil) -->
+    <path d="M0 12 L26 0 L26 10 L0 22 Z" fill="url(#soil-g)" stroke="#8a6818" stroke-width="0.5"/>
+    <!-- Left face (dark brown) -->
+    <path d="M0 12 L-26 0 L-26 10 L0 22 Z" fill="url(#deep-g)" stroke="#6a3a10" stroke-width="0.5"/>
+    <!-- Grass highlight -->
+    <path d="M-12-2 L0-8 L12-2" fill="none" stroke="#90d860" stroke-width="0.5" opacity="0.5"/>
+    <!-- Soil layer lines -->
+    <path d="M0 17 L26 5" stroke="#c89838" stroke-width="0.4" opacity="0.5"/>
+    <path d="M0 17 L-26 5" stroke="#885020" stroke-width="0.4" opacity="0.5"/>
   </g>
 
-  <!-- GeoLearn text -->
-  <text x="108" y="52" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="38" font-weight="700" fill="#1a2332" letter-spacing="-0.5">
-    <tspan>Geo</tspan><tspan fill="#1a6b8a">Learn</tspan>
+  <!-- "GeoLearn" text - Geo is dark, Learn is teal -->
+  <text x="100" y="48" font-family="'Segoe UI','Helvetica Neue','Arial',sans-serif" font-size="38" font-weight="700" letter-spacing="-0.5">
+    <tspan fill="#2a3440">Geo</tspan><tspan fill="#1b6a87">Learn</tspan>
   </text>
 
-  <!-- BY MYO_Geo_Orgs -->
-  <text x="108" y="78" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="16" font-weight="600" fill="#5a6570" letter-spacing="1.5">
-    BY MYO_Geo_Orgs<tspan font-size="10" dy="-6">TM</tspan>
+  <!-- "BY MYO_Geo_Orgs TM" -->
+  <text x="100" y="74" font-family="'Segoe UI','Helvetica Neue','Arial',sans-serif" font-size="16" font-weight="700" fill="#3a4450" letter-spacing="1.8">
+    BY MYO_Geo_Orgs<tspan font-size="9" baseline-shift="super">&#x2122;</tspan>
   </text>
 </svg>
