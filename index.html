@@ -111,11 +111,11 @@ body::before{
 
 /* MAIN */
 .main{margin-left:72px;flex:1;min-height:100vh}
-.page{display:none;padding:32px;max-width:1400px;margin:0 auto}
+.page{display:none;padding:24px 32px;max-width:1200px;margin:0 auto}
 .page.active{display:block}
 
 /* HEADER */
-.page-header{margin-bottom:32px}
+.page-header{margin-bottom:24px}
 .page-title{font-size:36px;font-weight:800;letter-spacing:-1px;line-height:1}
 .page-title span{color:var(--accent)}
 .page-sub{color:var(--text2);font-family:'JetBrains Mono',monospace;font-size:13px;margin-top:6px}
@@ -3156,6 +3156,68 @@ body.mobile-nav-open .mobile-hamburger span:nth-child(3) {
   margin: 2px 0 0 0;
   letter-spacing: 0.4px;
 }
+/* ===== APP HEADER BAR ===== */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 24px;
+  background: rgba(10, 14, 23, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.app-header-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.app-header-logo {
+  height: 36px;
+  width: auto;
+  object-fit: contain;
+}
+.app-header-text {
+  display: flex;
+  flex-direction: column;
+}
+.app-header-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 16px;
+  color: var(--text);
+  line-height: 1.2;
+  letter-spacing: -0.3px;
+}
+.app-header-title span { color: var(--accent); }
+.app-header-subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text2);
+  letter-spacing: 0.5px;
+}
+.app-header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+body.study-mode .app-header {
+  background: rgba(245, 245, 250, 0.95);
+  border-bottom-color: #dde1e8;
+}
+body.study-mode .app-header-title { color: #1A1A2E; }
+body.study-mode .app-header-title span { color: #3A6EA5; }
+@media (max-width: 768px) {
+  .app-header { padding: 8px 16px; }
+  .app-header-logo { height: 28px; }
+  .app-header-title { font-size: 14px; }
+  .app-header-subtitle { font-size: 9px; }
+  .app-header-text { display: none; }
+}
+
 /* Study mode overrides for brand */
 body.study-mode .nav-brand-name { color: #1A1A2E; }
 body.study-mode .nav-brand-name span { color: #3A6EA5; }
@@ -3327,6 +3389,17 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
 
 <!-- MAIN CONTENT -->
 <main class="main">
+
+<!-- APP HEADER BAR -->
+<header class="app-header">
+  <div class="app-header-brand">
+    <img src="assets/brand/geolearn_icon.svg" alt="GeoLearn" class="app-header-logo">
+    <div class="app-header-text">
+      <div class="app-header-title">Geo<span>Learn</span> Japan</div>
+      <div class="app-header-subtitle">by MYO_Geo_Orgs</div>
+    </div>
+  </div>
+</header>
 
 <!-- HOME -->
 <div id="page-home" class="page active">
