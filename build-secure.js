@@ -318,11 +318,25 @@ log(`  JS: ${fileSize(wrappedApp)} → ${fileSize(obfuscatedJS)}`);
 // ============================================================
 log('Stage 8: Assembling final HTML...');
 
-const cspMeta = `<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https://fonts.googleapis.com https://fonts.gstatic.com; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com;">`;
+// Compute SHA-256 hashes for inline scripts in the final HTML
+const crypto = require('crypto');
+function sha256Base64(content) {
+  return crypto.createHash('sha256').update(content, 'utf8').digest('base64');
+}
+
+// CSP will be finalized after assembling HTML (hashes computed from actual script content)
+// Placeholder — replaced below after script content is known
+let cspMeta = ''; // set after stage 8
+
 const xssProtection = `<meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="DENY">
-<meta http-equiv="Referrer-Policy" content="no-referrer">
-<meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">`;
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta http-equiv="Permissions-Policy" content="accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), bluetooth=(), camera=(), display-capture=(), document-domain=(), encrypted-media=(), fullscreen=(self), geolocation=(), gyroscope=(), hid=(), idle-detection=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), serial=(), usb=(), web-share=(), xr-spatial-tracking=()">`;
+
+// Compute CSP hash from the actual obfuscated JS content
+const scriptHash = sha256Base64(obfuscatedJS);
+cspMeta = `<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-${scriptHash}'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data: blob: https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">`;
+log(`  CSP script hash: sha256-${scriptHash}`);
 
 const finalHTML = `<!DOCTYPE html>
 <html lang="en">
@@ -332,7 +346,7 @@ ${cspMeta}
 ${xssProtection}
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GeoLearn Japan — Geotechnical & Geophysical Engineering</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet" crossorigin="anonymous">
 <style>${minCSS}</style>
 ${htmlBody}
 <script>${obfuscatedJS}</script>
