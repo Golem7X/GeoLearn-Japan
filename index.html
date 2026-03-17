@@ -3394,7 +3394,7 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 .chisei-task.done .chisei-task-title { color:var(--accent3); }
 .chisei-task-desc { font-size:12px;color:var(--text2);margin-top:3px;line-height:1.5; }
 </style>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-QtKvlwVmzF0aRSw6v6rlRgS0bS/EZFVDWeU3Oq61weQ='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data: blob: https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-KvGvpBjv+6HOWAeTf+fIR587AGZGqlkvjL1tgyk3pXc='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data: blob: https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
 </head>
 <body>
 
@@ -3619,12 +3619,13 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
       <div style="font-size:11px;color:var(--text2);margin-top:4px;font-family:'JetBrains Mono',monospace" id="butsuri-home-label">0% Coverage</div>
       <div style="font-size:11px;color:var(--accent);margin-top:6px;font-family:'JetBrains Mono',monospace">→ Open Roadmap</div>
     </div>
-    <div class="card">
+    <div class="card chisei-home-card" data-action="showPage('gishi');gishiInit()" style="cursor:pointer;transition:border-color .2s" id="gishi-home-card">
       <div style="font-size:20px;margin-bottom:8px">🎓</div>
       <div style="font-weight:700;font-size:16px">技術士補</div>
       <div style="font-size:12px;color:var(--text2);margin-top:4px">Associate Professional Engineer</div>
-      <div class="progress-bar" style="margin-top:12px"><div class="progress-fill" style="width:20%"></div></div>
-      <div style="font-size:11px;color:var(--text2);margin-top:4px;font-family:'JetBrains Mono',monospace">20% Coverage</div>
+      <div class="progress-bar" style="margin-top:12px"><div class="progress-fill" id="gishi-home-fill" style="width:0%"></div></div>
+      <div style="font-size:11px;color:var(--text2);margin-top:4px;font-family:'JetBrains Mono',monospace" id="gishi-home-label">0% Coverage</div>
+      <div style="font-size:11px;color:var(--accent);margin-top:6px;font-family:'JetBrains Mono',monospace">→ Open Roadmap</div>
     </div>
     <div class="card">
       <div style="font-size:20px;margin-bottom:8px">🏆</div>
@@ -4265,7 +4266,7 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
         <div style="margin-top:10px;font-size:12px;color:var(--accent);font-family:'JetBrains Mono',monospace">→ Open Study Roadmap</div>
       </div>
     </div>
-    <div class="road-stage">
+    <div class="road-stage" data-action="showPage('gishi');gishiInit()" style="cursor:pointer" title="Open 技術士補 Roadmap">
       <div class="road-dot">🎓</div>
       <div class="road-content">
         <div class="road-stage-num">STAGE 04</div>
@@ -4277,6 +4278,7 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
           <div class="road-skill">技術士補</div><div class="road-skill">Foundation Design</div>
           <div class="road-skill">Liquefaction Analysis</div><div class="road-skill">Project Management</div>
         </div>
+        <div style="margin-top:10px;font-size:12px;color:var(--accent);font-family:'JetBrains Mono',monospace">→ Open Study Roadmap</div>
       </div>
     </div>
     <div class="road-stage">
@@ -5275,6 +5277,414 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
   </div>
 
 </div><!-- end #page-butsuri -->
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     技術士補 — Associate Professional Engineer Roadmap
+     ═══════════════════════════════════════════════════════════════════ -->
+<div id="page-gishi" class="page">
+  <div class="page-header">
+    <div class="page-title">技術士補 <span>Roadmap</span></div>
+    <div class="page-sub">// Associate Professional Engineer — Japan PE First Examination 技術士一次試験</div>
+  </div>
+
+  <div data-action="showPage('career')" class="chisei-back">← Career Roadmap</div>
+
+  <!-- Hero progress tracker -->
+  <div class="chisei-hero">
+    <div class="chisei-hero-badge">🎓 技術士補</div>
+    <div class="chisei-hero-title">Associate Professional Engineer</div>
+    <div class="chisei-hero-sub">Pass Japan's 技術士一次試験 (PE First Exam) — covering engineering fundamentals, professional ethics, and geotechnical/geophysical specialisation — to earn the gateway qualification toward full 技術士 registration</div>
+    <div class="chisei-progress-track">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <span style="font-size:12px;color:var(--text2)">Overall Progress</span>
+        <span style="font-size:12px;color:var(--accent);font-family:'JetBrains Mono',monospace" id="gishi-progress-pct">0%</span>
+      </div>
+      <div class="progress-bar" style="height:8px"><div class="progress-fill" id="gishi-progress-fill" style="width:0%"></div></div>
+      <div style="font-size:11px;color:var(--text2);margin-top:6px;font-family:'JetBrains Mono',monospace" id="gishi-progress-count">0 / 19 tasks</div>
+    </div>
+  </div>
+
+  <!-- Section 1: Purpose -->
+  <div class="chisei-section-card">
+    <div class="chisei-sec-hdr open" id="gishi-sh-1" data-action="gishiToggleSection(1)">
+      <div class="chisei-sec-icon" style="background:linear-gradient(135deg,rgba(0,212,255,.2),rgba(0,212,255,.05))">🎯</div>
+      <div class="chisei-sec-text">
+        <div class="chisei-sec-title">1 — Purpose of the Qualification</div>
+        <div class="chisei-sec-sub">Why 技術士補 matters · exam structure · path to full 技術士</div>
+      </div>
+      <div class="chisei-sec-chevron">▶</div>
+    </div>
+    <div class="chisei-sec-body open" id="gishi-sb-1">
+      <p style="font-size:13px;line-height:1.8;color:var(--text2);margin-bottom:16px">技術士補 (Gijutsu-shi Ho) is the gateway qualification in Japan's two-stage professional engineering registration system, administered by the <strong style="color:var(--text1)">公益社団法人日本技術士会 (IPEJ — Institution of Professional Engineers, Japan)</strong>. Passing the 技術士一次試験 (First Examination) demonstrates mastery of engineering fundamentals and professional ethics — and officially begins your supervised experience period toward the full 技術士 licence.</p>
+      <div class="chisei-resp-grid">
+        <div class="chisei-resp-item"><div class="chisei-resp-icon">📋</div><div><strong>National Recognition</strong><br><span style="color:var(--text2);font-size:12px">Legally recognised qualification under the 技術士法 (Professional Engineer Act) of Japan</span></div></div>
+        <div class="chisei-resp-item"><div class="chisei-resp-icon">⏱️</div><div><strong>Experience Clock Starts</strong><br><span style="color:var(--text2);font-size:12px">4-year supervised experience period under a 技術士 begins after registration</span></div></div>
+        <div class="chisei-resp-item"><div class="chisei-resp-icon">🌐</div><div><strong>International Equivalency</strong><br><span style="color:var(--text2);font-size:12px">Aligns with Washington Accord / JABEE accreditation for global mobility</span></div></div>
+        <div class="chisei-resp-item"><div class="chisei-resp-icon">🏗️</div><div><strong>Career Gateway</strong><br><span style="color:var(--text2);font-size:12px">Required precursor for senior design roles, CPD recognition, and public works contracts</span></div></div>
+      </div>
+      <div class="chisei-pillars">
+        <div class="chisei-pillar" style="border-color:rgba(0,212,255,.3)"><div class="chisei-pillar-icon">📐</div><div class="chisei-pillar-title">基礎科目 Fundamentals</div><div class="chisei-pillar-desc">Mathematics, physics, chemistry, information science — 30 questions, choose 15</div></div>
+        <div class="chisei-pillar" style="border-color:rgba(87,212,100,.3)"><div class="chisei-pillar-icon">⚖️</div><div class="chisei-pillar-title">適性科目 Ethics</div><div class="chisei-pillar-desc">Professional ethics, legal obligations, CPD — 15 questions, answer all</div></div>
+        <div class="chisei-pillar" style="border-color:rgba(168,85,247,.3)"><div class="chisei-pillar-icon">🔬</div><div class="chisei-pillar-title">専門科目 Technical</div><div class="chisei-pillar-desc">35 questions in chosen branch (建設, 応用理学, 環境, etc.) — choose 25</div></div>
+        <div class="chisei-pillar" style="border-color:rgba(245,158,11,.3)"><div class="chisei-pillar-icon">🎓</div><div class="chisei-pillar-title">JABEE Exemption</div><div class="chisei-pillar-desc">Graduates of JABEE-accredited programmes are exempt from the First Examination</div></div>
+      </div>
+      <div style="background:rgba(0,212,255,.05);border:1px solid rgba(0,212,255,.15);border-radius:8px;padding:12px;margin-top:12px;font-size:12px;color:var(--text2)">
+        <strong style="color:var(--accent)">Exam Date &amp; Pass Rate:</strong> Held every November · approximately <strong style="color:var(--text1)">40–50%</strong> overall pass rate ·
+        After passing, register with IPEJ and begin supervised experience under a designated 技術士 supervisor (指導技術士) · minimum 4 years required before sitting 二次試験
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 2: Daily Work / Career Role -->
+  <div class="chisei-section-card">
+    <div class="chisei-sec-hdr" id="gishi-sh-2" data-action="gishiToggleSection(2)">
+      <div class="chisei-sec-icon" style="background:linear-gradient(135deg,rgba(87,212,100,.2),rgba(87,212,100,.05))">🌅</div>
+      <div class="chisei-sec-text">
+        <div class="chisei-sec-title">2 — Role After Qualification</div>
+        <div class="chisei-sec-sub">What a 技術士補 does on site and in the office during supervised experience</div>
+      </div>
+      <div class="chisei-sec-chevron">▶</div>
+    </div>
+    <div class="chisei-sec-body" id="gishi-sb-2">
+      <div class="chisei-timeline">
+        <div class="chisei-tb"><div class="chisei-tb-dot" style="background:#57d464"></div><div class="chisei-tb-content"><div class="chisei-tb-time">現場補助 (Field Support)</div><div class="chisei-tb-title">Supervised Investigation Work</div><div class="chisei-tb-desc">Assist licensed 技術士 on geotechnical or geophysical projects. Record data, assist with borehole logging (ボーリング柱状図), help with SPT, sampling, and geophysical equipment operation. Document all observations in field logs (野帳) per JIS/JGS standards.</div></div></div>
+        <div class="chisei-tb"><div class="chisei-tb-dot" style="background:#00d4ff"></div><div class="chisei-tb-content"><div class="chisei-tb-time">技術文書 (Technical Docs)</div><div class="chisei-tb-title">Report Drafting Under Supervision</div><div class="chisei-tb-desc">Draft sections of geotechnical investigation reports, soil classification tables, and boring log sheets. Apply N値 correlation charts, grain size analysis, Atterberg limits, and basic bearing capacity calculations. Supervisor reviews and countersigns all submitted documents.</div></div></div>
+        <div class="chisei-tb"><div class="chisei-tb-dot" style="background:#a855f7"></div><div class="chisei-tb-content"><div class="chisei-tb-time">研修・CPD (Training)</div><div class="chisei-tb-title">Continuing Professional Development</div><div class="chisei-tb-desc">Attend IPEJ-recognised CPD seminars and workshops. Accumulate CPD points (CPD単位) in technical and ethics subjects. Study for 技術士二次試験 筆記試験 (written exam) topics: engineering problem-solving essays, technical competency demonstrations, and professional ethics scenarios.</div></div></div>
+        <div class="chisei-tb"><div class="chisei-tb-dot" style="background:#f59e0b"></div><div class="chisei-tb-content"><div class="chisei-tb-time">設計補助 (Design Support)</div><div class="chisei-tb-title">Foundation Design Assistance</div><div class="chisei-tb-desc">Calculate bearing capacity (支持力), settlement (沈下量), and liquefaction potential (液状化判定) under supervision. Use software tools (DIPS, GeoStudio, PLAXIS) for stability analysis. Review drawing sets for foundation types: shallow foundations (直接基礎), piles (杭基礎), and improved ground (地盤改良).</div></div></div>
+        <div class="chisei-tb"><div class="chisei-tb-dot" style="background:#ff4757"></div><div class="chisei-tb-content"><div class="chisei-tb-time">業務経歴 (Experience Record)</div><div class="chisei-tb-title">Experience Portfolio Building</div><div class="chisei-tb-desc">Maintain a detailed 業務経歴書 (professional experience record) documenting all supervised work. Each project entry must include: project purpose, your technical role, methods used, results, and supervisor's evaluation. This portfolio forms the basis of the 二次試験 application and oral examination (口頭試験).</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3: Vocabulary -->
+  <div class="chisei-section-card">
+    <div class="chisei-sec-hdr" id="gishi-sh-3" data-action="gishiToggleSection(3)">
+      <div class="chisei-sec-icon" style="background:linear-gradient(135deg,rgba(168,85,247,.2),rgba(168,85,247,.05))">📖</div>
+      <div class="chisei-sec-text">
+        <div class="chisei-sec-title">3 — Japanese Technical Vocabulary</div>
+        <div class="chisei-sec-sub">25 essential terms spanning exam subjects, ethics, and geotechnical engineering</div>
+      </div>
+      <div class="chisei-sec-chevron">▶</div>
+    </div>
+    <div class="chisei-sec-body" id="gishi-sb-3">
+      <table class="chisei-vocab-table">
+        <thead><tr><th>日本語</th><th>読み方</th><th>English</th><th>Technical Meaning</th></tr></thead>
+        <tbody>
+          <tr><td>技術士補</td><td>ぎじゅつしほ</td><td>Associate Professional Engineer</td><td>Holder of 一次試験 pass; registered under IPEJ to commence supervised experience</td></tr>
+          <tr><td>技術士一次試験</td><td>ぎじゅつしいちじしけん</td><td>PE First Examination</td><td>National exam covering 基礎科目, 適性科目, and 専門科目</td></tr>
+          <tr><td>基礎科目</td><td>きそかもく</td><td>Fundamentals Subject</td><td>Group I: Design/information, Group II: Environment, Group III: Materials/mechanics, Group IV: Environment/energy, Group V: Math/statistics</td></tr>
+          <tr><td>適性科目</td><td>てきせいかもく</td><td>Ethics/Aptitude Subject</td><td>Professional ethics, public safety obligations, conflict of interest, CPD requirements under 技術士法</td></tr>
+          <tr><td>専門科目</td><td>せんもんかもく</td><td>Technical Subject</td><td>Branch-specific engineering questions — 建設部門 for geotechnical engineers</td></tr>
+          <tr><td>建設部門</td><td>けんせつぶもん</td><td>Construction Branch</td><td>Main 技術士 branch for civil, foundation, and geotechnical engineers in Japan</td></tr>
+          <tr><td>応用理学部門</td><td>おうようりがくぶもん</td><td>Applied Science Branch</td><td>Covers geology, geophysics, geochemistry — relevant for exploration engineers</td></tr>
+          <tr><td>公益確保の責務</td><td>こうえきかくほのせきむ</td><td>Public Interest Duty</td><td>Obligation under 技術士法 Article 45-2 to protect public safety above client interests</td></tr>
+          <tr><td>守秘義務</td><td>しゅひぎむ</td><td>Confidentiality Obligation</td><td>Legal duty under 技術士法 Article 45 not to disclose client technical information</td></tr>
+          <tr><td>継続研鑚</td><td>けいぞくけんさん</td><td>Continuing Professional Development (CPD)</td><td>Ongoing technical and ethical self-improvement required to maintain registration</td></tr>
+          <tr><td>指導技術士</td><td>しどうぎじゅつし</td><td>Supervising Professional Engineer</td><td>Licensed 技術士 who oversees and signs off on 技術士補 experience records</td></tr>
+          <tr><td>業務経歴書</td><td>ぎょうむけいれきしょ</td><td>Professional Experience Record</td><td>Portfolio of supervised engineering work submitted with 二次試験 application</td></tr>
+          <tr><td>支持力</td><td>しじりょく</td><td>Bearing Capacity</td><td>Maximum load per unit area a foundation soil can safely sustain (kN/m²)</td></tr>
+          <tr><td>沈下量</td><td>ちんかりょう</td><td>Settlement</td><td>Vertical compression of soil under load — immediate, consolidation, and secondary types</td></tr>
+          <tr><td>液状化判定</td><td>えきじょうかはんてい</td><td>Liquefaction Assessment</td><td>Japanese method (道路橋示方書) evaluating FL value from SPT N-values and grain size</td></tr>
+          <tr><td>N値</td><td>エヌち</td><td>SPT N-value</td><td>Blow count per 300mm in Standard Penetration Test — key parameter for soil classification and design</td></tr>
+          <tr><td>圧密沈下</td><td>あつみつちんか</td><td>Consolidation Settlement</td><td>Time-dependent settlement from gradual expulsion of pore water from cohesive soils</td></tr>
+          <tr><td>せん断強度</td><td>せんだんきょうど</td><td>Shear Strength</td><td>Maximum shear stress a soil can resist before failure (c + σ tanφ — Mohr-Coulomb)</td></tr>
+          <tr><td>有効応力</td><td>ゆうこうおうりょく</td><td>Effective Stress</td><td>Total stress minus pore water pressure (σ' = σ − u) — governs soil strength and deformation</td></tr>
+          <tr><td>透水係数</td><td>とうすいけいすう</td><td>Hydraulic Conductivity (k)</td><td>Rate of water flow through soil per unit hydraulic gradient (m/s) — Darcy's Law</td></tr>
+          <tr><td>粒度分布</td><td>りゅうどぶんぷ</td><td>Particle Size Distribution</td><td>Grading curve from sieve + hydrometer analysis — defines soil classification (JIS A 1204)</td></tr>
+          <tr><td>コンシステンシー限界</td><td>コンシステンシーげんかい</td><td>Atterberg Limits</td><td>LL (液性限界) and PL (塑性限界) define water content boundaries between soil behaviour states</td></tr>
+          <tr><td>地盤改良</td><td>じばんかいりょう</td><td>Ground Improvement</td><td>Techniques to enhance soil properties: cement mixing (セメント改良), vibro-compaction, preloading</td></tr>
+          <tr><td>安全率</td><td>あんぜんりつ</td><td>Factor of Safety (FS)</td><td>Ratio of resisting force to driving force in stability analysis — typically FS ≥ 1.5 for slopes</td></tr>
+          <tr><td>フローネット</td><td>フローネット</td><td>Flow Net</td><td>Graphical method of seepage analysis — orthogonal equipotential lines and flow lines in soil</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Section 4: Core Skills -->
+  <div class="chisei-section-card">
+    <div class="chisei-sec-hdr" id="gishi-sh-4" data-action="gishiToggleSection(4)">
+      <div class="chisei-sec-icon" style="background:linear-gradient(135deg,rgba(245,158,11,.2),rgba(245,158,11,.05))">⚙️</div>
+      <div class="chisei-sec-text">
+        <div class="chisei-sec-title">4 — Core Skills for the Exam</div>
+        <div class="chisei-sec-sub">Technical competencies across all three 一次試験 examination subjects</div>
+      </div>
+      <div class="chisei-sec-chevron">▶</div>
+    </div>
+    <div class="chisei-sec-body" id="gishi-sb-4">
+      <div class="chisei-skill-grid">
+        <div class="chisei-skill-card"><div class="chisei-skill-icon">📐</div><div class="chisei-skill-title">基礎科目 — Fundamentals</div><div class="chisei-skill-list"><div class="chisei-skill-item">Linear algebra, differential equations, statistics</div><div class="chisei-skill-item">Statics, dynamics, material mechanics</div><div class="chisei-skill-item">Thermodynamics, fluid mechanics basics</div><div class="chisei-skill-item">Information science, algorithm complexity</div></div></div>
+        <div class="chisei-skill-card"><div class="chisei-skill-icon">⚖️</div><div class="chisei-skill-title">適性科目 — Ethics</div><div class="chisei-skill-list"><div class="chisei-skill-item">技術士法 Articles 44–47 obligations</div><div class="chisei-skill-item">Public interest vs. client interest scenarios</div><div class="chisei-skill-item">Whistleblowing, conflict of interest rules</div><div class="chisei-skill-item">Environmental impact and sustainability ethics</div></div></div>
+        <div class="chisei-skill-card"><div class="chisei-skill-icon">🌱</div><div class="chisei-skill-title">専門科目 — Geotechnical</div><div class="chisei-skill-list"><div class="chisei-skill-item">Soil classification, phase relations, compaction</div><div class="chisei-skill-item">Effective stress, seepage, consolidation theory</div><div class="chisei-skill-item">Shear strength — Mohr-Coulomb, triaxial test</div><div class="chisei-skill-item">Bearing capacity, slope stability, retaining walls</div></div></div>
+        <div class="chisei-skill-card"><div class="chisei-skill-icon">🧮</div><div class="chisei-skill-title">Calculation Skills</div><div class="chisei-skill-list"><div class="chisei-skill-item">Terzaghi bearing capacity formula application</div><div class="chisei-skill-item">Consolidation settlement calculation (Cc, Cs, e0)</div><div class="chisei-skill-item">Liquefaction FL value from N-value and grain size</div><div class="chisei-skill-item">Slope stability: Bishop simplified method, FS</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 5: Learning Roadmap -->
+  <div class="chisei-section-card">
+    <div class="chisei-sec-hdr" id="gishi-sh-5" data-action="gishiToggleSection(5)">
+      <div class="chisei-sec-icon" style="background:linear-gradient(135deg,rgba(255,107,53,.2),rgba(255,107,53,.05))">🗺️</div>
+      <div class="chisei-sec-text">
+        <div class="chisei-sec-title">5 — 6-Level Learning Roadmap</div>
+        <div class="chisei-sec-sub">From engineering basics to full 一次試験 readiness</div>
+      </div>
+      <div class="chisei-sec-chevron">▶</div>
+    </div>
+    <div class="chisei-sec-body" id="gishi-sb-5">
+      <div class="chisei-levels">
+
+        <!-- L1 -->
+        <div class="chisei-level" style="background:rgba(87,212,100,.02)">
+          <div class="chisei-level-hdr" data-action="gishiToggleLevel('l1')">
+            <div class="chisei-level-num" style="background:rgba(87,212,100,.15);color:#57d464">L1</div>
+            <div class="chisei-level-info">
+              <div class="chisei-level-title">Engineering Fundamentals</div>
+              <div class="chisei-level-sub">Mathematics · Mechanics · 基礎科目 Groups I–V</div>
+            </div>
+            <div class="chisei-level-prog" id="gishi-lp-l1">0/3</div>
+          </div>
+          <div class="chisei-level-body open" id="gishi-lb-l1">
+            <div class="chisei-task" data-tid="gishi-l1-1" data-action="gishiToggleTask('gishi-l1-1')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Mathematics &amp; Statistics (数学・統計学)</div>
+                <div class="chisei-task-desc">Review all 基礎科目 Group V mathematics topics tested in 一次試験: linear algebra (matrix operations, eigenvalues), differential/integral calculus, ordinary differential equations, Fourier series, probability distributions (normal, binomial, Poisson), hypothesis testing, regression analysis, and descriptive statistics. Focus on recognising question types and applying formulas accurately within the 2.5-hour exam window. Practise with 10 years of past exam questions from IPEJ.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="gishi-l1-2" data-action="gishiToggleTask('gishi-l1-2')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Mechanics &amp; Materials (材料力学・固体力学)</div>
+                <div class="chisei-task-desc">Master 基礎科目 Group III: stress-strain relations (Hooke's Law), principal stresses, Mohr's circle of stress, beam bending (M/I = σ/y), deflection equations, buckling (Euler's formula), fatigue and creep. Understand material properties: Young's modulus (E), Poisson's ratio (ν), and shear modulus (G). These are foundational for the geotechnical 専門科目 — soil mechanics draws directly from continuum mechanics principles.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="gishi-l1-3" data-action="gishiToggleTask('gishi-l1-3')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Fluid Mechanics &amp; Thermodynamics (流体力学・熱力学)</div>
+                <div class="chisei-task-desc">Study 基礎科目 Group IV (environment/energy) fluids and thermodynamics: Bernoulli's equation, continuity equation, Reynolds number, laminar vs. turbulent flow, pipe flow (Darcy-Weisbach), open-channel hydraulics, and Darcy's Law for porous media (直接関連 to geotechnical seepage). Thermodynamics: first and second laws, heat engines, entropy. These topics appear every year in 基礎科目 and connect directly to groundwater and soil-water interaction in 専門科目.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- L2 -->
+        <div class="chisei-level" style="background:rgba(0,212,255,.02)">
+          <div class="chisei-level-hdr" data-action="gishiToggleLevel('l2')">
+            <div class="chisei-level-num" style="background:rgba(0,212,255,.15);color:#00d4ff">L2</div>
+            <div class="chisei-level-info">
+              <div class="chisei-level-title">Soil Mechanics Core Theory</div>
+              <div class="chisei-level-sub">Phase Relations · Effective Stress · Consolidation · Shear Strength</div>
+            </div>
+            <div class="chisei-level-prog" id="gishi-lp-l2">0/4</div>
+          </div>
+          <div class="chisei-level-body" id="gishi-lb-l2">
+            <div class="chisei-task" data-tid="gishi-l2-1" data-action="gishiToggleTask('gishi-l2-1')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Soil Classification &amp; Phase Relations (土の分類・相関係)</div>
+                <div class="chisei-task-desc">Master the three-phase soil model (solid, water, air). Calculate void ratio (e), porosity (n), degree of saturation (Sr), water content (w), unit weight (γ), and relative density (Dr). Learn JIS A 1202–1210 test procedures: grain size analysis (粒度試験), Atterberg limits (コンシステンシー試験), specific gravity (土粒子の密度試験), and compaction (締固め試験). Classify soils using the unified system (統一分類法) — GW, GP, GM, GC, SW, SP, SM, SC, ML, CL, MH, CH. These form the basis of every borehole log and geotechnical report in Japan.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="gishi-l2-2" data-action="gishiToggleTask('gishi-l2-2')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Effective Stress &amp; Seepage (有効応力・浸透流)</div>
+                <div class="chisei-task-desc">Understand Terzaghi's effective stress principle (σ' = σ − u) and its central role in all geotechnical calculations. Calculate total stress profiles, pore water pressure (hydrostatic and excess), and effective stress with capillary rise and artesian conditions. Study Darcy's Law (q = kiA), coefficient of permeability (k) values for different soil types, seepage force, piping failure (ヒービング、ボイリング), and flow net construction. Learn consolidation theory: Terzaghi 1D consolidation (cv, Tv, Uv) and degree of consolidation calculation.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="gishi-l2-3" data-action="gishiToggleTask('gishi-l2-3')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Consolidation Settlement (圧密沈下)</div>
+                <div class="chisei-task-desc">Calculate primary consolidation settlement (Sc) using compression index Cc (正規圧密) and swelling index Cs (過圧密). Determine preconsolidation pressure (pc') from e-log p curves and Casagrande construction. Calculate settlement time using time factor Tv and drainage path (Hdr). Study secondary consolidation (二次圧密/クリープ), defined by Cα. Practise complete settlement problems: total settlement, time to 90% consolidation (U=90%), and settlement under embankment loading — all common 専門科目 exam questions.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="gishi-l2-4" data-action="gishiToggleTask('gishi-l2-4')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Shear Strength &amp; Failure (せん断強度・破壊理論)</div>
+                <div class="chisei-task-desc">Master Mohr-Coulomb failure criterion (τ = c' + σ' tanφ'): total and effective stress parameters, cohesion intercept (c, c'), and friction angle (φ, φ'). Understand drained (排水) vs. undrained (非排水) conditions and when to apply each. Study laboratory strength tests: triaxial compression (三軸圧縮試験 — UU, CU, CD), unconfined compression (一軸圧縮試験), and direct shear (直接せん断試験). Learn sensitivity ratio (鋭敏比) for Japanese marine clays and thixotropic regain. Apply to bearing capacity, slope stability, and earth pressure problems.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- L3 -->
+        <div class="chisei-level" style="background:rgba(168,85,247,.02)">
+          <div class="chisei-level-hdr" data-action="gishiToggleLevel('l3')">
+            <div class="chisei-level-num" style="background:rgba(168,85,247,.15);color:#a855f7">L3</div>
+            <div class="chisei-level-info">
+              <div class="chisei-level-title">Foundation Engineering</div>
+              <div class="chisei-level-sub">Bearing Capacity · Retaining Walls · Slope Stability · Piles</div>
+            </div>
+            <div class="chisei-level-prog" id="gishi-lp-l3">0/3</div>
+          </div>
+          <div class="chisei-level-body" id="gishi-lb-l3">
+            <div class="chisei-task" data-tid="gishi-l3-1" data-action="gishiToggleTask('gishi-l3-1')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Bearing Capacity &amp; Shallow Foundations (支持力・直接基礎)</div>
+                <div class="chisei-task-desc">Apply Terzaghi's bearing capacity equation (qu = cNc + qNq + 0.5γBNγ) for strip, circular, and rectangular footings. Use Meyerhof, Hansen, and Vesic shape/depth/inclination factors. Calculate net allowable bearing capacity (許容支持力) with factor of safety FS = 3. Determine foundation depth requirements from frost depth (凍結深さ) and scour considerations for Japanese climate zones. Calculate immediate settlement (即時沈下) using elastic theory. Study the Japanese design standard 建築基礎構造設計指針 bearing capacity approach.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="gishi-l3-2" data-action="gishiToggleTask('gishi-l3-2')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Earth Pressure &amp; Retaining Structures (土圧・擁壁)</div>
+                <div class="chisei-task-desc">Master Rankine (ランキン) active (Ka) and passive (Kp) earth pressure coefficients for cohesionless and cohesive soils. Apply Coulomb (クーロン) earth pressure with wall friction (δ). Calculate total thrust, point of application, and overturning/sliding stability for gravity retaining walls (重力式擁壁). Study Japanese standard retaining wall design: JRA (道路橋示方書) and NEXCO guidelines. Understand sheet pile walls (矢板), anchored walls, and soil nailing (地山補強土工法) stability mechanisms.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="gishi-l3-3" data-action="gishiToggleTask('gishi-l3-3')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Slope Stability &amp; Liquefaction (斜面安定・液状化)</div>
+                <div class="chisei-task-desc">Calculate factor of safety for infinite slopes (無限斜面) in dry and saturated conditions. Apply Bishop simplified method (ビショップ法) for circular slip surfaces — the standard Japanese design method for embankments and cut slopes. Study liquefaction assessment by the Japanese road bridge standard method: calculate FL = RL/L from N-value, grain size (D50, Fc), and overburden stress. Determine liquefaction potential index (PL値). Understand countermeasures: densification (締固め), drainage, cementation (固化処理).</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- L4 -->
+        <div class="chisei-level" style="background:rgba(245,158,11,.02)">
+          <div class="chisei-level-hdr" data-action="gishiToggleLevel('l4')">
+            <div class="chisei-level-num" style="background:rgba(245,158,11,.15);color:#f59e0b">L4</div>
+            <div class="chisei-level-info">
+              <div class="chisei-level-title">Professional Ethics</div>
+              <div class="chisei-level-sub">技術士法 · Public Safety · Conflict of Interest · CPD</div>
+            </div>
+            <div class="chisei-level-prog" id="gishi-lp-l4">0/3</div>
+          </div>
+          <div class="chisei-level-body" id="gishi-lb-l4">
+            <div class="chisei-task" data-tid="gishi-l4-1" data-action="gishiToggleTask('gishi-l4-1')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">技術士法 Legal Framework</div>
+                <div class="chisei-task-desc">Study the full text and implications of 技術士法 (Act on Professional Engineers, 1957 as amended). Key articles: Article 2 (definition of 技術士), Article 44 (名称使用制限 — title restriction), Article 45 (守秘義務 — confidentiality), Article 45-2 (公益確保 — public interest obligation), Article 46 (名称表示 — title display rules), Article 47-2 (継続研鑚 — CPD obligation). Understand disciplinary procedures: reprimand (戒告), licence suspension (業務停止命令), and registration cancellation (登録の取消し) for violations.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="gishi-l4-2" data-action="gishiToggleTask('gishi-l4-2')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Ethics Scenarios &amp; Decision-Making</div>
+                <div class="chisei-task-desc">Practise 適性科目 style scenario questions: recognising conflicts of interest (利益相反), deciding when public safety (公衆安全) overrides client confidentiality, responding to pressure to falsify investigation data, handling incomplete site information in reports, and whistleblowing obligations under Japanese law. Study the IPEJ Code of Ethics (技術士倫理綱領) and JABEE ethics guidelines. Review real case studies of engineering failures in Japan where ethics violations contributed: Hanshin Expressway, JR Hokkaido inspection scandals.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="gishi-l4-3" data-action="gishiToggleTask('gishi-l4-3')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Sustainability &amp; Risk Management (持続可能性・リスク管理)</div>
+                <div class="chisei-task-desc">Study 適性科目 Group 3 topics: sustainable development goals (SDGs) in engineering practice, life cycle assessment (LCA), environmental impact assessment (環境影響評価法), risk identification and mitigation in geotechnical projects. Understand the engineering management concepts tested: PDCA cycle, project risk matrix, quality management systems (ISO 9001), and environmental management (ISO 14001). Learn how Japanese infrastructure regulations address climate adaptation — key topic in recent 適性科目 exam papers.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- L5 -->
+        <div class="chisei-level" style="background:rgba(255,107,53,.02)">
+          <div class="chisei-level-hdr" data-action="gishiToggleLevel('l5')">
+            <div class="chisei-level-num" style="background:rgba(255,107,53,.15);color:var(--accent2)">L5</div>
+            <div class="chisei-level-info">
+              <div class="chisei-level-title">Integrated Problem Solving</div>
+              <div class="chisei-level-sub">Calculation Practice · Mock Exams · Time Management</div>
+            </div>
+            <div class="chisei-level-prog" id="gishi-lp-l5">0/3</div>
+          </div>
+          <div class="chisei-level-body" id="gishi-lb-l5">
+            <div class="chisei-task" data-tid="gishi-l5-1" data-action="gishiToggleTask('gishi-l5-1')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Geotechnical Calculation Drills (計算演習)</div>
+                <div class="chisei-task-desc">Build speed and accuracy on the calculation-heavy 専門科目 question types. Drill sets of: (1) settlement calculation from e-log p data, (2) bearing capacity with eccentric/inclined loading, (3) earth pressure on retaining walls with surcharge, (4) slope stability FS using Bishop method, (5) liquefaction FL calculation from borehole data, (6) seepage velocity from flow net, (7) consolidation time factor. Aim to complete each problem type in under 5 minutes. Use IPEJ published解答例 (model answers) as benchmarks.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="gishi-l5-2" data-action="gishiToggleTask('gishi-l5-2')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Full Mock Exams (模擬試験)</div>
+                <div class="chisei-task-desc">Complete at least 3 full timed mock exams simulating the actual 一次試験 format: 基礎科目 60 min (30 questions, choose 15), 適性科目 40 min (15 questions), 専門科目 120 min (35 questions, choose 25). Use IPEJ's official past exam papers (公表問題) from the last 10 years — all available on the IPEJ website. Score each subject separately: passing threshold is 50% per subject (基礎 ≥7.5/15, 適性 ≥7.5/15, 専門 ≥12.5/25). Review every wrong answer and trace it back to a knowledge gap.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="gishi-l5-3" data-action="gishiToggleTask('gishi-l5-3')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Weak Area Intensive Review (弱点補強)</div>
+                <div class="chisei-task-desc">Analyse mock exam results to identify consistently weak topics. Build a personal study plan targeting the lowest-scoring areas — typically: fluid mechanics in 基礎科目, sustainability ethics scenarios in 適性科目, or consolidation theory in 専門科目. Create summary note cards (要点カード) for every formula and concept in weak areas. Study with a study partner or 技術士補 study group (勉強会) — IPEJ and JGS regional branches organise exam preparation seminars annually across Japan.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- L6 -->
+        <div class="chisei-level" style="background:rgba(255,71,87,.02)">
+          <div class="chisei-level-hdr" data-action="gishiToggleLevel('l6')">
+            <div class="chisei-level-num" style="background:rgba(255,71,87,.15);color:var(--danger)">L6</div>
+            <div class="chisei-level-info">
+              <div class="chisei-level-title">Exam Readiness &amp; Registration</div>
+              <div class="chisei-level-sub">Past Papers · Application Process · Post-Qualification Planning</div>
+            </div>
+            <div class="chisei-level-prog" id="gishi-lp-l6">0/3</div>
+          </div>
+          <div class="chisei-level-body" id="gishi-lb-l6">
+            <div class="chisei-task" data-tid="gishi-l6-1" data-action="gishiToggleTask('gishi-l6-1')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Past Exam Paper Mastery (過去問完全攻略)</div>
+                <div class="chisei-task-desc">Work through all publicly available 一次試験 papers (IPEJ publishes 10+ years on their website). For 専門科目 (建設部門 or 応用理学部門), categorise questions by topic: soil mechanics, foundation design, earth pressure, seepage, ground improvement, geophysics, and construction materials. Identify recurring question patterns — certain problems (liquefaction FL, consolidation settlement, Terzaghi bearing capacity) appear in almost every year. Build a topic frequency table and focus revision time proportionally.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="gishi-l6-2" data-action="gishiToggleTask('gishi-l6-2')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Application &amp; Registration Process (受験申込・登録)</div>
+                <div class="chisei-task-desc">Study the exam application process: submit 受験申込書 to IPEJ (公益社団法人日本技術士会) by the April deadline. Required documents: application form, transcripts (成績証明書) or work experience certificate, exam fee (受験手数料 ¥11,000). After passing (results announced in January): submit 技術士補登録申請書, registration fee (登録手数料 ¥3,000), and select your designated supervising engineer (指導技術士). Understand JABEE alternative pathway: graduates of accredited programmes skip the exam entirely and register directly.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="gishi-l6-3" data-action="gishiToggleTask('gishi-l6-3')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Path to 技術士 — Planning Next Steps</div>
+                <div class="chisei-task-desc">After becoming 技術士補, plan the 4-year pathway to full 技術士 registration. Requirements for 二次試験 application: minimum 4 years supervised experience under a 技術士 (一般部門), or 7 years total experience (総合技術監理部門). Begin structuring your 業務経歴書 from day one: document every project with technical detail, your role, and outcomes. Attend IPEJ study groups and 二次試験 preparation seminars. The 二次試験 筆記試験 tests 必須科目 (engineering management essay) and 選択科目 (technical subject — 2 essay questions). The 口頭試験 (oral exam) follows for successful written candidates.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- end .chisei-levels -->
+    </div>
+  </div>
+
+  <!-- Section 6: Progress Overview -->
+  <div class="chisei-section-card">
+    <div class="chisei-sec-hdr" id="gishi-sh-6" data-action="gishiToggleSection(6)">
+      <div class="chisei-sec-icon" style="background:linear-gradient(135deg,rgba(0,212,255,.2),rgba(168,85,247,.1))">📈</div>
+      <div class="chisei-sec-text">
+        <div class="chisei-sec-title">6 — Progress Overview</div>
+        <div class="chisei-sec-sub">Your learning status across all 6 levels</div>
+      </div>
+      <div class="chisei-sec-chevron">▶</div>
+    </div>
+    <div class="chisei-sec-body" id="gishi-sb-6">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px" id="gishi-level-summary">
+        <!-- Rendered by JS -->
+      </div>
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:16px;margin-bottom:12px">
+        <div style="font-weight:700;font-size:13px;margin-bottom:8px;color:var(--accent)">📋 Exam Information</div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.8">
+          <strong style="color:var(--text1)">Administering body:</strong> 公益社団法人日本技術士会 (IPEJ — Institution of Professional Engineers, Japan)<br>
+          <strong style="color:var(--text1)">Exam held:</strong> November each year (results announced January)<br>
+          <strong style="color:var(--text1)">Three subjects:</strong> 基礎科目 (60 min) · 適性科目 (40 min) · 専門科目 (120 min)<br>
+          <strong style="color:var(--text1)">Pass threshold:</strong> 50% in each subject independently · overall pass rate ~40–50%
+        </div>
+      </div>
+      <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-primary" data-action="showPage('simulations')">🧪 Try Simulators</button>
+        <button class="btn btn-outline" data-action="showPage('study')">📚 Study Modules</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end #page-gishi -->
 
 <!-- AI TUTOR — FULLY OFFLINE -->
 <div id="page-ai" class="page">
@@ -16438,6 +16848,141 @@ function expandCase(id) {
 
   document.addEventListener('DOMContentLoaded', function() {
     butsuriUpdateHomeCard();
+  });
+})();
+
+/* ═══════════════════════════════════════════════════════════════════
+   技術士補 — Progress Tracking System
+   19 tasks: l1×3, l2×4, l3×3, l4×3, l5×3, l6×3
+   ═══════════════════════════════════════════════════════════════════ */
+(function() {
+  'use strict';
+  var GISHI_KEY = 'gishi-progress';
+  var GISHI_TOTAL = 19;
+  var GISHI_LEVELS = {
+    l1: { count: 3, label: 'Fundamentals',  color: '#57d464' },
+    l2: { count: 4, label: 'Soil Mechanics', color: '#00d4ff' },
+    l3: { count: 3, label: 'Foundation Eng', color: '#a855f7' },
+    l4: { count: 3, label: 'Ethics',         color: '#f59e0b' },
+    l5: { count: 3, label: 'Problem Solving',color: 'var(--accent2)' },
+    l6: { count: 3, label: 'Exam Readiness', color: 'var(--danger)' }
+  };
+
+  function gishiLoadProgress() {
+    try { return JSON.parse(localStorage.getItem(GISHI_KEY)) || {}; }
+    catch(e) { return {}; }
+  }
+
+  function gishiSaveProgress(data) {
+    try { localStorage.setItem(GISHI_KEY, JSON.stringify(data)); } catch(e) {}
+  }
+
+  function gishiCalcPct(data) {
+    var done = Object.keys(data).filter(function(k){ return data[k]; }).length;
+    return { done: done, pct: Math.round(done / GISHI_TOTAL * 100) };
+  }
+
+  function gishiUpdateUI() {
+    var data = gishiLoadProgress();
+    var stat = gishiCalcPct(data);
+
+    var fill  = document.getElementById('gishi-progress-fill');
+    var count = document.getElementById('gishi-progress-count');
+    var pct   = document.getElementById('gishi-progress-pct');
+    if (fill)  fill.style.width = stat.pct + '%';
+    if (count) count.textContent = stat.done + ' / ' + GISHI_TOTAL + ' tasks';
+    if (pct)   pct.textContent = stat.pct + '%';
+
+    document.querySelectorAll('#page-gishi .chisei-task[data-tid]').forEach(function(task) {
+      var tid = task.getAttribute('data-tid');
+      var cb  = task.querySelector('.chisei-task-cb');
+      if (data[tid]) {
+        task.classList.add('done');
+        if (cb) cb.textContent = '✓';
+      } else {
+        task.classList.remove('done');
+        if (cb) cb.textContent = '';
+      }
+    });
+
+    Object.keys(GISHI_LEVELS).forEach(function(lk) {
+      var meta = GISHI_LEVELS[lk];
+      var done = 0;
+      for (var i = 1; i <= meta.count; i++) {
+        if (data['gishi-' + lk + '-' + i]) done++;
+      }
+      var el = document.getElementById('gishi-lp-' + lk);
+      if (el) el.textContent = done + '/' + meta.count;
+    });
+
+    gishiRenderLevelSummary(data);
+    gishiUpdateHomeCard();
+  }
+
+  function gishiUpdateHomeCard() {
+    var data = gishiLoadProgress();
+    var stat = gishiCalcPct(data);
+    var fill  = document.getElementById('gishi-home-fill');
+    var label = document.getElementById('gishi-home-label');
+    if (fill)  fill.style.width = stat.pct + '%';
+    if (label) label.textContent = stat.pct + '% Coverage';
+  }
+
+  function gishiRenderLevelSummary(data) {
+    var el = document.getElementById('gishi-level-summary');
+    if (!el) return;
+    var html = '';
+    Object.keys(GISHI_LEVELS).forEach(function(lk) {
+      var meta = GISHI_LEVELS[lk];
+      var done = 0;
+      for (var i = 1; i <= meta.count; i++) {
+        if (data['gishi-' + lk + '-' + i]) done++;
+      }
+      var p = Math.round(done / meta.count * 100);
+      html += '<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:10px;text-align:center">'
+        + '<div style="font-size:11px;font-weight:700;color:' + meta.color + ';font-family:\'JetBrains Mono\',monospace;margin-bottom:4px">' + lk.toUpperCase() + '</div>'
+        + '<div style="font-size:10px;color:var(--text2);margin-bottom:8px">' + meta.label + '</div>'
+        + '<div class="progress-bar" style="height:4px;margin-bottom:4px"><div class="progress-fill" style="width:' + p + '%;background:' + meta.color + '"></div></div>'
+        + '<div style="font-size:10px;color:var(--text2);font-family:\'JetBrains Mono\',monospace">' + done + '/' + meta.count + '</div>'
+        + '</div>';
+    });
+    el.innerHTML = html;
+  }
+
+  window.gishiToggleTask = function(tid) {
+    var data = gishiLoadProgress();
+    data[tid] = !data[tid];
+    gishiSaveProgress(data);
+    gishiUpdateUI();
+  };
+
+  window.gishiToggleSection = function(idx) {
+    var sh = document.getElementById('gishi-sh-' + idx);
+    var sb = document.getElementById('gishi-sb-' + idx);
+    if (!sh || !sb) return;
+    var isOpen = sb.classList.contains('open');
+    sh.classList.toggle('open', !isOpen);
+    sb.classList.toggle('open', !isOpen);
+  };
+
+  window.gishiToggleLevel = function(lk) {
+    var lb = document.getElementById('gishi-lb-' + lk);
+    if (!lb) return;
+    lb.classList.toggle('open');
+  };
+
+  window.gishiInit = function() {
+    gishiUpdateUI();
+    var sb1 = document.getElementById('gishi-sb-1');
+    var sh1 = document.getElementById('gishi-sh-1');
+    if (sb1 && !sb1.classList.contains('open')) {
+      sb1.classList.add('open');
+      if (sh1) sh1.classList.add('open');
+    }
+  };
+
+  document.addEventListener('DOMContentLoaded', function() {
+    gishiUpdateHomeCard();
   });
 })();
 
