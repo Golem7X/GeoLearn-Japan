@@ -370,8 +370,9 @@ body::before{
 }
 .road-stage{
   display:flex;gap:20px;align-items:flex-start;padding:0 0 32px 0;
-  position:relative;
+  position:relative;border-radius:8px;transition:background .15s;
 }
+.road-stage[data-action]:hover{background:rgba(0,212,255,.04);}
 .road-dot{
   width:64px;height:64px;border-radius:50%;
   background:var(--surface);border:2px solid var(--accent);
@@ -3203,8 +3204,197 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
   .hero-brand-info h1 { font-size: 22px; }
   .hero-brand-info p { font-size: 10px; }
 }
+
+/* ═══════════════════════════════════════════════════════
+   地質調査技士 — Professional Roadmap Page Styles
+   ═══════════════════════════════════════════════════════ */
+.chisei-home-card:hover { border-color: var(--accent) !important; }
+.chisei-back {
+  display:inline-flex;align-items:center;gap:8px;padding:8px 16px;
+  border-radius:8px;background:var(--surface);border:1px solid var(--border);
+  color:var(--text2);font-size:13px;cursor:pointer;transition:all .2s;
+  margin-bottom:20px;font-family:'JetBrains Mono',monospace;
+}
+.chisei-back:hover { border-color:var(--accent);color:var(--accent); }
+.chisei-hero {
+  background:linear-gradient(135deg,rgba(0,212,255,.07),rgba(168,85,247,.05));
+  border:1px solid var(--border);border-radius:16px;padding:28px 32px;
+  margin-bottom:24px;position:relative;overflow:hidden;
+}
+.chisei-hero::before {
+  content:'';position:absolute;top:-50px;right:-50px;width:200px;height:200px;
+  border-radius:50%;background:radial-gradient(circle,rgba(0,212,255,.06),transparent 70%);
+  pointer-events:none;
+}
+.chisei-hero-badge {
+  display:inline-flex;align-items:center;gap:6px;background:rgba(0,212,255,.1);
+  border:1px solid rgba(0,212,255,.2);border-radius:20px;padding:4px 12px;
+  font-size:11px;font-weight:700;color:var(--accent);letter-spacing:.8px;
+  text-transform:uppercase;font-family:'JetBrains Mono',monospace;margin-bottom:14px;
+}
+.chisei-hero-title {
+  font-size:28px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:6px;
+}
+.chisei-hero-title span { color:var(--accent); }
+.chisei-hero-sub { font-size:13px;color:var(--text2);line-height:1.6; }
+.chisei-progress-track {
+  background:var(--surface);border:1px solid var(--border);border-radius:12px;
+  padding:20px 24px;margin-bottom:24px;
+}
+.chisei-progress-row { display:flex;align-items:center;justify-content:space-between;margin-bottom:10px; }
+.chisei-progress-label { font-size:13px;font-weight:700;color:var(--text); }
+.chisei-progress-count { font-size:12px;color:var(--text2);font-family:'JetBrains Mono',monospace; }
+.chisei-progress-bar-outer { background:var(--border);border-radius:99px;height:10px;margin-bottom:6px; }
+.chisei-progress-bar-fill {
+  height:100%;border-radius:99px;
+  background:linear-gradient(90deg,var(--accent),var(--purple));
+  transition:width .5s cubic-bezier(.4,0,.2,1);
+}
+.chisei-progress-pct { font-size:20px;font-weight:800;color:var(--accent);font-family:'JetBrains Mono',monospace; }
+/* Section accordion */
+.chisei-section-card {
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;margin-bottom:14px;overflow:hidden;
+}
+.chisei-sec-hdr {
+  display:flex;align-items:center;gap:12px;padding:16px 20px;
+  cursor:pointer;transition:background .2s;
+}
+.chisei-sec-hdr:hover,.chisei-sec-hdr.open { background:rgba(0,212,255,.04); }
+.chisei-sec-icon {
+  width:38px;height:38px;border-radius:10px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:17px;
+}
+.chisei-sec-text { flex:1; }
+.chisei-sec-title { font-weight:700;font-size:15px;color:var(--text);line-height:1.2; }
+.chisei-sec-sub { font-size:11px;color:var(--text2);margin-top:2px; }
+.chisei-sec-chevron {
+  font-size:11px;color:var(--text3);transition:transform .3s;
+  font-family:'JetBrains Mono',monospace;
+}
+.chisei-sec-hdr.open .chisei-sec-chevron { transform:rotate(90deg); }
+.chisei-sec-body { padding:0 20px 20px;display:none; }
+.chisei-sec-body.open { display:block; }
+/* Vocabulary table */
+.chisei-vocab-table { width:100%;border-collapse:collapse;margin-top:12px;font-size:13px; }
+.chisei-vocab-table th {
+  text-align:left;padding:10px 12px;font-size:10px;color:var(--accent);
+  font-family:'JetBrains Mono',monospace;letter-spacing:.8px;text-transform:uppercase;
+  border-bottom:1px solid var(--border);background:rgba(0,212,255,.04);
+}
+.chisei-vocab-table td {
+  padding:10px 12px;border-bottom:1px solid rgba(37,42,53,.7);vertical-align:top;line-height:1.5;
+}
+.chisei-vocab-table tr:last-child td { border-bottom:none; }
+.chisei-vocab-table tr:hover td { background:rgba(0,212,255,.03); }
+.vtjp { font-size:14px;font-weight:700;color:var(--text); }
+.vten { color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:11px;display:block;margin-top:2px; }
+.vtmn { color:var(--text2); }
+/* Skill grid */
+.chisei-skill-grid { display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px; }
+@media(max-width:600px){ .chisei-skill-grid{ grid-template-columns:1fr; } }
+.chisei-skill-cat {
+  background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:16px;
+}
+.chisei-skill-cat-title {
+  font-size:11px;font-weight:700;color:var(--accent);font-family:'JetBrains Mono',monospace;
+  letter-spacing:.8px;text-transform:uppercase;margin-bottom:10px;
+  padding-bottom:8px;border-bottom:1px solid var(--border);
+}
+.chisei-skill-item {
+  display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--text2);
+  padding:5px 0;border-bottom:1px solid rgba(37,42,53,.5);
+}
+.chisei-skill-item:last-child { border-bottom:none; }
+.chisei-skill-item::before { content:'▸';color:var(--accent3);font-size:10px;margin-top:2px;flex-shrink:0; }
+/* Timeline */
+.chisei-timeline { display:flex;flex-direction:column;gap:0;margin-top:12px; }
+.chisei-tb { display:flex;gap:16px;align-items:flex-start; }
+.chisei-tb-line { display:flex;flex-direction:column;align-items:center;flex-shrink:0; }
+.chisei-tb-dot { width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0; }
+.chisei-tb-connector { width:2px;background:var(--border);flex:1;min-height:24px;margin:4px 0; }
+.chisei-tb-content { padding:4px 0 24px;flex:1; }
+.chisei-tb-label {
+  font-size:10px;font-weight:700;letter-spacing:1.2px;font-family:'JetBrains Mono',monospace;
+  text-transform:uppercase;padding:4px 10px;border-radius:6px;display:inline-block;margin-bottom:10px;
+}
+.chisei-tb-tasks { list-style:none;padding:0;margin:0; }
+.chisei-tb-tasks li {
+  display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--text2);
+  padding:6px 0;border-bottom:1px solid rgba(37,42,53,.5);line-height:1.5;
+}
+.chisei-tb-tasks li:last-child { border-bottom:none; }
+.chisei-tb-tasks li::before { content:'→';color:var(--accent);font-size:12px;margin-top:1px;flex-shrink:0; }
+.chisei-tb-jp { color:var(--text3);font-size:11px;font-family:'JetBrains Mono',monospace;margin-left:4px; }
+/* Responsibility grid */
+.chisei-resp-grid { display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0; }
+@media(max-width:600px){ .chisei-resp-grid{ grid-template-columns:1fr; } }
+.chisei-resp-card {
+  background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px;
+}
+.chisei-resp-title {
+  font-size:11px;font-weight:700;color:var(--accent);font-family:'JetBrains Mono',monospace;
+  text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px;
+  padding-bottom:6px;border-bottom:1px solid var(--border);
+}
+.chisei-resp-list { list-style:none;padding:0;margin:0; }
+.chisei-resp-list li {
+  font-size:12px;color:var(--text2);padding:4px 0;
+  border-bottom:1px solid rgba(37,42,53,.5);display:flex;align-items:flex-start;gap:6px;
+}
+.chisei-resp-list li:last-child { border-bottom:none; }
+.chisei-resp-list li::before { content:'◆';font-size:8px;color:var(--accent2);margin-top:3px;flex-shrink:0; }
+/* Support pillars */
+.chisei-pillars { display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px; }
+@media(max-width:700px){ .chisei-pillars{ grid-template-columns:1fr 1fr; } }
+.chisei-pillar {
+  text-align:center;padding:16px 10px;background:var(--surface2);
+  border:1px solid var(--border);border-radius:10px;
+}
+.chisei-pillar-icon { font-size:24px;margin-bottom:8px; }
+.chisei-pillar-title { font-size:12px;font-weight:700;color:var(--text);margin-bottom:3px; }
+.chisei-pillar-jp { font-size:11px;color:var(--text3);font-family:'JetBrains Mono',monospace; }
+/* Roadmap levels */
+.chisei-levels { margin-top:12px; }
+.chisei-level { border-radius:12px;margin-bottom:12px;overflow:hidden;border:1px solid var(--border); }
+.chisei-level-hdr {
+  display:flex;align-items:center;gap:12px;padding:14px 16px;
+  cursor:pointer;transition:background .2s;
+}
+.chisei-level-hdr:hover { background:rgba(255,255,255,.03); }
+.chisei-level-num {
+  width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:800;font-family:'JetBrains Mono',monospace;flex-shrink:0;
+}
+.chisei-level-info { flex:1; }
+.chisei-level-title { font-weight:700;font-size:14px;color:var(--text); }
+.chisei-level-sub { font-size:11px;color:var(--text2);margin-top:2px; }
+.chisei-level-prog {
+  font-size:11px;color:var(--text2);font-family:'JetBrains Mono',monospace;
+  background:var(--surface2);padding:3px 8px;border-radius:6px;border:1px solid var(--border);
+}
+.chisei-level-body { padding:4px 16px 16px;display:none; }
+.chisei-level-body.open { display:block; }
+/* Task items */
+.chisei-task {
+  display:flex;align-items:flex-start;gap:12px;padding:11px 12px;
+  border-radius:8px;cursor:pointer;transition:all .2s;margin-bottom:6px;
+  border:1px solid transparent;background:var(--surface2);
+}
+.chisei-task:hover { background:rgba(0,212,255,.06);border-color:rgba(0,212,255,.2); }
+.chisei-task.done { background:rgba(127,255,110,.04);border-color:rgba(127,255,110,.25); }
+.chisei-task-cb {
+  width:22px;height:22px;border-radius:6px;border:2px solid var(--border);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;transition:all .2s;
+  margin-top:1px;font-size:12px;font-weight:700;color:#000;
+}
+.chisei-task.done .chisei-task-cb { background:var(--accent3);border-color:var(--accent3); }
+.chisei-task-content { flex:1; }
+.chisei-task-title { font-size:13px;color:var(--text);font-weight:600; }
+.chisei-task.done .chisei-task-title { color:var(--accent3); }
+.chisei-task-desc { font-size:12px;color:var(--text2);margin-top:3px;line-height:1.5; }
 </style>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-ZOVodeA0OS8oLacY3jHIRcjiiv1rsWKCAc2OzW5I0ic='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data: blob: https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-ruVIkj8LDV9ApkQmi8vIyWmSAjadxqOZbvrbm2nZg10='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data: blob: https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
 </head>
 <body>
 
@@ -3413,12 +3603,13 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
     <div class="section-title">// LICENSE TARGETS 資格目標</div><div class="section-line"></div>
   </div>
   <div class="grid grid-2">
-    <div class="card">
+    <div class="card chisei-home-card" data-action="showPage('chisei');chiseiInit()" style="cursor:pointer;transition:border-color .2s" id="chisei-home-card">
       <div style="font-size:20px;margin-bottom:8px">📋</div>
       <div style="font-weight:700;font-size:16px">地質調査技士</div>
       <div style="font-size:12px;color:var(--text2);margin-top:4px">Geological Survey Engineer</div>
-      <div class="progress-bar" style="margin-top:12px"><div class="progress-fill" style="width:35%"></div></div>
-      <div style="font-size:11px;color:var(--text2);margin-top:4px;font-family:'JetBrains Mono',monospace">35% Coverage</div>
+      <div class="progress-bar" style="margin-top:12px"><div class="progress-fill" id="chisei-home-fill" style="width:0%"></div></div>
+      <div style="font-size:11px;color:var(--text2);margin-top:4px;font-family:'JetBrains Mono',monospace" id="chisei-home-label">0% Coverage</div>
+      <div style="font-size:11px;color:var(--accent);margin-top:6px;font-family:'JetBrains Mono',monospace">→ Open Roadmap</div>
     </div>
     <div class="card">
       <div style="font-size:20px;margin-bottom:8px">🌊</div>
@@ -4042,7 +4233,7 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
         </div>
       </div>
     </div>
-    <div class="road-stage">
+    <div class="road-stage" data-action="showPage('chisei');chiseiInit()" style="cursor:pointer" title="Open 地質調査技士 Roadmap">
       <div class="road-dot">📋</div>
       <div class="road-content">
         <div class="road-stage-num">STAGE 02</div>
@@ -4054,6 +4245,7 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
           <div class="road-skill">地質調査技士 License</div><div class="road-skill">Borehole Supervision</div>
           <div class="road-skill">地盤調査</div><div class="road-skill">Report Writing</div>
         </div>
+        <div style="margin-top:10px;font-size:12px;color:var(--accent);font-family:'JetBrains Mono',monospace">→ Open Study Roadmap</div>
       </div>
     </div>
     <div class="road-stage">
@@ -4102,6 +4294,580 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
     </div>
   </div>
 </div>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     地質調査技士 — Professional Field Engineer Roadmap
+     ═══════════════════════════════════════════════════════════════════ -->
+<div id="page-chisei" class="page">
+  <div class="page-header">
+    <div class="page-title">地質調査技士 <span>Roadmap</span></div>
+    <div class="page-sub">// Professional Field Engineer Roadmap for Japan — 地質調査技士資格ロードマップ</div>
+  </div>
+
+  <!-- Back button -->
+  <div data-action="showPage('career')" class="chisei-back">← Career Roadmap</div>
+
+  <!-- Hero banner -->
+  <div class="chisei-hero">
+    <div class="chisei-hero-badge">📋 JGSEE Certification</div>
+    <div class="chisei-hero-title">Geological Survey Engineer<br><span>地質調査技士</span></div>
+    <div class="chisei-hero-sub">Japan's national license for geological field investigation. Required for supervising ground investigation on public works projects. This roadmap guides foreign engineers from fundamentals to exam-ready professional practice.</div>
+  </div>
+
+  <!-- Live progress tracker -->
+  <div class="chisei-progress-track">
+    <div class="chisei-progress-row">
+      <div>
+        <div class="chisei-progress-label">Learning Progress</div>
+        <div class="chisei-progress-count" id="chisei-progress-count">0 / 19 tasks done</div>
+      </div>
+      <div class="chisei-progress-pct" id="chisei-progress-pct">0%</div>
+    </div>
+    <div class="chisei-progress-bar-outer">
+      <div class="chisei-progress-bar-fill" id="chisei-progress-fill" style="width:0%"></div>
+    </div>
+    <div style="font-size:11px;color:var(--text3);font-family:'JetBrains Mono',monospace">Check off tasks in the Learning Roadmap below to track your progress</div>
+  </div>
+
+  <!-- ── SECTION 1: Purpose of the Profession ── -->
+  <div class="chisei-section-card">
+    <div class="chisei-sec-hdr" id="chisei-sh-1" data-action="chiseiToggleSection(1)">
+      <div class="chisei-sec-icon" style="background:linear-gradient(135deg,rgba(0,212,255,.2),rgba(0,212,255,.05))">🔭</div>
+      <div class="chisei-sec-text">
+        <div class="chisei-sec-title">1 — Purpose of the Profession</div>
+        <div class="chisei-sec-sub">What a 地質調査技士 actually does in Japan</div>
+      </div>
+      <div class="chisei-sec-chevron">▶</div>
+    </div>
+    <div class="chisei-sec-body open" id="chisei-sb-1">
+      <p style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:16px">
+        A <strong style="color:var(--text)">地質調査技士 (Geological Survey Engineer)</strong> is a licensed field professional who leads and supervises geological ground investigations throughout Japan. This engineer is the technical authority on site — responsible for data quality, safety, and accurate interpretation of subsurface conditions.
+      </p>
+
+      <div style="font-size:12px;font-weight:700;color:var(--accent);font-family:'JetBrains Mono',monospace;letter-spacing:.8px;text-transform:uppercase;margin-bottom:10px">CORE FIELD RESPONSIBILITIES</div>
+      <div class="chisei-resp-grid">
+        <div class="chisei-resp-card">
+          <div class="chisei-resp-title">Ground Investigation</div>
+          <ul class="chisei-resp-list">
+            <li>Supervise boring drilling operations</li>
+            <li>Monitor drilling parameters and progress</li>
+            <li>Record drilling fluid conditions</li>
+            <li>Ensure investigation meets design spec</li>
+          </ul>
+        </div>
+        <div class="chisei-resp-card">
+          <div class="chisei-resp-title">Boring Supervision</div>
+          <ul class="chisei-resp-list">
+            <li>Oversee equipment setup and operation</li>
+            <li>Verify borehole depth and alignment</li>
+            <li>Direct SPT and sampling procedures</li>
+            <li>Maintain drilling records and N-values</li>
+          </ul>
+        </div>
+        <div class="chisei-resp-card">
+          <div class="chisei-resp-title">Geological Logging</div>
+          <ul class="chisei-resp-list">
+            <li>Classify soil and rock samples on site</li>
+            <li>Draw 地質柱状図 (borehole logs)</li>
+            <li>Identify stratigraphic boundaries</li>
+            <li>Describe color, texture, consistency</li>
+          </ul>
+        </div>
+        <div class="chisei-resp-card">
+          <div class="chisei-resp-title">Soil Testing</div>
+          <ul class="chisei-resp-list">
+            <li>Direct in-situ test procedures (SPT, CPT)</li>
+            <li>Collect undisturbed samples for lab tests</li>
+            <li>Measure and record groundwater levels</li>
+            <li>Conduct plate load tests if required</li>
+          </ul>
+        </div>
+        <div class="chisei-resp-card">
+          <div class="chisei-resp-title">Groundwater Observation</div>
+          <ul class="chisei-resp-list">
+            <li>Install observation pipes in boreholes</li>
+            <li>Record water level during and after drilling</li>
+            <li>Identify artesian or confined conditions</li>
+            <li>Monitor water rise after drilling stops</li>
+          </ul>
+        </div>
+        <div class="chisei-resp-card">
+          <div class="chisei-resp-title">Investigation Reports</div>
+          <ul class="chisei-resp-list">
+            <li>Compile 調査報告書 (investigation reports)</li>
+            <li>Draw geological cross sections</li>
+            <li>Summarize investigation findings</li>
+            <li>Provide engineering recommendations</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="font-size:12px;font-weight:700;color:var(--accent);font-family:'JetBrains Mono',monospace;letter-spacing:.8px;text-transform:uppercase;margin:20px 0 10px">HOW THIS WORK SUPPORTS JAPAN'S INFRASTRUCTURE</div>
+      <div class="chisei-pillars">
+        <div class="chisei-pillar">
+          <div class="chisei-pillar-icon">🏗️</div>
+          <div class="chisei-pillar-title">Building Foundations</div>
+          <div class="chisei-pillar-jp">建物基礎</div>
+        </div>
+        <div class="chisei-pillar">
+          <div class="chisei-pillar-icon">🚇</div>
+          <div class="chisei-pillar-title">Tunnel Construction</div>
+          <div class="chisei-pillar-jp">トンネル工事</div>
+        </div>
+        <div class="chisei-pillar">
+          <div class="chisei-pillar-icon">⛰️</div>
+          <div class="chisei-pillar-title">Slope Stability</div>
+          <div class="chisei-pillar-jp">斜面安定</div>
+        </div>
+        <div class="chisei-pillar">
+          <div class="chisei-pillar-icon">🌊</div>
+          <div class="chisei-pillar-title">Earthquake Safety</div>
+          <div class="chisei-pillar-jp">耐震安全性</div>
+        </div>
+      </div>
+
+      <div style="margin-top:16px;padding:14px 16px;background:rgba(0,212,255,.06);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:13px;color:var(--text2);line-height:1.6">
+        <strong style="color:var(--accent)">License Categories:</strong> The 地質調査技士 exam has three categories — <strong style="color:var(--text)">Surface Investigation (表層地質調査)</strong>, <strong style="color:var(--text)">Boring Investigation (ボーリング調査)</strong>, and <strong style="color:var(--text)">Physical Exploration (物理探査)</strong>. The Boring Investigation category is the most common entry point for field engineers.
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SECTION 2: Real Daily Work ── -->
+  <div class="chisei-section-card">
+    <div class="chisei-sec-hdr" id="chisei-sh-2" data-action="chiseiToggleSection(2)">
+      <div class="chisei-sec-icon" style="background:linear-gradient(135deg,rgba(255,107,53,.2),rgba(255,107,53,.05))">⛏️</div>
+      <div class="chisei-sec-text">
+        <div class="chisei-sec-title">2 — Real Daily Work on Site</div>
+        <div class="chisei-sec-sub">Typical workflow of a geological investigation engineer</div>
+      </div>
+      <div class="chisei-sec-chevron">▶</div>
+    </div>
+    <div class="chisei-sec-body" id="chisei-sb-2">
+      <p style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:16px">
+        Field geological investigation in Japan follows a disciplined daily structure. Understanding this workflow will help you perform confidently on any 地盤調査 project.
+      </p>
+      <div class="chisei-timeline">
+        <!-- Morning -->
+        <div class="chisei-tb">
+          <div class="chisei-tb-line">
+            <div class="chisei-tb-dot" style="background:linear-gradient(135deg,rgba(255,215,0,.2),rgba(255,215,0,.05));border:1px solid rgba(255,215,0,.3)">🌅</div>
+            <div class="chisei-tb-connector"></div>
+          </div>
+          <div class="chisei-tb-content">
+            <div class="chisei-tb-label" style="background:rgba(255,215,0,.1);color:var(--gold);border:1px solid rgba(255,215,0,.2)">MORNING — 朝</div>
+            <ul class="chisei-tb-tasks">
+              <li>Safety meeting <span class="chisei-tb-jp">(朝礼 · chōrei)</span> — attendance, hazard briefing, day's plan</li>
+              <li>Inspect drilling equipment — check rig, rods, casing, hammer condition</li>
+              <li>Confirm investigation plan <span class="chisei-tb-jp">(調査計画)</span> — borehole depth, test intervals, sampling depths</li>
+              <li>Mark borehole positions and set up cordoned safety perimeter</li>
+              <li>Verify PPE: safety helmet, vest, steel-toed boots, gloves</li>
+            </ul>
+          </div>
+        </div>
+        <!-- Field Work -->
+        <div class="chisei-tb">
+          <div class="chisei-tb-line">
+            <div class="chisei-tb-dot" style="background:linear-gradient(135deg,rgba(0,212,255,.2),rgba(0,212,255,.05));border:1px solid rgba(0,212,255,.3)">🔩</div>
+            <div class="chisei-tb-connector"></div>
+          </div>
+          <div class="chisei-tb-content">
+            <div class="chisei-tb-label" style="background:rgba(0,212,255,.1);color:var(--accent);border:1px solid rgba(0,212,255,.2)">FIELD WORK — 作業中</div>
+            <ul class="chisei-tb-tasks">
+              <li>Monitor boring drilling progress <span class="chisei-tb-jp">(ボーリング掘削)</span> — depth, speed, drill fluid return</li>
+              <li>Perform Standard Penetration Test <span class="chisei-tb-jp">(標準貫入試験 · N値)</span> at required depth intervals</li>
+              <li>Collect soil samples <span class="chisei-tb-jp">(試料採取)</span> — disturbed split-spoon or undisturbed thin-wall tube</li>
+              <li>Record groundwater level <span class="chisei-tb-jp">(地下水位測定)</span> when drilling pauses</li>
+              <li>Perform in-situ tests as required — vane shear, piezocone, pressure meter</li>
+              <li>Photograph soil samples and record observations in field notebook</li>
+            </ul>
+          </div>
+        </div>
+        <!-- Afternoon -->
+        <div class="chisei-tb">
+          <div class="chisei-tb-line">
+            <div class="chisei-tb-dot" style="background:linear-gradient(135deg,rgba(127,255,110,.2),rgba(127,255,110,.05));border:1px solid rgba(127,255,110,.3)">📋</div>
+          </div>
+          <div class="chisei-tb-content">
+            <div class="chisei-tb-label" style="background:rgba(127,255,110,.1);color:var(--accent3);border:1px solid rgba(127,255,110,.2)">AFTERNOON / END OF DAY — 午後</div>
+            <ul class="chisei-tb-tasks">
+              <li>Geological logging <span class="chisei-tb-jp">(地質柱状図作成)</span> — classify and describe all samples from the day</li>
+              <li>Compile borehole log data <span class="chisei-tb-jp">(ボーリング柱状図)</span> — depth, N-value, soil type, water level</li>
+              <li>Label and store soil samples for laboratory transport</li>
+              <li>Write daily site report <span class="chisei-tb-jp">(日報)</span> and share with project supervisor</li>
+              <li>Site cleanup, equipment maintenance, safety sign-off</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:16px;padding:14px 16px;background:rgba(255,107,53,.06);border-left:3px solid var(--accent2);border-radius:0 8px 8px 0;font-size:13px;color:var(--text2);line-height:1.6">
+        <strong style="color:var(--accent2)">Key Tip:</strong> On Japanese sites, the 朝礼 is a formal daily ritual — not optional. Always attend, stand in line, and participate. This shows professional discipline (職業的誠実さ) and is critical for team trust.
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SECTION 3: Japanese Technical Vocabulary ── -->
+  <div class="chisei-section-card">
+    <div class="chisei-sec-hdr" id="chisei-sh-3" data-action="chiseiToggleSection(3)">
+      <div class="chisei-sec-icon" style="background:linear-gradient(135deg,rgba(168,85,247,.2),rgba(168,85,247,.05))">🗣️</div>
+      <div class="chisei-sec-text">
+        <div class="chisei-sec-title">3 — Japanese Technical Vocabulary</div>
+        <div class="chisei-sec-sub">Essential terms for daily site communication</div>
+      </div>
+      <div class="chisei-sec-chevron">▶</div>
+    </div>
+    <div class="chisei-sec-body" id="chisei-sb-3">
+      <p style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:4px">
+        Master these terms to communicate professionally on Japanese investigation sites. Grouped by usage context.
+      </p>
+      <table class="chisei-vocab-table">
+        <thead>
+          <tr>
+            <th>Japanese / Reading</th>
+            <th>English</th>
+            <th>Field Usage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="vtjp">ボーリング調査</span><span class="vten">bōringu chōsa</span></td><td class="vtmn">Boring Investigation</td><td class="vtmn">Drilling ground to investigate subsurface soil and rock layers</td></tr>
+          <tr><td><span class="vtjp">標準貫入試験</span><span class="vten">hyōjun kannyū shiken</span></td><td class="vtmn">Standard Penetration Test (SPT)</td><td class="vtmn">Hammer-driven soil strength test — N-value is the hit count per 30 cm</td></tr>
+          <tr><td><span class="vtjp">コア採取</span><span class="vten">koa saishu</span></td><td class="vtmn">Core Sampling</td><td class="vtmn">Collecting cylindrical rock/soil samples from the borehole</td></tr>
+          <tr><td><span class="vtjp">地層</span><span class="vten">chisō</span></td><td class="vtmn">Soil / Rock Layer</td><td class="vtmn">Natural underground stratigraphy — you identify layers during logging</td></tr>
+          <tr><td><span class="vtjp">地下水位</span><span class="vten">chikasui-i</span></td><td class="vtmn">Groundwater Level</td><td class="vtmn">Water level inside borehole — measured when drilling stops</td></tr>
+          <tr><td><span class="vtjp">地質柱状図</span><span class="vten">chishitsu chūjōzu</span></td><td class="vtmn">Borehole Log</td><td class="vtmn">Drawn record of soil layers, N-values, and sample depths along a borehole</td></tr>
+          <tr><td><span class="vtjp">斜面安定</span><span class="vten">shamen antei</span></td><td class="vtmn">Slope Stability</td><td class="vtmn">Stability analysis of slopes — investigation targets weak layers and groundwater</td></tr>
+          <tr><td><span class="vtjp">試料採取</span><span class="vten">shiryō saishu</span></td><td class="vtmn">Sample Collection</td><td class="vtmn">Collecting soil/rock samples at specified depths for field or lab analysis</td></tr>
+          <tr><td><span class="vtjp">地盤調査</span><span class="vten">jiban chōsa</span></td><td class="vtmn">Ground Investigation</td><td class="vtmn">General term for subsurface investigation — covers boring, testing, and reporting</td></tr>
+          <tr><td><span class="vtjp">不攪乱試料</span><span class="vten">fu-kakuran shiryō</span></td><td class="vtmn">Undisturbed Sample</td><td class="vtmn">Sample collected without disturbing natural structure — used for lab strength tests</td></tr>
+          <tr><td><span class="vtjp">圧密試験</span><span class="vten">atsumitsu shiken</span></td><td class="vtmn">Consolidation Test</td><td class="vtmn">Lab test measuring settlement behavior of cohesive soils under load</td></tr>
+          <tr><td><span class="vtjp">地質断面図</span><span class="vten">chishitsu danmenzu</span></td><td class="vtmn">Geological Cross Section</td><td class="vtmn">Subsurface profile drawn by connecting boreholes — shows layer geometry</td></tr>
+          <tr><td><span class="vtjp">原位置試験</span><span class="vten">gen'ichi shiken</span></td><td class="vtmn">In-Situ Test</td><td class="vtmn">Tests conducted in the ground during investigation (SPT, CPT, vane shear, PMT)</td></tr>
+          <tr><td><span class="vtjp">朝礼</span><span class="vten">chōrei</span></td><td class="vtmn">Morning Safety Meeting</td><td class="vtmn">Daily formal site meeting — attendance mandatory, led by site supervisor</td></tr>
+          <tr><td><span class="vtjp">日報</span><span class="vten">nippō</span></td><td class="vtmn">Daily Report</td><td class="vtmn">Written daily record of work performed, samples collected, and site conditions</td></tr>
+          <tr><td><span class="vtjp">現場監督</span><span class="vten">genba kantoku</span></td><td class="vtmn">Site Supervisor</td><td class="vtmn">Engineer in charge of on-site operations — a 地質調査技士 often fills this role</td></tr>
+          <tr><td><span class="vtjp">粒度分析</span><span class="vten">ryūdo bunseki</span></td><td class="vtmn">Particle Size Analysis</td><td class="vtmn">Lab test classifying soil by grain size — sieve + hydrometer for fine-grained soils</td></tr>
+          <tr><td><span class="vtjp">地耐力</span><span class="vten">ji-tairyoku</span></td><td class="vtmn">Bearing Capacity</td><td class="vtmn">Maximum load the ground can support — critical output of investigation reports</td></tr>
+          <tr><td><span class="vtjp">調査報告書</span><span class="vten">chōsa hōkokusho</span></td><td class="vtmn">Investigation Report</td><td class="vtmn">Final report summarizing all investigation data, analysis, and recommendations</td></tr>
+          <tr><td><span class="vtjp">液状化</span><span class="vten">ekijōka</span></td><td class="vtmn">Liquefaction</td><td class="vtmn">Soil loss of strength during earthquake — assessed using SPT N-values and grain size</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── SECTION 4: Core Skills ── -->
+  <div class="chisei-section-card">
+    <div class="chisei-sec-hdr" id="chisei-sh-4" data-action="chiseiToggleSection(4)">
+      <div class="chisei-sec-icon" style="background:linear-gradient(135deg,rgba(127,255,110,.2),rgba(127,255,110,.05))">⚙️</div>
+      <div class="chisei-sec-text">
+        <div class="chisei-sec-title">4 — Core Skills Required</div>
+        <div class="chisei-sec-sub">Four skill domains for professional competence</div>
+      </div>
+      <div class="chisei-sec-chevron">▶</div>
+    </div>
+    <div class="chisei-sec-body" id="chisei-sb-4">
+      <div class="chisei-skill-grid">
+        <div class="chisei-skill-cat">
+          <div class="chisei-skill-cat-title">🧪 Engineering Knowledge</div>
+          <div class="chisei-skill-item">Soil mechanics — consolidation, shear strength, permeability</div>
+          <div class="chisei-skill-item">Rock mechanics — RQD, core recovery, rock classification</div>
+          <div class="chisei-skill-item">Engineering geology — stratigraphy, geological mapping, fault zones</div>
+          <div class="chisei-skill-item">Geotechnical seismology — Vs30, liquefaction assessment, site amplification</div>
+        </div>
+        <div class="chisei-skill-cat">
+          <div class="chisei-skill-cat-title">🔩 Field Investigation Skills</div>
+          <div class="chisei-skill-item">Boring investigation supervision — rig operation and quality control</div>
+          <div class="chisei-skill-item">SPT execution — hammer energy, blow count recording, N-value correction</div>
+          <div class="chisei-skill-item">Soil and rock sampling — disturbed, undisturbed, core sampling techniques</div>
+          <div class="chisei-skill-item">Groundwater observation — standpipes, recovery tests, artesian conditions</div>
+        </div>
+        <div class="chisei-skill-cat">
+          <div class="chisei-skill-cat-title">📊 Data Analysis Skills</div>
+          <div class="chisei-skill-item">Stratigraphy interpretation — layer correlation between multiple boreholes</div>
+          <div class="chisei-skill-item">Soil classification — JGS and Unified Soil Classification systems</div>
+          <div class="chisei-skill-item">Geological cross sections — drawing subsurface profiles from borehole data</div>
+          <div class="chisei-skill-item">N-value interpretation — bearing capacity, liquefaction potential, SPT correlations</div>
+        </div>
+        <div class="chisei-skill-cat">
+          <div class="chisei-skill-cat-title">📝 Professional Skills</div>
+          <div class="chisei-skill-item">Report writing — Japanese 調査報告書 format and technical documentation</div>
+          <div class="chisei-skill-item">Safety management — Japanese construction site safety laws and protocols</div>
+          <div class="chisei-skill-item">Investigation planning — borehole layout, test selection, scope management</div>
+          <div class="chisei-skill-item">Site communication — Japanese technical vocabulary and team coordination</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SECTION 5: Learning Roadmap ── -->
+  <div class="chisei-section-card">
+    <div class="chisei-sec-hdr" id="chisei-sh-5" data-action="chiseiToggleSection(5)">
+      <div class="chisei-sec-icon" style="background:linear-gradient(135deg,rgba(255,215,0,.2),rgba(255,215,0,.05))">🗺️</div>
+      <div class="chisei-sec-text">
+        <div class="chisei-sec-title">5 — Step-by-Step Learning Roadmap</div>
+        <div class="chisei-sec-sub">Check off tasks as you complete them — progress updates automatically</div>
+      </div>
+      <div class="chisei-sec-chevron">▶</div>
+    </div>
+    <div class="chisei-sec-body" id="chisei-sb-5">
+      <div class="chisei-levels">
+
+        <!-- LEVEL 1 -->
+        <div class="chisei-level" style="background:rgba(127,255,110,.03)">
+          <div class="chisei-level-hdr" data-action="chiseiToggleLevel('l1')">
+            <div class="chisei-level-num" style="background:rgba(127,255,110,.15);color:var(--accent3)">L1</div>
+            <div class="chisei-level-info">
+              <div class="chisei-level-title">Basic Understanding</div>
+              <div class="chisei-level-sub">Geology · Soil Mechanics · Japanese Technical Vocabulary</div>
+            </div>
+            <div class="chisei-level-prog" id="chisei-lp-l1">0/3</div>
+          </div>
+          <div class="chisei-level-body open" id="chisei-lb-l1">
+            <div class="chisei-task" data-tid="chisei-l1-1" data-action="chiseiToggleTask('chisei-l1-1')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Geology Basics</div>
+                <div class="chisei-task-desc">Understand rock types (igneous, sedimentary, metamorphic), geological formations common in Japan, quaternary deposits, and basic stratigraphic principles. Study how Japan's geology relates to earthquakes and ground behavior.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="chisei-l1-2" data-action="chiseiToggleTask('chisei-l1-2')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Soil Mechanics</div>
+                <div class="chisei-task-desc">Master consolidation theory, shear strength (Mohr-Coulomb), permeability, and effective stress. Understand how these properties connect to field investigation results and engineering decisions.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="chisei-l1-3" data-action="chiseiToggleTask('chisei-l1-3')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Japanese Technical Vocabulary</div>
+                <div class="chisei-task-desc">Learn the 20 essential field vocabulary terms in Section 3 above. Practice using them in context — drilling operations, morning meetings, and daily reports. Communication confidence comes from vocabulary mastery.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LEVEL 2 -->
+        <div class="chisei-level" style="background:rgba(0,212,255,.03)">
+          <div class="chisei-level-hdr" data-action="chiseiToggleLevel('l2')">
+            <div class="chisei-level-num" style="background:rgba(0,212,255,.15);color:var(--accent)">L2</div>
+            <div class="chisei-level-info">
+              <div class="chisei-level-title">Field Investigation</div>
+              <div class="chisei-level-sub">Boring · SPT · Sampling · Groundwater Observation</div>
+            </div>
+            <div class="chisei-level-prog" id="chisei-lp-l2">0/4</div>
+          </div>
+          <div class="chisei-level-body" id="chisei-lb-l2">
+            <div class="chisei-task" data-tid="chisei-l2-1" data-action="chiseiToggleTask('chisei-l2-1')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Boring Investigation (ボーリング調査)</div>
+                <div class="chisei-task-desc">Learn rotary drilling methods used in Japan, casing installation, drill fluid management, and borehole stabilization. Understand JIS A 1219 standard requirements for boring operations and quality control procedures.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="chisei-l2-2" data-action="chiseiToggleTask('chisei-l2-2')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Standard Penetration Test — SPT (標準貫入試験)</div>
+                <div class="chisei-task-desc">Master the full SPT procedure: hammer drop height, blow count recording, split spoon sampler, N-value interpretation. Learn JIS A 1219 specifications and how N-values are used for bearing capacity and liquefaction assessment in Japan.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="chisei-l2-3" data-action="chiseiToggleTask('chisei-l2-3')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Soil Sampling (試料採取)</div>
+                <div class="chisei-task-desc">Understand disturbed vs undisturbed sampling methods. Practice thin-wall tube sampling (JIS A 1202), Denison sampler use, and sample labeling. Learn how to assess sample quality and decide sampling intervals based on investigation objectives.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="chisei-l2-4" data-action="chiseiToggleTask('chisei-l2-4')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Groundwater Observation (地下水位測定)</div>
+                <div class="chisei-task-desc">Learn standpipe installation, water level measurement with electrical probes, and recovery test procedures. Understand the difference between static water table, artesian pressure, and perched water conditions common in Japan's alluvial plains.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LEVEL 3 -->
+        <div class="chisei-level" style="background:rgba(168,85,247,.03)">
+          <div class="chisei-level-hdr" data-action="chiseiToggleLevel('l3')">
+            <div class="chisei-level-num" style="background:rgba(168,85,247,.15);color:var(--purple)">L3</div>
+            <div class="chisei-level-info">
+              <div class="chisei-level-title">Data Interpretation</div>
+              <div class="chisei-level-sub">Stratigraphy · Soil Classification · Cross Sections</div>
+            </div>
+            <div class="chisei-level-prog" id="chisei-lp-l3">0/3</div>
+          </div>
+          <div class="chisei-level-body" id="chisei-lb-l3">
+            <div class="chisei-task" data-tid="chisei-l3-1" data-action="chiseiToggleTask('chisei-l3-1')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Stratigraphy Interpretation</div>
+                <div class="chisei-task-desc">Learn to read 地質柱状図 (borehole logs), identify stratigraphic boundaries, correlate layers between multiple boreholes, and recognize geological anomalies. Understand Japan's common alluvial sequences — sands, gravels, clays, and volcanic ash layers.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="chisei-l3-2" data-action="chiseiToggleTask('chisei-l3-2')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Soil Classification (地盤分類)</div>
+                <div class="chisei-task-desc">Master the JGS soil classification system used in Japan. Learn to classify soils by particle size, plasticity, consistency, and color using standardized Japanese descriptions. Understand how Japanese classifications map to international Unified Soil Classification (USC) codes.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="chisei-l3-3" data-action="chiseiToggleTask('chisei-l3-3')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Geological Cross Sections (地質断面図)</div>
+                <div class="chisei-task-desc">Practice drawing and interpreting geological cross sections from borehole data. Learn how to interpolate between boreholes, show fault zones, represent groundwater levels, and present findings clearly in Japanese investigation report formats.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LEVEL 4 -->
+        <div class="chisei-level" style="background:rgba(255,215,0,.02)">
+          <div class="chisei-level-hdr" data-action="chiseiToggleLevel('l4')">
+            <div class="chisei-level-num" style="background:rgba(255,215,0,.15);color:var(--gold)">L4</div>
+            <div class="chisei-level-info">
+              <div class="chisei-level-title">Investigation Planning</div>
+              <div class="chisei-level-sub">Borehole Layout · Test Selection · Report Structure</div>
+            </div>
+            <div class="chisei-level-prog" id="chisei-lp-l4">0/3</div>
+          </div>
+          <div class="chisei-level-body" id="chisei-lb-l4">
+            <div class="chisei-task" data-tid="chisei-l4-1" data-action="chiseiToggleTask('chisei-l4-1')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Borehole Layout Design</div>
+                <div class="chisei-task-desc">Learn to determine the number, spacing, and depth of boreholes based on project type — building foundations, road embankments, tunnels, slopes. Study Japanese public works investigation standards (道路土工調査指針, 建築基礎設計指針) for minimum borehole requirements.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="chisei-l4-2" data-action="chiseiToggleTask('chisei-l4-2')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Selecting Investigation Methods</div>
+                <div class="chisei-task-desc">Understand when to use SPT vs CPT vs geophysical methods. Learn cost-effectiveness considerations, ground condition suitability, and Japanese procurement rules for public investigation contracts. Practice selecting investigation programs for different ground conditions and project objectives.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="chisei-l4-3" data-action="chiseiToggleTask('chisei-l4-3')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Investigation Report Structure (調査報告書)</div>
+                <div class="chisei-task-desc">Study the standard sections of Japanese 地質調査報告書: introduction, investigation purpose, methods, results (borehole logs, cross sections), analysis, and engineering conclusions. Practice formatting N-value tables, attaching lab test results, and writing professional Japanese technical summaries.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LEVEL 5 -->
+        <div class="chisei-level" style="background:rgba(255,107,53,.02)">
+          <div class="chisei-level-hdr" data-action="chiseiToggleLevel('l5')">
+            <div class="chisei-level-num" style="background:rgba(255,107,53,.15);color:var(--accent2)">L5</div>
+            <div class="chisei-level-info">
+              <div class="chisei-level-title">Professional Practice</div>
+              <div class="chisei-level-sub">Report Writing · Engineering Judgement · Safety Management</div>
+            </div>
+            <div class="chisei-level-prog" id="chisei-lp-l5">0/3</div>
+          </div>
+          <div class="chisei-level-body" id="chisei-lb-l5">
+            <div class="chisei-task" data-tid="chisei-l5-1" data-action="chiseiToggleTask('chisei-l5-1')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Report Writing (調査報告書)</div>
+                <div class="chisei-task-desc">Develop professional-level report writing skills using Japanese geotechnical report conventions. Learn how to present data objectively, write technical conclusions that clients and designers can act on, and structure deliverables according to contract requirements and JGS guidelines.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="chisei-l5-2" data-action="chiseiToggleTask('chisei-l5-2')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Engineering Judgement</div>
+                <div class="chisei-task-desc">Learn to handle ambiguous site data, unusual ground conditions, and unexpected findings during investigation. Develop decision-making skills for when to extend borehole depth, request additional testing, or halt operations due to unexpected hazards. Practice identifying anomalies from real Japanese case studies.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="chisei-l5-3" data-action="chiseiToggleTask('chisei-l5-3')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Safety Management (安全管理)</div>
+                <div class="chisei-task-desc">Study Japanese construction site safety laws (労働安全衛生法). Learn daily safety protocols: 朝礼 procedures, KY (危険予知) risk identification activities, PPE requirements, borehole edge protection, underground utility checks, and emergency response procedures specific to drilling operations.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LEVEL 6 -->
+        <div class="chisei-level" style="background:rgba(255,71,87,.02)">
+          <div class="chisei-level-hdr" data-action="chiseiToggleLevel('l6')">
+            <div class="chisei-level-num" style="background:rgba(255,71,87,.15);color:var(--danger)">L6</div>
+            <div class="chisei-level-info">
+              <div class="chisei-level-title">Exam Preparation</div>
+              <div class="chisei-level-sub">Past Questions · Case Studies · Investigation Design Problems</div>
+            </div>
+            <div class="chisei-level-prog" id="chisei-lp-l6">0/3</div>
+          </div>
+          <div class="chisei-level-body" id="chisei-lb-l6">
+            <div class="chisei-task" data-tid="chisei-l6-1" data-action="chiseiToggleTask('chisei-l6-1')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Past Exam Questions (過去問)</div>
+                <div class="chisei-task-desc">Review written exam questions from previous 地質調査技士 examinations. Focus on topics including SPT procedures, soil classification, geological logging, groundwater, report writing, and Japanese investigation standards. The Japan Foundation Engineering Association (地盤工学会) publishes past exam materials.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="chisei-l6-2" data-action="chiseiToggleTask('chisei-l6-2')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Case Studies (事例研究)</div>
+                <div class="chisei-task-desc">Analyze real Japanese ground investigation scenarios — foundation failures, slope instabilities, liquefaction events. Study how adequate investigation could have identified risks early. Japanese Geotechnical Journal (地盤工学会誌) contains published case studies from actual projects.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="chisei-l6-3" data-action="chiseiToggleTask('chisei-l6-3')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Investigation Design Problems</div>
+                <div class="chisei-task-desc">Practice designing complete ground investigation programs from project brief to deliverable plan. Given a project description (building type, site location, ground conditions), produce a borehole layout, test schedule, sampling plan, and report outline. This is the core competency tested in the practical exam portion.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- end .chisei-levels -->
+    </div>
+  </div>
+
+  <!-- ── SECTION 6: Progress Summary ── -->
+  <div class="chisei-section-card">
+    <div class="chisei-sec-hdr" id="chisei-sh-6" data-action="chiseiToggleSection(6)">
+      <div class="chisei-sec-icon" style="background:linear-gradient(135deg,rgba(0,212,255,.2),rgba(168,85,247,.1))">📈</div>
+      <div class="chisei-sec-text">
+        <div class="chisei-sec-title">6 — Progress Overview</div>
+        <div class="chisei-sec-sub">Your learning status across all 6 levels</div>
+      </div>
+      <div class="chisei-sec-chevron">▶</div>
+    </div>
+    <div class="chisei-sec-body" id="chisei-sb-6">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px" id="chisei-level-summary">
+        <!-- rendered by JS -->
+      </div>
+      <div style="padding:14px 16px;background:rgba(0,212,255,.05);border-radius:10px;border:1px solid rgba(0,212,255,.15)">
+        <div style="font-size:12px;font-weight:700;color:var(--accent);font-family:'JetBrains Mono',monospace;letter-spacing:.6px;text-transform:uppercase;margin-bottom:8px">EXAM ELIGIBILITY REQUIREMENTS</div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.7">
+          To apply for the 地質調査技士 exam, candidates must demonstrate <strong style="color:var(--text)">field investigation experience</strong>. University graduates need 2 years; college graduates need 4 years; high school graduates need 7 years of documented geological investigation work. The examination is held annually, typically in October.
+        </div>
+      </div>
+      <div style="margin-top:12px;padding:14px 16px;background:rgba(255,215,0,.04);border-radius:10px;border:1px solid rgba(255,215,0,.2)">
+        <div style="font-size:12px;font-weight:700;color:var(--gold);font-family:'JetBrains Mono',monospace;letter-spacing:.6px;text-transform:uppercase;margin-bottom:8px">EXAM STRUCTURE</div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.7">
+          <strong style="color:var(--text)">Written Exam:</strong> Multiple choice — geology, soil mechanics, investigation methods, standards, and safety. &nbsp;
+          <strong style="color:var(--text)">Practical Exam:</strong> Investigation planning problem — design a ground investigation from a project brief. &nbsp;
+          Passing score: typically 60% or above on each section.
+        </div>
+      </div>
+      <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-primary" data-action="showPage('study');showTopic('spt')">📚 Review SPT Module</button>
+        <button class="btn btn-outline" data-action="showPage('quiz')">⚡ Practice Quiz</button>
+        <button class="btn btn-outline" data-action="showPage('flashcards')">🃏 Flashcards</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end #page-chisei -->
 
 <!-- AI TUTOR — FULLY OFFLINE -->
 <div id="page-ai" class="page">
@@ -14997,8 +15763,138 @@ function expandCase(id) {
 
 // v6 page routing is already handled inside the original showPage function above.
 
+// ─── 地質調査技士 Progress Tracking ────────────────────────────────────────────
 
+(function() {
+  var CHISEI_KEY = 'chisei-progress';
+  var CHISEI_LEVELS = {
+    l1: { total: 3,  title: 'Foundation Knowledge',          color: '#57d464' },
+    l2: { total: 4,  title: 'Field Investigation',           color: '#00d4ff' },
+    l3: { total: 3,  title: 'Data Analysis & Logging',       color: '#a855f7' },
+    l4: { total: 3,  title: 'Investigation Planning',        color: '#f59e0b' },
+    l5: { total: 3,  title: 'Professional Practice',         color: '#ff6b35' },
+    l6: { total: 3,  title: 'Exam Preparation',              color: '#ff4757' }
+  };
+  var CHISEI_TOTAL = 19;
 
+  function chiseiLoadProgress() {
+    try { return JSON.parse(localStorage.getItem(CHISEI_KEY) || '{}'); }
+    catch(e) { return {}; }
+  }
+
+  function chiseiSaveProgress(data) {
+    try { localStorage.setItem(CHISEI_KEY, JSON.stringify(data)); }
+    catch(e) {}
+  }
+
+  function chiseiCalcPct(data) {
+    var done = 0;
+    Object.keys(data).forEach(function(k) { if (data[k]) done++; });
+    return { done: done, pct: Math.round(done / CHISEI_TOTAL * 100) };
+  }
+
+  function chiseiUpdateUI() {
+    var data = chiseiLoadProgress();
+    // Update individual task states
+    document.querySelectorAll('#page-chisei .chisei-task[data-tid]').forEach(function(el) {
+      var tid = el.getAttribute('data-tid');
+      if (data[tid]) el.classList.add('done');
+      else el.classList.remove('done');
+    });
+    // Update level progress counters
+    Object.keys(CHISEI_LEVELS).forEach(function(lk) {
+      var total = CHISEI_LEVELS[lk].total;
+      var done = 0;
+      for (var i = 1; i <= total; i++) {
+        if (data['chisei-' + lk + '-' + i]) done++;
+      }
+      var el = document.getElementById('chisei-lp-' + lk);
+      if (el) el.textContent = done + '/' + total;
+    });
+    // Update header progress bar
+    var s = chiseiCalcPct(data);
+    var fill = document.getElementById('chisei-progress-fill');
+    var cnt  = document.getElementById('chisei-progress-count');
+    var pct  = document.getElementById('chisei-progress-pct');
+    if (fill) fill.style.width = s.pct + '%';
+    if (cnt)  cnt.textContent  = s.done + ' / ' + CHISEI_TOTAL + ' tasks';
+    if (pct)  pct.textContent  = s.pct + '%';
+    // Render level summary
+    chiseiRenderLevelSummary(data);
+    // Sync home card
+    chiseiUpdateHomeCard();
+  }
+
+  function chiseiUpdateHomeCard() {
+    var data = chiseiLoadProgress();
+    var s = chiseiCalcPct(data);
+    var fill  = document.getElementById('chisei-home-fill');
+    var label = document.getElementById('chisei-home-label');
+    if (fill)  fill.style.width = s.pct + '%';
+    if (label) label.textContent = s.pct + '% Coverage';
+  }
+
+  function chiseiRenderLevelSummary(data) {
+    var el = document.getElementById('chisei-level-summary');
+    if (!el) return;
+    var html = '';
+    Object.keys(CHISEI_LEVELS).forEach(function(lk) {
+      var lv = CHISEI_LEVELS[lk];
+      var done = 0;
+      for (var i = 1; i <= lv.total; i++) {
+        if (data['chisei-' + lk + '-' + i]) done++;
+      }
+      var pct = Math.round(done / lv.total * 100);
+      html += '<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:12px;text-align:center">' +
+        '<div style="font-size:11px;font-weight:700;color:' + lv.color + ';margin-bottom:6px;font-family:\'JetBrains Mono\',monospace">' + lk.toUpperCase() + '</div>' +
+        '<div style="font-size:10px;color:var(--text2);margin-bottom:8px">' + lv.title + '</div>' +
+        '<div style="background:rgba(255,255,255,.07);border-radius:4px;height:6px;overflow:hidden">' +
+          '<div style="height:100%;width:' + pct + '%;background:' + lv.color + ';transition:width .4s ease;border-radius:4px"></div>' +
+        '</div>' +
+        '<div style="font-size:11px;color:var(--text2);margin-top:6px;font-family:\'JetBrains Mono\',monospace">' + done + ' / ' + lv.total + '</div>' +
+        '</div>';
+    });
+    el.innerHTML = DOMPurify.sanitize(html);
+  }
+
+  window.chiseiToggleTask = function(tid) {
+    var data = chiseiLoadProgress();
+    data[tid] = !data[tid];
+    chiseiSaveProgress(data);
+    chiseiUpdateUI();
+  };
+
+  window.chiseiToggleSection = function(idx) {
+    var hdr  = document.getElementById('chisei-sh-' + idx);
+    var body = document.getElementById('chisei-sb-' + idx);
+    if (!hdr || !body) return;
+    var isOpen = body.classList.contains('open');
+    hdr.classList.toggle('open', !isOpen);
+    body.classList.toggle('open', !isOpen);
+  };
+
+  window.chiseiToggleLevel = function(lk) {
+    var body = document.getElementById('chisei-lb-' + lk);
+    if (!body) return;
+    body.classList.toggle('open');
+  };
+
+  window.chiseiInit = function() {
+    chiseiUpdateUI();
+    // Ensure section 1 is open by default if nothing else is
+    var sb1 = document.getElementById('chisei-sb-1');
+    var sh1 = document.getElementById('chisei-sh-1');
+    if (sb1 && !sb1.classList.contains('open')) {
+      sb1.classList.add('open');
+      if (sh1) sh1.classList.add('open');
+    }
+  };
+
+  // Init home card on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    chiseiUpdateHomeCard();
+  });
+})();
 
 </script>
 </body>
