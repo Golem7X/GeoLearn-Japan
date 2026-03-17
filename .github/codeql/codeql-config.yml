@@ -3,19 +3,13 @@
 
 name: "GeoLearn CodeQL Config"
 
-## Use the security-and-quality suite but exclude rules that generate
-## false positives for DOMPurify-sanitized innerHTML assignments.
+## Use the security-and-quality suite (already includes security-extended).
 ## The app uses DOMPurify 3.x + Trusted Types — all DOM sinks are sanitized.
 
 queries:
   - uses: security-and-quality
-  - uses: security-extended
 
 query-filters:
-  ## Allow most security queries through
-  - include:
-      tags contain: security
-
   ## Exclude specific rules that are false positives here:
   ## js/xss-through-dom — all innerHTML in this app goes through DOMPurify
   ##   via the Trusted Types default policy. The taint analysis doesn't

@@ -13216,6 +13216,8 @@ function toggleStudyMode(){
     btn.classList.toggle('active-mode', studyModeActive);
   }
   if(!studyModeActive && focusModeActive){ focusModeActive=false; document.body.classList.remove('focus-mode'); const fb=document.getElementById('focus-mode-btn'); if(fb){fb.textContent='🎯 Focus Mode';fb.classList.remove('active-mode');} }
+  const logoSrc = studyModeActive ? 'assets/brand/geolearn_logo_light.svg' : 'assets/brand/geolearn_logo.svg';
+  document.querySelectorAll('.app-header-logo, .hero-brand-full-logo').forEach(img => { img.src = logoSrc; });
   localStorage.setItem('geolearn-study-mode', studyModeActive ? '1' : '0');
   showNotif(studyModeActive ? '☀️ Study Mode ON — soft colors, readable fonts' : '🌙 Dark Mode restored');
 }
@@ -13294,6 +13296,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
     document.body.classList.add('study-mode');
     const btn=document.getElementById('study-mode-btn');
     if(btn){btn.textContent='🌙 Dark Mode';btn.classList.add('active-mode');}
+    document.querySelectorAll('.app-header-logo, .hero-brand-full-logo').forEach(img => { img.src = 'assets/brand/geolearn_logo_light.svg'; });
   }
   startSpacedReviewTimer();
 });

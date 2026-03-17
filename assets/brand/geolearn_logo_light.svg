@@ -55,13 +55,13 @@
     <path d="M0 17 L-26 5" stroke="#885020" stroke-width="0.4" opacity="0.5"/>
   </g>
 
-  <!-- "GeoLearn" text - Geo is white, Learn is accent teal -->
+  <!-- "GeoLearn" text - Geo is dark navy, Learn is dark teal -->
   <text x="100" y="48" font-family="'Segoe UI','Helvetica Neue','Arial',sans-serif" font-size="38" font-weight="700" letter-spacing="-0.5">
-    <tspan fill="#e8eaf0">Geo</tspan><tspan fill="#00d4ff">Learn</tspan>
+    <tspan fill="#1A1A2E">Geo</tspan><tspan fill="#1b6a87">Learn</tspan>
   </text>
 
   <!-- "BY MYO_Geo_Orgs TM" -->
-  <text x="100" y="74" font-family="'Segoe UI','Helvetica Neue','Arial',sans-serif" font-size="16" font-weight="700" fill="#8892a4" letter-spacing="1.8">
+  <text x="100" y="74" font-family="'Segoe UI','Helvetica Neue','Arial',sans-serif" font-size="16" font-weight="700" fill="#3a4450" letter-spacing="1.8">
     BY MYO_Geo_Orgs<tspan font-size="9" baseline-shift="super">&#x2122;</tspan>
   </text>
 </svg>
