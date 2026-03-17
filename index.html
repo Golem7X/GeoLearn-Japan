@@ -3394,7 +3394,7 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 .chisei-task.done .chisei-task-title { color:var(--accent3); }
 .chisei-task-desc { font-size:12px;color:var(--text2);margin-top:3px;line-height:1.5; }
 </style>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-ruVIkj8LDV9ApkQmi8vIyWmSAjadxqOZbvrbm2nZg10='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data: blob: https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-QtKvlwVmzF0aRSw6v6rlRgS0bS/EZFVDWeU3Oq61weQ='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data: blob: https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
 </head>
 <body>
 
@@ -3611,12 +3611,13 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
       <div style="font-size:11px;color:var(--text2);margin-top:4px;font-family:'JetBrains Mono',monospace" id="chisei-home-label">0% Coverage</div>
       <div style="font-size:11px;color:var(--accent);margin-top:6px;font-family:'JetBrains Mono',monospace">→ Open Roadmap</div>
     </div>
-    <div class="card">
+    <div class="card chisei-home-card" data-action="showPage('butsuri');butsuriInit()" style="cursor:pointer;transition:border-color .2s" id="butsuri-home-card">
       <div style="font-size:20px;margin-bottom:8px">🌊</div>
       <div style="font-weight:700;font-size:16px">物理探査技士</div>
       <div style="font-size:12px;color:var(--text2);margin-top:4px">Geophysical Exploration Engineer</div>
-      <div class="progress-bar" style="margin-top:12px"><div class="progress-fill" style="width:28%"></div></div>
-      <div style="font-size:11px;color:var(--text2);margin-top:4px;font-family:'JetBrains Mono',monospace">28% Coverage</div>
+      <div class="progress-bar" style="margin-top:12px"><div class="progress-fill" id="butsuri-home-fill" style="width:0%"></div></div>
+      <div style="font-size:11px;color:var(--text2);margin-top:4px;font-family:'JetBrains Mono',monospace" id="butsuri-home-label">0% Coverage</div>
+      <div style="font-size:11px;color:var(--accent);margin-top:6px;font-family:'JetBrains Mono',monospace">→ Open Roadmap</div>
     </div>
     <div class="card">
       <div style="font-size:20px;margin-bottom:8px">🎓</div>
@@ -4248,7 +4249,7 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
         <div style="margin-top:10px;font-size:12px;color:var(--accent);font-family:'JetBrains Mono',monospace">→ Open Study Roadmap</div>
       </div>
     </div>
-    <div class="road-stage">
+    <div class="road-stage" data-action="showPage('butsuri');butsuriInit()" style="cursor:pointer" title="Open 物理探査技士 Roadmap">
       <div class="road-dot">🌊</div>
       <div class="road-content">
         <div class="road-stage-num">STAGE 03</div>
@@ -4261,6 +4262,7 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
           <div class="road-skill">PS検層</div><div class="road-skill">Data Processing</div>
           <div class="road-skill">SeisImager / ReSIS</div>
         </div>
+        <div style="margin-top:10px;font-size:12px;color:var(--accent);font-family:'JetBrains Mono',monospace">→ Open Study Roadmap</div>
       </div>
     </div>
     <div class="road-stage">
@@ -4868,6 +4870,411 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
   </div>
 
 </div><!-- end #page-chisei -->
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     物理探査技士 — Geophysical Exploration Engineer Roadmap
+     ═══════════════════════════════════════════════════════════════════ -->
+<div id="page-butsuri" class="page">
+  <div class="page-header">
+    <div class="page-title">物理探査技士 <span>Roadmap</span></div>
+    <div class="page-sub">// Geophysical Exploration Engineer Roadmap for Japan — 物理探査技士資格ロードマップ</div>
+  </div>
+
+  <div data-action="showPage('career')" class="chisei-back">← Career Roadmap</div>
+
+  <!-- Hero progress tracker -->
+  <div class="chisei-hero">
+    <div class="chisei-hero-badge">🌊 物理探査技士</div>
+    <div class="chisei-hero-title">Geophysical Exploration Engineer</div>
+    <div class="chisei-hero-sub">Master Japan's geophysical survey methods — seismic, electrical, EM, GPR, and gravity — for the national licensing exam</div>
+    <div class="chisei-progress-track">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <span style="font-size:12px;color:var(--text2)">Overall Progress</span>
+        <span style="font-size:12px;color:var(--accent);font-family:'JetBrains Mono',monospace" id="butsuri-progress-pct">0%</span>
+      </div>
+      <div class="progress-bar" style="height:8px"><div class="progress-fill" id="butsuri-progress-fill" style="width:0%"></div></div>
+      <div style="font-size:11px;color:var(--text2);margin-top:6px;font-family:'JetBrains Mono',monospace" id="butsuri-progress-count">0 / 19 tasks</div>
+    </div>
+  </div>
+
+  <!-- Section 1: Purpose -->
+  <div class="chisei-section-card">
+    <div class="chisei-sec-hdr open" id="butsuri-sh-1" data-action="butsuriToggleSection(1)">
+      <div class="chisei-sec-icon" style="background:linear-gradient(135deg,rgba(0,212,255,.2),rgba(0,212,255,.05))">🎯</div>
+      <div class="chisei-sec-text">
+        <div class="chisei-sec-title">1 — Purpose of the Profession</div>
+        <div class="chisei-sec-sub">Why geophysical engineers matter · responsibilities · license categories</div>
+      </div>
+      <div class="chisei-sec-chevron">▶</div>
+    </div>
+    <div class="chisei-sec-body open" id="butsuri-sb-1">
+      <p style="font-size:13px;line-height:1.8;color:var(--text2);margin-bottom:16px">物理探査技士 (Butsuri Tansa Gishi) are licensed geophysical engineers responsible for planning and executing non-invasive subsurface investigations using elastic waves, electricity, electromagnetism, gravity, and magnetism. They provide critical data for civil engineering, foundation design, earthquake hazard assessment, and natural resource evaluation — all without drilling a single borehole.</p>
+      <div class="chisei-resp-grid">
+        <div class="chisei-resp-item"><div class="chisei-resp-icon">🌐</div><div><strong>Subsurface Imaging</strong><br><span style="color:var(--text2);font-size:12px">Produce 2D/3D images of underground structure without excavation</span></div></div>
+        <div class="chisei-resp-item"><div class="chisei-resp-icon">📐</div><div><strong>Velocity Profiling</strong><br><span style="color:var(--text2);font-size:12px">Determine P-wave and S-wave velocity distributions for earthquake response analysis</span></div></div>
+        <div class="chisei-resp-item"><div class="chisei-resp-icon">⚡</div><div><strong>Resistivity Mapping</strong><br><span style="color:var(--text2);font-size:12px">Map groundwater, clay layers, and contamination plumes via electrical methods</span></div></div>
+        <div class="chisei-resp-item"><div class="chisei-resp-icon">📡</div><div><strong>Utility Detection</strong><br><span style="color:var(--text2);font-size:12px">Locate buried pipes, cables, and voids using GPR and EM methods</span></div></div>
+      </div>
+      <div class="chisei-pillars">
+        <div class="chisei-pillar" style="border-color:rgba(0,212,255,.3)"><div class="chisei-pillar-icon">🏗️</div><div class="chisei-pillar-title">Civil Engineering Support</div><div class="chisei-pillar-desc">Foundation assessment, slope stability, tunnel face evaluation</div></div>
+        <div class="chisei-pillar" style="border-color:rgba(168,85,247,.3)"><div class="chisei-pillar-icon">🌋</div><div class="chisei-pillar-title">Earthquake Engineering</div><div class="chisei-pillar-desc">Site amplification, liquefaction potential, Vs30 determination</div></div>
+        <div class="chisei-pillar" style="border-color:rgba(87,212,100,.3)"><div class="chisei-pillar-icon">💧</div><div class="chisei-pillar-title">Environmental Surveys</div><div class="chisei-pillar-desc">Groundwater monitoring, contamination mapping, landfill assessment</div></div>
+        <div class="chisei-pillar" style="border-color:rgba(245,158,11,.3)"><div class="chisei-pillar-icon">⛏️</div><div class="chisei-pillar-title">Resource Exploration</div><div class="chisei-pillar-desc">Mineral, geothermal, and aggregate deposit identification</div></div>
+      </div>
+      <div style="background:rgba(0,212,255,.05);border:1px solid rgba(0,212,255,.15);border-radius:8px;padding:12px;margin-top:12px;font-size:12px;color:var(--text2)">
+        <strong style="color:var(--accent)">License Categories (部門):</strong> The exam covers two specialization tracks —
+        <strong style="color:var(--text1)">探査技術部門</strong> (Survey Technology — field operations) and
+        <strong style="color:var(--text1)">総合技術監理部門</strong> (Integrated Technical Management — senior supervisory role).
+        Most field engineers first qualify in the Survey Technology category.
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 2: Daily Work -->
+  <div class="chisei-section-card">
+    <div class="chisei-sec-hdr" id="butsuri-sh-2" data-action="butsuriToggleSection(2)">
+      <div class="chisei-sec-icon" style="background:linear-gradient(135deg,rgba(87,212,100,.2),rgba(87,212,100,.05))">🌅</div>
+      <div class="chisei-sec-text">
+        <div class="chisei-sec-title">2 — Daily Work on Site</div>
+        <div class="chisei-sec-sub">What a geophysical engineer actually does day-to-day in the field</div>
+      </div>
+      <div class="chisei-sec-chevron">▶</div>
+    </div>
+    <div class="chisei-sec-body" id="butsuri-sb-2">
+      <div class="chisei-timeline">
+        <div class="chisei-tb"><div class="chisei-tb-dot" style="background:#57d464"></div><div class="chisei-tb-content"><div class="chisei-tb-time">朝礼 (Morning)</div><div class="chisei-tb-title">Site Setup & Safety Briefing</div><div class="chisei-tb-desc">Conduct KY (危険予知) risk identification. Lay out measurement lines (測線), mark receiver/electrode positions, check equipment calibration, confirm utility clearance with client.</div></div></div>
+        <div class="chisei-tb"><div class="chisei-tb-dot" style="background:#00d4ff"></div><div class="chisei-tb-content"><div class="chisei-tb-time">午前 (Field Work)</div><div class="chisei-tb-title">Data Acquisition</div><div class="chisei-tb-desc">Operate seismographs (震源・受振器), resistivity meters, GPR antenna, or gravity meters depending on the survey type. Trigger seismic sources (hammer blow/vibrator), record waveforms, check signal quality in real time.</div></div></div>
+        <div class="chisei-tb"><div class="chisei-tb-dot" style="background:#a855f7"></div><div class="chisei-tb-content"><div class="chisei-tb-time">昼休み (Midday)</div><div class="chisei-tb-title">Field QC Check</div><div class="chisei-tb-desc">Review raw data on laptop — check shot gathers, verify geophone coupling, identify noise sources. Re-acquire bad records. Document measurements in field log (野帳).</div></div></div>
+        <div class="chisei-tb"><div class="chisei-tb-dot" style="background:#f59e0b"></div><div class="chisei-tb-content"><div class="chisei-tb-time">午後 (Afternoon)</div><div class="chisei-tb-title">Data Processing & Pack-up</div><div class="chisei-tb-desc">Begin first-pass processing on-site: pick first arrivals, apply filters, generate preliminary velocity model. Pack equipment, restore measurement lines, complete field record forms (フィールドシート).</div></div></div>
+        <div class="chisei-tb"><div class="chisei-tb-dot" style="background:#ff4757"></div><div class="chisei-tb-content"><div class="chisei-tb-time">事務所 (Office)</div><div class="chisei-tb-title">Analysis & Reporting</div><div class="chisei-tb-desc">Process full dataset using specialized software (SeisImager, ReSIS-2D, REFLEXW). Generate velocity cross-sections, resistivity tomography images, interpreted geological profiles. Draft technical report.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3: Vocabulary -->
+  <div class="chisei-section-card">
+    <div class="chisei-sec-hdr" id="butsuri-sh-3" data-action="butsuriToggleSection(3)">
+      <div class="chisei-sec-icon" style="background:linear-gradient(135deg,rgba(168,85,247,.2),rgba(168,85,247,.05))">📖</div>
+      <div class="chisei-sec-text">
+        <div class="chisei-sec-title">3 — Japanese Technical Vocabulary</div>
+        <div class="chisei-sec-sub">20 essential geophysical survey terms in Japanese</div>
+      </div>
+      <div class="chisei-sec-chevron">▶</div>
+    </div>
+    <div class="chisei-sec-body" id="butsuri-sb-3">
+      <table class="chisei-vocab-table">
+        <thead><tr><th>日本語</th><th>読み方</th><th>English</th><th>Field Meaning</th></tr></thead>
+        <tbody>
+          <tr><td>物理探査</td><td>ぶつりたんさ</td><td>Geophysical Exploration</td><td>Non-invasive subsurface investigation using physical properties</td></tr>
+          <tr><td>弾性波探査</td><td>だんせいはたんさ</td><td>Seismic Survey</td><td>Uses elastic wave propagation to image subsurface structure</td></tr>
+          <tr><td>屈折法</td><td>くっせつほう</td><td>Refraction Method</td><td>Seismic refraction for determining shallow velocity layers</td></tr>
+          <tr><td>反射法</td><td>はんしゃほう</td><td>Reflection Method</td><td>Seismic reflection for imaging deep geological structures</td></tr>
+          <tr><td>表面波探査</td><td>ひょうめんはたんさ</td><td>Surface Wave Survey</td><td>MASW method — derives S-wave velocity (Vs) profile from surface waves</td></tr>
+          <tr><td>電気探査</td><td>でんきたんさ</td><td>Electrical Survey</td><td>Measures subsurface resistivity using injected electrical current</td></tr>
+          <tr><td>比抵抗</td><td>ひていこう</td><td>Resistivity (Ω·m)</td><td>Electrical property indicating rock/soil type and saturation</td></tr>
+          <tr><td>電磁探査</td><td>でんじたんさ</td><td>Electromagnetic Survey</td><td>EM induction methods for conductive layer mapping</td></tr>
+          <tr><td>地中レーダー</td><td>ちちゅうレーダー</td><td>GPR (Ground Penetrating Radar)</td><td>High-frequency radar for shallow utility and void detection</td></tr>
+          <tr><td>重力探査</td><td>じゅうりょくたんさ</td><td>Gravity Survey</td><td>Measures density contrast anomalies in the subsurface</td></tr>
+          <tr><td>走時曲線</td><td>そうじきょくせん</td><td>Travel-Time Curve</td><td>Plot of seismic wave arrival time vs. source-receiver distance</td></tr>
+          <tr><td>受振器</td><td>じゅしんき</td><td>Geophone</td><td>Ground motion sensor planted along measurement line</td></tr>
+          <tr><td>PS検層</td><td>ピーエスけんそう</td><td>PS Logging</td><td>Borehole measurement of P-wave and S-wave velocities</td></tr>
+          <tr><td>常時微動</td><td>じょうじびどう</td><td>Microtremor</td><td>Ambient ground vibration used for site amplification analysis</td></tr>
+          <tr><td>速度構造</td><td>そくどこうぞう</td><td>Velocity Structure</td><td>Layered model of seismic wave velocities in the ground</td></tr>
+          <tr><td>比抵抗断面図</td><td>ひていこうだんめんず</td><td>Resistivity Section</td><td>2D tomographic image of subsurface electrical resistivity</td></tr>
+          <tr><td>ノイズ除去</td><td>ノイズじょきょ</td><td>Noise Removal</td><td>Signal processing step to improve data quality (filtering)</td></tr>
+          <tr><td>地下水位</td><td>ちかすいい</td><td>Groundwater Level</td><td>Depth to phreatic surface — affects resistivity and seismic response</td></tr>
+          <tr><td>異常値</td><td>いじょうち</td><td>Anomaly Value</td><td>Deviation from background that indicates subsurface feature</td></tr>
+          <tr><td>解析断面図</td><td>かいせきだんめんず</td><td>Interpreted Section</td><td>Final geological cross-section drawn from processed geophysical data</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Section 4: Core Skills -->
+  <div class="chisei-section-card">
+    <div class="chisei-sec-hdr" id="butsuri-sh-4" data-action="butsuriToggleSection(4)">
+      <div class="chisei-sec-icon" style="background:linear-gradient(135deg,rgba(245,158,11,.2),rgba(245,158,11,.05))">⚙️</div>
+      <div class="chisei-sec-text">
+        <div class="chisei-sec-title">4 — Core Skills Required</div>
+        <div class="chisei-sec-sub">Technical competencies for qualified geophysical exploration engineers</div>
+      </div>
+      <div class="chisei-sec-chevron">▶</div>
+    </div>
+    <div class="chisei-sec-body" id="butsuri-sb-4">
+      <div class="chisei-skill-grid">
+        <div class="chisei-skill-card"><div class="chisei-skill-icon">🌊</div><div class="chisei-skill-title">Seismic Methods</div><div class="chisei-skill-list"><div class="chisei-skill-item">Refraction & reflection survey operation</div><div class="chisei-skill-item">MASW surface wave analysis (Vs profiling)</div><div class="chisei-skill-item">PS logging interpretation</div><div class="chisei-skill-item">Travel-time curve picking & inversion</div></div></div>
+        <div class="chisei-skill-card"><div class="chisei-skill-icon">⚡</div><div class="chisei-skill-title">Electrical & EM Methods</div><div class="chisei-skill-list"><div class="chisei-skill-item">Resistivity tomography (2D inversion)</div><div class="chisei-skill-item">Wenner / Schlumberger electrode arrays</div><div class="chisei-skill-item">GPR antenna selection & data interpretation</div><div class="chisei-skill-item">EM induction for conductive layer mapping</div></div></div>
+        <div class="chisei-skill-card"><div class="chisei-skill-icon">💻</div><div class="chisei-skill-title">Data Processing</div><div class="chisei-skill-list"><div class="chisei-skill-item">SeisImager, ReSIS-2D, REFLEXW software</div><div class="chisei-skill-item">Noise removal & filtering techniques</div><div class="chisei-skill-item">Velocity model building & inversion</div><div class="chisei-skill-item">Cross-section construction & geological interpretation</div></div></div>
+        <div class="chisei-skill-card"><div class="chisei-skill-icon">📊</div><div class="chisei-skill-title">Professional Skills</div><div class="chisei-skill-list"><div class="chisei-skill-item">Survey design for project objectives</div><div class="chisei-skill-item">Japanese technical report writing</div><div class="chisei-skill-item">Equipment maintenance & calibration</div><div class="chisei-skill-item">Site safety management (安全管理)</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 5: Learning Roadmap -->
+  <div class="chisei-section-card">
+    <div class="chisei-sec-hdr" id="butsuri-sh-5" data-action="butsuriToggleSection(5)">
+      <div class="chisei-sec-icon" style="background:linear-gradient(135deg,rgba(255,107,53,.2),rgba(255,107,53,.05))">🗺️</div>
+      <div class="chisei-sec-text">
+        <div class="chisei-sec-title">5 — 6-Level Learning Roadmap</div>
+        <div class="chisei-sec-sub">Step-by-step path from geophysics fundamentals to exam readiness</div>
+      </div>
+      <div class="chisei-sec-chevron">▶</div>
+    </div>
+    <div class="chisei-sec-body" id="butsuri-sb-5">
+      <div class="chisei-levels">
+
+        <!-- L1 -->
+        <div class="chisei-level" style="background:rgba(87,212,100,.02)">
+          <div class="chisei-level-hdr" data-action="butsuriToggleLevel('l1')">
+            <div class="chisei-level-num" style="background:rgba(87,212,100,.15);color:#57d464">L1</div>
+            <div class="chisei-level-info">
+              <div class="chisei-level-title">Foundation Knowledge</div>
+              <div class="chisei-level-sub">Geophysics Basics · Wave Theory · Exploration Methods Overview</div>
+            </div>
+            <div class="chisei-level-prog" id="butsuri-lp-l1">0/3</div>
+          </div>
+          <div class="chisei-level-body open" id="butsuri-lb-l1">
+            <div class="chisei-task" data-tid="butsuri-l1-1" data-action="butsuriToggleTask('butsuri-l1-1')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Geophysics Fundamentals (物理探査の基礎)</div>
+                <div class="chisei-task-desc">Study the four main branches of geophysical exploration: seismic (弾性波), electrical (電気), electromagnetic (電磁), and gravity/magnetic (重力・磁気). Understand the physical properties being measured — density, velocity, resistivity, susceptibility — and how they relate to soil and rock types in Japan. Learn the JGS (地盤工学会) geophysical survey standards.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="butsuri-l1-2" data-action="butsuriToggleTask('butsuri-l1-2')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Wave Theory (弾性波理論)</div>
+                <div class="chisei-task-desc">Understand P-waves (縦波/圧縮波) and S-waves (横波/せん断波): propagation, velocity (Vp, Vs), Snell's law of refraction, reflection coefficients, and wave mode conversion. Study how velocity contrasts between geological layers produce refracted and reflected arrivals. Derive Vs30 (30m平均S波速度) used in Japanese seismic design codes.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="butsuri-l1-3" data-action="butsuriToggleTask('butsuri-l1-3')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Survey Method Overview (探査手法概論)</div>
+                <div class="chisei-task-desc">Survey all major geophysical methods used in Japanese practice: seismic refraction (屈折法), MASW surface waves (表面波), electrical resistivity tomography (電気探査), GPR (地中レーダー), PS logging (PS検層), microtremor (常時微動), and gravity surveys (重力探査). For each, understand the target depth, resolution, required site conditions, and typical cost/time.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- L2 -->
+        <div class="chisei-level" style="background:rgba(0,212,255,.02)">
+          <div class="chisei-level-hdr" data-action="butsuriToggleLevel('l2')">
+            <div class="chisei-level-num" style="background:rgba(0,212,255,.15);color:#00d4ff">L2</div>
+            <div class="chisei-level-info">
+              <div class="chisei-level-title">Field Investigation Methods</div>
+              <div class="chisei-level-sub">Seismic · Electrical · PS Logging · Surface Waves</div>
+            </div>
+            <div class="chisei-level-prog" id="butsuri-lp-l2">0/4</div>
+          </div>
+          <div class="chisei-level-body" id="butsuri-lb-l2">
+            <div class="chisei-task" data-tid="butsuri-l2-1" data-action="butsuriToggleTask('butsuri-l2-1')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Seismic Refraction Survey (屈折法弾性波探査)</div>
+                <div class="chisei-task-desc">Learn the full workflow: lay out measurement line (測線), plant geophones (受振器) at regular intervals, trigger seismic source (hammer or drop weight), record seismograms. Understand cross-over distance, critical distance, and how to identify first arrivals from different layers. Practice on Japanese project case data with 24-channel setups.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="butsuri-l2-2" data-action="butsuriToggleTask('butsuri-l2-2')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Electrical Resistivity Survey (電気探査)</div>
+                <div class="chisei-task-desc">Master the Wenner and Schlumberger electrode array configurations used in Japan. Understand how to inject current through C electrodes and measure potential at P electrodes to compute apparent resistivity. Practice 2D ERT (Electrical Resistivity Tomography) data collection along profiles. Learn how groundwater, clay content, and contamination affect resistivity values in Japanese geological settings.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="butsuri-l2-3" data-action="butsuriToggleTask('butsuri-l2-3')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">PS Logging (PS検層)</div>
+                <div class="chisei-task-desc">Study borehole geophysical logging: up-hole (上方向), down-hole (下方向), and suspension PS logging (サスペンション検層). Learn to trigger seismic sources at surface and record waveforms in borehole at multiple depths to measure interval P-wave and S-wave velocities. Understand how PS data integrates with SPT N-values and soil classification in Japanese foundation engineering.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="butsuri-l2-4" data-action="butsuriToggleTask('butsuri-l2-4')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Surface Wave Survey — MASW (表面波探査)</div>
+                <div class="chisei-task-desc">Learn the MASW (Multichannel Analysis of Surface Waves) method widely used in Japan for Vs profiling without boreholes. Understand Rayleigh wave dispersion — how different frequencies sample different depths. Study the full MASW workflow: shot gather acquisition, frequency-velocity spectrum (f-v panel), dispersion curve picking, and Vs inversion. Compare results with PS logging data.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- L3 -->
+        <div class="chisei-level" style="background:rgba(168,85,247,.02)">
+          <div class="chisei-level-hdr" data-action="butsuriToggleLevel('l3')">
+            <div class="chisei-level-num" style="background:rgba(168,85,247,.15);color:#a855f7">L3</div>
+            <div class="chisei-level-info">
+              <div class="chisei-level-title">Data Analysis & Interpretation</div>
+              <div class="chisei-level-sub">Travel-Time Analysis · Resistivity Inversion · Anomaly Identification</div>
+            </div>
+            <div class="chisei-level-prog" id="butsuri-lp-l3">0/3</div>
+          </div>
+          <div class="chisei-level-body" id="butsuri-lb-l3">
+            <div class="chisei-task" data-tid="butsuri-l3-1" data-action="butsuriToggleTask('butsuri-l3-1')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Seismic Data Analysis (弾性波データ解析)</div>
+                <div class="chisei-task-desc">Learn first-arrival picking on seismograms, travel-time curve (走時曲線) construction, and intercept-time method for layer velocity/thickness calculation. Practice plus-minus method (±法) and generalized reciprocal method (GRM) for refractor mapping. Use SeisImager software to compute velocity models. Understand typical Vp and Vs ranges for Japanese alluvial, diluvial, and rock formations.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="butsuri-l3-2" data-action="butsuriToggleTask('butsuri-l3-2')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Resistivity Data Interpretation (電気探査データ解析)</div>
+                <div class="chisei-task-desc">Study apparent resistivity pseudosection construction, smoothness-constrained least-squares inversion (ReSIS-2D), and interpretation of the resulting true resistivity cross-section. Learn to identify geological features: low-resistivity zones (clayey/wet layers, contamination), high-resistivity zones (rock, dry gravel), and groundwater table position. Compare 2D resistivity sections with borehole log data.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="butsuri-l3-3" data-action="butsuriToggleTask('butsuri-l3-3')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Microtremor & GPR Analysis (常時微動・地中レーダー解析)</div>
+                <div class="chisei-task-desc">Learn H/V spectral ratio (Nakamura method) for site fundamental period (固有周期) and amplification factor estimation from microtremor records. Study GPR two-way travel time (双方向走時) to depth conversion using antenna frequency selection (250 MHz for utilities, 50 MHz for deeper targets). Practice interpreting GPR profiles for buried pipes, rebars, cavities, and layer boundaries.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- L4 -->
+        <div class="chisei-level" style="background:rgba(245,158,11,.02)">
+          <div class="chisei-level-hdr" data-action="butsuriToggleLevel('l4')">
+            <div class="chisei-level-num" style="background:rgba(245,158,11,.15);color:#f59e0b">L4</div>
+            <div class="chisei-level-info">
+              <div class="chisei-level-title">Survey Planning</div>
+              <div class="chisei-level-sub">Method Selection · Layout Design · Equipment & Safety</div>
+            </div>
+            <div class="chisei-level-prog" id="butsuri-lp-l4">0/3</div>
+          </div>
+          <div class="chisei-level-body" id="butsuri-lb-l4">
+            <div class="chisei-task" data-tid="butsuri-l4-1" data-action="butsuriToggleTask('butsuri-l4-1')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Method Selection (探査手法選定)</div>
+                <div class="chisei-task-desc">Develop the ability to recommend the most appropriate geophysical method(s) given project objectives, target depth, site constraints (urban noise, narrow access, buried utilities), budget, and required resolution. Practice matching survey types: MASW for Vs30 without boreholes, ERT for groundwater mapping, GPR for utility survey, PS logging for building design. Learn how to combine multiple methods for maximum information.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="butsuri-l4-2" data-action="butsuriToggleTask('butsuri-l4-2')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Survey Layout Design (測線計画)</div>
+                <div class="chisei-task-desc">Design optimal measurement line (測線) placement, receiver spacing, array length, and shot point locations for target depth and resolution requirements. Understand how geophone spacing controls the maximum depth of investigation in refraction surveys. Plan electrode spacing for ERT to achieve required penetration depth. Learn how to account for topographic corrections (地形補正) in hilly terrain surveys.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="butsuri-l4-3" data-action="butsuriToggleTask('butsuri-l4-3')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Equipment & Site Safety (機器管理・安全管理)</div>
+                <div class="chisei-task-desc">Study geophysical instrument specifications: seismograph channels and dynamic range, resistivity meter current injection limits, GPR antenna frequencies. Learn pre-survey equipment checks (機器点検) and field calibration procedures. Study Japanese road traffic management (交通規制) required for roadside surveys, buried utility locating procedures (埋設物確認), and electrical safety requirements for ground electrode surveys near power infrastructure.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- L5 -->
+        <div class="chisei-level" style="background:rgba(255,107,53,.02)">
+          <div class="chisei-level-hdr" data-action="butsuriToggleLevel('l5')">
+            <div class="chisei-level-num" style="background:rgba(255,107,53,.15);color:var(--accent2)">L5</div>
+            <div class="chisei-level-info">
+              <div class="chisei-level-title">Professional Practice</div>
+              <div class="chisei-level-sub">Report Writing · Geological Interpretation · Quality Control</div>
+            </div>
+            <div class="chisei-level-prog" id="butsuri-lp-l5">0/3</div>
+          </div>
+          <div class="chisei-level-body" id="butsuri-lb-l5">
+            <div class="chisei-task" data-tid="butsuri-l5-1" data-action="butsuriToggleTask('butsuri-l5-1')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Report Writing (物理探査報告書)</div>
+                <div class="chisei-task-desc">Develop professional-level report writing skills for Japanese geophysical survey reports. Structure: survey purpose, site conditions, method description, data acquisition parameters, processing procedures, results (velocity cross-sections, resistivity sections), geological interpretation, engineering conclusions, and limitations. Learn to present uncertainty and data quality assessment clearly. Practice writing Japanese technical prose that engineers and non-specialists can both understand.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="butsuri-l5-2" data-action="butsuriToggleTask('butsuri-l5-2')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Geological Interpretation (地質解釈)</div>
+                <div class="chisei-task-desc">Develop skills to translate geophysical data (velocity sections, resistivity sections) into engineering geological cross-sections. Learn to correlate geophysical boundaries with geological boundaries — alluvial vs. diluvial deposits, weathered vs. fresh rock. Integrate borehole data with geophysical profiles. Understand how to handle conflicting evidence between methods and how to quantify depth-to-bedrock uncertainty.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="butsuri-l5-3" data-action="butsuriToggleTask('butsuri-l5-3')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Quality Control & Standards (品質管理)</div>
+                <div class="chisei-task-desc">Study Japanese geophysical survey quality standards: JGS 1511 (seismic refraction), JGS 1521 (resistivity), and relevant JSCE/AIJ guidelines. Learn field QC procedures: signal-to-noise ratio checks, repeatability tests (reciprocal shots), electrode contact resistance verification. Understand what constitutes rejectable data and when re-acquisition is required. Study common sources of error: cultural noise, ground coupling problems, electrode polarization.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- L6 -->
+        <div class="chisei-level" style="background:rgba(255,71,87,.02)">
+          <div class="chisei-level-hdr" data-action="butsuriToggleLevel('l6')">
+            <div class="chisei-level-num" style="background:rgba(255,71,87,.15);color:var(--danger)">L6</div>
+            <div class="chisei-level-info">
+              <div class="chisei-level-title">Exam Preparation</div>
+              <div class="chisei-level-sub">Past Questions · Case Studies · Integrated Survey Design</div>
+            </div>
+            <div class="chisei-level-prog" id="butsuri-lp-l6">0/3</div>
+          </div>
+          <div class="chisei-level-body" id="butsuri-lb-l6">
+            <div class="chisei-task" data-tid="butsuri-l6-1" data-action="butsuriToggleTask('butsuri-l6-1')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Past Exam Questions (過去問演習)</div>
+                <div class="chisei-task-desc">Review written exam questions from previous 物理探査技士 examinations published by the Society of Exploration Geophysicists of Japan (社団法人物理探査学会). Focus on calculation problems: travel-time interpretation, Snell's law, depth estimation from intercept times, apparent resistivity calculation from electrode geometry, and Vs30 computation. Develop speed and accuracy under exam time conditions.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="butsuri-l6-2" data-action="butsuriToggleTask('butsuri-l6-2')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Case Studies (事例研究)</div>
+                <div class="chisei-task-desc">Analyze real Japanese geophysical survey projects — earthquake damage investigations, tunnel face assessments, contamination surveys, river embankment evaluations. Study how the choice of geophysical method was justified, what the data showed, and how results were used in subsequent engineering decisions. The Butsuri Tansa journal (物理探査) publishes peer-reviewed Japanese case studies from active practitioners.</div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="butsuri-l6-3" data-action="butsuriToggleTask('butsuri-l6-3')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">Integrated Survey Design (総合探査設計)</div>
+                <div class="chisei-task-desc">Practice designing complete multi-method geophysical investigation programs from a project brief. Given objectives (e.g., bedrock depth for bridge foundation, groundwater mapping for dewatering design), propose method combination, measurement line layout, acquisition parameters, processing workflow, and deliverable format. This integrative competency is central to the senior examination — demonstrating the ability to synthesize all learned methods into a coherent, cost-effective investigation plan.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- end .chisei-levels -->
+    </div>
+  </div>
+
+  <!-- Section 6: Progress Overview -->
+  <div class="chisei-section-card">
+    <div class="chisei-sec-hdr" id="butsuri-sh-6" data-action="butsuriToggleSection(6)">
+      <div class="chisei-sec-icon" style="background:linear-gradient(135deg,rgba(0,212,255,.2),rgba(168,85,247,.1))">📈</div>
+      <div class="chisei-sec-text">
+        <div class="chisei-sec-title">6 — Progress Overview</div>
+        <div class="chisei-sec-sub">Your learning status across all 6 levels</div>
+      </div>
+      <div class="chisei-sec-chevron">▶</div>
+    </div>
+    <div class="chisei-sec-body" id="butsuri-sb-6">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px" id="butsuri-level-summary">
+        <!-- Rendered by JS -->
+      </div>
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:16px;margin-bottom:12px">
+        <div style="font-weight:700;font-size:13px;margin-bottom:8px;color:var(--accent)">📋 Exam Information</div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.8">
+          <strong style="color:var(--text1)">Administering body:</strong> 社団法人物理探査学会 (Society of Exploration Geophysicists of Japan)<br>
+          <strong style="color:var(--text1)">Exam format:</strong> Written examination + practical skill assessment<br>
+          <strong style="color:var(--text1)">Specializations:</strong> 探査技術部門 (field operations) · 総合技術監理部門 (management)<br>
+          <strong style="color:var(--text1)">Requirements:</strong> Practical field experience in geophysical surveys
+        </div>
+      </div>
+      <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-primary" data-action="showPage('simulations')">🧪 Try Simulators</button>
+        <button class="btn btn-outline" data-action="showPage('study')">📚 Study Modules</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end #page-butsuri -->
 
 <!-- AI TUTOR — FULLY OFFLINE -->
 <div id="page-ai" class="page">
@@ -15893,6 +16300,144 @@ function expandCase(id) {
   // Init home card on page load
   document.addEventListener('DOMContentLoaded', function() {
     chiseiUpdateHomeCard();
+  });
+})();
+
+/* ═══════════════════════════════════════════════════════════════════
+   物理探査技士 — Progress Tracking System
+   19 tasks: l1×3, l2×4, l3×3, l4×3, l5×3, l6×3
+   ═══════════════════════════════════════════════════════════════════ */
+(function() {
+  'use strict';
+  var BUTSURI_KEY = 'butsuri-progress';
+  var BUTSURI_TOTAL = 19;
+  var BUTSURI_LEVELS = {
+    l1: { count: 3, label: 'Foundation',   color: '#57d464' },
+    l2: { count: 4, label: 'Field Methods', color: '#00d4ff' },
+    l3: { count: 3, label: 'Data Analysis', color: '#a855f7' },
+    l4: { count: 3, label: 'Survey Planning',color: '#f59e0b' },
+    l5: { count: 3, label: 'Professional',  color: 'var(--accent2)' },
+    l6: { count: 3, label: 'Exam Prep',     color: 'var(--danger)' }
+  };
+
+  function butsuriLoadProgress() {
+    try { return JSON.parse(localStorage.getItem(BUTSURI_KEY)) || {}; }
+    catch(e) { return {}; }
+  }
+
+  function butsuriSaveProgress(data) {
+    try { localStorage.setItem(BUTSURI_KEY, JSON.stringify(data)); } catch(e) {}
+  }
+
+  function butsuriCalcPct(data) {
+    var done = Object.keys(data).filter(function(k){ return data[k]; }).length;
+    return { done: done, pct: Math.round(done / BUTSURI_TOTAL * 100) };
+  }
+
+  function butsuriUpdateUI() {
+    var data = butsuriLoadProgress();
+    var stat = butsuriCalcPct(data);
+
+    // Update hero progress bar
+    var fill = document.getElementById('butsuri-progress-fill');
+    var count = document.getElementById('butsuri-progress-count');
+    var pct = document.getElementById('butsuri-progress-pct');
+    if (fill) fill.style.width = stat.pct + '%';
+    if (count) count.textContent = stat.done + ' / ' + BUTSURI_TOTAL + ' tasks';
+    if (pct) pct.textContent = stat.pct + '%';
+
+    // Update individual task checkboxes
+    document.querySelectorAll('#page-butsuri .chisei-task[data-tid]').forEach(function(task) {
+      var tid = task.getAttribute('data-tid');
+      var cb = task.querySelector('.chisei-task-cb');
+      if (data[tid]) {
+        task.classList.add('done');
+        if (cb) cb.textContent = '✓';
+      } else {
+        task.classList.remove('done');
+        if (cb) cb.textContent = '';
+      }
+    });
+
+    // Update per-level progress counts
+    Object.keys(BUTSURI_LEVELS).forEach(function(lk) {
+      var meta = BUTSURI_LEVELS[lk];
+      var done = 0;
+      for (var i = 1; i <= meta.count; i++) {
+        if (data['butsuri-' + lk + '-' + i]) done++;
+      }
+      var el = document.getElementById('butsuri-lp-' + lk);
+      if (el) el.textContent = done + '/' + meta.count;
+    });
+
+    butsuriRenderLevelSummary(data);
+    butsuriUpdateHomeCard();
+  }
+
+  function butsuriUpdateHomeCard() {
+    var data = butsuriLoadProgress();
+    var stat = butsuriCalcPct(data);
+    var fill = document.getElementById('butsuri-home-fill');
+    var label = document.getElementById('butsuri-home-label');
+    if (fill) fill.style.width = stat.pct + '%';
+    if (label) label.textContent = stat.pct + '% Coverage';
+  }
+
+  function butsuriRenderLevelSummary(data) {
+    var el = document.getElementById('butsuri-level-summary');
+    if (!el) return;
+    var html = '';
+    Object.keys(BUTSURI_LEVELS).forEach(function(lk) {
+      var meta = BUTSURI_LEVELS[lk];
+      var done = 0;
+      for (var i = 1; i <= meta.count; i++) {
+        if (data['butsuri-' + lk + '-' + i]) done++;
+      }
+      var p = Math.round(done / meta.count * 100);
+      html += '<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:10px;text-align:center">'
+        + '<div style="font-size:11px;font-weight:700;color:' + meta.color + ';font-family:\'JetBrains Mono\',monospace;margin-bottom:4px">' + lk.toUpperCase() + '</div>'
+        + '<div style="font-size:10px;color:var(--text2);margin-bottom:8px">' + meta.label + '</div>'
+        + '<div class="progress-bar" style="height:4px;margin-bottom:4px"><div class="progress-fill" style="width:' + p + '%;background:' + meta.color + '"></div></div>'
+        + '<div style="font-size:10px;color:var(--text2);font-family:\'JetBrains Mono\',monospace">' + done + '/' + meta.count + '</div>'
+        + '</div>';
+    });
+    el.innerHTML = html;
+  }
+
+  window.butsuriToggleTask = function(tid) {
+    var data = butsuriLoadProgress();
+    data[tid] = !data[tid];
+    butsuriSaveProgress(data);
+    butsuriUpdateUI();
+  };
+
+  window.butsuriToggleSection = function(idx) {
+    var sh = document.getElementById('butsuri-sh-' + idx);
+    var sb = document.getElementById('butsuri-sb-' + idx);
+    if (!sh || !sb) return;
+    var isOpen = sb.classList.contains('open');
+    sh.classList.toggle('open', !isOpen);
+    sb.classList.toggle('open', !isOpen);
+  };
+
+  window.butsuriToggleLevel = function(lk) {
+    var lb = document.getElementById('butsuri-lb-' + lk);
+    if (!lb) return;
+    lb.classList.toggle('open');
+  };
+
+  window.butsuriInit = function() {
+    butsuriUpdateUI();
+    var sb1 = document.getElementById('butsuri-sb-1');
+    var sh1 = document.getElementById('butsuri-sh-1');
+    if (sb1 && !sb1.classList.contains('open')) {
+      sb1.classList.add('open');
+      if (sh1) sh1.classList.add('open');
+    }
+  };
+
+  document.addEventListener('DOMContentLoaded', function() {
+    butsuriUpdateHomeCard();
   });
 })();
 
