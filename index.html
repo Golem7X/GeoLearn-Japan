@@ -3394,7 +3394,7 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 .chisei-task.done .chisei-task-title { color:var(--accent3); }
 .chisei-task-desc { font-size:12px;color:var(--text2);margin-top:3px;line-height:1.5; }
 </style>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-KvGvpBjv+6HOWAeTf+fIR587AGZGqlkvjL1tgyk3pXc='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data: blob: https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-f8xEuhlKZBqexIy7cF57sLR4snEe28a3os/Wo98zq5E='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data: blob: https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
 </head>
 <body>
 
@@ -3627,12 +3627,13 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
       <div style="font-size:11px;color:var(--text2);margin-top:4px;font-family:'JetBrains Mono',monospace" id="gishi-home-label">0% Coverage</div>
       <div style="font-size:11px;color:var(--accent);margin-top:6px;font-family:'JetBrains Mono',monospace">→ Open Roadmap</div>
     </div>
-    <div class="card">
+    <div class="card chisei-home-card" data-action="showPage('gijutsu');gijutsuInit()" style="cursor:pointer;transition:border-color .2s" id="gijutsu-home-card">
       <div style="font-size:20px;margin-bottom:8px">🏆</div>
       <div style="font-weight:700;font-size:16px">技術士</div>
       <div style="font-size:12px;color:var(--text2);margin-top:4px">Professional Engineer</div>
-      <div class="progress-bar" style="margin-top:12px"><div class="progress-fill" style="width:12%"></div></div>
-      <div style="font-size:11px;color:var(--text2);margin-top:4px;font-family:'JetBrains Mono',monospace">12% Coverage</div>
+      <div class="progress-bar" style="margin-top:12px"><div class="progress-fill" id="gijutsu-home-fill" style="width:0%"></div></div>
+      <div style="font-size:11px;color:var(--text2);margin-top:4px;font-family:'JetBrains Mono',monospace" id="gijutsu-home-label">0% Coverage</div>
+      <div style="font-size:11px;color:var(--accent);margin-top:6px;font-family:'JetBrains Mono',monospace">→ Open Roadmap</div>
     </div>
   </div>
 </div>
@@ -4281,7 +4282,7 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
         <div style="margin-top:10px;font-size:12px;color:var(--accent);font-family:'JetBrains Mono',monospace">→ Open Study Roadmap</div>
       </div>
     </div>
-    <div class="road-stage">
+    <div class="road-stage" data-action="showPage('gijutsu');gijutsuInit()" style="cursor:pointer" title="Open 技術士 Roadmap">
       <div class="road-dot">🏆</div>
       <div class="road-content">
         <div class="road-stage-num">STAGE 05</div>
@@ -4291,9 +4292,10 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
         <div class="road-salary">¥600,000–900,000+ /month</div>
         <div class="road-skills">
           <div class="road-skill">技術士 License</div><div class="road-skill">Expert Witness</div>
-          <div class="road-skill">Research & Development</div><div class="road-skill">International Work</div>
+          <div class="road-skill">Research &amp; Development</div><div class="road-skill">International Work</div>
           <div class="road-skill">Risk Assessment</div>
         </div>
+        <div style="margin-top:10px;font-size:12px;color:var(--accent);font-family:'JetBrains Mono',monospace">→ Open Study Roadmap</div>
       </div>
     </div>
   </div>
@@ -4552,6 +4554,11 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
           <tr><td><span class="vtjp">地耐力</span><span class="vten">ji-tairyoku</span></td><td class="vtmn">Bearing Capacity</td><td class="vtmn">Maximum load the ground can support — critical output of investigation reports</td></tr>
           <tr><td><span class="vtjp">調査報告書</span><span class="vten">chōsa hōkokusho</span></td><td class="vtmn">Investigation Report</td><td class="vtmn">Final report summarizing all investigation data, analysis, and recommendations</td></tr>
           <tr><td><span class="vtjp">液状化</span><span class="vten">ekijōka</span></td><td class="vtmn">Liquefaction</td><td class="vtmn">Soil loss of strength during earthquake — assessed using SPT N-values and grain size</td></tr>
+          <tr><td><span class="vtjp">せん断強度</span><span class="vten">sendan kyōdo</span></td><td class="vtmn">Shear Strength (τ)</td><td class="vtmn">τ = c + σ tanφ — 三軸圧縮試験 (さんじくあっしゅく) や一軸圧縮試験 (いちじくあっしゅく) で測定。地盤安定性の基本指標。</td></tr>
+          <tr><td><span class="vtjp">有効応力</span><span class="vten">yūkō ōryoku</span></td><td class="vtmn">Effective Stress (σ')</td><td class="vtmn">σ' = σ − u — テルツァーギの原理 (Terzaghi's principle)。全ての地盤計算の基礎となる概念。</td></tr>
+          <tr><td><span class="vtjp">孔内水平載荷試験</span><span class="vten">kōnai suihei saika shiken</span></td><td class="vtmn">Pressuremeter Test (PMT)</td><td class="vtmn">Borehole test measuring lateral soil stiffness (変形係数 E) by expanding a cylindrical probe against the borehole wall.</td></tr>
+          <tr><td><span class="vtjp">岩盤分類</span><span class="vten">ganban bunrui</span></td><td class="vtmn">Rock Mass Classification</td><td class="vtmn">RMR (Rock Mass Rating) / Q-system / 日本の地山等級 — used for tunnel support design and slope cutting.</td></tr>
+          <tr><td><span class="vtjp">安全率</span><span class="vten">anzen-ritsu</span></td><td class="vtmn">Factor of Safety (Fs)</td><td class="vtmn">Ratio of resisting force to driving force in stability analysis. Fs ≥ 1.5 for slopes (斜面). Fs ≥ 3 for foundations (基礎).</td></tr>
         </tbody>
       </table>
     </div>
@@ -4987,6 +4994,11 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
           <tr><td>地下水位</td><td>ちかすいい</td><td>Groundwater Level</td><td>Depth to phreatic surface — affects resistivity and seismic response</td></tr>
           <tr><td>異常値</td><td>いじょうち</td><td>Anomaly Value</td><td>Deviation from background that indicates subsurface feature</td></tr>
           <tr><td>解析断面図</td><td>かいせきだんめんず</td><td>Interpreted Section</td><td>Final geological cross-section drawn from processed geophysical data</td></tr>
+          <tr><td>Vs30</td><td>ブイエスさんじゅう</td><td>Average S-wave Velocity (0–30 m)</td><td>30m深さまでの平均S波速度 (へいきんエスはそくど)。地盤種別判定 (じばんしゅべつはんてい) の基準。道路橋示方書で必須。</td></tr>
+          <tr><td>地盤増幅率</td><td>じばんぞうふくりつ</td><td>Site Amplification Factor</td><td>地震動が地盤を伝わる際に増幅される倍率 (ばいりつ)。H/V スペクトル比 (Nakamura法) で評価。</td></tr>
+          <tr><td>固有周期</td><td>こゆうしゅうき</td><td>Natural Period (T)</td><td>地盤が最も揺れやすい振動周期 (しんどうしゅうき)。T = 4H/Vs で近似。建物との共振 (きょうしん / resonance) を避ける設計に必須。</td></tr>
+          <tr><td>測線</td><td>そくせん</td><td>Measurement Line / Survey Profile</td><td>探査機器を並べるライン。測線長 (そくせんちょう) と受振器間隔 (じゅしんきかんかく) が探査深度と分解能を決める。</td></tr>
+          <tr><td>開口亀裂</td><td>かいこうきれつ</td><td>Open Fracture / Void</td><td>地中レーダー (GPR) の反射波パターンで検出される地下の空洞 (くうどう) や亀裂 (きれつ)。双曲線 (そうきょくせん / hyperbola) 形状が指標。</td></tr>
         </tbody>
       </table>
     </div>
@@ -5685,6 +5697,536 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
   </div>
 
 </div><!-- end #page-gishi -->
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     技術士 — Professional Engineer Roadmap
+     ═══════════════════════════════════════════════════════════════════ -->
+<div id="page-gijutsu" class="page">
+  <div class="page-header">
+    <div class="page-title">技術士 <span>Roadmap</span></div>
+    <div class="page-sub">// Professional Engineer — 技術士二次試験 · Japan's highest engineering licence</div>
+  </div>
+
+  <div data-action="showPage('career')" class="chisei-back">← Career Roadmap</div>
+
+  <div class="chisei-hero">
+    <div class="chisei-hero-badge">🏆 技術士</div>
+    <div class="chisei-hero-title">Professional Engineer — 技術士</div>
+    <div class="chisei-hero-sub">Pass the 技術士二次試験 (Second PE Examination) — 必須科目 essay · 選択科目 technical essays · 口頭試験 oral exam — to earn Japan's highest-level engineering qualification and the right to independent practice</div>
+    <div class="chisei-progress-track">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <span style="font-size:12px;color:var(--text2)">Overall Progress / 全体進捗</span>
+        <span style="font-size:12px;color:var(--accent);font-family:'JetBrains Mono',monospace" id="gijutsu-progress-pct">0%</span>
+      </div>
+      <div class="progress-bar" style="height:8px"><div class="progress-fill" id="gijutsu-progress-fill" style="width:0%"></div></div>
+      <div style="font-size:11px;color:var(--text2);margin-top:6px;font-family:'JetBrains Mono',monospace" id="gijutsu-progress-count">0 / 19 tasks</div>
+    </div>
+  </div>
+
+  <!-- Section 1 -->
+  <div class="chisei-section-card">
+    <div class="chisei-sec-hdr open" id="gijutsu-sh-1" data-action="gijutsuToggleSection(1)">
+      <div class="chisei-sec-icon" style="background:linear-gradient(135deg,rgba(0,212,255,.2),rgba(0,212,255,.05))">🎯</div>
+      <div class="chisei-sec-text">
+        <div class="chisei-sec-title">1 — 技術士の役割と資格制度 Purpose &amp; Licence System</div>
+        <div class="chisei-sec-sub">二次試験の構造 · 業務権限 · 総合技術監理部門 · 指導義務</div>
+      </div>
+      <div class="chisei-sec-chevron">▶</div>
+    </div>
+    <div class="chisei-sec-body open" id="gijutsu-sb-1">
+      <p style="font-size:13px;line-height:1.9;color:var(--text2);margin-bottom:16px">
+        <strong style="color:var(--text1)">技術士 (ぎじゅつし)</strong> は、技術士法 (ぎじゅつしほう) に基づく日本最高水準の技術者資格です。<strong style="color:var(--accent)">公益社団法人日本技術士会 (IPEJ)</strong> が管理し、21の技術部門 (ぎじゅつぶもん) にわたります。資格保有者は独立した技術判断 (どくりつしたぎじゅつはんだん) を行う権限を持ち、公共工事 (こうきょうこうじ) の技術管理者として法的に認められます。
+      </p>
+      <div class="chisei-resp-grid">
+        <div class="chisei-resp-item"><div class="chisei-resp-icon">📝</div><div><strong>必須科目 (ひっすかもく)</strong><br><span style="color:var(--text2);font-size:12px">Engineering management &amp; ethics essay — 択一問題 (30 min) + 記述問題 (90 min, 600字×2)</span></div></div>
+        <div class="chisei-resp-item"><div class="chisei-resp-icon">🔬</div><div><strong>選択科目 (せんたくかもく)</strong><br><span style="color:var(--text2);font-size:12px">Technical branch essays — Ⅱ-1 short answer (2問×600字) · Ⅱ-2 problem-solving (1問×1800字) · Ⅲ application (1問×2100字)</span></div></div>
+        <div class="chisei-resp-item"><div class="chisei-resp-icon">🗣️</div><div><strong>口頭試験 (こうとうしけん)</strong><br><span style="color:var(--text2);font-size:12px">20-minute oral interview on 業務経歴書 (professional record) and 技術的体験論文 (technical experience essay)</span></div></div>
+        <div class="chisei-resp-item"><div class="chisei-resp-icon">👑</div><div><strong>総合技術監理部門 (そうごうぎじゅつかんりぶもん)</strong><br><span style="color:var(--text2);font-size:12px">Senior category: 5-domain integrated management — requires existing 技術士 registration first</span></div></div>
+      </div>
+      <div class="chisei-pillars">
+        <div class="chisei-pillar" style="border-color:rgba(0,212,255,.3)"><div class="chisei-pillar-icon">⚖️</div><div class="chisei-pillar-title">公益確保 (こうえきかくほ)</div><div class="chisei-pillar-desc">Public interest obligation — legal duty to prioritise societal safety above client instructions under 技術士法 Article 45-2</div></div>
+        <div class="chisei-pillar" style="border-color:rgba(87,212,100,.3)"><div class="chisei-pillar-icon">🔒</div><div class="chisei-pillar-title">守秘義務 (しゅひぎむ)</div><div class="chisei-pillar-desc">Confidentiality duty — 技術士法 Article 45; applies for life, even after retirement from professional practice</div></div>
+        <div class="chisei-pillar" style="border-color:rgba(168,85,247,.3)"><div class="chisei-pillar-icon">📚</div><div class="chisei-pillar-title">継続研鑚 (けいぞくけんさん)</div><div class="chisei-pillar-desc">Mandatory CPD — 技術士法 Article 47-2; must accumulate CPD単位 (CPD points) every year to maintain professional competence</div></div>
+        <div class="chisei-pillar" style="border-color:rgba(245,158,11,.3)"><div class="chisei-pillar-icon">🎓</div><div class="chisei-pillar-title">後進指導 (こうしんしどう)</div><div class="chisei-pillar-desc">Mentoring obligation — as 指導技術士 (しどうぎじゅつし), supervise 技術士補 for their 4-year experience period toward 二次試験</div></div>
+      </div>
+      <div style="background:rgba(0,212,255,.05);border:1px solid rgba(0,212,255,.15);border-radius:8px;padding:12px;margin-top:12px;font-size:12px;color:var(--text2)">
+        <strong style="color:var(--accent)">試験日程 (しけんにってい) / Exam Schedule:</strong>
+        筆記試験 (ひっきしけん) — July each year · 口頭試験 (こうとうしけん) — January following year ·
+        合格率 (ごうかくりつ) pass rate ≈ <strong style="color:var(--text1)">10–15%</strong> overall ·
+        Passing the written exam is ~20%; oral exam pass rate ~90% for those called
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 2 -->
+  <div class="chisei-section-card">
+    <div class="chisei-sec-hdr" id="gijutsu-sh-2" data-action="gijutsuToggleSection(2)">
+      <div class="chisei-sec-icon" style="background:linear-gradient(135deg,rgba(87,212,100,.2),rgba(87,212,100,.05))">🌅</div>
+      <div class="chisei-sec-text">
+        <div class="chisei-sec-title">2 — 技術士の業務 Daily Professional Work</div>
+        <div class="chisei-sec-sub">独立業務 · 総括技術者 · 専門技術審査 · 国際業務</div>
+      </div>
+      <div class="chisei-sec-chevron">▶</div>
+    </div>
+    <div class="chisei-sec-body" id="gijutsu-sb-2">
+      <div class="chisei-timeline">
+        <div class="chisei-tb"><div class="chisei-tb-dot" style="background:#57d464"></div><div class="chisei-tb-content"><div class="chisei-tb-time">業務計画 (ぎょうむけいかく) Planning</div><div class="chisei-tb-title">調査計画立案 (ちょうさけいかくりつあん) — Survey Programme Design</div><div class="chisei-tb-desc">独立した技術判断 (どくりつしたぎじゅつはんだん / independent technical judgement) で調査仕様書 (ちょうさしようしょ / investigation specification) を作成。地盤条件 (じばんじょうけん)、リスク項目 (リスクこうもく)、工期 (こうき / construction period)、予算 (よさん / budget) を総合評価して最適な調査手法 (さいてきなちょうさしゅほう) を選定する。</div></div></div>
+        <div class="chisei-tb"><div class="chisei-tb-dot" style="background:#00d4ff"></div><div class="chisei-tb-content"><div class="chisei-tb-time">技術審査 (ぎじゅつしんさ) Review</div><div class="chisei-tb-title">総括技術者 (そうかつぎじゅつしゃ) — Lead Technical Reviewer</div><div class="chisei-tb-desc">公共工事 (こうきょうこうじ) の設計書 (せっけいしょ / design documents) と地盤調査報告書 (じばんちょうさほうこくしょ / ground investigation report) を技術的に審査 (ぎじゅつてきにしんさ)。設計計算書 (せっけいけいさんしょ / design calculation sheets) の照査 (しょうさ / checking) と技術的所見 (ぎじゅつてきしょけん / technical opinion) の記名押印 (きめいおういん / signed certification) を行う。</div></div></div>
+        <div class="chisei-tb"><div class="chisei-tb-dot" style="background:#a855f7"></div><div class="chisei-tb-content"><div class="chisei-tb-time">論文・報告書 (ろんぶん・ほうこくしょ) Writing</div><div class="chisei-tb-title">技術報告書作成 (ぎじゅつほうこくしょさくせい) — Technical Report Authorship</div><div class="chisei-tb-desc">地盤解析結果 (じばんかいせきけっか / ground analysis results) と設計提案 (せっけいていあん / design proposal) をまとめた最終報告書 (さいしゅうほうこくしょ) を執筆 (しっぴつ)。技術士として記名 (きめい / signed with name) し、内容に対して技術的責任 (ぎじゅつてきせきにん / technical responsibility) を負う。</div></div></div>
+        <div class="chisei-tb"><div class="chisei-tb-dot" style="background:#f59e0b"></div><div class="chisei-tb-content"><div class="chisei-tb-time">鑑定・証言 (かんてい・しょうげん) Expert</div><div class="chisei-tb-title">専門家証人 (せんもんかしょうにん) — Expert Witness</div><div class="chisei-tb-desc">地盤沈下訴訟 (じばんちんか そしょう / ground settlement litigation)、斜面崩壊事故調査 (しゃめんほうかいじこちょうさ / slope failure accident investigation)、建設紛争 (けんせつふんそう / construction disputes) における専門的鑑定意見書 (せんもんてきかんていいけんしょ / expert opinion report) の作成と裁判所 (さいばんしょ / court) での証言。</div></div></div>
+        <div class="chisei-tb"><div class="chisei-tb-dot" style="background:#ff4757"></div><div class="chisei-tb-content"><div class="chisei-tb-time">国際業務 (こくさいぎょうむ) International</div><div class="chisei-tb-title">海外プロジェクト技術支援 (かいがいプロジェクトぎじゅつしえん)</div><div class="chisei-tb-desc">ワシントン協定 (Washington Accord) による資格相互承認 (しかくそうごしょうにん / mutual recognition) を活用した海外技術支援。ODA (政府開発援助 / Official Development Assistance) 案件でのJICA技術協力プロジェクト参加。英語技術報告書 (えいごぎじゅつほうこくしょ) 作成と現地エンジニア育成。</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3: Vocabulary — 25 terms, max Japanese focus -->
+  <div class="chisei-section-card">
+    <div class="chisei-sec-hdr" id="gijutsu-sh-3" data-action="gijutsuToggleSection(3)">
+      <div class="chisei-sec-icon" style="background:linear-gradient(135deg,rgba(168,85,247,.2),rgba(168,85,247,.05))">📖</div>
+      <div class="chisei-sec-text">
+        <div class="chisei-sec-title">3 — 専門用語集 Technical Vocabulary / 日本語・英語対照</div>
+        <div class="chisei-sec-sub">25 terms — 二次試験の筆記・口頭試験で必須の専門語彙</div>
+      </div>
+      <div class="chisei-sec-chevron">▶</div>
+    </div>
+    <div class="chisei-sec-body" id="gijutsu-sb-3">
+      <table class="chisei-vocab-table">
+        <thead><tr><th>日本語 (漢字)</th><th>読み方 (ふりがな)</th><th>English</th><th>試験での使い方 / Exam Usage</th></tr></thead>
+        <tbody>
+          <tr><td>技術士二次試験</td><td>ぎじゅつしにじしけん</td><td>PE Second Examination</td><td>筆記試験 (7月) + 口頭試験 (1月) の2段階。合格率は約10〜15%。</td></tr>
+          <tr><td>必須科目</td><td>ひっすかもく</td><td>Essential Subject</td><td>択一式30分 + 記述式90分。技術マネジメント・倫理・社会背景を論述。</td></tr>
+          <tr><td>選択科目</td><td>せんたくかもく</td><td>Technical Subject</td><td>Ⅱ-1短答 (600字×2) · Ⅱ-2解答論文 (1800字) · Ⅲ応用 (2100字)</td></tr>
+          <tr><td>口頭試験</td><td>こうとうしけん</td><td>Oral Examination</td><td>筆記合格者のみ受験。業務経歴と技術的体験を20分間の面接で審査。</td></tr>
+          <tr><td>業務経歴書</td><td>ぎょうむけいれきしょ</td><td>Professional Experience Record</td><td>口頭試験の主な質問元。5件以上の業務経歴を具体的に記載。</td></tr>
+          <tr><td>技術的体験論文</td><td>ぎじゅつてきたいけんろんぶん</td><td>Technical Experience Essay</td><td>二次試験申込時に提出。口頭試験で詳細に問われる核心書類。</td></tr>
+          <tr><td>公益確保の責務</td><td>こうえきかくほのせきむ</td><td>Public Interest Duty</td><td>技術士法第45条の2。「公衆の安全、健康及び福利」を最優先する義務。</td></tr>
+          <tr><td>有効応力</td><td>ゆうこうおうりょく</td><td>Effective Stress (σ')</td><td>σ' = σ − u。全ての土質力学計算の基本原理。論文で必ず明示する。</td></tr>
+          <tr><td>間隙水圧</td><td>かんげきすいあつ</td><td>Pore Water Pressure (u)</td><td>過剰間隙水圧 (Δu) が地盤の不安定化を引き起こす。液状化・圧密と直結。</td></tr>
+          <tr><td>圧密沈下</td><td>あつみつちんか</td><td>Consolidation Settlement</td><td>Sc = Cc/(1+e₀) × H × log(σ'f/σ'₀)。選択科目Ⅱ-1の頻出計算問題。</td></tr>
+          <tr><td>過圧密比</td><td>かあつみつひ</td><td>Overconsolidation Ratio (OCR)</td><td>OCR = pc'/σ'v。OCR&gt;1で過圧密、OCR=1で正規圧密。沈下量に大きく影響。</td></tr>
+          <tr><td>せん断強度</td><td>せんだんきょうど</td><td>Shear Strength (τ)</td><td>τ = c' + σ' tanφ' (モール・クーロン式)。斜面安定・支持力計算の基礎。</td></tr>
+          <tr><td>液状化対策</td><td>えきじょうかたいさく</td><td>Liquefaction Countermeasures</td><td>締固め工法 (サンドコンパクション)・排水工法・固化工法 (深層混合処理) を比較論述。</td></tr>
+          <tr><td>深層混合処理</td><td>しんそうこんごうしょり</td><td>Deep Mixing Method (DMM)</td><td>CDM工法。セメントスラリーを地盤注入し柱状改良体 (ちゅうじょうかいりょうたい) を造成。</td></tr>
+          <tr><td>動的解析</td><td>どうてきかいせき</td><td>Dynamic Analysis</td><td>地震時の地盤応答 (じしんじのじばんおうとう) を時刻歴解析 (じこくれきかいせき) で評価。SHAKE、DYNEQ等使用。</td></tr>
+          <tr><td>地盤反力係数</td><td>じばんはんりょくけいすう</td><td>Subgrade Reaction Coefficient (k)</td><td>k = p/y。杭・矢板・基礎板の弾性地盤解析に使用。単位 kN/m³。</td></tr>
+          <tr><td>負の摩擦力</td><td>ふのまさつりょく</td><td>Negative Skin Friction</td><td>軟弱地盤の沈下により杭に作用する下向き摩擦力。杭の支持力を低減させる。</td></tr>
+          <tr><td>変形係数</td><td>へんけいけいすう</td><td>Deformation Modulus (E₅₀)</td><td>プレッシャーメーター試験・平板載荷試験から得る地盤剛性指標。即時沈下算定に使用。</td></tr>
+          <tr><td>崩壊機構</td><td>ほうかいきこう</td><td>Failure Mechanism</td><td>塑性限界解析 (そせいげんかいかいせき / plastic limit analysis) における破壊モードの特定。斜面・基礎設計で使用。</td></tr>
+          <tr><td>法面工</td><td>のりめんこう</td><td>Slope Protection Works</td><td>吹付けモルタル (ふきつけモルタル)・グラウンドアンカー・鉄筋挿入工 (てっきんそうにゅうこう) を場面ごとに選定。</td></tr>
+          <tr><td>盛土設計</td><td>もりどせっけい</td><td>Embankment Design</td><td>安定計算 (Bishop法)・沈下計算・排水設計 (はいすいせっけい) の3要素を統合して設計。</td></tr>
+          <tr><td>場所打ち杭</td><td>ばしょうちぐい</td><td>Bored Pile / Cast-in-Place Pile</td><td>アース ドリル工法・リバース工法・ベノト工法。支持層 (しじそう) への根入れ深さが重要。</td></tr>
+          <tr><td>既製杭</td><td>きせいぐい</td><td>Precast Pile</td><td>鋼管杭 (こうかんぐい)・PHC杭・H形鋼杭。打込み (うちこみ)・埋込み (うめこみ) 工法で施工。</td></tr>
+          <tr><td>リスクマネジメント</td><td>リスクマネジメント</td><td>Risk Management</td><td>必須科目の頻出テーマ。リスク特定 (とくてい)・評価 (ひょうか)・対応 (たいおう)・監視 (かんし) の4プロセスで論述。</td></tr>
+          <tr><td>持続可能な開発</td><td>じぞくかのうなかいはつ</td><td>Sustainable Development (SDGs)</td><td>技術士の必須科目で必ず問われる概念。環境・社会・経済の3要素のバランスを論述。</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Section 4: Core Skills -->
+  <div class="chisei-section-card">
+    <div class="chisei-sec-hdr" id="gijutsu-sh-4" data-action="gijutsuToggleSection(4)">
+      <div class="chisei-sec-icon" style="background:linear-gradient(135deg,rgba(245,158,11,.2),rgba(245,158,11,.05))">⚙️</div>
+      <div class="chisei-sec-text">
+        <div class="chisei-sec-title">4 — 二次試験に必要な技術力 Core Exam Competencies</div>
+        <div class="chisei-sec-sub">論述力 · 高度技術 · 倫理判断 · マネジメント</div>
+      </div>
+      <div class="chisei-sec-chevron">▶</div>
+    </div>
+    <div class="chisei-sec-body" id="gijutsu-sb-4">
+      <div class="chisei-skill-grid">
+        <div class="chisei-skill-card"><div class="chisei-skill-icon">✍️</div><div class="chisei-skill-title">論述力 Essay Writing (記述式)</div><div class="chisei-skill-list"><div class="chisei-skill-item">問題提起 (もんだいていき) — Problem identification in 600–2100字</div><div class="chisei-skill-item">課題解決策 (かだいかいけつさく) — Solution proposals with engineering rationale</div><div class="chisei-skill-item">リスク評価 (リスクひょうか) — Risk identification and mitigation in essay form</div><div class="chisei-skill-item">技術的根拠 (ぎじゅつてきこんきょ) — Citing Japanese standards (JIS/JGS/道示)</div></div></div>
+        <div class="chisei-skill-card"><div class="chisei-skill-icon">🌱</div><div class="chisei-skill-title">高度地盤技術 Advanced Geotechnics</div><div class="chisei-skill-list"><div class="chisei-skill-item">FEM地盤解析 (有限要素法) — 地盤変形・浸透・動的解析</div><div class="chisei-skill-item">液状化対策工法 (えきじょうかたいさくこうほう) selection &amp; design</div><div class="chisei-skill-item">深層混合処理 (CDM) and 地盤改良効果検証</div><div class="chisei-skill-item">杭基礎設計 (くいきそせっけい) — 負の摩擦力, 群杭効果 (ぐんくいこうか)</div></div></div>
+        <div class="chisei-skill-card"><div class="chisei-skill-icon">⚖️</div><div class="chisei-skill-title">技術倫理 Ethics &amp; Law</div><div class="chisei-skill-list"><div class="chisei-skill-item">技術士法 全条文の適用判断</div><div class="chisei-skill-item">公益確保 vs 依頼者利益 — scenario decisions</div><div class="chisei-skill-item">技術者倫理事例分析 (じれいぶんせき) — past failures</div><div class="chisei-skill-item">内部告発 (ないぶこくはつ / whistleblowing) 義務と限界</div></div></div>
+        <div class="chisei-skill-card"><div class="chisei-skill-icon">📊</div><div class="chisei-skill-title">技術マネジメント Management</div><div class="chisei-skill-list"><div class="chisei-skill-item">工程管理 (こうていかんり) — PERT/CPM, critical path</div><div class="chisei-skill-item">品質管理 (ひんしつかんり) — ISO 9001, PDCA, QC7つ道具</div><div class="chisei-skill-item">コスト管理 (コストかんり) — EVM (出来高管理), VE/VA</div><div class="chisei-skill-item">安全管理 (あんぜんかんり) — KYK, TBM, ゼロ災運動</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 5: Roadmap -->
+  <div class="chisei-section-card">
+    <div class="chisei-sec-hdr" id="gijutsu-sh-5" data-action="gijutsuToggleSection(5)">
+      <div class="chisei-sec-icon" style="background:linear-gradient(135deg,rgba(255,107,53,.2),rgba(255,107,53,.05))">🗺️</div>
+      <div class="chisei-sec-text">
+        <div class="chisei-sec-title">5 — 6段階学習ロードマップ 6-Level Study Roadmap</div>
+        <div class="chisei-sec-sub">二次試験合格への段階的学習 — 日本語用語を全行に掲載</div>
+      </div>
+      <div class="chisei-sec-chevron">▶</div>
+    </div>
+    <div class="chisei-sec-body" id="gijutsu-sb-5">
+      <div class="chisei-levels">
+
+        <!-- L1 -->
+        <div class="chisei-level" style="background:rgba(87,212,100,.02)">
+          <div class="chisei-level-hdr" data-action="gijutsuToggleLevel('l1')">
+            <div class="chisei-level-num" style="background:rgba(87,212,100,.15);color:#57d464">L1</div>
+            <div class="chisei-level-info">
+              <div class="chisei-level-title">試験制度の理解 Exam Structure</div>
+              <div class="chisei-level-sub">二次試験の仕組み · 必須科目 · 業務経歴書の書き方</div>
+            </div>
+            <div class="chisei-level-prog" id="gijutsu-lp-l1">0/3</div>
+          </div>
+          <div class="chisei-level-body open" id="gijutsu-lb-l1">
+            <div class="chisei-task" data-tid="gijutsu-l1-1" data-action="gijutsuToggleTask('gijutsu-l1-1')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">二次試験の構造理解 (にじしけんのこうぞうりかい) — Exam Architecture</div>
+                <div class="chisei-task-desc">
+                  <strong>筆記試験 (ひっきしけん)</strong> の全科目構成を把握する：<br>
+                  ① <strong>必須科目 (ひっすかもく)</strong>：択一式 (たくいつしき) 15問×2点 + 記述式 (きじゅつしき) 2問×30点 = 合計90点<br>
+                  ② <strong>選択科目Ⅱ-1 (せんたくかもくにのいち)</strong>：600字×2問 — 専門知識 (せんもんちしき) の短答論文<br>
+                  ③ <strong>選択科目Ⅱ-2 (せんたくかもくにのに)</strong>：1800字×1問 — 応用能力 (おうようのうりょく) の問題解決論文<br>
+                  ④ <strong>選択科目Ⅲ (せんたくかもくさん)</strong>：2100字×1問 — 問題解決能力 (もんだいかいけつのうりょく) と課題遂行能力 (かだいすいこうのうりょく)<br>
+                  合格基準 (ごうかくきじゅん)：必須科目50%以上 + 選択科目各50%以上。科目別に合否判定。
+                </div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="gijutsu-l1-2" data-action="gijutsuToggleTask('gijutsu-l1-2')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">業務経歴書の作成 (ぎょうむけいれきしょのさくせい) — Writing the Experience Record</div>
+                <div class="chisei-task-desc">
+                  <strong>業務経歴書 (ぎょうむけいれきしょ)</strong> は口頭試験 (こうとうしけん) の質問の根拠となる最重要書類。記載要件：<br>
+                  ・<strong>業務内容 (ぎょうむないよう)</strong>：担当した調査・設計・施工管理の具体的内容<br>
+                  ・<strong>技術的課題 (ぎじゅつてきかだい)</strong>：その業務で直面した技術的問題点<br>
+                  ・<strong>解決策 (かいけつさく)</strong>：どのような技術的判断 (ぎじゅつてきはんだん) で解決したか<br>
+                  ・<strong>成果 (せいか)</strong>：定量的 (ていりょうてき / quantitative) な結果と社会的意義 (しゃかいてきいぎ / social significance)<br>
+                  5件以上の業務について「STAR形式」(状況・課題・行動・結果) で記述し、技術的体験論文 (ぎじゅつてきたいけんろんぶん) の素材として磨く。
+                </div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="gijutsu-l1-3" data-action="gijutsuToggleTask('gijutsu-l1-3')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">必須科目の論述戦略 (ひっすかもくのろんじゅつせんりゃく) — Essential Subject Essay Strategy</div>
+                <div class="chisei-task-desc">
+                  必須科目の記述式問題は「<strong>社会的背景 (しゃかいてきはいけい)</strong> → <strong>技術的課題 (ぎじゅつてきかだい)</strong> → <strong>解決策 (かいけつさく)</strong> → <strong>リスク (リスク)</strong> → <strong>倫理的考察 (りんりてきこうさつ)</strong>」の流れで論述する。<br>
+                  頻出テーマ：<strong>少子高齢化 (しょうしこうれいか)</strong> 時代の社会インフラ維持管理 (いじかんり)、<strong>カーボンニュートラル (カーボンニュートラル)</strong> と建設業の役割、<strong>DX推進 (ディーエックスすいしん / Digital Transformation)</strong> による業務効率化、<strong>気候変動適応策 (きこうへんどうてきおうさく)</strong> の実装。<br>
+                  過去10年の問題を分析し、各テーマで600字の骨子 (こっし / outline) を事前作成すること。
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- L2 -->
+        <div class="chisei-level" style="background:rgba(0,212,255,.02)">
+          <div class="chisei-level-hdr" data-action="gijutsuToggleLevel('l2')">
+            <div class="chisei-level-num" style="background:rgba(0,212,255,.15);color:#00d4ff">L2</div>
+            <div class="chisei-level-info">
+              <div class="chisei-level-title">高度地盤工学 Advanced Geotechnics</div>
+              <div class="chisei-level-sub">地盤改良 · 杭基礎 · 液状化対策 · 動的解析</div>
+            </div>
+            <div class="chisei-level-prog" id="gijutsu-lp-l2">0/4</div>
+          </div>
+          <div class="chisei-level-body" id="gijutsu-lb-l2">
+            <div class="chisei-task" data-tid="gijutsu-l2-1" data-action="gijutsuToggleTask('gijutsu-l2-1')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">地盤改良工法 (じばんかいりょうこうほう) — Ground Improvement Methods</div>
+                <div class="chisei-task-desc">
+                  選択科目Ⅲで頻出の比較・選定問題。各工法の原理・適用条件・施工管理を習得する：<br>
+                  ・<strong>深層混合処理工法 (しんそうこんごうしょりこうほう)</strong>：CDM/DJM工法。セメント系固化材 (こかざい) を原位置 (げんいち) 混合。改良柱体 (かいりょうちゅうたい) の一軸圧縮強度 (いちじくあっしゅくきょうど qu) を管理指標とする。<br>
+                  ・<strong>サンドコンパクション工法 (サンドコンパクションこうほう)</strong>：砂杭 (すなぐい) 打設による液状化防止 (えきじょうかぼうし) と締固め。<strong>相対密度 (そうたいみつど Dr)</strong> が改善指標。<br>
+                  ・<strong>真空圧密工法 (しんくうあつみつこうほう)</strong>：バーチカルドレーン (vertical drain) + 真空圧を用いた軟弱地盤の事前圧密 (じぜんあつみつ)。<strong>圧密度 (あつみつど U)</strong> を管理。<br>
+                  ・<strong>高圧噴射撹拌工法 (こうあつふんしゃかくはんこうほう)</strong>：JSG工法。高圧水と固化材噴射で大径改良体 (だいけいかいりょうたい) 造成。
+                </div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="gijutsu-l2-2" data-action="gijutsuToggleTask('gijutsu-l2-2')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">杭基礎の高度設計 (くいきそのこうどせっけい) — Advanced Pile Foundation Design</div>
+                <div class="chisei-task-desc">
+                  ・<strong>支持力算定 (しじりょくさんてい)</strong>：杭先端支持力 (くいせんたんしじりょく) + 周面摩擦力 (しゅうめんまさつりょく) の積み上げ。道路橋示方書 (どうろきょうしほうしょ) の極限支持力 (きょくげんしじりょく) 計算式を習得。<br>
+                  ・<strong>負の摩擦力 (ふのまさつりょく / Negative Skin Friction)</strong>：軟弱地盤の圧密沈下が杭を下方に引く力。中立点 (ちゅうりつてん / neutral plane) 深度の決定方法。<br>
+                  ・<strong>群杭効果 (ぐんくいこうか / Group Pile Effect)</strong>：杭間隔が3D未満で発生する地盤変形の相互干渉。効率係数 (こうりつけいすう η) による支持力低減。<br>
+                  ・<strong>水平抵抗 (すいへいていこう / Lateral Resistance)</strong>：Chang法・Chang-修正法による杭の水平変位と曲げモーメント分布。<strong>地盤反力係数 (じばんはんりょくけいすう k)</strong> の設定が重要。
+                </div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="gijutsu-l2-3" data-action="gijutsuToggleTask('gijutsu-l2-3')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">液状化対策の設計 (えきじょうかたいさくのせっけい) — Liquefaction Countermeasure Design</div>
+                <div class="chisei-task-desc">
+                  <strong>液状化 (えきじょうか / liquefaction)</strong> 判定から対策設計まで一貫して習得する：<br>
+                  ① <strong>FL値算定 (エフエルちさんてい)</strong>：液状化抵抗率 RL / 地震時せん断応力比 L。FL &lt; 1.0で液状化発生。<br>
+                  ② <strong>PL値 (ピーエルち / Liquefaction Potential Index)</strong>：地表面への液状化被害の深刻度評価。PL &gt; 15で甚大被害。<br>
+                  ③ <strong>対策工法選定 (たいさくこうほうせんてい)</strong>：<br>
+                  　・<strong>締固め工法 (しめかためこうほう)</strong>：SCP (サンドコンパクション)・振動棒 (しんどうぼう / Vibroflotation)<br>
+                  　・<strong>排水工法 (はいすいこうほう)</strong>：グラベルドレーン (gravel drain) による過剰間隙水圧 (かじょうかんげきすいあつ) 消散<br>
+                  　・<strong>固化工法 (こかこうほう)</strong>：深層混合処理による剛性改善<br>
+                  各工法の適用限界 (てきようげんかい)・経済性 (けいざいせい)・施工性 (せこうせい) を論文で比較できるよう整理する。
+                </div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="gijutsu-l2-4" data-action="gijutsuToggleTask('gijutsu-l2-4')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">地震時動的解析 (じしんじどうてきかいせき) — Seismic Dynamic Analysis</div>
+                <div class="chisei-task-desc">
+                  ・<strong>地盤応答解析 (じばんおうとうかいせき / Ground Response Analysis)</strong>：SHAKE・DYNEQ・FLIP等のプログラムを用いた1次元等価線形解析 (いちじげんとうかせんけいかいせき)。入力地震動 (にゅうりょくじしんどう) の設定と地盤増幅 (じばんぞうふく / site amplification) 評価。<br>
+                  ・<strong>Vs30 (ブイエスさんじゅう)</strong>：地表から30mの平均S波速度 (へいきんエスはそくど)。地盤種別 (じばんしゅべつ) 判定と設計用地震力の基準。国交省・道路橋示方書で規定。<br>
+                  ・<strong>有効応力解析 (ゆうこうおうりょくかいせき / Effective Stress Analysis)</strong>：FLIP・LIQCA等。液状化時の間隙水圧発生 (かんげきすいあつはっせい) と地盤変形を時刻歴 (じこくれき / time history) で追跡。<br>
+                  ・<strong>地震ハザード解析 (じしんハザードかいせき)</strong>：確率論的地震ハザード解析 (PSHA) による設計地震動 (せっけいじしんどう) の設定根拠を理解する。
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- L3 -->
+        <div class="chisei-level" style="background:rgba(168,85,247,.02)">
+          <div class="chisei-level-hdr" data-action="gijutsuToggleLevel('l3')">
+            <div class="chisei-level-num" style="background:rgba(168,85,247,.15);color:#a855f7">L3</div>
+            <div class="chisei-level-info">
+              <div class="chisei-level-title">構造物・斜面設計 Structures &amp; Slopes</div>
+              <div class="chisei-level-sub">斜面安定 · 盛土 · トンネル · 地下構造物</div>
+            </div>
+            <div class="chisei-level-prog" id="gijutsu-lp-l3">0/3</div>
+          </div>
+          <div class="chisei-level-body" id="gijutsu-lb-l3">
+            <div class="chisei-task" data-tid="gijutsu-l3-1" data-action="gijutsuToggleTask('gijutsu-l3-1')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">斜面安定解析 (しゃめんあんていかいせき) — Slope Stability Analysis</div>
+                <div class="chisei-task-desc">
+                  ・<strong>ビショップ法 (Bishop法)</strong>：円弧すべり面 (えんこすべりめん / circular slip surface) の安全率 (あんぜんりつ Fs) 算定。繰り返し計算 (くりかえしけいさん / iteration) で解収束。最小安全率 (さいしょうあんぜんりつ) の探索が重要。<br>
+                  ・<strong>不円弧すべり (Morgenstern-Price法・Janbu法)</strong>：非円弧すべり面 (ひえんこすべりめん / non-circular surface) に対応。岩盤斜面 (がんばんしゃめん) の解析に有効。<br>
+                  ・<strong>対策工の設計 (たいさくこうのせっけい)</strong>：<br>
+                  　<strong>グラウンドアンカー (ground anchor)</strong>：アンカー力 (アンカーりょく) の設計と引抜き試験 (ひきぬきしけん) による確認<br>
+                  　<strong>杭工法 (くいこうほう)</strong>：抑止杭 (よくしぐい / stabilising pile) の水平抵抗設計<br>
+                  　<strong>鉄筋挿入工 (てっきんそうにゅうこう / soil nailing)</strong>：挿入鉄筋の引抜き抵抗と配置設計
+                </div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="gijutsu-l3-2" data-action="gijutsuToggleTask('gijutsu-l3-2')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">盛土・軟弱地盤対策 (もりど・なんじゃくじばんたいさく) — Embankment on Soft Ground</div>
+                <div class="chisei-task-desc">
+                  ・<strong>段階施工法 (だんかいせこうほう / Stage Construction)</strong>：軟弱地盤上の盛土を<strong>圧密強度増加 (あつみつきょうどぞうか / strength gain from consolidation)</strong> を確認しながら段階的に施工。<strong>安定管理 (あんていかんり)</strong> の指標：側方変位 (そくほうへんい / lateral displacement)・盛土中央沈下 (ちゅうおうちんか)・間隙水圧比 (かんげきすいあつひ)。<br>
+                  ・<strong>圧密促進工法 (あつみつそくしんこうほう)</strong>：鉛直ドレーン (vertical drain) を用いた圧密時間の短縮。<strong>バーチカルドレーン</strong>の設計：ドレーン径 (径 D)・打設間隔 (だせつかんかく S)・排水距離 (はいすいきょり R) の関係。<br>
+                  ・<strong>軽量盛土工法 (けいりょうもりどこうほう)</strong>：EPS (発泡スチロール / Expanded Polystyrene) 盛土や軽量気泡混合土 (けいりょうきほうこんごうど / foamed lightweight soil) による荷重軽減。
+                </div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="gijutsu-l3-3" data-action="gijutsuToggleTask('gijutsu-l3-3')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">地下構造物・トンネル (ちかこうぞうぶつ・トンネル) — Underground Structures</div>
+                <div class="chisei-task-desc">
+                  ・<strong>シールドトンネル (shield tunnel)</strong>：泥土圧 (でいどあつ) ・泥水式 (でいすいしき) シールドの切羽安定 (きりはあんてい / face stability) 管理。<strong>テールボイド (tail void)</strong> への裏込め注入 (うらごめちゅうにゅう / back grouting) と沈下 (ちんか) 制御。<br>
+                  ・<strong>山岳トンネル — NATM (New Austrian Tunnelling Method)</strong>：<strong>岩盤分類 (がんばんぶんるい / rock mass classification)</strong> RMR・Q-system・日本の地山等級 (じやまとうきゅう) による支保パターン (しほパターン / support pattern) 選定。<strong>吹付けコンクリート (ふきつけコンクリート / shotcrete)</strong> と<strong>ロックボルト (rock bolt)</strong> の設計。<br>
+                  ・<strong>開削工法 (かいさくこうほう / Cut-and-Cover)</strong>：土留め工 (どどめこう) — <strong>親杭横矢板 (おやぐいよこやいた)</strong>・<strong>鋼矢板 (こうやいた / sheet pile)</strong>・<strong>地中連続壁 (ちちゅうれんぞくへき / diaphragm wall)</strong> の選定と根入れ深さ (ねいれふかさ) 計算。
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- L4 -->
+        <div class="chisei-level" style="background:rgba(245,158,11,.02)">
+          <div class="chisei-level-hdr" data-action="gijutsuToggleLevel('l4')">
+            <div class="chisei-level-num" style="background:rgba(245,158,11,.15);color:#f59e0b">L4</div>
+            <div class="chisei-level-info">
+              <div class="chisei-level-title">技術論文の作成 Technical Essay Writing</div>
+              <div class="chisei-level-sub">論文構成 · 記述技術 · 日本語専門文章 · 過去問分析</div>
+            </div>
+            <div class="chisei-level-prog" id="gijutsu-lp-l4">0/3</div>
+          </div>
+          <div class="chisei-level-body" id="gijutsu-lb-l4">
+            <div class="chisei-task" data-tid="gijutsu-l4-1" data-action="gijutsuToggleTask('gijutsu-l4-1')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">選択科目Ⅱ・Ⅲの論文構成 (ろんぶんこうせい) — Essay Structure for Ⅱ &amp; Ⅲ</div>
+                <div class="chisei-task-desc">
+                  <strong>選択科目Ⅱ-2 (1800字)</strong> の標準構成：<br>
+                  ① <strong>問題の背景 (もんだいのはいけい)</strong>：なぜこの技術課題が重要か — 社会的・技術的背景を1〜2段落で<br>
+                  ② <strong>技術的課題 (ぎじゅつてきかだい)</strong>：具体的な課題を3点程度列挙<br>
+                  ③ <strong>解決策 (かいけつさく)</strong>：各課題への技術的アプローチを 「〜工法を採用し (さいようし)、〜を実施することで〜が期待できる」 形式で記述<br>
+                  ④ <strong>リスクと対策 (リスクとたいさく)</strong>：想定されるリスク (じゃくてん / weakness) と対応策<br>
+                  <strong>選択科目Ⅲ (2100字)</strong> では上記に加え「<strong>技術者としての倫理的考察 (りんりてきこうさつ)</strong>」と「<strong>社会への影響 (しゃかいへのえいきょう)</strong>」を必ず論述。<br>
+                  キーワード：<strong>課題解決 (かだいかいけつ)</strong>・<strong>最適化 (さいてきか)</strong>・<strong>持続可能性 (じぞくかのうせい)</strong>・<strong>安全性 (あんぜんせい)</strong>・<strong>経済性 (けいざいせい)</strong>・<strong>環境負荷 (かんきょうふか)</strong>
+                </div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="gijutsu-l4-2" data-action="gijutsuToggleTask('gijutsu-l4-2')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">日本語技術文章の訓練 (にほんごぎじゅつぶんしょうのくんれん) — Japanese Technical Writing Practice</div>
+                <div class="chisei-task-desc">
+                  試験は<strong>全て日本語 (ぜんてにほんご)</strong> で記述。以下の表現パターンを暗記する：<br>
+                  ・<strong>課題提起</strong>：「〜において、〜という問題 (もんだい) が生じている (しょうじている)。この解決には〜が必要である。」<br>
+                  ・<strong>技術提案</strong>：「〜を採用することで (さいようすることで)、〜を低減 (ていげん) し、〜の向上 (こうじょう) が図れる (はかれる)。」<br>
+                  ・<strong>リスク表現</strong>：「〜の懸念 (けねん) があるため (があるため)、〜のモニタリング (モニタリング) を継続的 (けいぞくてき) に実施する (じっしする) 必要がある。」<br>
+                  ・<strong>倫理表現</strong>：「技術者として (ぎじゅつしゃとして)、公衆の安全 (こうしゅうのあんぜん) を最優先 (さいゆうせん) に考慮 (こうりょ) し、〜を判断 (はんだん) する。」<br>
+                  週1本の論文を実際に手書きし、制限時間内に書き切る訓練 (くんれん) を積む。
+                </div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="gijutsu-l4-3" data-action="gijutsuToggleTask('gijutsu-l4-3')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">過去問分析と頻出テーマ (かこもんぶんせきとひんしゅつテーマ) — Past Paper Analysis</div>
+                <div class="chisei-task-desc">
+                  建設部門・土質及び基礎 (どしつおよびきそ) の過去10年の選択科目を分析。頻出テーマ別出現率：<br>
+                  ・<strong>軟弱地盤対策 (なんじゃくじばんたいさく)</strong>：ほぼ毎年出題。圧密・液状化・改良工法をセットで準備。<br>
+                  ・<strong>斜面崩壊対策 (しゃめんほうかいたいさく)</strong>：降雨時 (こうういじ) の斜面不安定化と対策工の設計。<br>
+                  ・<strong>盛土施工管理 (もりどせこうかんり)</strong>：段階施工・安定管理の方法。<br>
+                  ・<strong>環境への配慮 (かんきょうへのはいりょ)</strong>：建設発生土 (けんせつはっせいど) の有効利用・生態系保全 (せいたいけいほぜん)。<br>
+                  ・<strong>維持管理・更新 (いじかんり・こうしん)</strong>：老朽化インフラ (ろうきゅうかインフラ) の診断・補修・更新技術。<br>
+                  各テーマで「課題3点＋解決策3点＋リスク1点」の箇条書き骨子 (こっし / outline) を準備する。
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- L5 -->
+        <div class="chisei-level" style="background:rgba(255,107,53,.02)">
+          <div class="chisei-level-hdr" data-action="gijutsuToggleLevel('l5')">
+            <div class="chisei-level-num" style="background:rgba(255,107,53,.15);color:var(--accent2)">L5</div>
+            <div class="chisei-level-info">
+              <div class="chisei-level-title">口頭試験対策 Oral Exam Preparation</div>
+              <div class="chisei-level-sub">面接シミュレーション · 業務経歴の深掘り · 倫理事例</div>
+            </div>
+            <div class="chisei-level-prog" id="gijutsu-lp-l5">0/3</div>
+          </div>
+          <div class="chisei-level-body" id="gijutsu-lb-l5">
+            <div class="chisei-task" data-tid="gijutsu-l5-1" data-action="gijutsuToggleTask('gijutsu-l5-1')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">口頭試験の頻出質問 (ひんしゅつしつもん) — Typical Oral Exam Questions</div>
+                <div class="chisei-task-desc">
+                  口頭試験 (20分) は主に<strong>業務経歴書 (ぎょうむけいれきしょ)</strong> をもとに試問される。準備必須の質問パターン：<br>
+                  ① 「<strong>最も技術的に困難だった業務 (もっともぎじゅつてきにこんなんだったぎょうむ)</strong> はどれですか？具体的に説明してください。」<br>
+                  ② 「その業務で<strong>技術的判断 (ぎじゅつてきはんだん)</strong> が求められた場面を教えてください。」<br>
+                  ③ 「<strong>公益確保 (こうえきかくほ)</strong> の観点から難しい判断をした経験はありますか？」<br>
+                  ④ 「技術士として今後どのような<strong>継続研鑚 (けいぞくけんさん)</strong> を行いますか？」<br>
+                  ⑤ 「<strong>失敗した経験 (しっぱいしたけいけん)</strong> とそこから学んだことを教えてください。」<br>
+                  各質問に対して2〜3分で答えられる日本語のスクリプトを準備し、模擬面接 (もぎめんせつ / mock interview) を繰り返す。
+                </div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="gijutsu-l5-2" data-action="gijutsuToggleTask('gijutsu-l5-2')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">倫理事例の深掘り (りんりじれいのふかぼり) — Ethics Case Study Deep Dive</div>
+                <div class="chisei-task-desc">
+                  口頭試験で必ず問われる倫理事例を体系的に準備する：<br>
+                  ・<strong>データ改竄 (データかいざん / Data Falsification)</strong>：地盤調査データを依頼者の都合で書き換えるよう求められた場合の対応。<strong>守秘義務 (しゅひぎむ)</strong> と<strong>公益確保 (こうえきかくほ)</strong> のバランス。<br>
+                  ・<strong>利益相反 (りえきそうはん / Conflict of Interest)</strong>：設計者と施工者を兼任する状況での技術的中立性 (ぎじゅつてきちゅうりつせい) の確保。<br>
+                  ・<strong>危険の告知 (きけんのこくち / Duty to Warn)</strong>：施工中に想定外の軟弱層 (なんじゃくそう) を発見した場合の報告義務 (ほうこくぎむ) と施工停止 (せこうていし / work stoppage) の判断。<br>
+                  ・<strong>内部告発 (ないぶこくはつ / Whistleblowing)</strong>：上司が安全基準 (あんぜんきじゅん) を無視している場合の段階的対応 (だんかいてきたいおう)：上司→組織→行政→社会。<br>
+                  実際の判例 (はんれい / court cases) と技術士法違反事例 (ぎじゅつしほういはんじれい) を研究する。
+                </div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="gijutsu-l5-3" data-action="gijutsuToggleTask('gijutsu-l5-3')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">CPD計画と継続研鑚 (シーピーディーけいかくとけいぞくけんさん) — CPD Planning</div>
+                <div class="chisei-task-desc">
+                  技術士としての<strong>継続研鑚義務 (けいぞくけんさんぎむ / mandatory CPD)</strong> を満たすための計画を立てる：<br>
+                  ・<strong>CPD単位 (シーピーディーたんい / CPD credits)</strong>：IPEJ認定の講習会 (こうしゅうかい)・技術発表 (ぎじゅつはっぴょう)・論文執筆 (ろんぶんしっぴつ)・現場研修 (げんばけんしゅう) で取得。年間50単位推奨。<br>
+                  ・<strong>学会発表 (がっかいはっぴょう / Academic Presentation)</strong>：地盤工学会 (JGS)・土木学会 (JSCE)・物理探査学会 (SEGJ) での論文投稿と発表。<br>
+                  ・<strong>国際資格との連携 (こくさいしかくとのれんけい)</strong>：ワシントン協定 (Washington Accord) 加盟国のPE資格との相互承認を活用した海外CPD。<br>
+                  ・<strong>後進育成 (こうしんいくせい / Mentoring)</strong>：技術士補の指導技術士 (しどうぎじゅつし) として若手の業務指導。自身の技術力向上にも繋がる。
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- L6 -->
+        <div class="chisei-level" style="background:rgba(255,71,87,.02)">
+          <div class="chisei-level-hdr" data-action="gijutsuToggleLevel('l6')">
+            <div class="chisei-level-num" style="background:rgba(255,71,87,.15);color:var(--danger)">L6</div>
+            <div class="chisei-level-info">
+              <div class="chisei-level-title">最終仕上げ Final Preparation</div>
+              <div class="chisei-level-sub">模擬試験 · 本番直前確認 · 登録手続き · 総合技術監理</div>
+            </div>
+            <div class="chisei-level-prog" id="gijutsu-lp-l6">0/3</div>
+          </div>
+          <div class="chisei-level-body" id="gijutsu-lb-l6">
+            <div class="chisei-task" data-tid="gijutsu-l6-1" data-action="gijutsuToggleTask('gijutsu-l6-1')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">模擬試験と弱点補強 (もぎしけんとじゃくてんほきょう) — Mock Exams &amp; Weak Point Drills</div>
+                <div class="chisei-task-desc">
+                  本番 (7月) の3ヶ月前から以下のスケジュールで総仕上げ：<br>
+                  ・<strong>月1回の完全模擬試験 (もぎしけん)</strong>：必須科目 (120分) + 選択科目 (3.5時間) を通しで実施。手書き (てがき) で字数制限 (じすうせいげん) を守る訓練。<br>
+                  ・<strong>採点基準 (さいてんきじゅん) で自己評価</strong>：IPEJ発表の出題趣旨 (しゅつだいしゅし / question intent) と比較し、技術的正確性 (ぎじゅつてきせいかくせい)・論旨明確性 (ろんしめいかくせい)・倫理考察 (りんりこうさつ) の3点で採点。<br>
+                  ・<strong>弱点テーマの集中演習 (しゅうちゅうえんしゅう)</strong>：模擬試験で低得点だったテーマの追加論文執筆。<strong>キーワード帳 (キーワードちょう)</strong> に重要用語と定義を整理し、直前まで反復確認 (はんぷくかくにん)。<br>
+                  ・受験仲間 (じゅけんなかま / study partners) と<strong>相互添削 (そうごてんさく / peer review)</strong> を実施。
+                </div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="gijutsu-l6-2" data-action="gijutsuToggleTask('gijutsu-l6-2')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">登録手続きと名称表示 (とうろくてつづきとめいしょうひょうじ) — Registration &amp; Title Use</div>
+                <div class="chisei-task-desc">
+                  筆記試験合格 (1月発表) → 口頭試験合格 (3月発表) → 登録申請 (とうろくしんせい) の流れ：<br>
+                  ・<strong>登録申請書類 (とうろくしんせいしょるい)</strong>：技術士登録申請書・合格証書 (ごうかくしょうしょ) のコピー・登録免許税 (とうろくめんきょぜい) ¥30,000 の収入印紙 (しゅうにゅういんし / revenue stamp)。<br>
+                  ・<strong>名称表示義務 (めいしょうひょうじぎむ)</strong>：技術士法第46条。業務書類に「技術士 (建設部門)」と記名・押印 (おういん) する義務。無資格者の名称使用は<strong>名称独占 (めいしょうどくせん)</strong> 違反 (いはん) で罰則 (ばっそく) 対象。<br>
+                  ・<strong>登録証 (とうろくしょう)</strong> 受領後、IPEJ支部への入会 (にゅうかい) を推奨。CPD管理・技術情報の入手・後進指導 (こうしんしどう) の機会を得られる。
+                </div>
+              </div>
+            </div>
+            <div class="chisei-task" data-tid="gijutsu-l6-3" data-action="gijutsuToggleTask('gijutsu-l6-3')">
+              <div class="chisei-task-cb"></div>
+              <div class="chisei-task-content">
+                <div class="chisei-task-title">総合技術監理部門への道 (そうごうぎじゅつかんりぶもんへのみち) — Path to Integrated Management</div>
+                <div class="chisei-task-desc">
+                  <strong>総合技術監理部門 (そうごうぎじゅつかんりぶもん / Integrated Technical Management)</strong> は技術士取得後に目指す上位資格。5つの管理視点 (かんりしてん) を統合する能力を証明する：<br>
+                  ① <strong>安全管理 (あんぜんかんり)</strong>：ゼロ災 (ぜろさい / zero accidents) に向けたリスク特定と制御<br>
+                  ② <strong>社会環境管理 (しゃかいかんきょうかんり)</strong>：環境影響評価 (かんきょうえいきょうひょうか / EIA) と持続可能な事業実施<br>
+                  ③ <strong>経済性管理 (けいざいせいかんり)</strong>：LCC (ライフサイクルコスト)・VE (バリューエンジニアリング) による最適化<br>
+                  ④ <strong>人的資源管理 (じんてきしげんかんり)</strong>：プロジェクトチームの組成・動機付け・能力開発<br>
+                  ⑤ <strong>情報管理 (じょうほうかんり)</strong>：BIM/CIM・ICT施工・データセキュリティ管理<br>
+                  必須科目は「総合技術監理の視点 (してん) からの技術管理論文」600字×2問。技術士取得から2〜3年の実務経験後に挑戦することを推奨。
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- end .chisei-levels -->
+    </div>
+  </div>
+
+  <!-- Section 6 -->
+  <div class="chisei-section-card">
+    <div class="chisei-sec-hdr" id="gijutsu-sh-6" data-action="gijutsuToggleSection(6)">
+      <div class="chisei-sec-icon" style="background:linear-gradient(135deg,rgba(0,212,255,.2),rgba(168,85,247,.1))">📈</div>
+      <div class="chisei-sec-text">
+        <div class="chisei-sec-title">6 — 進捗サマリー Progress Overview</div>
+        <div class="chisei-sec-sub">全6レベルの学習進捗 / Learning status across all 6 levels</div>
+      </div>
+      <div class="chisei-sec-chevron">▶</div>
+    </div>
+    <div class="chisei-sec-body" id="gijutsu-sb-6">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px" id="gijutsu-level-summary"></div>
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:16px;margin-bottom:12px">
+        <div style="font-weight:700;font-size:13px;margin-bottom:8px;color:var(--accent)">📋 試験情報 / Exam Information</div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.9">
+          <strong style="color:var(--text1)">主管機関 (しゅかんきかん):</strong> 公益社団法人日本技術士会 (IPEJ)<br>
+          <strong style="color:var(--text1)">筆記試験 (ひっきしけん):</strong> 7月実施 · 必須科目 + 選択科目Ⅱ + 選択科目Ⅲ<br>
+          <strong style="color:var(--text1)">口頭試験 (こうとうしけん):</strong> 翌年1月 · 筆記合格者のみ · 20分面接<br>
+          <strong style="color:var(--text1)">合格率 (ごうかくりつ):</strong> 全体約10〜15% · 筆記約20% · 口頭約90%
+        </div>
+      </div>
+      <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-primary" data-action="showPage('simulations')">🧪 Simulators / シミュレーター</button>
+        <button class="btn btn-outline" data-action="showPage('study')">📚 Study / 学習モジュール</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end #page-gijutsu -->
 
 <!-- AI TUTOR — FULLY OFFLINE -->
 <div id="page-ai" class="page">
@@ -16983,6 +17525,141 @@ function expandCase(id) {
 
   document.addEventListener('DOMContentLoaded', function() {
     gishiUpdateHomeCard();
+  });
+})();
+
+/* ═══════════════════════════════════════════════════════════════════
+   技術士 — Progress Tracking System
+   19 tasks: l1×3, l2×4, l3×3, l4×3, l5×3, l6×3
+   ═══════════════════════════════════════════════════════════════════ */
+(function() {
+  'use strict';
+  var GIJUTSU_KEY = 'gijutsu-progress';
+  var GIJUTSU_TOTAL = 19;
+  var GIJUTSU_LEVELS = {
+    l1: { count: 3, label: '試験制度',      color: '#57d464' },
+    l2: { count: 4, label: '高度地盤工学',  color: '#00d4ff' },
+    l3: { count: 3, label: '構造物・斜面',  color: '#a855f7' },
+    l4: { count: 3, label: '技術論文',      color: '#f59e0b' },
+    l5: { count: 3, label: '口頭試験',      color: 'var(--accent2)' },
+    l6: { count: 3, label: '最終仕上げ',    color: 'var(--danger)' }
+  };
+
+  function gijutsuLoadProgress() {
+    try { return JSON.parse(localStorage.getItem(GIJUTSU_KEY)) || {}; }
+    catch(e) { return {}; }
+  }
+
+  function gijutsuSaveProgress(data) {
+    try { localStorage.setItem(GIJUTSU_KEY, JSON.stringify(data)); } catch(e) {}
+  }
+
+  function gijutsuCalcPct(data) {
+    var done = Object.keys(data).filter(function(k){ return data[k]; }).length;
+    return { done: done, pct: Math.round(done / GIJUTSU_TOTAL * 100) };
+  }
+
+  function gijutsuUpdateUI() {
+    var data = gijutsuLoadProgress();
+    var stat = gijutsuCalcPct(data);
+
+    var fill  = document.getElementById('gijutsu-progress-fill');
+    var count = document.getElementById('gijutsu-progress-count');
+    var pct   = document.getElementById('gijutsu-progress-pct');
+    if (fill)  fill.style.width = stat.pct + '%';
+    if (count) count.textContent = stat.done + ' / ' + GIJUTSU_TOTAL + ' tasks';
+    if (pct)   pct.textContent = stat.pct + '%';
+
+    document.querySelectorAll('#page-gijutsu .chisei-task[data-tid]').forEach(function(task) {
+      var tid = task.getAttribute('data-tid');
+      var cb  = task.querySelector('.chisei-task-cb');
+      if (data[tid]) {
+        task.classList.add('done');
+        if (cb) cb.textContent = '✓';
+      } else {
+        task.classList.remove('done');
+        if (cb) cb.textContent = '';
+      }
+    });
+
+    Object.keys(GIJUTSU_LEVELS).forEach(function(lk) {
+      var meta = GIJUTSU_LEVELS[lk];
+      var done = 0;
+      for (var i = 1; i <= meta.count; i++) {
+        if (data['gijutsu-' + lk + '-' + i]) done++;
+      }
+      var el = document.getElementById('gijutsu-lp-' + lk);
+      if (el) el.textContent = done + '/' + meta.count;
+    });
+
+    gijutsuRenderLevelSummary(data);
+    gijutsuUpdateHomeCard();
+  }
+
+  function gijutsuUpdateHomeCard() {
+    var data = gijutsuLoadProgress();
+    var stat = gijutsuCalcPct(data);
+    var fill  = document.getElementById('gijutsu-home-fill');
+    var label = document.getElementById('gijutsu-home-label');
+    if (fill)  fill.style.width = stat.pct + '%';
+    if (label) label.textContent = stat.pct + '% Coverage';
+  }
+
+  function gijutsuRenderLevelSummary(data) {
+    var el = document.getElementById('gijutsu-level-summary');
+    if (!el) return;
+    var html = '';
+    Object.keys(GIJUTSU_LEVELS).forEach(function(lk) {
+      var meta = GIJUTSU_LEVELS[lk];
+      var done = 0;
+      for (var i = 1; i <= meta.count; i++) {
+        if (data['gijutsu-' + lk + '-' + i]) done++;
+      }
+      var p = Math.round(done / meta.count * 100);
+      html += '<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:10px;text-align:center">'
+        + '<div style="font-size:11px;font-weight:700;color:' + meta.color + ';font-family:\'JetBrains Mono\',monospace;margin-bottom:4px">' + lk.toUpperCase() + '</div>'
+        + '<div style="font-size:10px;color:var(--text2);margin-bottom:8px">' + meta.label + '</div>'
+        + '<div class="progress-bar" style="height:4px;margin-bottom:4px"><div class="progress-fill" style="width:' + p + '%;background:' + meta.color + '"></div></div>'
+        + '<div style="font-size:10px;color:var(--text2);font-family:\'JetBrains Mono\',monospace">' + done + '/' + meta.count + '</div>'
+        + '</div>';
+    });
+    el.innerHTML = html;
+  }
+
+  window.gijutsuToggleTask = function(tid) {
+    var data = gijutsuLoadProgress();
+    data[tid] = !data[tid];
+    gijutsuSaveProgress(data);
+    gijutsuUpdateUI();
+  };
+
+  window.gijutsuToggleSection = function(idx) {
+    var sh = document.getElementById('gijutsu-sh-' + idx);
+    var sb = document.getElementById('gijutsu-sb-' + idx);
+    if (!sh || !sb) return;
+    var isOpen = sb.classList.contains('open');
+    sh.classList.toggle('open', !isOpen);
+    sb.classList.toggle('open', !isOpen);
+  };
+
+  window.gijutsuToggleLevel = function(lk) {
+    var lb = document.getElementById('gijutsu-lb-' + lk);
+    if (!lb) return;
+    lb.classList.toggle('open');
+  };
+
+  window.gijutsuInit = function() {
+    gijutsuUpdateUI();
+    var sb1 = document.getElementById('gijutsu-sb-1');
+    var sh1 = document.getElementById('gijutsu-sh-1');
+    if (sb1 && !sb1.classList.contains('open')) {
+      sb1.classList.add('open');
+      if (sh1) sh1.classList.add('open');
+    }
+  };
+
+  document.addEventListener('DOMContentLoaded', function() {
+    gijutsuUpdateHomeCard();
   });
 })();
 
