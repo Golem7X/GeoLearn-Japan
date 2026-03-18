@@ -3535,6 +3535,31 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 .admin-active-info-text{font-size:12px;color:var(--text2);line-height:1.6}
 .admin-logout-btn{margin-top:12px;background:none;border:1px solid rgba(255,71,87,.25);color:rgba(255,71,87,.7);padding:6px 14px;border-radius:7px;font-size:11px;cursor:pointer;transition:all .2s;font-family:'Syne',sans-serif}
 .admin-logout-btn:hover{border-color:#ff4757;color:#ff4757}
+/* Admin Key Generator */
+.admin-keygen{margin-top:18px;border-top:1px solid rgba(255,215,0,.15);padding-top:16px}
+.admin-keygen-title{font-size:12px;font-weight:700;color:var(--gold);margin-bottom:4px;letter-spacing:.3px}
+.admin-keygen-sub{font-size:11px;color:var(--text3);margin-bottom:12px;line-height:1.5}
+.admin-keygen-presets{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.admin-keygen-preset{background:rgba(255,215,0,.07);border:1px solid rgba(255,215,0,.2);color:var(--gold);font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;cursor:pointer;font-family:'JetBrains Mono',monospace;letter-spacing:.5px;transition:all .15s}
+.admin-keygen-preset:hover{background:rgba(255,215,0,.18);border-color:var(--gold)}
+.admin-keygen-row{display:flex;gap:8px;flex-wrap:wrap}
+.admin-keygen-input{flex:1;min-width:180px;background:var(--surface);border:1px solid rgba(255,215,0,.2);color:var(--text);font-family:'JetBrains Mono',monospace;font-size:13px;padding:9px 14px;border-radius:8px;outline:none;transition:border-color .2s;text-transform:uppercase;letter-spacing:1px}
+.admin-keygen-input:focus{border-color:var(--gold)}
+.admin-keygen-input::placeholder{text-transform:none;letter-spacing:normal;opacity:.35;font-family:'Syne',sans-serif;font-size:12px}
+.admin-keygen-btn{background:linear-gradient(135deg,rgba(255,215,0,.25),rgba(255,140,0,.2));border:1px solid rgba(255,215,0,.4);color:var(--gold);font-size:12px;font-weight:700;padding:9px 16px;border-radius:8px;cursor:pointer;white-space:nowrap;font-family:'Syne',sans-serif;transition:all .2s}
+.admin-keygen-btn:hover{background:linear-gradient(135deg,rgba(255,215,0,.4),rgba(255,140,0,.35));border-color:var(--gold)}
+.admin-keygen-result{display:none;margin-top:12px;background:rgba(0,0,0,.3);border:1px solid rgba(255,215,0,.2);border-radius:8px;padding:12px 14px}
+.admin-keygen-result.visible{display:block}
+.admin-keygen-result-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
+.admin-keygen-result-row:last-child{margin-bottom:0}
+.admin-keygen-label{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;min-width:40px}
+.admin-keygen-value{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text);flex:1;word-break:break-all}
+.admin-keygen-value.hash{color:var(--gold)}
+.admin-keygen-copy{background:none;border:1px solid var(--border);color:var(--text3);font-size:10px;font-weight:600;padding:3px 8px;border-radius:5px;cursor:pointer;white-space:nowrap;font-family:'Syne',sans-serif;transition:all .15s}
+.admin-keygen-copy:hover{border-color:var(--accent);color:var(--accent)}
+.admin-keygen-copy.copied{border-color:var(--accent3);color:var(--accent3)}
+.admin-keygen-hint{margin-top:10px;font-size:10px;color:var(--text3);line-height:1.6;background:rgba(255,215,0,.04);border:1px solid rgba(255,215,0,.1);border-radius:6px;padding:8px 10px}
+.admin-keygen-hint code{font-family:'JetBrains Mono',monospace;color:var(--gold);font-size:10px}
 </style>
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-GLmY8jWDWHKc0KKY4S7v7cNBMexh/bWGSfzBfeWNp/s='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
 </head>
@@ -7916,6 +7941,35 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
           You are in Admin Mode. Use the floating control bar at the bottom of the screen to preview the app as a Free User or Premium User. Your actual localStorage activation is not affected.
         </div>
         <button class="admin-logout-btn" id="admin-logout-btn">Exit Admin Mode</button>
+
+        <!-- KEY GENERATOR -->
+        <div class="admin-keygen">
+          <div class="admin-keygen-title">⚡ License Key Generator</div>
+          <div class="admin-keygen-sub">Type any key or pick a preset, then click Generate to get the hash for <code style="font-family:'JetBrains Mono',monospace;color:var(--gold);font-size:10px">_VK</code> in index.html.</div>
+          <div class="admin-keygen-presets">
+            <button class="admin-keygen-preset" onclick="adminKeygenFill('GEOJPN-2026-PRO')">GEOJPN-2026-PRO</button>
+            <button class="admin-keygen-preset" onclick="adminKeygenFill('MYOGEO-PREMIUM')">MYOGEO-PREMIUM</button>
+            <button class="admin-keygen-preset" onclick="adminKeygenFill('GEOLEARN-STUDENT')">GEOLEARN-STUDENT</button>
+            <button class="admin-keygen-preset" onclick="adminKeygenFill('GEOLEARN-FULLACCESS')">GEOLEARN-FULLACCESS</button>
+          </div>
+          <div class="admin-keygen-row">
+            <input type="text" id="admin-keygen-input" class="admin-keygen-input" placeholder="e.g. GEOJPN-2026-PRO3" maxlength="64" autocomplete="off" spellcheck="false">
+            <button class="admin-keygen-btn" onclick="adminGenerateKey()">Generate</button>
+          </div>
+          <div class="admin-keygen-result" id="admin-keygen-result">
+            <div class="admin-keygen-result-row">
+              <span class="admin-keygen-label">Key</span>
+              <span class="admin-keygen-value" id="admin-keygen-out-key"></span>
+              <button class="admin-keygen-copy" onclick="adminKeygenCopy('key',this)">Copy</button>
+            </div>
+            <div class="admin-keygen-result-row">
+              <span class="admin-keygen-label">Hash</span>
+              <span class="admin-keygen-value hash" id="admin-keygen-out-hash"></span>
+              <button class="admin-keygen-copy" onclick="adminKeygenCopy('hash',this)">Copy</button>
+            </div>
+            <div class="admin-keygen-hint" id="admin-keygen-hint"></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -8157,6 +8211,59 @@ window.adminLogout=function(){
   if(badge)badge.style.display='none';
   if(typeof initPremiumSystem==='function')initPremiumSystem();
 };
+
+// ── Admin Key Generator ──────────────────────────────────────────
+window.adminKeygenFill=function(preset){
+  var inp=document.getElementById('admin-keygen-input');
+  if(inp){inp.value=preset;inp.focus();}
+};
+
+window.adminGenerateKey=function(){
+  var inp=document.getElementById('admin-keygen-input');
+  if(!inp)return;
+  var raw=inp.value.trim().toUpperCase();
+  if(!raw){inp.focus();return;}
+  var hash=_E(raw);
+  var outKey=document.getElementById('admin-keygen-out-key');
+  var outHash=document.getElementById('admin-keygen-out-hash');
+  var hint=document.getElementById('admin-keygen-hint');
+  var result=document.getElementById('admin-keygen-result');
+  if(outKey)outKey.textContent=raw;
+  if(outHash)outHash.textContent=hash;
+  if(hint)hint.innerHTML=
+    'Paste this hash into <code>_VK</code> in index.html (line ~7990):<br>'+
+    'Change: <code>var _VK=[...last-hash...];</code><br>'+
+    'To:&nbsp;&nbsp;&nbsp;&nbsp;<code>var _VK=[...last-hash..., \''+hash+'\'];</code>';
+  if(result)result.classList.add('visible');
+  // reset copy buttons
+  document.querySelectorAll('.admin-keygen-copy').forEach(function(b){
+    b.textContent='Copy';b.classList.remove('copied');
+  });
+};
+
+window.adminKeygenCopy=function(which,btn){
+  var el=document.getElementById(which==='hash'?'admin-keygen-out-hash':'admin-keygen-out-key');
+  if(!el||!el.textContent)return;
+  navigator.clipboard.writeText(el.textContent).then(function(){
+    btn.textContent='Copied!';btn.classList.add('copied');
+    setTimeout(function(){btn.textContent='Copy';btn.classList.remove('copied');},2000);
+  }).catch(function(){
+    // fallback for older browsers
+    var ta=document.createElement('textarea');
+    ta.value=el.textContent;ta.style.position='fixed';ta.style.opacity='0';
+    document.body.appendChild(ta);ta.select();document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.textContent='Copied!';btn.classList.add('copied');
+    setTimeout(function(){btn.textContent='Copy';btn.classList.remove('copied');},2000);
+  });
+};
+
+// also allow Enter key in keygen input
+document.addEventListener('DOMContentLoaded',function(){
+  var inp=document.getElementById('admin-keygen-input');
+  if(inp){inp.addEventListener('keydown',function(e){if(e.key==='Enter')adminGenerateKey();});}
+});
+// ─────────────────────────────────────────────────────────────────
 
 window.setAdminPreview=function(mode){
   if(!isAdmin())return;
