@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /home/user/GeoLearn-Japan/.claude/auto-deploy.sh",
+            "timeout": 60,
+            "statusMessage": "Building and deploying to GitHub..."
+          }
+        ]
+      }
+    ]
+  }
+}
