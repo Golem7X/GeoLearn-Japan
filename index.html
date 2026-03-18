@@ -3547,7 +3547,7 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 .admin-keygen-copy{background:transparent;border:1px solid var(--border);color:var(--text2);font-size:10px;padding:4px 9px;border-radius:6px;cursor:pointer;transition:all .2s;font-family:'Syne',sans-serif;white-space:nowrap;flex-shrink:0}
 .admin-keygen-copy:hover{border-color:var(--accent);color:var(--accent)}
 </style>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-7kJl+aGmXBml1DbduVZC6WrDUMdcgNdwTAQQ++eP240='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-4K3BZeZ4kuBNUzN3BpuzzioZUhcVOKPLXN7zrfyJngE='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
 </head>
 <body>
 
@@ -4000,6 +4000,15 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
   <div class="page-header">
     <div class="page-title">Engineering <span>Animations</span></div>
     <div class="page-sub">// インタラクティブアニメーション</div>
+  </div>
+
+  <!-- Back bar: shown only when entering from a focused context (e.g. Stage 2 SPT) -->
+  <div id="anim-back-bar" style="display:none;margin-bottom:14px">
+    <div data-action="animExitFocused()"
+      style="display:inline-flex;align-items:center;gap:8px;background:rgba(88,196,88,.08);border:1px solid rgba(88,196,88,.3);border-radius:8px;padding:9px 16px;cursor:pointer;font-size:13px;font-weight:600;color:#58c458;transition:background .2s"
+      onmouseover="this.style.background='rgba(88,196,88,.18)'" onmouseout="this.style.background='rgba(88,196,88,.08)'">
+      ← Back to SPT Stage 2 / 標準貫入試験操作へ戻る
+    </div>
   </div>
 
   <div class="anim-container" style="margin-bottom:20px">
@@ -4616,7 +4625,7 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-bottom:20px">
 
         <!-- Animation card -->
-        <div data-action="showPage('animations');setTimeout(function(){var s=document.getElementById('anim-selector');if(s){s.value='spt';changeAnimation();}},300)"
+        <div data-action="showPage('animations');setTimeout(function(){animEnterFocused('spt');},300)"
           style="background:rgba(0,212,255,.07);border:1px solid rgba(0,212,255,.25);border-radius:10px;padding:14px 12px;cursor:pointer;transition:background .2s"
           onmouseover="this.style.background='rgba(0,212,255,.14)'" onmouseout="this.style.background='rgba(0,212,255,.07)'">
           <div style="font-size:22px;margin-bottom:6px">🎬</div>
@@ -8845,6 +8854,8 @@ function sanitizeText(s) {
 
 
 
+
+
 // ╔══════════════════════════════════════════════════════════════════════════╗
 // ║                                                                          ║
 // ║   GeoLearn Japan — Geotechnical & Geophysical Engineering Platform       ║
@@ -9010,7 +9021,7 @@ function sanitizeText(s) {
       trustedTypes: !!(window.trustedTypes),
       domPurify:    typeof DOMPurify !== 'undefined',
       hardened:     true,
-      built:        '2026-03-18T14:34:19.998Z',
+      built:        '2026-03-18T14:41:22.172Z',
     }),
     writable:     false,
     configurable: false,
@@ -9608,7 +9619,7 @@ function showPage(name){
   const items=document.querySelectorAll('.nav-item');
   const map={home:0,study:1,animations:2,calculator:3,flashcards:4,quiz:5,game:6,resources:7,career:8,ai:9,professor:10,fielddata:11,studyplan:12,vocab:13,jlpt:14,analytics:15,smart:16,dailyfocus:17,simulations:18,kmap:19,casestudies:20,photos:21,activate:22};
   if(map[name]!==undefined)items[map[name]]&&items[map[name]].classList.add('active');
-  if(name==='animations'){initAnim()}
+  if(name==='animations'){var _as=document.getElementById('anim-selector');if(_as)_as.style.display='';var _ab=document.getElementById('anim-back-bar');if(_ab)_ab.style.display='none';initAnim()}
   if(name==='flashcards'){renderFC()}
   if(name==='calculator'){setTimeout(()=>{calcSPT();initVs30();initLiq();calcBearing();drawSPTChart();},100)}
   if(name==='game'){startGame()}
@@ -10169,6 +10180,25 @@ function toggleAnim(){
 }
 function resetAnim(){animT=0;animRunning=false;document.getElementById('play-btn').textContent='▶ Play';cancelAnimationFrame(animFrame);drawAnimFrame()}
 function initAnim(){updateAnimDesc();drawAnimFrame()}
+function animEnterFocused(type){
+  var s=document.getElementById('anim-selector');
+  if(s){s.value=type;s.style.display='none';changeAnimation();}
+  var bar=document.getElementById('anim-back-bar');
+  if(bar)bar.style.display='block';
+}
+function animExitFocused(){
+  var s=document.getElementById('anim-selector');
+  if(s)s.style.display='';
+  var bar=document.getElementById('anim-back-bar');
+  if(bar)bar.style.display='none';
+  showPage('career');
+  setTimeout(function(){
+    var body=document.getElementById('stage01-sb-2');
+    if(body&&!body.classList.contains('open'))stage01ToggleSection(2);
+    var hdr=document.getElementById('stage01-sh-2');
+    if(hdr)hdr.scrollIntoView({behavior:'smooth',block:'start'});
+  },150);
+}
 function runAnim(){
   animT+=0.8;
   drawAnimFrame();
