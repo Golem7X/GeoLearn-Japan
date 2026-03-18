@@ -178,5 +178,15 @@
   "game_hard": "Hard (10 pairs)",
 
   "loading": "Loading...",
-  "lang_name": "English"
+  "lang_name": "English",
+
+  "career_stage01_title": "Field Investigation Engineer",
+  "career_stage01_jp": "現場調査技術者",
+  "career_stage01_desc": "Entry-level role conducting boreholes, SPT, CPT, and sampling. Works under supervision on site investigation projects.",
+  "career_stage01_salary": "¥250,000–350,000 /month",
+  "career_stage01_skill1": "SPT Operation / SPT操作",
+  "career_stage01_skill2": "Soil Logging / 地質柱状図記録",
+  "career_stage01_skill3": "Safety Management / 安全管理",
+  "career_stage01_skill4": "AUTOCAD Basic / AutoCAD基礎",
+  "career_open_roadmap": "→ Open Study Roadmap"
 }
