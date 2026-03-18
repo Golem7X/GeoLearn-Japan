@@ -3535,6 +3535,17 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 .admin-active-info-text{font-size:12px;color:var(--text2);line-height:1.6}
 .admin-logout-btn{margin-top:12px;background:none;border:1px solid rgba(255,71,87,.25);color:rgba(255,71,87,.7);padding:6px 14px;border-radius:7px;font-size:11px;cursor:pointer;transition:all .2s;font-family:'Syne',sans-serif}
 .admin-logout-btn:hover{border-color:#ff4757;color:#ff4757}
+/* Key Generator */
+.admin-keygen-section{margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,215,0,.15)}
+.admin-keygen-title{font-size:12px;font-weight:700;color:var(--gold);margin-bottom:5px}
+.admin-keygen-sub{font-size:11px;color:var(--text2);margin-bottom:12px;line-height:1.5}
+.admin-keygen-btn{width:100%;background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.25);color:var(--gold);font-size:12px;font-weight:700;padding:9px 16px;border-radius:8px;cursor:pointer;transition:all .2s;font-family:'Syne',sans-serif}
+.admin-keygen-btn:hover{background:rgba(255,215,0,.2);border-color:var(--gold)}
+.admin-keygen-list{display:flex;flex-direction:column;gap:7px;margin-top:12px;max-height:220px;overflow-y:auto}
+.admin-keygen-row{display:flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:9px 12px}
+.admin-keygen-key{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);flex:1;letter-spacing:.8px;word-break:break-all}
+.admin-keygen-copy{background:transparent;border:1px solid var(--border);color:var(--text2);font-size:10px;padding:4px 9px;border-radius:6px;cursor:pointer;transition:all .2s;font-family:'Syne',sans-serif;white-space:nowrap;flex-shrink:0}
+.admin-keygen-copy:hover{border-color:var(--accent);color:var(--accent)}
 </style>
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-GLmY8jWDWHKc0KKY4S7v7cNBMexh/bWGSfzBfeWNp/s='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
 </head>
@@ -7916,6 +7927,13 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
           You are in Admin Mode. Use the floating control bar at the bottom of the screen to preview the app as a Free User or Premium User. Your actual localStorage activation is not affected.
         </div>
         <button class="admin-logout-btn" id="admin-logout-btn">Exit Admin Mode</button>
+        <!-- PASSWORD / LICENSE KEY GENERATOR -->
+        <div class="admin-keygen-section">
+          <div class="admin-keygen-title">🔑 License Key Generator</div>
+          <p class="admin-keygen-sub">Generate valid premium license keys to distribute to users.</p>
+          <button class="admin-keygen-btn" id="admin-gen-key-btn">⚡ Generate New Key</button>
+          <div class="admin-keygen-list" id="admin-keygen-list"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -8255,6 +8273,91 @@ function _showAdmSt(el,msg,type){
 }
 
 document.addEventListener('DOMContentLoaded',function(){_setupAdminUI();});
+})();
+
+// ============================================================
+// LICENSE KEY GENERATOR (Admin tool)
+// ============================================================
+(function(){
+'use strict';
+// Salt used for checksum-based key validation (obfuscated in production build)
+var _S='GeoLearn_JP_2026_Premium_MYO';
+
+function _cs(body){
+  var h=5381,s=body+_S;
+  for(var i=0;i<s.length;i++){h=((h<<5)+h+s.charCodeAt(i))&0xFFFFFFFF;}
+  return(h>>>0).toString(36).toUpperCase().padStart(8,'0').slice(-4);
+}
+
+// Generate a new key: GLJP-XXXXXXXX-XXXXXXXX-CCCC
+function _genKey(){
+  var ch='ABCDEFGHIJKLMNPQRSTUVWXYZ23456789';
+  var p1='',p2='';
+  for(var i=0;i<8;i++)p1+=ch[Math.floor(Math.random()*ch.length)];
+  for(var i=0;i<8;i++)p2+=ch[Math.floor(Math.random()*ch.length)];
+  return'GLJP-'+p1+'-'+p2+'-'+_cs(p1+'-'+p2);
+}
+
+// Validate a generated key (checksum-based)
+function _valGenKey(key){
+  if(!key||typeof key!=='string')return false;
+  var pts=key.trim().toUpperCase().split('-');
+  if(pts.length!==4||pts[0]!=='GLJP')return false;
+  if(!/^[A-Z0-9]{8}$/.test(pts[1])||!/^[A-Z0-9]{8}$/.test(pts[2]))return false;
+  return pts[3]===_cs(pts[1]+'-'+pts[2]);
+}
+
+// Extend activatePremium to also accept generated (checksum-based) keys
+var _origAP=window.activatePremium;
+window.activatePremium=function(key){
+  if(_origAP&&_origAP(key))return true;
+  if(_valGenKey(key)){
+    try{
+      localStorage.setItem('GeoLearn_Premium_Status','true');
+      localStorage.setItem('GeoLearn_License_Key',btoa(key.trim().toUpperCase()));
+      localStorage.setItem('GeoLearn_Activation_Date',new Date().toISOString());
+      if(typeof initPremiumSystem==='function')initPremiumSystem();
+    }catch(e){}
+    return true;
+  }
+  return false;
+};
+
+// Wire up the Generate button
+document.addEventListener('DOMContentLoaded',function(){
+  var btn=document.getElementById('admin-gen-key-btn');
+  if(!btn)return;
+  btn.addEventListener('click',function(){
+    if(typeof isAdmin==='function'&&!isAdmin())return;
+    var key=_genKey();
+    var list=document.getElementById('admin-keygen-list');
+    if(!list)return;
+    var row=document.createElement('div');
+    row.className='admin-keygen-row';
+    var keyEl=document.createElement('span');
+    keyEl.className='admin-keygen-key';
+    keyEl.textContent=key;
+    var copyEl=document.createElement('button');
+    copyEl.className='admin-keygen-copy';
+    copyEl.textContent='Copy';
+    copyEl.addEventListener('click',function(){
+      navigator.clipboard.writeText(key).then(function(){
+        copyEl.textContent='Copied!';
+        copyEl.style.color='var(--accent3)';
+        copyEl.style.borderColor='var(--accent3)';
+        setTimeout(function(){copyEl.textContent='Copy';copyEl.style.color='';copyEl.style.borderColor='';},2000);
+      }).catch(function(){
+        var ta=document.createElement('textarea');
+        ta.value=key;ta.style.cssText='position:fixed;opacity:0';
+        document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+        copyEl.textContent='Copied!';
+        setTimeout(function(){copyEl.textContent='Copy';},2000);
+      });
+    });
+    row.appendChild(keyEl);row.appendChild(copyEl);
+    list.insertBefore(row,list.firstChild);
+  });
+});
 })();
 
 // ── Input validation helpers ───────────────────────────────────────────
