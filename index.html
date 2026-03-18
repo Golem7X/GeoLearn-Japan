@@ -3684,7 +3684,7 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
   <div class="nav-item active" data-action="showPage('home')">
     <span class="nav-icon">⌂</span><span class="nav-label">Home</span>
   </div>
-  <div class="nav-item nav-admin-only" data-action="showPage('admin')" id="nav-admin-item" style="border:1px solid rgba(255,215,0,.25);border-radius:8px;background:rgba(255,215,0,.06)">
+  <div class="nav-item nav-admin-only" data-action="showPage('admin')" id="nav-admin-item" style="display:none;border:1px solid rgba(255,215,0,.25);border-radius:8px;background:rgba(255,215,0,.06)">
     <span class="nav-icon">⚙</span><span class="nav-label">Admin Panel</span>
   </div>
   <div class="nav-item" data-action="showPage('study')">
@@ -8484,13 +8484,15 @@ function _updateAdminBar(mode){
 function _initAdminUI(){
   var admin=isAdmin();
   document.body.classList.toggle('is-admin',admin);
+  // Programmatically show/hide admin nav item — bypasses any CSS specificity issues
+  var adminNav=document.getElementById('nav-admin-item');
+  if(adminNav)adminNav.style.display=admin?'flex':'none';
   var bar=document.getElementById('admin-bar');
   if(bar)bar.classList.toggle('active',admin);
   var badge=document.getElementById('admin-header-badge');
   if(badge)badge.style.display=admin?'flex':'none';
   if(admin){
     try{_updateAdminBar(sessionStorage.getItem('GeoLearn_Admin_Preview')||'actual');}catch(e){}
-    // sync admin panel preview badge if page is open
     apSyncPreviewBadge(sessionStorage.getItem('GeoLearn_Admin_Preview')||'actual');
   }
 }
