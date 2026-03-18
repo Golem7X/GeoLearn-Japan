@@ -3399,8 +3399,9 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
    ═══════════════════════════════════════ */
 
 /* Nav locked items */
+.nav-lock-dot{display:none}
 .nav-item.nav-locked{opacity:.65;position:relative}
-.nav-item.nav-locked .nav-lock-dot{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:10px;line-height:1}
+.nav-item.nav-locked .nav-lock-dot{display:block;position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:10px;line-height:1}
 .sidebar:not(:hover) .nav-item.nav-locked .nav-lock-dot{right:auto;left:50%;transform:translate(-50%,0);bottom:3px;top:auto;font-size:9px}
 .nav-item.nav-locked:hover{opacity:.85;background:rgba(255,215,0,.07)!important;color:var(--gold)!important}
 
@@ -8091,6 +8092,8 @@ function _showActSt(el,msg,type){
 }
 
 document.addEventListener('DOMContentLoaded',function(){
+  // Clear any stale admin state from previous sessions
+  try{sessionStorage.removeItem('GeoLearn_Admin_Mode');sessionStorage.removeItem('GeoLearn_Admin_Preview');}catch(e){}
   initPremiumSystem();
   _setupActivateForm();
   if(!localStorage.getItem('GeoLearn_Premium_Status')){
@@ -8110,25 +8113,31 @@ function _E(s){return s.split('').map(function(c,i){return(c.charCodeAt(0)^_M[i%
 var _AP=['0a1c000b000e7f0f030806026873627c71','00000006150f7f0306161b09176c111a1509'];
 function _CAP(pw){try{return _AP.indexOf(_E(pw.trim().toUpperCase()))!==-1;}catch(e){return false;}}
 
+// Volatile admin flag – resets on every page load so stale sessionStorage
+// admin state never leaks into the premium system.
+var _adminActive=false;
+
 // Override isPremium to respect admin preview mode
 var _realIsPremium=window.isPremium;
 window.isPremium=function(){
   try{
-    var p=sessionStorage.getItem('GeoLearn_Admin_Preview');
-    if(isAdmin()&&p==='premium')return true;
-    if(isAdmin()&&p==='free')return false;
+    if(_adminActive){
+      var p=sessionStorage.getItem('GeoLearn_Admin_Preview');
+      if(p==='premium')return true;
+      if(p==='free')return false;
+    }
   }catch(e){}
   return _realIsPremium?_realIsPremium():false;
 };
 
 window.isAdmin=function(){
-  try{return sessionStorage.getItem('GeoLearn_Admin_Mode')==='true';}catch(e){return false;}
+  return _adminActive;
 };
 
 window.adminLogin=function(pw){
   if(_CAP(pw)){
+    _adminActive=true;
     try{
-      sessionStorage.setItem('GeoLearn_Admin_Mode','true');
       sessionStorage.setItem('GeoLearn_Admin_Preview','actual');
     }catch(e){}
     return true;
@@ -8137,8 +8146,8 @@ window.adminLogin=function(pw){
 };
 
 window.adminLogout=function(){
+  _adminActive=false;
   try{
-    sessionStorage.removeItem('GeoLearn_Admin_Mode');
     sessionStorage.removeItem('GeoLearn_Admin_Preview');
   }catch(e){}
   document.body.classList.remove('is-admin');
@@ -9033,7 +9042,7 @@ function toggleMobileMenu(){
 // NAVIGATION
 // ============================================================
 function showPage(name){
-  if(name!=='activate'&&typeof checkPremiumAccess==='function'&&!checkPremiumAccess(name)){return;}
+  if(name!=='activate'&&(typeof checkPremiumAccess!=='function'||!checkPremiumAccess(name))){return;}
   document.body.classList.remove('mobile-nav-open');
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
