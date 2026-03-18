@@ -3684,6 +3684,9 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
   <div class="nav-item active" data-action="showPage('home')">
     <span class="nav-icon">⌂</span><span class="nav-label">Home</span>
   </div>
+  <div class="nav-item nav-admin-only" data-action="showPage('admin')" id="nav-admin-item" style="border:1px solid rgba(255,215,0,.25);border-radius:8px;background:rgba(255,215,0,.06)">
+    <span class="nav-icon">⚙</span><span class="nav-label">Admin Panel</span>
+  </div>
   <div class="nav-item" data-action="showPage('study')">
     <span class="nav-icon">📚</span><span class="nav-label">Study Modules</span>
   </div>
@@ -3749,9 +3752,6 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
   </div>
   <div class="nav-item" data-action="showPage('activate')" id="nav-activate-btn">
     <span class="nav-icon">⭐</span><span class="nav-label">Activate Premium</span>
-  </div>
-  <div class="nav-item nav-admin-only" data-action="showPage('admin')" id="nav-admin-item">
-    <span class="nav-icon">⚙</span><span class="nav-label">Admin Panel</span>
   </div>
 
   <!-- OWNER BADGE -->
@@ -8084,6 +8084,8 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
 <div class="admin-bar" id="admin-bar" role="toolbar" aria-label="Admin preview controls">
   <span class="admin-bar-label">⚙ Admin</span>
   <span class="admin-bar-sep"></span>
+  <button class="admin-preview-btn" onclick="showPage('admin')" style="border-color:rgba(255,215,0,.4);color:var(--gold)">⚙ Panel</button>
+  <span class="admin-bar-sep"></span>
   <span style="font-size:10px;color:var(--text3);font-weight:600">Viewing:</span>
   <button class="admin-preview-btn actual" id="admin-btn-actual" onclick="setAdminPreview('actual')">Actual State</button>
   <button class="admin-preview-btn free" id="admin-btn-free" onclick="setAdminPreview('free')">👁 Free View</button>
@@ -9329,7 +9331,8 @@ function showPage(name){
   if(typeof gtag==='function'){gtag('event','page_view',{page_title:name,page_location:location.href.split('#')[0]+'#'+name});}
 
   const items=document.querySelectorAll('.nav-item');
-  const map={home:0,study:1,animations:2,calculator:3,flashcards:4,quiz:5,game:6,resources:7,career:8,ai:9,professor:10,fielddata:11,studyplan:12,vocab:13,jlpt:14,analytics:15,smart:16,dailyfocus:17,simulations:18,kmap:19,casestudies:20,photos:21,activate:22,admin:23};
+  // admin nav item is at index 1 (right after home); all others shifted by +1
+  const map={home:0,admin:1,study:2,animations:3,calculator:4,flashcards:5,quiz:6,game:7,resources:8,career:9,ai:10,professor:11,fielddata:12,studyplan:13,vocab:14,jlpt:15,analytics:16,smart:17,dailyfocus:18,simulations:19,kmap:20,casestudies:21,photos:22,activate:23};
   if(name==='admin')apRefreshSysInfo();
   if(map[name]!==undefined)items[map[name]]&&items[map[name]].classList.add('active');
   if(name==='animations'){initAnim()}
