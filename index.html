@@ -2718,62 +2718,148 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
    ═══════════════════════════════════════════════════════════════════ */
 
 /* ── Language Switcher (PC: fixed top-right, Mobile: in sidebar) ──── */
+/* ── LANGUAGE SWITCHER POPUP ── */
 .lang-switcher-fixed {
   position: fixed;
   top: 12px;
   right: 12px;
   z-index: 1002;
+}
+/* Trigger pill button */
+.lang-trigger {
   display: flex;
-  gap: 4px;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px 6px 10px;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 4px;
-}
-.lang-switcher-sidebar {
-  display: none;
-}
-.lang-btn {
-  padding: 6px 10px;
+  border-radius: 20px;
+  cursor: pointer;
   font-family: 'Syne', sans-serif;
   font-weight: 700;
-  font-size: 11px;
-  letter-spacing: 0.5px;
   color: var(--text2);
-  background: transparent;
-  border: 1px solid transparent;
-  border-radius: 6px;
+  transition: border-color .25s, color .25s, background .25s, box-shadow .25s;
+  box-shadow: 0 2px 12px rgba(0,0,0,.3);
+  letter-spacing: .5px;
+  position: relative;
+  z-index: 1;
+}
+.lang-trigger:hover,
+.lang-trigger.open {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(0,212,255,.07);
+  box-shadow: 0 4px 22px rgba(0,212,255,.18);
+}
+.lang-trigger-globe { font-size: 13px; line-height: 1; }
+.lang-trigger-label { font-size: 11px; font-weight: 800; letter-spacing: 1px; }
+.lang-trigger-caret {
+  font-size: 9px;
+  opacity: .55;
+  margin-left: 1px;
+  transition: transform .25s cubic-bezier(.4,0,.2,1);
+}
+.lang-trigger.open .lang-trigger-caret { transform: rotate(180deg); }
+
+/* Popup dropdown */
+.lang-popup {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 6px;
+  min-width: 164px;
+  box-shadow: 0 18px 52px rgba(0,0,0,.6), 0 0 0 1px rgba(0,212,255,.07), inset 0 1px 0 rgba(255,255,255,.04);
+  backdrop-filter: blur(20px);
+  opacity: 0;
+  transform: translateY(-8px) scale(.95);
+  pointer-events: none;
+  transition: opacity .22s cubic-bezier(.4,0,.2,1), transform .22s cubic-bezier(.4,0,.2,1);
+  transform-origin: top right;
+}
+.lang-popup.open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+/* Popup divider between items */
+.lang-popup-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 4px 6px;
+  opacity: .5;
+}
+/* Individual lang buttons */
+.lang-btn {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 9px 11px;
+  border-radius: 9px;
   cursor: pointer;
-  transition: all .2s;
-  text-align: center;
-  line-height: 1;
+  transition: background .15s;
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
+  background: transparent;
+  border: none;
+  text-align: left;
+  box-sizing: border-box;
 }
-.lang-btn:hover {
-  border-color: var(--accent);
+.lang-btn:hover { background: rgba(0,212,255,.08); }
+.lang-btn.active { background: rgba(0,212,255,.13); }
+.lang-popup-flag { font-size: 15px; line-height: 1; flex-shrink: 0; }
+.lang-popup-name { flex: 1; font-size: 12px; color: var(--text2); }
+.lang-btn.active .lang-popup-name { color: var(--accent); }
+.lang-popup-code {
+  font-size: 10px;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text3);
+  letter-spacing: .6px;
+}
+.lang-btn.active .lang-popup-code { color: var(--accent); }
+/* Active check mark */
+.lang-popup-check {
+  font-size: 11px;
   color: var(--accent);
+  opacity: 0;
+  margin-left: 2px;
 }
-.lang-btn.active {
-  background: rgba(0,212,255,0.12);
-  border-color: var(--accent);
-  color: var(--accent);
+.lang-btn.active .lang-popup-check { opacity: 1; }
+
+/* Study-mode overrides */
+body.study-mode .lang-trigger {
+  background: #fff;
+  border-color: #D1DCF0;
+  color: #555;
 }
-body.study-mode .lang-switcher-fixed {
+body.study-mode .lang-trigger:hover,
+body.study-mode .lang-trigger.open {
+  border-color: #4F46E5;
+  color: #4F46E5;
+  background: rgba(79,70,229,.06);
+  box-shadow: 0 4px 20px rgba(79,70,229,.15);
+}
+body.study-mode .lang-popup {
   background: #fff;
   border-color: #D1DCF0;
 }
-body.study-mode .lang-btn {
-  color: #555;
-}
-body.study-mode .lang-btn.active {
-  background: rgba(79,70,229,0.1);
-  border-color: #4F46E5;
-  color: #4F46E5;
-}
+body.study-mode .lang-btn:hover { background: rgba(79,70,229,.07); }
+body.study-mode .lang-btn.active { background: rgba(79,70,229,.1); }
+body.study-mode .lang-btn.active .lang-popup-name { color: #4F46E5; }
+body.study-mode .lang-btn.active .lang-popup-code { color: #4F46E5; }
+body.study-mode .lang-popup-check { color: #4F46E5; }
+
+/* Mobile sidebar (flat horizontal pills) */
+.lang-switcher-sidebar { display: none; }
 @media (max-width: 768px) {
   .lang-switcher-fixed { display: none; }
   .lang-switcher-sidebar {
     display: flex;
-    gap: 4px;
+    gap: 6px;
     justify-content: center;
     margin-top: 10px;
     padding: 0 12px;
@@ -2781,7 +2867,14 @@ body.study-mode .lang-btn.active {
   .lang-switcher-sidebar .lang-btn {
     flex: 1;
     border: 1px solid var(--border);
+    border-radius: 10px;
+    justify-content: center;
+    gap: 5px;
+    padding: 7px 8px;
   }
+  .lang-switcher-sidebar .lang-popup-name { display: none; }
+  .lang-switcher-sidebar .lang-popup-check { display: none; }
+  .lang-switcher-sidebar .lang-btn.active { border-color: var(--accent); }
 }
 .lang-loading {
   position: fixed;
@@ -3546,8 +3639,38 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 .admin-keygen-key{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);flex:1;letter-spacing:.8px;word-break:break-all}
 .admin-keygen-copy{background:transparent;border:1px solid var(--border);color:var(--text2);font-size:10px;padding:4px 9px;border-radius:6px;cursor:pointer;transition:all .2s;font-family:'Syne',sans-serif;white-space:nowrap;flex-shrink:0}
 .admin-keygen-copy:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ═══════════════════════════════════════
+   FORGOT PASSWORD / KEY RECOVERY STYLES
+   ═══════════════════════════════════════ */
+.forgot-key-link{display:inline-block;margin-top:10px;font-size:11px;color:var(--text3);cursor:pointer;text-decoration:underline;text-underline-offset:3px;transition:color .2s;border:none;background:none;padding:0;font-family:'Syne',sans-serif}
+.forgot-key-link:hover{color:var(--accent)}
+.forgot-key-panel{display:none;margin-top:14px;background:rgba(0,212,255,.04);border:1px solid rgba(0,212,255,.15);border-radius:10px;padding:16px}
+.forgot-key-panel.open{display:block}
+.forgot-key-panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.forgot-key-panel-title{font-size:13px;font-weight:700;color:var(--accent)}
+.forgot-key-close{background:none;border:none;color:var(--text3);font-size:15px;cursor:pointer;padding:0;line-height:1;transition:color .2s}
+.forgot-key-close:hover{color:var(--text)}
+.forgot-key-panel-text{font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:12px}
+.forgot-key-email-input{width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text);font-size:13px;padding:9px 14px;border-radius:8px;outline:none;transition:border-color .2s;box-sizing:border-box;margin-bottom:10px;font-family:'Syne',sans-serif}
+.forgot-key-email-input:focus{border-color:var(--accent)}
+.forgot-key-email-input::placeholder{opacity:.45;font-size:12px}
+.forgot-key-send-btn{width:100%;background:rgba(0,212,255,.12);border:1px solid rgba(0,212,255,.3);color:var(--accent);font-size:12px;font-weight:700;padding:9px 16px;border-radius:8px;cursor:pointer;transition:all .2s;font-family:'Syne',sans-serif}
+.forgot-key-send-btn:hover{background:rgba(0,212,255,.2);border-color:var(--accent)}
+.forgot-key-status{display:none;margin-top:10px;padding:9px 12px;border-radius:7px;font-size:12px;font-weight:600}
+.forgot-key-status.error{background:rgba(255,71,87,.1);border:1px solid rgba(255,71,87,.3);color:#ff4757}
+.forgot-key-status.success{background:rgba(127,255,110,.1);border:1px solid rgba(127,255,110,.3);color:var(--accent3)}
+/* Admin forgot password */
+.admin-forgot-link{display:inline-block;margin-top:8px;font-size:11px;color:var(--text3);cursor:pointer;text-decoration:underline;text-underline-offset:3px;transition:color .2s;border:none;background:none;padding:0;font-family:'Syne',sans-serif}
+.admin-forgot-link:hover{color:var(--gold)}
+.admin-forgot-panel{display:none;margin-top:12px;background:rgba(255,215,0,.04);border:1px solid rgba(255,215,0,.15);border-radius:9px;padding:13px 15px}
+.admin-forgot-panel.open{display:block}
+.admin-forgot-title{font-size:12px;font-weight:700;color:var(--gold);margin-bottom:5px}
+.admin-forgot-text{font-size:11px;color:var(--text2);line-height:1.65}
+.admin-forgot-contact{margin-top:8px;font-size:11px;color:var(--text3)}
+.admin-forgot-contact a{color:var(--gold);text-decoration:underline;text-underline-offset:2px}
 </style>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-MwXeatxb47PH+9wfKZhoxlzpGdL9q4NPalHguxVxo/U='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-tqk6DEIVWFC9xj2+MaqpGK2TQP6tD++w2YUuabASzEU='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
 </head>
 <body>
 
@@ -3593,11 +3716,35 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
 
 <div class="app">
 
-<!-- LANGUAGE SWITCHER (PC: fixed top-right) -->
-<div class="lang-switcher-fixed">
-  <button class="lang-btn active" data-action="switchLang('en')" title="English">EN</button>
-  <button class="lang-btn" data-action="switchLang('ja')" title="日本語">JA</button>
-  <button class="lang-btn" data-action="switchLang('mm')" title="မြန်မာ">MM</button>
+<!-- LANGUAGE SWITCHER (PC: fixed top-right popup) -->
+<div class="lang-switcher-fixed" id="lang-switcher">
+  <button class="lang-trigger" id="lang-trigger" aria-haspopup="listbox" aria-expanded="false" aria-label="Change language">
+    <span class="lang-trigger-globe">🌐</span>
+    <span class="lang-trigger-label" id="lang-trigger-label">EN</span>
+    <span class="lang-trigger-caret">▾</span>
+  </button>
+  <div class="lang-popup" id="lang-popup" role="listbox" aria-label="Language options">
+    <button class="lang-btn" data-action="switchLang('en')" title="English" role="option">
+      <span class="lang-popup-flag">🇺🇸</span>
+      <span class="lang-popup-name">English</span>
+      <span class="lang-popup-code">EN</span>
+      <span class="lang-popup-check">✓</span>
+    </button>
+    <div class="lang-popup-divider"></div>
+    <button class="lang-btn" data-action="switchLang('ja')" title="日本語" role="option">
+      <span class="lang-popup-flag">🇯🇵</span>
+      <span class="lang-popup-name">日本語</span>
+      <span class="lang-popup-code">JA</span>
+      <span class="lang-popup-check">✓</span>
+    </button>
+    <div class="lang-popup-divider"></div>
+    <button class="lang-btn" data-action="switchLang('mm')" title="မြန်မာ" role="option">
+      <span class="lang-popup-flag">🇲🇲</span>
+      <span class="lang-popup-name">မြန်မာ</span>
+      <span class="lang-popup-code">MM</span>
+      <span class="lang-popup-check">✓</span>
+    </button>
+  </div>
 </div>
 
 <!-- LANGUAGE LOADING INDICATOR -->
@@ -3693,9 +3840,18 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
   <!-- OWNER BADGE -->
   <!-- Language Switcher (Mobile: in sidebar) -->
   <div class="lang-switcher-sidebar">
-    <button class="lang-btn active" data-action="switchLang('en')" title="English">EN</button>
-    <button class="lang-btn" data-action="switchLang('ja')" title="日本語">JA</button>
-    <button class="lang-btn" data-action="switchLang('mm')" title="မြန်မာ">MM</button>
+    <button class="lang-btn" data-action="switchLang('en')" title="English">
+      <span class="lang-popup-flag">🇺🇸</span>
+      <span class="lang-popup-code">EN</span>
+    </button>
+    <button class="lang-btn" data-action="switchLang('ja')" title="日本語">
+      <span class="lang-popup-flag">🇯🇵</span>
+      <span class="lang-popup-code">JA</span>
+    </button>
+    <button class="lang-btn" data-action="switchLang('mm')" title="မြန်မာ">
+      <span class="lang-popup-flag">🇲🇲</span>
+      <span class="lang-popup-code">MM</span>
+    </button>
   </div>
   <div class="nav-owner">
     <div class="nav-owner-logo">MYO_Geo_Orgs</div>
@@ -8351,6 +8507,18 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
         </div>
         <div class="activation-status" id="activation-status" role="alert" aria-live="polite"></div>
       </form>
+      <!-- Forgot license key recovery -->
+      <button class="forgot-key-link" id="forgot-key-link" type="button" aria-expanded="false" aria-controls="forgot-key-panel">Lost your license key?</button>
+      <div class="forgot-key-panel" id="forgot-key-panel" role="region" aria-label="License key recovery">
+        <div class="forgot-key-panel-header">
+          <div class="forgot-key-panel-title">🔑 License Key Recovery</div>
+          <button class="forgot-key-close" id="forgot-key-close" type="button" aria-label="Close recovery panel">✕</button>
+        </div>
+        <div class="forgot-key-panel-text">Enter the email address used when purchasing GeoLearn Premium. We'll open your email client with a pre-filled recovery request to send to our support team.</div>
+        <input type="email" id="forgot-key-email" class="forgot-key-email-input" placeholder="your@email.com" maxlength="128" autocomplete="email" aria-label="Email address for key recovery">
+        <button class="forgot-key-send-btn" id="forgot-key-send-btn" type="button">📧 Send Recovery Request</button>
+        <div class="forgot-key-status" id="forgot-key-status" role="alert" aria-live="polite"></div>
+      </div>
     </div>
 
     <!-- Active state (shown for premium users) -->
@@ -8376,6 +8544,13 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
           <button id="admin-login-btn" class="admin-login-btn">Enter Admin</button>
         </div>
         <div class="admin-status" id="admin-status" role="alert" aria-live="polite"></div>
+        <!-- Forgot admin password -->
+        <button class="admin-forgot-link" id="admin-forgot-link" type="button" aria-expanded="false" aria-controls="admin-forgot-panel">Forgot admin password?</button>
+        <div class="admin-forgot-panel" id="admin-forgot-panel" role="region" aria-label="Admin password recovery">
+          <div class="admin-forgot-title">⚙ Admin Password Recovery</div>
+          <div class="admin-forgot-text">Admin master passwords are stored in the application configuration and cannot be reset through the browser for security reasons. Please check your admin credentials file or contact the lead developer.</div>
+          <div class="admin-forgot-contact">Contact: <a href="mailto:admin@geolearn-japan.com?subject=GeoLearn%20Admin%20Password%20Recovery&body=Hello%2C%0A%0AI%20need%20help%20recovering%20admin%20access%20to%20GeoLearn%20Japan.%0A%0APlease%20assist.%0A%0AThank%20you.">admin@geolearn-japan.com</a></div>
+        </div>
       </div>
       <div class="admin-active-info" id="admin-active-info">
         <div class="admin-active-info-title">⚙ Admin Mode Active</div>
@@ -8816,6 +8991,88 @@ document.addEventListener('DOMContentLoaded',function(){
 });
 })();
 
+// ============================================================
+// FORGOT PASSWORD / KEY RECOVERY SYSTEM
+// ============================================================
+(function(){
+'use strict';
+
+var SUPPORT_EMAIL='support@geolearn-japan.com';
+var ADMIN_EMAIL='admin@geolearn-japan.com';
+
+function _validateEmail(e){return/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);}
+
+function _showFKStatus(el,msg,type){
+  if(!el)return;
+  el.textContent=msg;
+  el.className='forgot-key-status '+type;
+  el.style.display='block';
+}
+
+function _setupForgotKeyPanel(){
+  var link=document.getElementById('forgot-key-link');
+  var panel=document.getElementById('forgot-key-panel');
+  var closeBtn=document.getElementById('forgot-key-close');
+  var sendBtn=document.getElementById('forgot-key-send-btn');
+  var emailInput=document.getElementById('forgot-key-email');
+  var status=document.getElementById('forgot-key-status');
+  if(!link||!panel)return;
+
+  function _togglePanel(open){
+    panel.classList.toggle('open',open);
+    link.setAttribute('aria-expanded',open?'true':'false');
+    if(open&&emailInput)emailInput.focus();
+  }
+
+  link.addEventListener('click',function(){_togglePanel(!panel.classList.contains('open'));});
+  if(closeBtn){
+    closeBtn.addEventListener('click',function(){_togglePanel(false);});
+  }
+
+  if(sendBtn&&emailInput){
+    function _doSend(){
+      var email=emailInput.value.trim();
+      if(!email){_showFKStatus(status,'Please enter your email address.','error');emailInput.focus();return;}
+      if(!_validateEmail(email)){_showFKStatus(status,'Please enter a valid email address.','error');emailInput.focus();return;}
+      var subject=encodeURIComponent('GeoLearn Premium \u2013 License Key Recovery Request');
+      var body=encodeURIComponent(
+        'Hello GeoLearn Support,\n\n'+
+        'I purchased GeoLearn Premium and have lost my license key.\n\n'+
+        'Purchase email: '+email+'\n\n'+
+        'Please resend my license key to this address.\n\n'+
+        'Thank you.'
+      );
+      var mailto='mailto:'+SUPPORT_EMAIL+'?subject='+subject+'&body='+body;
+      var a=document.createElement('a');
+      a.href=mailto;
+      a.rel='noopener';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      _showFKStatus(status,'\u2713 Your email client is opening. Send the pre-filled message to receive your key.','success');
+      emailInput.value='';
+    }
+    sendBtn.addEventListener('click',_doSend);
+    emailInput.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();_doSend();}});
+  }
+}
+
+function _setupAdminForgotPanel(){
+  var link=document.getElementById('admin-forgot-link');
+  var panel=document.getElementById('admin-forgot-panel');
+  if(!link||!panel)return;
+  link.addEventListener('click',function(){
+    var open=panel.classList.toggle('open');
+    link.setAttribute('aria-expanded',open?'true':'false');
+  });
+}
+
+document.addEventListener('DOMContentLoaded',function(){
+  _setupForgotKeyPanel();
+  _setupAdminForgotPanel();
+});
+})();
+
 // ── Input validation helpers ───────────────────────────────────────────
 function safeNum(id, fallback, min, max) {
   const el = document.getElementById(id);
@@ -8833,6 +9090,8 @@ function sanitizeText(s) {
   }
   return escHtml(String(s));
 }
+
+
 
 
 
@@ -9008,7 +9267,7 @@ function sanitizeText(s) {
       trustedTypes: !!(window.trustedTypes),
       domPurify:    typeof DOMPurify !== 'undefined',
       hardened:     true,
-      built:        '2026-03-18T13:49:06.919Z',
+      built:        '2026-03-18T15:07:16.713Z',
     }),
     writable:     false,
     configurable: false,
@@ -9298,6 +9557,59 @@ function switchLang(lang) {
     applyLanguage(lang);
   });
 }
+
+// ── LANGUAGE SWITCHER POPUP BEHAVIOUR ──────────────────────────────────
+(function(){
+'use strict';
+var _LABELS = { en: 'EN', ja: 'JA', mm: 'MM' };
+
+function _updateTrigger(lang){
+  var lbl = document.getElementById('lang-trigger-label');
+  if (lbl) lbl.textContent = _LABELS[lang] || lang.toUpperCase();
+}
+
+function _closePopup(){
+  var trigger = document.getElementById('lang-trigger');
+  var popup   = document.getElementById('lang-popup');
+  if (trigger){ trigger.classList.remove('open'); trigger.setAttribute('aria-expanded','false'); }
+  if (popup)  { popup.classList.remove('open'); }
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  var trigger = document.getElementById('lang-trigger');
+  var popup   = document.getElementById('lang-popup');
+
+  // Sync trigger label to the saved language
+  _updateTrigger(localStorage.getItem('geoLang') || 'en');
+
+  if (trigger && popup){
+    trigger.addEventListener('click', function(e){
+      e.stopPropagation();
+      var open = popup.classList.toggle('open');
+      trigger.classList.toggle('open', open);
+      trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    // Close on outside click
+    document.addEventListener('click', function(e){
+      if (!trigger.contains(e.target) && !popup.contains(e.target)) _closePopup();
+    });
+    // Close on Escape
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape') _closePopup();
+    });
+  }
+
+  // Patch switchLang to also update trigger label and close popup
+  var _orig = window.switchLang;
+  if (_orig){
+    window.switchLang = function(lang){
+      _orig(lang);
+      _updateTrigger(lang);
+      _closePopup();
+    };
+  }
+});
+})();
 
 // Load all translation JSON files (returns Promise)
 function loadAllTranslationsPromise(lang) {
