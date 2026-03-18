@@ -2718,62 +2718,148 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
    ═══════════════════════════════════════════════════════════════════ */
 
 /* ── Language Switcher (PC: fixed top-right, Mobile: in sidebar) ──── */
+/* ── LANGUAGE SWITCHER POPUP ── */
 .lang-switcher-fixed {
   position: fixed;
   top: 12px;
   right: 12px;
   z-index: 1002;
+}
+/* Trigger pill button */
+.lang-trigger {
   display: flex;
-  gap: 4px;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px 6px 10px;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 4px;
-}
-.lang-switcher-sidebar {
-  display: none;
-}
-.lang-btn {
-  padding: 6px 10px;
+  border-radius: 20px;
+  cursor: pointer;
   font-family: 'Syne', sans-serif;
   font-weight: 700;
-  font-size: 11px;
-  letter-spacing: 0.5px;
   color: var(--text2);
-  background: transparent;
-  border: 1px solid transparent;
-  border-radius: 6px;
+  transition: border-color .25s, color .25s, background .25s, box-shadow .25s;
+  box-shadow: 0 2px 12px rgba(0,0,0,.3);
+  letter-spacing: .5px;
+  position: relative;
+  z-index: 1;
+}
+.lang-trigger:hover,
+.lang-trigger.open {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(0,212,255,.07);
+  box-shadow: 0 4px 22px rgba(0,212,255,.18);
+}
+.lang-trigger-globe { font-size: 13px; line-height: 1; }
+.lang-trigger-label { font-size: 11px; font-weight: 800; letter-spacing: 1px; }
+.lang-trigger-caret {
+  font-size: 9px;
+  opacity: .55;
+  margin-left: 1px;
+  transition: transform .25s cubic-bezier(.4,0,.2,1);
+}
+.lang-trigger.open .lang-trigger-caret { transform: rotate(180deg); }
+
+/* Popup dropdown */
+.lang-popup {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 6px;
+  min-width: 164px;
+  box-shadow: 0 18px 52px rgba(0,0,0,.6), 0 0 0 1px rgba(0,212,255,.07), inset 0 1px 0 rgba(255,255,255,.04);
+  backdrop-filter: blur(20px);
+  opacity: 0;
+  transform: translateY(-8px) scale(.95);
+  pointer-events: none;
+  transition: opacity .22s cubic-bezier(.4,0,.2,1), transform .22s cubic-bezier(.4,0,.2,1);
+  transform-origin: top right;
+}
+.lang-popup.open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+/* Popup divider between items */
+.lang-popup-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 4px 6px;
+  opacity: .5;
+}
+/* Individual lang buttons */
+.lang-btn {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 9px 11px;
+  border-radius: 9px;
   cursor: pointer;
-  transition: all .2s;
-  text-align: center;
-  line-height: 1;
+  transition: background .15s;
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
+  background: transparent;
+  border: none;
+  text-align: left;
+  box-sizing: border-box;
 }
-.lang-btn:hover {
-  border-color: var(--accent);
+.lang-btn:hover { background: rgba(0,212,255,.08); }
+.lang-btn.active { background: rgba(0,212,255,.13); }
+.lang-popup-flag { font-size: 15px; line-height: 1; flex-shrink: 0; }
+.lang-popup-name { flex: 1; font-size: 12px; color: var(--text2); }
+.lang-btn.active .lang-popup-name { color: var(--accent); }
+.lang-popup-code {
+  font-size: 10px;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text3);
+  letter-spacing: .6px;
+}
+.lang-btn.active .lang-popup-code { color: var(--accent); }
+/* Active check mark */
+.lang-popup-check {
+  font-size: 11px;
   color: var(--accent);
+  opacity: 0;
+  margin-left: 2px;
 }
-.lang-btn.active {
-  background: rgba(0,212,255,0.12);
-  border-color: var(--accent);
-  color: var(--accent);
+.lang-btn.active .lang-popup-check { opacity: 1; }
+
+/* Study-mode overrides */
+body.study-mode .lang-trigger {
+  background: #fff;
+  border-color: #D1DCF0;
+  color: #555;
 }
-body.study-mode .lang-switcher-fixed {
+body.study-mode .lang-trigger:hover,
+body.study-mode .lang-trigger.open {
+  border-color: #4F46E5;
+  color: #4F46E5;
+  background: rgba(79,70,229,.06);
+  box-shadow: 0 4px 20px rgba(79,70,229,.15);
+}
+body.study-mode .lang-popup {
   background: #fff;
   border-color: #D1DCF0;
 }
-body.study-mode .lang-btn {
-  color: #555;
-}
-body.study-mode .lang-btn.active {
-  background: rgba(79,70,229,0.1);
-  border-color: #4F46E5;
-  color: #4F46E5;
-}
+body.study-mode .lang-btn:hover { background: rgba(79,70,229,.07); }
+body.study-mode .lang-btn.active { background: rgba(79,70,229,.1); }
+body.study-mode .lang-btn.active .lang-popup-name { color: #4F46E5; }
+body.study-mode .lang-btn.active .lang-popup-code { color: #4F46E5; }
+body.study-mode .lang-popup-check { color: #4F46E5; }
+
+/* Mobile sidebar (flat horizontal pills) */
+.lang-switcher-sidebar { display: none; }
 @media (max-width: 768px) {
   .lang-switcher-fixed { display: none; }
   .lang-switcher-sidebar {
     display: flex;
-    gap: 4px;
+    gap: 6px;
     justify-content: center;
     margin-top: 10px;
     padding: 0 12px;
@@ -2781,7 +2867,14 @@ body.study-mode .lang-btn.active {
   .lang-switcher-sidebar .lang-btn {
     flex: 1;
     border: 1px solid var(--border);
+    border-radius: 10px;
+    justify-content: center;
+    gap: 5px;
+    padding: 7px 8px;
   }
+  .lang-switcher-sidebar .lang-popup-name { display: none; }
+  .lang-switcher-sidebar .lang-popup-check { display: none; }
+  .lang-switcher-sidebar .lang-btn.active { border-color: var(--accent); }
 }
 .lang-loading {
   position: fixed;
@@ -3623,11 +3716,35 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
 
 <div class="app">
 
-<!-- LANGUAGE SWITCHER (PC: fixed top-right) -->
-<div class="lang-switcher-fixed">
-  <button class="lang-btn active" data-action="switchLang('en')" title="English">EN</button>
-  <button class="lang-btn" data-action="switchLang('ja')" title="日本語">JA</button>
-  <button class="lang-btn" data-action="switchLang('mm')" title="မြန်မာ">MM</button>
+<!-- LANGUAGE SWITCHER (PC: fixed top-right popup) -->
+<div class="lang-switcher-fixed" id="lang-switcher">
+  <button class="lang-trigger" id="lang-trigger" aria-haspopup="listbox" aria-expanded="false" aria-label="Change language">
+    <span class="lang-trigger-globe">🌐</span>
+    <span class="lang-trigger-label" id="lang-trigger-label">EN</span>
+    <span class="lang-trigger-caret">▾</span>
+  </button>
+  <div class="lang-popup" id="lang-popup" role="listbox" aria-label="Language options">
+    <button class="lang-btn" data-action="switchLang('en')" title="English" role="option">
+      <span class="lang-popup-flag">🇺🇸</span>
+      <span class="lang-popup-name">English</span>
+      <span class="lang-popup-code">EN</span>
+      <span class="lang-popup-check">✓</span>
+    </button>
+    <div class="lang-popup-divider"></div>
+    <button class="lang-btn" data-action="switchLang('ja')" title="日本語" role="option">
+      <span class="lang-popup-flag">🇯🇵</span>
+      <span class="lang-popup-name">日本語</span>
+      <span class="lang-popup-code">JA</span>
+      <span class="lang-popup-check">✓</span>
+    </button>
+    <div class="lang-popup-divider"></div>
+    <button class="lang-btn" data-action="switchLang('mm')" title="မြန်မာ" role="option">
+      <span class="lang-popup-flag">🇲🇲</span>
+      <span class="lang-popup-name">မြန်မာ</span>
+      <span class="lang-popup-code">MM</span>
+      <span class="lang-popup-check">✓</span>
+    </button>
+  </div>
 </div>
 
 <!-- LANGUAGE LOADING INDICATOR -->
@@ -3723,9 +3840,18 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
   <!-- OWNER BADGE -->
   <!-- Language Switcher (Mobile: in sidebar) -->
   <div class="lang-switcher-sidebar">
-    <button class="lang-btn active" data-action="switchLang('en')" title="English">EN</button>
-    <button class="lang-btn" data-action="switchLang('ja')" title="日本語">JA</button>
-    <button class="lang-btn" data-action="switchLang('mm')" title="မြန်မာ">MM</button>
+    <button class="lang-btn" data-action="switchLang('en')" title="English">
+      <span class="lang-popup-flag">🇺🇸</span>
+      <span class="lang-popup-code">EN</span>
+    </button>
+    <button class="lang-btn" data-action="switchLang('ja')" title="日本語">
+      <span class="lang-popup-flag">🇯🇵</span>
+      <span class="lang-popup-code">JA</span>
+    </button>
+    <button class="lang-btn" data-action="switchLang('mm')" title="မြန်မာ">
+      <span class="lang-popup-flag">🇲🇲</span>
+      <span class="lang-popup-code">MM</span>
+    </button>
   </div>
   <div class="nav-owner">
     <div class="nav-owner-logo">MYO_Geo_Orgs</div>
@@ -9429,6 +9555,59 @@ function switchLang(lang) {
     applyLanguage(lang);
   });
 }
+
+// ── LANGUAGE SWITCHER POPUP BEHAVIOUR ──────────────────────────────────
+(function(){
+'use strict';
+var _LABELS = { en: 'EN', ja: 'JA', mm: 'MM' };
+
+function _updateTrigger(lang){
+  var lbl = document.getElementById('lang-trigger-label');
+  if (lbl) lbl.textContent = _LABELS[lang] || lang.toUpperCase();
+}
+
+function _closePopup(){
+  var trigger = document.getElementById('lang-trigger');
+  var popup   = document.getElementById('lang-popup');
+  if (trigger){ trigger.classList.remove('open'); trigger.setAttribute('aria-expanded','false'); }
+  if (popup)  { popup.classList.remove('open'); }
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  var trigger = document.getElementById('lang-trigger');
+  var popup   = document.getElementById('lang-popup');
+
+  // Sync trigger label to the saved language
+  _updateTrigger(localStorage.getItem('geoLang') || 'en');
+
+  if (trigger && popup){
+    trigger.addEventListener('click', function(e){
+      e.stopPropagation();
+      var open = popup.classList.toggle('open');
+      trigger.classList.toggle('open', open);
+      trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    // Close on outside click
+    document.addEventListener('click', function(e){
+      if (!trigger.contains(e.target) && !popup.contains(e.target)) _closePopup();
+    });
+    // Close on Escape
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape') _closePopup();
+    });
+  }
+
+  // Patch switchLang to also update trigger label and close popup
+  var _orig = window.switchLang;
+  if (_orig){
+    window.switchLang = function(lang){
+      _orig(lang);
+      _updateTrigger(lang);
+      _closePopup();
+    };
+  }
+});
+})();
 
 // Load all translation JSON files (returns Promise)
 function loadAllTranslationsPromise(lang) {
