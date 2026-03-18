@@ -3773,6 +3773,14 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
     <div class="section-title">// LICENSE TARGETS 資格目標</div><div class="section-line"></div>
   </div>
   <div class="grid grid-2">
+    <div class="card chisei-home-card" data-action="showPage('stage01');stage01Init()" style="cursor:pointer;transition:border-color .2s" id="stage01-home-card">
+      <div style="font-size:20px;margin-bottom:8px">🔭</div>
+      <div style="font-weight:700;font-size:16px">現場調査技術者</div>
+      <div style="font-size:12px;color:var(--text2);margin-top:4px">Field Investigation Engineer</div>
+      <div class="progress-bar" style="margin-top:12px"><div class="progress-fill" id="stage01-home-fill" style="width:0%"></div></div>
+      <div style="font-size:11px;color:var(--text2);margin-top:4px;font-family:'JetBrains Mono',monospace" id="stage01-home-label">0% Coverage</div>
+      <div style="font-size:11px;color:var(--accent);margin-top:6px;font-family:'JetBrains Mono',monospace">→ Open Roadmap</div>
+    </div>
     <div class="card chisei-home-card" data-action="showPage('chisei');chiseiInit()" style="cursor:pointer;transition:border-color .2s" id="chisei-home-card">
       <div style="font-size:20px;margin-bottom:8px">📋</div>
       <div style="font-weight:700;font-size:16px">地質調査技士</div>
@@ -18705,8 +18713,18 @@ function expandCase(id) {
     if (hdr) hdr.classList.toggle('open', !isOpen);
   };
 
+  function stage01UpdateHomeCard() {
+    var data = stage01LoadProgress();
+    var stat = stage01CalcPct(data);
+    var fill  = document.getElementById('stage01-home-fill');
+    var label = document.getElementById('stage01-home-label');
+    if (fill)  fill.style.width = stat.pct + '%';
+    if (label) label.textContent = stat.pct + '% Coverage';
+  }
+
   window.stage01Init = function() {
     stage01UpdateUI();
+    stage01UpdateHomeCard();
     var sb1 = document.getElementById('stage01-sb-1');
     var sh1 = document.getElementById('stage01-sh-1');
     if (sb1 && !sb1.classList.contains('open')) {
@@ -18714,6 +18732,10 @@ function expandCase(id) {
       if (sh1) sh1.classList.add('open');
     }
   };
+
+  document.addEventListener('DOMContentLoaded', function() {
+    stage01UpdateHomeCard();
+  });
 })();
 
 </script>
