@@ -3473,8 +3473,69 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 .deactivate-btn{background:none;border:1px solid rgba(255,71,87,.3);color:rgba(255,71,87,.7);padding:7px 16px;border-radius:8px;font-size:12px;cursor:pointer;transition:all .2s}
 .deactivate-btn:hover{border-color:#ff4757;color:#ff4757}
 @media(max-width:600px){.activation-key-input{font-size:12px;letter-spacing:.5px}.premium-features-grid{grid-template-columns:1fr 1fr}}
+
+/* ═══════════════════════════════════════
+   ADMIN SYSTEM STYLES
+   ═══════════════════════════════════════ */
+
+/* Admin floating control bar */
+.admin-bar{
+  display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+  z-index:9999;background:rgba(10,12,16,.97);border:1px solid rgba(255,215,0,.4);
+  border-radius:50px;padding:8px 14px;gap:8px;align-items:center;
+  box-shadow:0 8px 40px rgba(0,0,0,.6),0 0 0 1px rgba(255,215,0,.15);
+  backdrop-filter:blur(16px);white-space:nowrap;flex-wrap:nowrap;
+}
+.admin-bar.active{display:flex}
+.admin-bar-label{font-size:10px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;padding-right:6px;border-right:1px solid rgba(255,215,0,.25)}
+.admin-bar-sep{width:1px;height:18px;background:var(--border);flex-shrink:0}
+.admin-preview-btn{background:none;border:1px solid var(--border);color:var(--text2);font-size:11px;font-weight:600;padding:5px 12px;border-radius:20px;cursor:pointer;transition:all .2s;font-family:'Syne',sans-serif}
+.admin-preview-btn:hover{border-color:var(--accent);color:var(--accent)}
+.admin-preview-btn.active-view{background:rgba(0,212,255,.12);border-color:var(--accent);color:var(--accent)}
+.admin-preview-btn.active-view.prem{background:rgba(255,215,0,.12);border-color:var(--gold);color:var(--gold)}
+.admin-preview-btn.active-view.free{background:rgba(255,107,53,.12);border-color:var(--accent2);color:var(--accent2)}
+.admin-exit-btn{background:rgba(255,71,87,.1);border:1px solid rgba(255,71,87,.3);color:#ff4757;font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px;cursor:pointer;transition:all .2s;font-family:'Syne',sans-serif}
+.admin-exit-btn:hover{background:rgba(255,71,87,.2);border-color:#ff4757}
+.admin-view-badge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:10px;letter-spacing:.5px}
+.admin-view-badge.free{background:rgba(255,107,53,.15);color:var(--accent2);border:1px solid rgba(255,107,53,.3)}
+.admin-view-badge.premium{background:rgba(255,215,0,.15);color:var(--gold);border:1px solid rgba(255,215,0,.3)}
+.admin-view-badge.actual{background:rgba(127,255,110,.15);color:var(--accent3);border:1px solid rgba(127,255,110,.3)}
+@media(max-width:600px){
+  .admin-bar{bottom:12px;left:12px;right:12px;transform:none;border-radius:16px;flex-wrap:wrap;justify-content:center}
+}
+
+/* Admin header badge */
+.admin-header-badge{display:none;align-items:center;gap:5px;background:rgba(255,215,0,.12);border:1px solid rgba(255,215,0,.35);color:var(--gold);font-size:10px;font-weight:800;padding:3px 10px;border-radius:20px;letter-spacing:1px;text-transform:uppercase}
+.is-admin .admin-header-badge{display:flex}
+
+/* Admin login section on activate page */
+.admin-access-section{margin-top:32px;border-top:1px solid var(--border);padding-top:24px}
+.admin-access-toggle{display:flex;align-items:center;gap:8px;cursor:pointer;width:fit-content;color:var(--text3);font-size:12px;font-weight:600;transition:color .2s;user-select:none}
+.admin-access-toggle:hover{color:var(--text2)}
+.admin-access-toggle-icon{font-size:14px;transition:transform .2s}
+.admin-access-toggle.open .admin-access-toggle-icon{transform:rotate(90deg)}
+.admin-login-box{display:none;margin-top:16px;background:rgba(255,215,0,.04);border:1px solid rgba(255,215,0,.15);border-radius:12px;padding:20px}
+.admin-login-box.open{display:block}
+.admin-login-title{font-size:13px;font-weight:700;color:var(--gold);margin-bottom:4px}
+.admin-login-sub{font-size:11px;color:var(--text3);margin-bottom:14px}
+.admin-input-row{display:flex;gap:8px;flex-wrap:wrap}
+.admin-pw-input{flex:1;min-width:180px;background:var(--surface);border:1px solid rgba(255,215,0,.2);color:var(--text);font-family:'JetBrains Mono',monospace;font-size:13px;padding:9px 14px;border-radius:8px;outline:none;transition:border-color .2s}
+.admin-pw-input:focus{border-color:var(--gold)}
+.admin-pw-input::placeholder{opacity:.35;font-family:'Syne',sans-serif;font-size:12px;letter-spacing:normal}
+.admin-login-btn{background:rgba(255,215,0,.12);border:1px solid rgba(255,215,0,.3);color:var(--gold);font-size:12px;font-weight:700;padding:9px 18px;border-radius:8px;cursor:pointer;transition:all .2s;white-space:nowrap;font-family:'Syne',sans-serif}
+.admin-login-btn:hover{background:rgba(255,215,0,.2);border-color:var(--gold)}
+.admin-status{display:none;margin-top:10px;padding:9px 12px;border-radius:7px;font-size:12px;font-weight:600}
+.admin-status.error{background:rgba(255,71,87,.1);border:1px solid rgba(255,71,87,.3);color:#ff4757}
+.admin-status.success{background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.3);color:var(--gold)}
+.admin-active-info{display:none;background:rgba(255,215,0,.06);border:1px solid rgba(255,215,0,.2);border-radius:10px;padding:16px;margin-top:16px}
+.is-admin .admin-active-info{display:block}
+.is-admin .admin-login-box{display:none!important}
+.admin-active-info-title{font-size:13px;font-weight:700;color:var(--gold);margin-bottom:8px}
+.admin-active-info-text{font-size:12px;color:var(--text2);line-height:1.6}
+.admin-logout-btn{margin-top:12px;background:none;border:1px solid rgba(255,71,87,.25);color:rgba(255,71,87,.7);padding:6px 14px;border-radius:7px;font-size:11px;cursor:pointer;transition:all .2s;font-family:'Syne',sans-serif}
+.admin-logout-btn:hover{border-color:#ff4757;color:#ff4757}
 </style>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-DNjPplbnV4cTy/2PCU9imtLC7N/rRQ33cKsjR8NiTC4=' 'sha256-iJdI18B7P7I1z/Fw/Y+Pyc+uYXZw6KRYa9X2VoAgu9Q='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data: blob: https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-DNjPplbnV4cTy/2PCU9imtLC7N/rRQ33cKsjR8NiTC4=' 'sha256-fRwQeh5ghUkquXK4mdNf5dVVtrgSTzCGhnllRhrQlag=' 'sha256-iJdI18B7P7I1z/Fw/Y+Pyc+uYXZw6KRYa9X2VoAgu9Q='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data: blob: https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
 </head>
 <body>
 
@@ -3640,6 +3701,7 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
     <img src="assets/brand/geolearn_logo.svg" alt="GeoLearn by MYO_Geo_Orgs" class="app-header-logo">
   </div>
   <div class="app-header-actions">
+    <div class="admin-header-badge" id="admin-header-badge">⚙ ADMIN</div>
     <div class="premium-badge" id="premium-header-badge">⭐ Premium Active</div>
     <div class="free-badge" id="free-header-tag" data-action="showPage('activate')">🔓 Upgrade to Premium</div>
   </div>
@@ -7831,7 +7893,45 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
       <div class="activation-date-info" id="activation-date-info"></div>
       <button class="deactivate-btn" id="deactivate-btn">Deactivate License</button>
     </div>
+
+    <!-- ADMIN ACCESS SECTION -->
+    <div class="admin-access-section">
+      <div class="admin-access-toggle" id="admin-toggle">
+        <span class="admin-access-toggle-icon">▶</span>
+        <span>Admin Access</span>
+      </div>
+      <div class="admin-login-box" id="admin-login-box">
+        <div class="admin-login-title">⚙ Developer / Admin Login</div>
+        <div class="admin-login-sub">Enter the master password to enable Admin Mode. Admin mode lets you preview the app as a Free or Premium user without changing your actual activation status.</div>
+        <div class="admin-input-row">
+          <input type="password" id="admin-pw-input" class="admin-pw-input" placeholder="Master password..." maxlength="64" autocomplete="new-password">
+          <button id="admin-login-btn" class="admin-login-btn">Enter Admin</button>
+        </div>
+        <div class="admin-status" id="admin-status" role="alert" aria-live="polite"></div>
+      </div>
+      <div class="admin-active-info" id="admin-active-info">
+        <div class="admin-active-info-title">⚙ Admin Mode Active</div>
+        <div class="admin-active-info-text">
+          You are in Admin Mode. Use the floating control bar at the bottom of the screen to preview the app as a Free User or Premium User. Your actual localStorage activation is not affected.
+        </div>
+        <button class="admin-logout-btn" id="admin-logout-btn">Exit Admin Mode</button>
+      </div>
+    </div>
   </div>
+</div>
+
+<!-- ADMIN FLOATING CONTROL BAR -->
+<div class="admin-bar" id="admin-bar" role="toolbar" aria-label="Admin preview controls">
+  <span class="admin-bar-label">⚙ Admin</span>
+  <span class="admin-bar-sep"></span>
+  <span style="font-size:10px;color:var(--text3);font-weight:600">Viewing:</span>
+  <button class="admin-preview-btn actual" id="admin-btn-actual" onclick="setAdminPreview('actual')">Actual State</button>
+  <button class="admin-preview-btn free" id="admin-btn-free" onclick="setAdminPreview('free')">👁 Free View</button>
+  <button class="admin-preview-btn prem" id="admin-btn-prem" onclick="setAdminPreview('premium')">👁 Premium View</button>
+  <span class="admin-bar-sep"></span>
+  <span class="admin-view-badge actual" id="admin-view-badge">ACTUAL</span>
+  <span class="admin-bar-sep"></span>
+  <button class="admin-exit-btn" onclick="adminLogout()">✕ Exit</button>
 </div>
 
   <!-- GLOBAL FOOTER -->
@@ -7997,6 +8097,155 @@ document.addEventListener('DOMContentLoaded',function(){
     try{localStorage.setItem('GeoLearn_Premium_Status','false');}catch(e){}
   }
 });
+})();
+</script><script>
+// ============================================================
+// GEOLEARN ADMIN SYSTEM v1.0
+// ============================================================
+(function(){
+'use strict';
+var _M=[71,69,79,76,69,65,82,78];
+function _E(s){return s.split('').map(function(c,i){return(c.charCodeAt(0)^_M[i%_M.length]).toString(16).padStart(2,'0');}).join('');}
+// Admin master passwords (XOR-obfuscated, never plaintext in source)
+var _AP=['0a1c000b000e7f0f030806026873627c71','00000006150f7f0306161b09176c111a1509'];
+function _CAP(pw){try{return _AP.indexOf(_E(pw.trim().toUpperCase()))!==-1;}catch(e){return false;}}
+
+// Override isPremium to respect admin preview mode
+var _realIsPremium=window.isPremium;
+window.isPremium=function(){
+  try{
+    var p=sessionStorage.getItem('GeoLearn_Admin_Preview');
+    if(isAdmin()&&p==='premium')return true;
+    if(isAdmin()&&p==='free')return false;
+  }catch(e){}
+  return _realIsPremium?_realIsPremium():false;
+};
+
+window.isAdmin=function(){
+  try{return sessionStorage.getItem('GeoLearn_Admin_Mode')==='true';}catch(e){return false;}
+};
+
+window.adminLogin=function(pw){
+  if(_CAP(pw)){
+    try{
+      sessionStorage.setItem('GeoLearn_Admin_Mode','true');
+      sessionStorage.setItem('GeoLearn_Admin_Preview','actual');
+    }catch(e){}
+    return true;
+  }
+  return false;
+};
+
+window.adminLogout=function(){
+  try{
+    sessionStorage.removeItem('GeoLearn_Admin_Mode');
+    sessionStorage.removeItem('GeoLearn_Admin_Preview');
+  }catch(e){}
+  document.body.classList.remove('is-admin');
+  var bar=document.getElementById('admin-bar');
+  if(bar)bar.classList.remove('active');
+  var badge=document.getElementById('admin-header-badge');
+  if(badge)badge.style.display='none';
+  if(typeof initPremiumSystem==='function')initPremiumSystem();
+};
+
+window.setAdminPreview=function(mode){
+  if(!isAdmin())return;
+  try{sessionStorage.setItem('GeoLearn_Admin_Preview',mode);}catch(e){}
+  _updateAdminBar(mode);
+  if(typeof initPremiumSystem==='function')initPremiumSystem();
+  if(typeof showPage==='function'){
+    var cur=document.querySelector('.page.active');
+    if(cur){
+      var id=cur.id.replace('page-','');
+      if(id&&id!=='activate'){
+        // Re-navigate to trigger premium recheck but don't block activate
+        document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
+        cur.classList.add('active');
+      }
+    }
+  }
+};
+
+function _updateAdminBar(mode){
+  var badge=document.getElementById('admin-view-badge');
+  var btnA=document.getElementById('admin-btn-actual');
+  var btnF=document.getElementById('admin-btn-free');
+  var btnP=document.getElementById('admin-btn-prem');
+  if(!badge)return;
+  [btnA,btnF,btnP].forEach(function(b){if(b)b.classList.remove('active-view');});
+  if(mode==='actual'){
+    badge.textContent='ACTUAL STATE';badge.className='admin-view-badge actual';
+    if(btnA)btnA.classList.add('active-view');
+  }else if(mode==='free'){
+    badge.textContent='FREE VIEW';badge.className='admin-view-badge free';
+    if(btnF)btnF.classList.add('active-view');
+  }else if(mode==='premium'){
+    badge.textContent='PREMIUM VIEW';badge.className='admin-view-badge premium';
+    if(btnP)btnP.classList.add('active-view');
+  }
+}
+
+function _initAdminUI(){
+  var admin=isAdmin();
+  document.body.classList.toggle('is-admin',admin);
+  var bar=document.getElementById('admin-bar');
+  if(bar)bar.classList.toggle('active',admin);
+  var badge=document.getElementById('admin-header-badge');
+  if(badge)badge.style.display=admin?'flex':'none';
+  if(admin){
+    try{_updateAdminBar(sessionStorage.getItem('GeoLearn_Admin_Preview')||'actual');}catch(e){}
+  }
+}
+
+function _setupAdminUI(){
+  // Toggle admin login box
+  var tog=document.getElementById('admin-toggle');
+  var box=document.getElementById('admin-login-box');
+  if(tog&&box){
+    tog.addEventListener('click',function(){
+      var open=box.classList.toggle('open');
+      tog.classList.toggle('open',open);
+    });
+  }
+  // Admin login form
+  var loginBtn=document.getElementById('admin-login-btn');
+  var pwInp=document.getElementById('admin-pw-input');
+  var st=document.getElementById('admin-status');
+  if(loginBtn&&pwInp){
+    function _doLogin(){
+      var pw=pwInp.value;
+      if(!pw){_showAdmSt(st,'Enter the master password.','error');return;}
+      if(adminLogin(pw)){
+        _showAdmSt(st,'Admin Mode activated!','success');
+        pwInp.value='';
+        setTimeout(function(){
+          _initAdminUI();
+          if(typeof initPremiumSystem==='function')initPremiumSystem();
+        },600);
+      }else{
+        _showAdmSt(st,'Incorrect master password.','error');
+        pwInp.value='';
+      }
+    }
+    loginBtn.addEventListener('click',_doLogin);
+    pwInp.addEventListener('keydown',function(e){if(e.key==='Enter')_doLogin();});
+  }
+  // Admin logout button on activate page
+  var logoutBtn=document.getElementById('admin-logout-btn');
+  if(logoutBtn){logoutBtn.addEventListener('click',function(){adminLogout();});}
+  // Init bar state on load
+  _initAdminUI();
+}
+
+function _showAdmSt(el,msg,type){
+  if(!el)return;
+  el.textContent=msg;
+  el.className='admin-status '+type;
+  el.style.display='block';
+}
+
+document.addEventListener('DOMContentLoaded',function(){_setupAdminUI();});
 })();
 </script><script>
 
