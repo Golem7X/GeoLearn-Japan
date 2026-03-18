@@ -3560,6 +3560,53 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 .admin-keygen-copy.copied{border-color:var(--accent3);color:var(--accent3)}
 .admin-keygen-hint{margin-top:10px;font-size:10px;color:var(--text3);line-height:1.6;background:rgba(255,215,0,.04);border:1px solid rgba(255,215,0,.1);border-radius:6px;padding:8px 10px}
 .admin-keygen-hint code{font-family:'JetBrains Mono',monospace;color:var(--gold);font-size:10px}
+
+/* ── Admin nav item (hidden until is-admin) ───────────────────── */
+.nav-item.nav-admin-only{display:none}
+.is-admin .nav-item.nav-admin-only{display:flex}
+
+/* ── Admin Panel Page ─────────────────────────────────────────── */
+.ap-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:28px}
+.ap-title{font-size:22px;font-weight:800;color:var(--gold);letter-spacing:-.3px;display:flex;align-items:center;gap:10px}
+.ap-title-sub{font-size:12px;font-weight:500;color:var(--text3);margin-top:3px}
+.ap-logout-btn{background:rgba(255,71,87,.1);border:1px solid rgba(255,71,87,.3);color:#ff4757;font-size:12px;font-weight:700;padding:8px 18px;border-radius:20px;cursor:pointer;font-family:'Syne',sans-serif;transition:all .2s}
+.ap-logout-btn:hover{background:rgba(255,71,87,.22);border-color:#ff4757}
+.ap-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px}
+.ap-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px}
+.ap-card-title{font-size:13px;font-weight:800;color:var(--text);letter-spacing:.2px;margin-bottom:4px;display:flex;align-items:center;gap:7px}
+.ap-card-sub{font-size:11px;color:var(--text3);margin-bottom:16px;line-height:1.55}
+.ap-card.gold-border{border-color:rgba(255,215,0,.3);background:rgba(255,215,0,.03)}
+/* Preview mode card */
+.ap-preview-btns{display:flex;gap:8px;flex-wrap:wrap}
+.ap-prev-btn{flex:1;min-width:90px;padding:10px 8px;border-radius:10px;border:1px solid var(--border);background:none;color:var(--text2);font-size:11px;font-weight:700;cursor:pointer;font-family:'Syne',sans-serif;transition:all .2s;text-align:center}
+.ap-prev-btn:hover{border-color:var(--accent);color:var(--accent)}
+.ap-prev-btn.ap-active.actual{background:rgba(127,255,110,.1);border-color:var(--accent3);color:var(--accent3)}
+.ap-prev-btn.ap-active.free{background:rgba(255,107,53,.1);border-color:var(--accent2);color:var(--accent2)}
+.ap-prev-btn.ap-active.prem{background:rgba(255,215,0,.12);border-color:var(--gold);color:var(--gold)}
+.ap-preview-badge{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:11px;font-weight:700;color:var(--text3)}
+.ap-preview-badge span{padding:3px 10px;border-radius:20px;font-size:10px;font-weight:800;letter-spacing:.5px}
+.ap-preview-badge span.actual{background:rgba(127,255,110,.15);color:var(--accent3);border:1px solid rgba(127,255,110,.3)}
+.ap-preview-badge span.free{background:rgba(255,107,53,.12);color:var(--accent2);border:1px solid rgba(255,107,53,.3)}
+.ap-preview-badge span.prem{background:rgba(255,215,0,.12);color:var(--gold);border:1px solid rgba(255,215,0,.3)}
+/* Validator card */
+.ap-valid-row{display:flex;gap:8px;flex-wrap:wrap}
+.ap-valid-input{flex:1;min-width:180px;background:rgba(0,0,0,.2);border:1px solid var(--border);color:var(--text);font-family:'JetBrains Mono',monospace;font-size:13px;padding:9px 14px;border-radius:8px;outline:none;transition:border-color .2s;text-transform:uppercase;letter-spacing:1px}
+.ap-valid-input:focus{border-color:var(--accent)}
+.ap-valid-input::placeholder{text-transform:none;letter-spacing:normal;font-family:'Syne',sans-serif;font-size:12px;opacity:.35}
+.ap-valid-btn{background:var(--surface2,rgba(255,255,255,.05));border:1px solid var(--border);color:var(--text2);font-size:12px;font-weight:700;padding:9px 16px;border-radius:8px;cursor:pointer;font-family:'Syne',sans-serif;transition:all .2s;white-space:nowrap}
+.ap-valid-btn:hover{border-color:var(--accent);color:var(--accent)}
+.ap-valid-result{display:none;margin-top:10px;padding:10px 12px;border-radius:8px;font-size:12px;font-weight:600;font-family:'JetBrains Mono',monospace}
+.ap-valid-result.ok{background:rgba(127,255,110,.1);border:1px solid rgba(127,255,110,.3);color:var(--accent3)}
+.ap-valid-result.fail{background:rgba(255,71,87,.1);border:1px solid rgba(255,71,87,.3);color:#ff4757}
+/* System info card */
+.ap-info-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+.ap-info-item{display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:7px 0;border-bottom:1px solid var(--border)}
+.ap-info-item:last-child{border-bottom:none}
+.ap-info-label{color:var(--text3);font-weight:600}
+.ap-info-value{font-family:'JetBrains Mono',monospace;color:var(--text);font-size:11px;text-align:right;max-width:55%}
+.ap-info-value.ok{color:var(--accent3)}
+.ap-info-value.warn{color:var(--gold)}
+.ap-info-value.no{color:rgba(255,71,87,.8)}
 </style>
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-GLmY8jWDWHKc0KKY4S7v7cNBMexh/bWGSfzBfeWNp/s='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
 </head>
@@ -3702,6 +3749,9 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
   </div>
   <div class="nav-item" data-action="showPage('activate')" id="nav-activate-btn">
     <span class="nav-icon">⭐</span><span class="nav-label">Activate Premium</span>
+  </div>
+  <div class="nav-item nav-admin-only" data-action="showPage('admin')" id="nav-admin-item">
+    <span class="nav-icon">⚙</span><span class="nav-label">Admin Panel</span>
   </div>
 
   <!-- OWNER BADGE -->
@@ -7938,40 +7988,95 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
       <div class="admin-active-info" id="admin-active-info">
         <div class="admin-active-info-title">⚙ Admin Mode Active</div>
         <div class="admin-active-info-text">
-          You are in Admin Mode. Use the floating control bar at the bottom of the screen to preview the app as a Free User or Premium User. Your actual localStorage activation is not affected.
+          You are in Admin Mode. Open the Admin Panel to access the key generator, validator, preview controls, and system info.
         </div>
-        <button class="admin-logout-btn" id="admin-logout-btn">Exit Admin Mode</button>
-
-        <!-- KEY GENERATOR -->
-        <div class="admin-keygen">
-          <div class="admin-keygen-title">⚡ License Key Generator</div>
-          <div class="admin-keygen-sub">Type any key or pick a preset, then click Generate to get the hash for <code style="font-family:'JetBrains Mono',monospace;color:var(--gold);font-size:10px">_VK</code> in index.html.</div>
-          <div class="admin-keygen-presets">
-            <button class="admin-keygen-preset" onclick="adminKeygenFill('GEOJPN-2026-PRO')">GEOJPN-2026-PRO</button>
-            <button class="admin-keygen-preset" onclick="adminKeygenFill('MYOGEO-PREMIUM')">MYOGEO-PREMIUM</button>
-            <button class="admin-keygen-preset" onclick="adminKeygenFill('GEOLEARN-STUDENT')">GEOLEARN-STUDENT</button>
-            <button class="admin-keygen-preset" onclick="adminKeygenFill('GEOLEARN-FULLACCESS')">GEOLEARN-FULLACCESS</button>
-          </div>
-          <div class="admin-keygen-row">
-            <input type="text" id="admin-keygen-input" class="admin-keygen-input" placeholder="e.g. GEOJPN-2026-PRO3" maxlength="64" autocomplete="off" spellcheck="false">
-            <button class="admin-keygen-btn" onclick="adminGenerateKey()">Generate</button>
-          </div>
-          <div class="admin-keygen-result" id="admin-keygen-result">
-            <div class="admin-keygen-result-row">
-              <span class="admin-keygen-label">Key</span>
-              <span class="admin-keygen-value" id="admin-keygen-out-key"></span>
-              <button class="admin-keygen-copy" onclick="adminKeygenCopy('key',this)">Copy</button>
-            </div>
-            <div class="admin-keygen-result-row">
-              <span class="admin-keygen-label">Hash</span>
-              <span class="admin-keygen-value hash" id="admin-keygen-out-hash"></span>
-              <button class="admin-keygen-copy" onclick="adminKeygenCopy('hash',this)">Copy</button>
-            </div>
-            <div class="admin-keygen-hint" id="admin-keygen-hint"></div>
-          </div>
+        <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
+          <button class="admin-login-btn" onclick="showPage('admin')" style="background:rgba(255,215,0,.2);border-color:var(--gold);color:var(--gold)">⚙ Open Admin Panel</button>
+          <button class="admin-logout-btn" id="admin-logout-btn" style="margin-top:0">Exit Admin Mode</button>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- ADMIN PANEL PAGE -->
+<div id="page-admin" class="page">
+  <div class="ap-header">
+    <div>
+      <div class="ap-title">⚙ Admin Panel</div>
+      <div class="ap-title-sub">GeoLearn Japan — Developer &amp; Admin Tools</div>
+    </div>
+    <button class="ap-logout-btn" onclick="adminLogout()">✕ Exit Admin Mode</button>
+  </div>
+
+  <div class="ap-grid">
+
+    <!-- PREVIEW MODE -->
+    <div class="ap-card gold-border">
+      <div class="ap-card-title">👁 Preview Mode</div>
+      <div class="ap-card-sub">Simulate how the app looks for different user types. Your actual activation status is never changed.</div>
+      <div class="ap-preview-btns">
+        <button class="ap-prev-btn actual" id="ap-btn-actual" onclick="apSetPreview('actual')">✔ Actual State</button>
+        <button class="ap-prev-btn free"   id="ap-btn-free"   onclick="apSetPreview('free')">👁 Free View</button>
+        <button class="ap-prev-btn prem"   id="ap-btn-prem"   onclick="apSetPreview('premium')">⭐ Premium View</button>
+      </div>
+      <div class="ap-preview-badge">Current: <span id="ap-preview-badge-text" class="actual">ACTUAL STATE</span></div>
+    </div>
+
+    <!-- SYSTEM STATE -->
+    <div class="ap-card">
+      <div class="ap-card-title">📊 System State</div>
+      <div class="ap-card-sub">Live read of localStorage and runtime flags.</div>
+      <ul class="ap-info-list" id="ap-sysinfo-list">
+        <li class="ap-info-item"><span class="ap-info-label">Premium Status</span><span class="ap-info-value" id="apsi-premium">—</span></li>
+        <li class="ap-info-item"><span class="ap-info-label">Activation Date</span><span class="ap-info-value" id="apsi-date">—</span></li>
+        <li class="ap-info-item"><span class="ap-info-label">License Key (stored)</span><span class="ap-info-value" id="apsi-key">—</span></li>
+        <li class="ap-info-item"><span class="ap-info-label">Admin Mode</span><span class="ap-info-value ok">Active</span></li>
+        <li class="ap-info-item"><span class="ap-info-label">Preview Override</span><span class="ap-info-value" id="apsi-preview">—</span></li>
+      </ul>
+      <button class="ap-valid-btn" style="margin-top:12px;width:100%" onclick="apRefreshSysInfo()">↻ Refresh</button>
+    </div>
+
+    <!-- LICENSE KEY GENERATOR -->
+    <div class="ap-card gold-border">
+      <div class="ap-card-title">⚡ Key Generator</div>
+      <div class="ap-card-sub">Generate a new license key hash to add to <code style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold)">_VK</code> in index.html.</div>
+      <div class="admin-keygen-presets" style="margin-bottom:10px">
+        <button class="admin-keygen-preset" onclick="adminKeygenFill('GEOJPN-2026-PRO')">GEOJPN-2026-PRO</button>
+        <button class="admin-keygen-preset" onclick="adminKeygenFill('MYOGEO-PREMIUM')">MYOGEO-PREMIUM</button>
+        <button class="admin-keygen-preset" onclick="adminKeygenFill('GEOLEARN-STUDENT')">GEOLEARN-STUDENT</button>
+        <button class="admin-keygen-preset" onclick="adminKeygenFill('GEOLEARN-FULLACCESS')">GEOLEARN-FULLACCESS</button>
+      </div>
+      <div class="admin-keygen-row">
+        <input type="text" id="admin-keygen-input" class="admin-keygen-input" placeholder="e.g. GEOJPN-2026-PRO3" maxlength="64" autocomplete="off" spellcheck="false">
+        <button class="admin-keygen-btn" onclick="adminGenerateKey()">Generate</button>
+      </div>
+      <div class="admin-keygen-result" id="admin-keygen-result">
+        <div class="admin-keygen-result-row">
+          <span class="admin-keygen-label">Key</span>
+          <span class="admin-keygen-value" id="admin-keygen-out-key"></span>
+          <button class="admin-keygen-copy" onclick="adminKeygenCopy('key',this)">Copy</button>
+        </div>
+        <div class="admin-keygen-result-row">
+          <span class="admin-keygen-label">Hash</span>
+          <span class="admin-keygen-value hash" id="admin-keygen-out-hash"></span>
+          <button class="admin-keygen-copy" onclick="adminKeygenCopy('hash',this)">Copy</button>
+        </div>
+        <div class="admin-keygen-hint" id="admin-keygen-hint"></div>
+      </div>
+    </div>
+
+    <!-- LICENSE VALIDATOR -->
+    <div class="ap-card">
+      <div class="ap-card-title">🔍 Key Validator</div>
+      <div class="ap-card-sub">Check whether a key is accepted by the current <code style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold)">_VK</code> hash list.</div>
+      <div class="ap-valid-row">
+        <input type="text" id="ap-valid-input" class="ap-valid-input" placeholder="Paste license key..." maxlength="64" autocomplete="off" spellcheck="false">
+        <button class="ap-valid-btn" onclick="apValidateKey()">Check</button>
+      </div>
+      <div class="ap-valid-result" id="ap-valid-result"></div>
+    </div>
+
   </div>
 </div>
 
@@ -8210,6 +8315,8 @@ window.adminLogout=function(){
   var badge=document.getElementById('admin-header-badge');
   if(badge)badge.style.display='none';
   if(typeof initPremiumSystem==='function')initPremiumSystem();
+  var ap=document.getElementById('page-admin');
+  if(ap&&ap.classList.contains('active'))showPage('activate');
 };
 
 // ── Admin Key Generator ──────────────────────────────────────────
@@ -8262,7 +8369,77 @@ window.adminKeygenCopy=function(which,btn){
 document.addEventListener('DOMContentLoaded',function(){
   var inp=document.getElementById('admin-keygen-input');
   if(inp){inp.addEventListener('keydown',function(e){if(e.key==='Enter')adminGenerateKey();});}
+  var vi=document.getElementById('ap-valid-input');
+  if(vi){vi.addEventListener('keydown',function(e){if(e.key==='Enter')apValidateKey();});}
 });
+// ─────────────────────────────────────────────────────────────────
+
+// ── Admin Panel Page helpers ──────────────────────────────────────
+function apSyncPreviewBadge(mode){
+  var badge=document.getElementById('ap-preview-badge-text');
+  var ba=document.getElementById('ap-btn-actual');
+  var bf=document.getElementById('ap-btn-free');
+  var bp=document.getElementById('ap-btn-prem');
+  [ba,bf,bp].forEach(function(b){if(b)b.classList.remove('ap-active');});
+  if(!badge)return;
+  if(mode==='free'){
+    badge.textContent='FREE VIEW';badge.className='free';
+    if(bf)bf.classList.add('ap-active');
+  }else if(mode==='premium'){
+    badge.textContent='PREMIUM VIEW';badge.className='prem';
+    if(bp)bp.classList.add('ap-active');
+  }else{
+    badge.textContent='ACTUAL STATE';badge.className='actual';
+    if(ba)ba.classList.add('ap-active');
+  }
+}
+
+window.apSetPreview=function(mode){
+  if(typeof setAdminPreview==='function')setAdminPreview(mode);
+  apSyncPreviewBadge(mode);
+};
+
+window.apRefreshSysInfo=function(){
+  function _set(id,val,cls){
+    var el=document.getElementById(id);
+    if(!el)return;
+    el.textContent=val||'—';
+    if(cls)el.className='ap-info-value '+cls;
+  }
+  try{
+    var prem=localStorage.getItem('GeoLearn_Premium_Status')==='true';
+    _set('apsi-premium',prem?'Active (true)':'Not activated',prem?'ok':'no');
+    var d=localStorage.getItem('GeoLearn_Activation_Date');
+    _set('apsi-date',d?new Date(d).toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'}):'—',d?'ok':'');
+    var k=localStorage.getItem('GeoLearn_License_Key');
+    _set('apsi-key',k?'*****-'+k.slice(-4):'—',k?'ok':'');
+    var pv=sessionStorage.getItem('GeoLearn_Admin_Preview')||'actual';
+    _set('apsi-preview',pv.toUpperCase(),'warn');
+    apSyncPreviewBadge(pv);
+  }catch(e){}
+};
+
+window.apValidateKey=function(){
+  var inp=document.getElementById('ap-valid-input');
+  var res=document.getElementById('ap-valid-result');
+  if(!inp||!res)return;
+  var raw=inp.value.trim().toUpperCase();
+  if(!raw){res.style.display='none';return;}
+  // Use the existing validation chain
+  var valid=false;
+  try{
+    // _CAP checks admin passwords; for license keys use the premium check path
+    if(typeof _VK!=='undefined'&&typeof _E==='function'){
+      valid=_VK.indexOf(_E(raw))!==-1;
+    }else if(typeof window.isPremium==='function'){
+      // fallback: can't validate without internals exposed
+      valid=false;
+    }
+  }catch(e){valid=false;}
+  res.textContent=valid?'✔ Valid license key — this key will activate Premium.':'✘ Invalid key — not found in the current _VK list.';
+  res.className='ap-valid-result '+(valid?'ok':'fail');
+  res.style.display='block';
+};
 // ─────────────────────────────────────────────────────────────────
 
 window.setAdminPreview=function(mode){
@@ -8311,6 +8488,8 @@ function _initAdminUI(){
   if(badge)badge.style.display=admin?'flex':'none';
   if(admin){
     try{_updateAdminBar(sessionStorage.getItem('GeoLearn_Admin_Preview')||'actual');}catch(e){}
+    // sync admin panel preview badge if page is open
+    apSyncPreviewBadge(sessionStorage.getItem('GeoLearn_Admin_Preview')||'actual');
   }
 }
 
@@ -8338,6 +8517,7 @@ function _setupAdminUI(){
         setTimeout(function(){
           _initAdminUI();
           if(typeof initPremiumSystem==='function')initPremiumSystem();
+          showPage('admin');
         },600);
       }else{
         _showAdmSt(st,'Incorrect master password.','error');
@@ -9138,7 +9318,8 @@ function toggleMobileMenu(){
 // NAVIGATION
 // ============================================================
 function showPage(name){
-  if(name!=='activate'&&(typeof checkPremiumAccess!=='function'||!checkPremiumAccess(name))){return;}
+  if(name==='admin'&&(typeof isAdmin!=='function'||!isAdmin())){return;}
+  if(name!=='activate'&&name!=='admin'&&(typeof checkPremiumAccess!=='function'||!checkPremiumAccess(name))){return;}
   document.body.classList.remove('mobile-nav-open');
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
@@ -9148,7 +9329,8 @@ function showPage(name){
   if(typeof gtag==='function'){gtag('event','page_view',{page_title:name,page_location:location.href.split('#')[0]+'#'+name});}
 
   const items=document.querySelectorAll('.nav-item');
-  const map={home:0,study:1,animations:2,calculator:3,flashcards:4,quiz:5,game:6,resources:7,career:8,ai:9,professor:10,fielddata:11,studyplan:12,vocab:13,jlpt:14,analytics:15,smart:16,dailyfocus:17,simulations:18,kmap:19,casestudies:20,photos:21,activate:22};
+  const map={home:0,study:1,animations:2,calculator:3,flashcards:4,quiz:5,game:6,resources:7,career:8,ai:9,professor:10,fielddata:11,studyplan:12,vocab:13,jlpt:14,analytics:15,smart:16,dailyfocus:17,simulations:18,kmap:19,casestudies:20,photos:21,activate:22,admin:23};
+  if(name==='admin')apRefreshSysInfo();
   if(map[name]!==undefined)items[map[name]]&&items[map[name]].classList.add('active');
   if(name==='animations'){initAnim()}
   if(name==='flashcards'){renderFC()}
