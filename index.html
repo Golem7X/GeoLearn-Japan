@@ -3547,7 +3547,7 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 .admin-keygen-copy{background:transparent;border:1px solid var(--border);color:var(--text2);font-size:10px;padding:4px 9px;border-radius:6px;cursor:pointer;transition:all .2s;font-family:'Syne',sans-serif;white-space:nowrap;flex-shrink:0}
 .admin-keygen-copy:hover{border-color:var(--accent);color:var(--accent)}
 </style>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-GLmY8jWDWHKc0KKY4S7v7cNBMexh/bWGSfzBfeWNp/s='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-MwXeatxb47PH+9wfKZhoxlzpGdL9q4NPalHguxVxo/U='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
 </head>
 <body>
 
@@ -3773,6 +3773,14 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
     <div class="section-title">// LICENSE TARGETS 資格目標</div><div class="section-line"></div>
   </div>
   <div class="grid grid-2">
+    <div class="card chisei-home-card" data-action="showPage('stage01');stage01Init()" style="cursor:pointer;transition:border-color .2s" id="stage01-home-card">
+      <div style="font-size:20px;margin-bottom:8px">🔭</div>
+      <div style="font-weight:700;font-size:16px">現場調査技術者</div>
+      <div style="font-size:12px;color:var(--text2);margin-top:4px">Field Investigation Engineer</div>
+      <div class="progress-bar" style="margin-top:12px"><div class="progress-fill" id="stage01-home-fill" style="width:0%"></div></div>
+      <div style="font-size:11px;color:var(--text2);margin-top:4px;font-family:'JetBrains Mono',monospace" id="stage01-home-label">0% Coverage</div>
+      <div style="font-size:11px;color:var(--accent);margin-top:6px;font-family:'JetBrains Mono',monospace">→ Open Roadmap</div>
+    </div>
     <div class="card chisei-home-card" data-action="showPage('chisei');chiseiInit()" style="cursor:pointer;transition:border-color .2s" id="chisei-home-card">
       <div style="font-size:20px;margin-bottom:8px">📋</div>
       <div style="font-weight:700;font-size:16px">地質調査技士</div>
@@ -4392,18 +4400,19 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
   </div>
 
   <div class="roadmap">
-    <div class="road-stage">
+    <div class="road-stage" data-action="showPage('stage01');stage01Init()" style="cursor:pointer" title="Open 現場調査技術者 Roadmap">
       <div class="road-dot">🔭</div>
       <div class="road-content">
         <div class="road-stage-num">STAGE 01</div>
-        <div class="road-title">Field Investigation Engineer</div>
-        <div class="road-jp">現場調査技術者</div>
-        <div style="font-size:13px;color:var(--text2);margin-top:8px;line-height:1.6">Entry-level role conducting boreholes, SPT, CPT, and sampling. Works under supervision on site investigation projects.</div>
-        <div class="road-salary">¥250,000–350,000 /month</div>
+        <div class="road-title" data-i18n="career_stage01_title">Field Investigation Engineer</div>
+        <div class="road-jp" data-i18n="career_stage01_jp">現場調査技術者</div>
+        <div style="font-size:13px;color:var(--text2);margin-top:8px;line-height:1.6" data-i18n="career_stage01_desc">Entry-level role conducting boreholes, SPT, CPT, and sampling. Works under supervision on site investigation projects.</div>
+        <div class="road-salary" data-i18n="career_stage01_salary">¥250,000–350,000 /month</div>
         <div class="road-skills">
-          <div class="road-skill">SPT Operation</div><div class="road-skill">Soil Logging</div>
-          <div class="road-skill">Safety Management</div><div class="road-skill">AUTOCAD Basic</div>
+          <div class="road-skill" data-i18n="career_stage01_skill1">SPT Operation / SPT操作</div><div class="road-skill" data-i18n="career_stage01_skill2">Soil Logging / 地質柱状図記録</div>
+          <div class="road-skill" data-i18n="career_stage01_skill3">Safety Management / 安全管理</div><div class="road-skill" data-i18n="career_stage01_skill4">AUTOCAD Basic / AutoCAD基礎</div>
         </div>
+        <div style="margin-top:10px;font-size:12px;color:var(--accent);font-family:'JetBrains Mono',monospace" data-i18n="career_open_roadmap">→ Open Study Roadmap</div>
       </div>
     </div>
     <div class="road-stage" data-action="showPage('chisei');chiseiInit()" style="cursor:pointer" title="Open 地質調査技士 Roadmap">
@@ -4467,6 +4476,292 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
         </div>
         <div style="margin-top:10px;font-size:12px;color:var(--accent);font-family:'JetBrains Mono',monospace">→ Open Study Roadmap</div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     現場調査技術者 — Stage 01 Field Investigation Engineer Roadmap
+     ═══════════════════════════════════════════════════════════════════ -->
+<div id="page-stage01" class="page">
+  <div class="page-header">
+    <div class="page-title">現場調査技術者 <span>Roadmap</span></div>
+    <div class="page-sub">// Field Investigation Engineer Roadmap — 現場調査技術者ロードマップ</div>
+  </div>
+
+  <!-- Back button -->
+  <div data-action="showPage('career')" class="chisei-back">← Career Roadmap</div>
+
+  <!-- Hero banner -->
+  <div class="chisei-hero">
+    <div class="chisei-hero-badge">🔭 Stage 01 — Entry Level / 初級</div>
+    <div class="chisei-hero-title">Field Investigation Engineer<br><span>現場調査技術者</span></div>
+    <div class="chisei-hero-sub">Japan's entry-level geotechnical field role. Conducts boreholes, SPT, CPT, and soil sampling under licensed supervision. This roadmap guides you from zero experience to field-ready professional practice. / 日本の地盤工学入門現場職種。ボーリング、SPT、CPT、土質試料採取を資格技術者の監督のもとで行います。</div>
+  </div>
+
+  <!-- Live progress tracker -->
+  <div class="chisei-progress-track">
+    <div class="chisei-progress-row">
+      <div>
+        <div class="chisei-progress-label">Learning Progress / 学習の進捗</div>
+        <div class="chisei-progress-count" id="stage01-progress-count">0 / 18 tasks done</div>
+      </div>
+      <div class="chisei-progress-pct" id="stage01-progress-pct">0%</div>
+    </div>
+    <div class="chisei-progress-bar-outer">
+      <div class="chisei-progress-bar-fill" id="stage01-progress-fill" style="width:0%"></div>
+    </div>
+    <div style="font-size:11px;color:var(--text3);font-family:'JetBrains Mono',monospace">Check off tasks below to track your progress / 以下のタスクにチェックを入れて進捗を記録</div>
+  </div>
+
+  <!-- ── SECTION 1: Role Overview ── -->
+  <div class="chisei-section-card">
+    <div class="chisei-sec-hdr open" id="stage01-sh-1" data-action="stage01ToggleSection(1)">
+      <div class="chisei-sec-icon" style="background:linear-gradient(135deg,rgba(0,212,255,.2),rgba(0,212,255,.05))">🔭</div>
+      <div class="chisei-sec-text">
+        <div class="chisei-sec-title">1 — Role Overview / 職種概要</div>
+        <div class="chisei-sec-sub">What a 現場調査技術者 does in Japan / 日本での現場調査技術者の役割</div>
+      </div>
+      <div class="chisei-sec-chevron">▶</div>
+    </div>
+    <div class="chisei-sec-body open" id="stage01-sb-1">
+      <p style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:16px">
+        A <strong style="color:var(--text)">現場調査技術者 (Field Investigation Engineer)</strong> is an entry-level geotechnical professional who performs ground investigation work under the supervision of a licensed engineer. This role is the foundation of Japan's geotechnical industry — every major construction project begins with field investigation.
+        <br><br>
+        <span style="color:var(--accent2)">現場調査技術者</span>は、資格を持つ技術者の監督のもとで地盤調査業務を行う初級地盤技術者です。この役割は日本の地盤工学産業の基盤であり、すべての主要建設プロジェクトは現場調査から始まります。
+      </p>
+      <div style="font-size:12px;font-weight:700;color:var(--accent);font-family:'JetBrains Mono',monospace;letter-spacing:.8px;text-transform:uppercase;margin-bottom:10px">CORE FIELD RESPONSIBILITIES / 主要現場業務</div>
+      <div class="chisei-resp-grid">
+        <div class="chisei-resp-card">
+          <div class="chisei-resp-title">Borehole Operations / ボーリング操作</div>
+          <ul class="chisei-resp-list">
+            <li>Set up and operate drilling equipment / 削孔機器の設置・操作</li>
+            <li>Monitor borehole depth and diameter / ボーリング深度・径の管理</li>
+            <li>Record drilling parameters / 削孔パラメータの記録</li>
+            <li>Maintain casing and core recovery / ケーシングとコア回収の管理</li>
+          </ul>
+        </div>
+        <div class="chisei-resp-card">
+          <div class="chisei-resp-title">SPT &amp; CPT Testing / SPT・CPT試験</div>
+          <ul class="chisei-resp-list">
+            <li>Perform Standard Penetration Tests / 標準貫入試験の実施</li>
+            <li>Count and record N-values / N値の計測・記録</li>
+            <li>Operate Cone Penetration Tests / コーン貫入試験の操作</li>
+            <li>Calibrate test equipment / 試験機器の校正</li>
+          </ul>
+        </div>
+        <div class="chisei-resp-card">
+          <div class="chisei-resp-title">Soil Sampling / 土質試料採取</div>
+          <ul class="chisei-resp-list">
+            <li>Collect disturbed and undisturbed samples / 乱した・乱さない試料の採取</li>
+            <li>Label and store samples correctly / 試料の正確なラベル・保管</li>
+            <li>Describe soil color and texture / 土の色・組織の記述</li>
+            <li>Transport samples to laboratory / 試料の実験室への搬送</li>
+          </ul>
+        </div>
+        <div class="chisei-resp-card">
+          <div class="chisei-resp-title">Field Documentation / 現場記録</div>
+          <ul class="chisei-resp-list">
+            <li>Complete daily field log sheets / 現場日誌の記録</li>
+            <li>Sketch borehole column diagrams / ボーリング柱状図のスケッチ</li>
+            <li>Record groundwater levels / 地下水位の記録</li>
+            <li>Photograph site conditions / 現場状況の写真撮影</li>
+          </ul>
+        </div>
+        <div class="chisei-resp-card">
+          <div class="chisei-resp-title">Site Safety / 現場安全管理</div>
+          <ul class="chisei-resp-list">
+            <li>Follow site safety protocols / 現場安全規則の遵守</li>
+            <li>Use personal protective equipment / 保護具の着用</li>
+            <li>Identify and avoid hazards / 危険の特定・回避</li>
+            <li>Report incidents immediately / 事故の即時報告</li>
+          </ul>
+        </div>
+        <div class="chisei-resp-card">
+          <div class="chisei-resp-title">Equipment Care / 機器管理</div>
+          <ul class="chisei-resp-list">
+            <li>Clean and maintain field tools / 現場工具の清掃・整備</li>
+            <li>Check equipment before use / 使用前の機器点検</li>
+            <li>Report equipment faults / 機器の不具合報告</li>
+            <li>Store equipment safely / 機器の安全な保管</li>
+          </ul>
+        </div>
+      </div>
+      <div style="font-size:12px;font-weight:700;color:var(--accent2);font-family:'JetBrains Mono',monospace;letter-spacing:.8px;margin:16px 0 8px">LEARNING TASKS / 学習タスク</div>
+      <div id="stage01-tasks-1"></div>
+    </div>
+  </div>
+
+  <!-- ── SECTION 2: SPT Operation ── -->
+  <div class="chisei-section-card">
+    <div class="chisei-sec-hdr" id="stage01-sh-2" data-action="stage01ToggleSection(2)">
+      <div class="chisei-sec-icon" style="background:linear-gradient(135deg,rgba(88,196,88,.2),rgba(88,196,88,.05))">🔨</div>
+      <div class="chisei-sec-text">
+        <div class="chisei-sec-title">2 — SPT Operation / 標準貫入試験操作</div>
+        <div class="chisei-sec-sub">Standard Penetration Test procedures and N-value recording / 標準貫入試験手順とN値記録</div>
+      </div>
+      <div class="chisei-sec-chevron">▶</div>
+    </div>
+    <div class="chisei-sec-body" id="stage01-sb-2">
+      <p style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:12px">
+        The <strong style="color:var(--text)">Standard Penetration Test (SPT / 標準貫入試験)</strong> is the most commonly used in-situ test in Japan. It measures the number of hammer blows (N-value / N値) required to drive a split-spoon sampler 300mm into soil. The N-value directly correlates with soil density, bearing capacity, and liquefaction resistance.
+        <br><br>
+        <strong style="color:var(--accent2)">標準貫入試験（SPT）</strong>は日本で最もよく使われる原位置試験です。スプリットスプーンサンプラーを土中に300mm貫入させるために必要なハンマー打撃回数（N値）を測定します。N値は土の密度、支持力、液状化抵抗と直接相関します。
+      </p>
+      <table class="chisei-vocab-table">
+        <thead><tr><th>Japanese / 日本語</th><th>English</th><th>Description / 説明</th></tr></thead>
+        <tbody>
+          <tr><td>標準貫入試験</td><td>Standard Penetration Test</td><td>Most common in-situ test in Japan / 日本で最も一般的な原位置試験</td></tr>
+          <tr><td>N値</td><td>N-value / Blow Count</td><td>Number of blows per 300mm / 300mmあたりの打撃回数</td></tr>
+          <tr><td>スプリットスプーン</td><td>Split-spoon Sampler</td><td>Standard sample tube for SPT / 標準試料管</td></tr>
+          <tr><td>ハンマー重量</td><td>Hammer Weight</td><td>63.5 kg drop hammer / 63.5kgのドロップハンマー</td></tr>
+          <tr><td>落下高</td><td>Drop Height</td><td>760mm standard drop / 760mmの標準落下高</td></tr>
+          <tr><td>貫入量</td><td>Penetration Depth</td><td>300mm per test interval / 試験区間300mm</td></tr>
+        </tbody>
+      </table>
+      <div style="font-size:12px;font-weight:700;color:var(--accent2);font-family:'JetBrains Mono',monospace;letter-spacing:.8px;margin:16px 0 8px">LEARNING TASKS / 学習タスク</div>
+      <div id="stage01-tasks-2"></div>
+    </div>
+  </div>
+
+  <!-- ── SECTION 3: Soil Logging ── -->
+  <div class="chisei-section-card">
+    <div class="chisei-sec-hdr" id="stage01-sh-3" data-action="stage01ToggleSection(3)">
+      <div class="chisei-sec-icon" style="background:linear-gradient(135deg,rgba(168,85,247,.2),rgba(168,85,247,.05))">📋</div>
+      <div class="chisei-sec-text">
+        <div class="chisei-sec-title">3 — Soil Logging / 地質柱状図記録</div>
+        <div class="chisei-sec-sub">Field classification and borehole log preparation / 現場分類とボーリング柱状図の作成</div>
+      </div>
+      <div class="chisei-sec-chevron">▶</div>
+    </div>
+    <div class="chisei-sec-body" id="stage01-sb-3">
+      <p style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:12px">
+        <strong style="color:var(--text)">Soil Logging (地質柱状図記録)</strong> is the process of visually examining and describing recovered soil samples to create a borehole log (柱状図). This is a critical skill — accurate logs are the foundation of all geotechnical analysis and design.
+        <br><br>
+        <strong style="color:var(--accent2)">土質記録（地質柱状図記録）</strong>は、回収された土試料を目視で検査・記述してボーリング柱状図を作成するプロセスです。正確な柱状図はすべての地盤工学的分析と設計の基盤となります。
+      </p>
+      <table class="chisei-vocab-table">
+        <thead><tr><th>Japanese / 日本語</th><th>English</th><th>Description / 説明</th></tr></thead>
+        <tbody>
+          <tr><td>柱状図</td><td>Borehole Log</td><td>Graphical record of soil layers / 土層のグラフィック記録</td></tr>
+          <tr><td>土質分類</td><td>Soil Classification</td><td>Identifying soil type and properties / 土の種類と性質の特定</td></tr>
+          <tr><td>粒度</td><td>Grain Size</td><td>Particle size distribution / 粒子サイズの分布</td></tr>
+          <tr><td>色調</td><td>Soil Color</td><td>Munsell color notation used in Japan / 日本ではマンセル記号使用</td></tr>
+          <tr><td>コンシステンシー</td><td>Consistency</td><td>Stiffness of cohesive soils / 粘性土の硬さ</td></tr>
+          <tr><td>地層境界</td><td>Stratigraphic Boundary</td><td>Depth where soil type changes / 土質が変化する深度</td></tr>
+        </tbody>
+      </table>
+      <div style="font-size:12px;font-weight:700;color:var(--accent2);font-family:'JetBrains Mono',monospace;letter-spacing:.8px;margin:16px 0 8px">LEARNING TASKS / 学習タスク</div>
+      <div id="stage01-tasks-3"></div>
+    </div>
+  </div>
+
+  <!-- ── SECTION 4: Safety Management ── -->
+  <div class="chisei-section-card">
+    <div class="chisei-sec-hdr" id="stage01-sh-4" data-action="stage01ToggleSection(4)">
+      <div class="chisei-sec-icon" style="background:linear-gradient(135deg,rgba(245,158,11,.2),rgba(245,158,11,.05))">⛑️</div>
+      <div class="chisei-sec-text">
+        <div class="chisei-sec-title">4 — Safety Management / 安全管理</div>
+        <div class="chisei-sec-sub">Construction site safety in Japan / 日本の建設現場の安全</div>
+      </div>
+      <div class="chisei-sec-chevron">▶</div>
+    </div>
+    <div class="chisei-sec-body" id="stage01-sb-4">
+      <p style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:12px">
+        <strong style="color:var(--text)">Safety Management (安全管理)</strong> is mandatory on all Japanese construction sites. Japan's Labour Safety and Health Act (労働安全衛生法) sets strict requirements for site safety. Field investigation engineers must know these rules before starting any work.
+        <br><br>
+        <strong style="color:var(--accent2)">安全管理</strong>は日本のすべての建設現場で義務付けられています。労働安全衛生法は現場安全に対して厳格な要件を設けています。現場調査技術者は作業開始前にこれらの規則を知っておく必要があります。
+      </p>
+      <table class="chisei-vocab-table">
+        <thead><tr><th>Japanese / 日本語</th><th>English</th><th>Description / 説明</th></tr></thead>
+        <tbody>
+          <tr><td>労働安全衛生法</td><td>Labour Safety and Health Act</td><td>Japan's main workplace safety law / 日本の主要な職場安全法</td></tr>
+          <tr><td>保護具</td><td>Personal Protective Equipment</td><td>Hard hat, gloves, boots required / ヘルメット・手袋・安全靴が必要</td></tr>
+          <tr><td>危険予知</td><td>Hazard Identification (KY)</td><td>Pre-work hazard assessment / 作業前危険予知活動</td></tr>
+          <tr><td>作業手順書</td><td>Work Procedure Manual</td><td>Step-by-step safety procedures / 段階的安全手順</td></tr>
+          <tr><td>緊急連絡先</td><td>Emergency Contacts</td><td>Site emergency reporting chain / 現場緊急連絡体制</td></tr>
+          <tr><td>ヒヤリハット</td><td>Near-Miss Report</td><td>Mandatory incident reporting / 義務的なインシデント報告</td></tr>
+        </tbody>
+      </table>
+      <div style="font-size:12px;font-weight:700;color:var(--accent2);font-family:'JetBrains Mono',monospace;letter-spacing:.8px;margin:16px 0 8px">LEARNING TASKS / 学習タスク</div>
+      <div id="stage01-tasks-4"></div>
+    </div>
+  </div>
+
+  <!-- ── SECTION 5: AutoCAD Basic ── -->
+  <div class="chisei-section-card">
+    <div class="chisei-sec-hdr" id="stage01-sh-5" data-action="stage01ToggleSection(5)">
+      <div class="chisei-sec-icon" style="background:linear-gradient(135deg,rgba(239,68,68,.2),rgba(239,68,68,.05))">🖥️</div>
+      <div class="chisei-sec-text">
+        <div class="chisei-sec-title">5 — AutoCAD Basic / AutoCAD基礎</div>
+        <div class="chisei-sec-sub">Drawing tools for field reports and borehole logs / 現場報告書・柱状図の作成ツール</div>
+      </div>
+      <div class="chisei-sec-chevron">▶</div>
+    </div>
+    <div class="chisei-sec-body" id="stage01-sb-5">
+      <p style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:12px">
+        <strong style="color:var(--text)">AutoCAD</strong> is the standard drawing software used in Japanese geotechnical firms to produce borehole logs (柱状図), site plans (配置図), and geological cross-sections (地質断面図). Entry-level engineers are expected to assist with basic drafting tasks.
+        <br><br>
+        <strong style="color:var(--accent2)">AutoCAD</strong>は日本の地盤工学会社でボーリング柱状図、配置図、地質断面図を作成するために使用される標準製図ソフトウェアです。初級技術者は基本的な製図業務を補助することが期待されます。
+      </p>
+      <table class="chisei-vocab-table">
+        <thead><tr><th>Japanese / 日本語</th><th>English</th><th>Description / 説明</th></tr></thead>
+        <tbody>
+          <tr><td>柱状図</td><td>Borehole Column Diagram</td><td>Graphical soil layer diagram / 土層のグラフィック図面</td></tr>
+          <tr><td>配置図</td><td>Site Layout Plan</td><td>Plan view of borehole locations / ボーリング位置の平面図</td></tr>
+          <tr><td>地質断面図</td><td>Geological Cross-Section</td><td>Side view of soil layers / 土層の側面図</td></tr>
+          <tr><td>レイヤー</td><td>Layer</td><td>Drawing layer management / 図面レイヤー管理</td></tr>
+          <tr><td>縮尺</td><td>Scale</td><td>Drawing scale (1:100, 1:200, etc.) / 図面の縮尺</td></tr>
+          <tr><td>ブロック</td><td>Block</td><td>Reusable symbol library / 再利用可能なシンボルライブラリ</td></tr>
+        </tbody>
+      </table>
+      <div style="font-size:12px;font-weight:700;color:var(--accent2);font-family:'JetBrains Mono',monospace;letter-spacing:.8px;margin:16px 0 8px">LEARNING TASKS / 学習タスク</div>
+      <div id="stage01-tasks-5"></div>
+    </div>
+  </div>
+
+  <!-- ── SECTION 6: Career Progression ── -->
+  <div class="chisei-section-card">
+    <div class="chisei-sec-hdr" id="stage01-sh-6" data-action="stage01ToggleSection(6)">
+      <div class="chisei-sec-icon" style="background:linear-gradient(135deg,rgba(0,212,255,.15),rgba(168,85,247,.1))">🚀</div>
+      <div class="chisei-sec-text">
+        <div class="chisei-sec-title">6 — Career Progression / キャリアアップ</div>
+        <div class="chisei-sec-sub">Path to Stage 02 — 地質調査技士 Certification / 地質調査技士資格への道</div>
+      </div>
+      <div class="chisei-sec-chevron">▶</div>
+    </div>
+    <div class="chisei-sec-body" id="stage01-sb-6">
+      <p style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:12px">
+        After gaining 2–3 years of field experience as a 現場調査技術者, you can sit for the <strong style="color:var(--text)">地質調査技士 (Geological Survey Engineer)</strong> national examination. This license is required to independently supervise ground investigation for public works contracts.
+        <br><br>
+        <strong style="color:var(--accent2)">現場調査技術者</strong>として2〜3年の現場経験を積んだ後、地質調査技士の国家試験を受験できます。この資格は公共工事契約での地盤調査を独立して監督するために必要です。
+      </p>
+      <div class="chisei-resp-grid">
+        <div class="chisei-resp-card">
+          <div class="chisei-resp-title">Requirements for Stage 02 / Stage 02の要件</div>
+          <ul class="chisei-resp-list">
+            <li>2+ years field experience / 2年以上の現場経験</li>
+            <li>Pass 地質調査技士 written exam / 地質調査技士筆記試験合格</li>
+            <li>Pass practical assessment / 実技審査合格</li>
+            <li>JGSEE membership / JGSEE会員</li>
+          </ul>
+        </div>
+        <div class="chisei-resp-card">
+          <div class="chisei-resp-title">Skills to Develop / 習得すべきスキル</div>
+          <ul class="chisei-resp-list">
+            <li>Independent borehole logging / 独立したボーリング記録</li>
+            <li>Report writing in Japanese / 日本語での報告書作成</li>
+            <li>地盤調査 planning skills / 地盤調査計画能力</li>
+            <li>Team leadership basics / チームリーダーシップの基礎</li>
+          </ul>
+        </div>
+      </div>
+      <div style="margin-top:16px;padding:14px;background:rgba(0,212,255,.06);border:1px solid rgba(0,212,255,.2);border-radius:8px;font-size:13px;color:var(--text2)">
+        <strong style="color:var(--accent)">→ Next Step:</strong> Open the <span data-action="showPage('chisei');chiseiInit()" style="color:var(--accent2);cursor:pointer;text-decoration:underline">地質調査技士 Roadmap</span> to see Stage 02 in detail.
+        <br><strong style="color:var(--accent)">→ 次のステップ：</strong><span data-action="showPage('chisei');chiseiInit()" style="color:var(--accent2);cursor:pointer;text-decoration:underline">地質調査技士ロードマップ</span>を開いてStage 02の詳細をご覧ください。
+      </div>
+      <div style="font-size:12px;font-weight:700;color:var(--accent2);font-family:'JetBrains Mono',monospace;letter-spacing:.8px;margin:16px 0 8px">LEARNING TASKS / 学習タスク</div>
+      <div id="stage01-tasks-6"></div>
     </div>
   </div>
 </div>
@@ -8383,6 +8678,10 @@ function sanitizeText(s) {
 
 
 
+
+
+
+
 // ╔══════════════════════════════════════════════════════════════════════════╗
 // ║                                                                          ║
 // ║   GeoLearn Japan — Geotechnical & Geophysical Engineering Platform       ║
@@ -8548,7 +8847,7 @@ function sanitizeText(s) {
       trustedTypes: !!(window.trustedTypes),
       domPurify:    typeof DOMPurify !== 'undefined',
       hardened:     true,
-      built:        '2026-03-18T09:36:23.595Z',
+      built:        '2026-03-18T13:49:06.919Z',
     }),
     writable:     false,
     configurable: false,
@@ -18320,6 +18619,126 @@ function expandCase(id) {
 
   document.addEventListener('DOMContentLoaded', function() {
     gijutsuUpdateHomeCard();
+  });
+})();
+
+/* ═══════════════════════════════════════════════════════════════════
+   現場調査技術者 — Stage 01 Field Investigation Progress Tracking
+   18 tasks: s1×3, s2×3, s3×3, s4×3, s5×3, s6×3
+   ═══════════════════════════════════════════════════════════════════ */
+(function() {
+  'use strict';
+  var STAGE01_KEY = 'stage01-progress';
+  var STAGE01_TOTAL = 18;
+  var STAGE01_TASKS = {
+    1: [
+      { id: 's1t1', en: 'Understand the role of a Field Investigation Engineer', ja: '現場調査技術者の役割を理解する' },
+      { id: 's1t2', en: 'Learn the 6 core field responsibilities', ja: '6つの主要現場業務を学ぶ' },
+      { id: 's1t3', en: 'Study Japanese field safety regulations (労働安全衛生法)', ja: '日本の現場安全規則（労働安全衛生法）を学ぶ' }
+    ],
+    2: [
+      { id: 's2t1', en: 'Learn SPT procedure: setup, hammer drop, N-value counting', ja: 'SPT手順を学ぶ：設置・ハンマー落下・N値計測' },
+      { id: 's2t2', en: 'Practice recording SPT N-values on field log sheets', ja: '現場日誌にSPT N値を記録する練習' },
+      { id: 's2t3', en: 'Understand CPT (Cone Penetration Test) basics', ja: 'CPT（コーン貫入試験）の基礎を理解する' }
+    ],
+    3: [
+      { id: 's3t1', en: 'Learn soil classification system used in Japan (JIS A 1209)', ja: '日本の土質分類体系（JIS A 1209）を学ぶ' },
+      { id: 's3t2', en: 'Practice describing soil color, texture, and consistency', ja: '土の色・粒度・コンシステンシーの記述練習' },
+      { id: 's3t3', en: 'Draw a sample borehole log (柱状図) from field data', ja: 'フィールドデータからサンプル柱状図を描く' }
+    ],
+    4: [
+      { id: 's4t1', en: 'Study KY (危険予知) hazard identification process', ja: 'KY（危険予知）危険特定プロセスを学ぶ' },
+      { id: 's4t2', en: 'Learn required PPE for ground investigation sites', ja: '地盤調査現場に必要なPPEを学ぶ' },
+      { id: 's4t3', en: 'Understand ヒヤリハット near-miss reporting system', ja: 'ヒヤリハット報告システムを理解する' }
+    ],
+    5: [
+      { id: 's5t1', en: 'Learn AutoCAD interface: layers, tools, and commands', ja: 'AutoCADインターフェースを学ぶ：レイヤー・ツール・コマンド' },
+      { id: 's5t2', en: 'Practice creating a basic site layout plan (配置図)', ja: '基本的な配置図の作成練習' },
+      { id: 's5t3', en: 'Draw a simple geological cross-section (地質断面図)', ja: '簡単な地質断面図を描く' }
+    ],
+    6: [
+      { id: 's6t1', en: 'Understand the requirements for 地質調査技士 exam', ja: '地質調査技士試験の要件を理解する' },
+      { id: 's6t2', en: 'Review the Stage 02 地質調査技士 roadmap', ja: 'Stage 02 地質調査技士ロードマップを確認する' },
+      { id: 's6t3', en: 'Set a goal: timeline to 地質調査技士 certification', ja: '目標設定：地質調査技士取得までのタイムライン' }
+    ]
+  };
+
+  function stage01LoadProgress() {
+    try { return JSON.parse(localStorage.getItem(STAGE01_KEY)) || {}; }
+    catch(e) { return {}; }
+  }
+
+  function stage01SaveProgress(data) {
+    try { localStorage.setItem(STAGE01_KEY, JSON.stringify(data)); } catch(e) {}
+  }
+
+  function stage01CalcPct(data) {
+    var done = Object.keys(data).filter(function(k){ return data[k]; }).length;
+    return { done: done, pct: Math.round(done / STAGE01_TOTAL * 100) };
+  }
+
+  function stage01UpdateUI() {
+    var data = stage01LoadProgress();
+    var stat = stage01CalcPct(data);
+    var fill = document.getElementById('stage01-progress-fill');
+    var count = document.getElementById('stage01-progress-count');
+    var pct = document.getElementById('stage01-progress-pct');
+    if (fill) fill.style.width = stat.pct + '%';
+    if (count) count.textContent = stat.done + ' / ' + STAGE01_TOTAL + ' tasks done';
+    if (pct) pct.textContent = stat.pct + '%';
+    Object.keys(STAGE01_TASKS).forEach(function(sec) {
+      var container = document.getElementById('stage01-tasks-' + sec);
+      if (!container) return;
+      container.innerHTML = '';
+      STAGE01_TASKS[sec].forEach(function(task) {
+        var checked = data[task.id] ? 'checked' : '';
+        var doneStyle = data[task.id] ? 'opacity:.5;text-decoration:line-through' : '';
+        container.innerHTML += '<label style="display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);cursor:pointer;' + doneStyle + '">' +
+          '<input type="checkbox" ' + checked + ' style="margin-top:2px;accent-color:var(--accent2)" onchange="stage01CheckTask(\'' + task.id + '\',this.checked)">' +
+          '<span style="font-size:12px;line-height:1.5"><span style="color:var(--text)">' + task.en + '</span><br><span style="color:var(--text2)">' + task.ja + '</span></span>' +
+          '</label>';
+      });
+    });
+  }
+
+  window.stage01CheckTask = function(id, val) {
+    var data = stage01LoadProgress();
+    data[id] = val;
+    stage01SaveProgress(data);
+    stage01UpdateUI();
+  };
+
+  window.stage01ToggleSection = function(n) {
+    var body = document.getElementById('stage01-sb-' + n);
+    var hdr = document.getElementById('stage01-sh-' + n);
+    if (!body) return;
+    var isOpen = body.classList.contains('open');
+    body.classList.toggle('open', !isOpen);
+    if (hdr) hdr.classList.toggle('open', !isOpen);
+  };
+
+  function stage01UpdateHomeCard() {
+    var data = stage01LoadProgress();
+    var stat = stage01CalcPct(data);
+    var fill  = document.getElementById('stage01-home-fill');
+    var label = document.getElementById('stage01-home-label');
+    if (fill)  fill.style.width = stat.pct + '%';
+    if (label) label.textContent = stat.pct + '% Coverage';
+  }
+
+  window.stage01Init = function() {
+    stage01UpdateUI();
+    stage01UpdateHomeCard();
+    var sb1 = document.getElementById('stage01-sb-1');
+    var sh1 = document.getElementById('stage01-sh-1');
+    if (sb1 && !sb1.classList.contains('open')) {
+      sb1.classList.add('open');
+      if (sh1) sh1.classList.add('open');
+    }
+  };
+
+  document.addEventListener('DOMContentLoaded', function() {
+    stage01UpdateHomeCard();
   });
 })();
 
