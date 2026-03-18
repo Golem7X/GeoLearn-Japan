@@ -68,17 +68,17 @@ const COPYRIGHT_HEADER = `
 // ── Read current file ─────────────────────────────────────────────────────────
 let html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
 
-// ── Parse the two script blocks ───────────────────────────────────────────────
-// Block 1: DOMPurify (first <script>...</script>)
-// Block 2: App code  (second <script>...</script>)
+// ── Parse script blocks ───────────────────────────────────────────────────────
+// Block layout: [GA analytics] [DOMPurify] [App code (premium + admin + main)]
+// We need the last two: DOMPurify (second-to-last) and App code (last).
 const scriptMatches = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)];
-if (scriptMatches.length !== 2) {
-  console.error(`Expected 2 script blocks, found ${scriptMatches.length}. Aborting.`);
+if (scriptMatches.length < 2) {
+  console.error(`Expected at least 2 script blocks, found ${scriptMatches.length}. Aborting.`);
   process.exit(1);
 }
 
-let domPurifyContent = scriptMatches[0][1];  // between <script> and </script>
-let appContent       = scriptMatches[1][1];
+let domPurifyContent = scriptMatches[scriptMatches.length - 2][1];
+let appContent       = scriptMatches[scriptMatches.length - 1][1];
 
 // ── Zero-Trust Security Runtime ───────────────────────────────────────────────
 // Injected at the START of the app script block (BEFORE the delegated handler).
@@ -332,33 +332,41 @@ if (!html.includes('Permissions-Policy')) {
 }
 
 // ── Rebuild with new script content ──────────────────────────────────────────
-// Replace the two script blocks with updated content
+// Replace the last two script blocks (DOMPurify + App) with updated content.
+// Any earlier blocks (e.g. GA analytics) are preserved as-is.
 let rebuiltHtml = html;
 const newDomPurifyBlock = `<script>${domPurifyContent}</script>`;
 const newAppBlock       = `<script>${appContent}</script>`;
 
-// Replace the original script blocks
+const totalBlocks = scriptMatches.length;
 const scriptBlockRegex = /<script>[\s\S]*?<\/script>/g;
 let blockIndex = 0;
-rebuiltHtml = rebuiltHtml.replace(scriptBlockRegex, () => {
-  if (blockIndex === 0) { blockIndex++; return newDomPurifyBlock; }
-  if (blockIndex === 1) { blockIndex++; return newAppBlock; }
-  return ''; // should not happen
+rebuiltHtml = rebuiltHtml.replace(scriptBlockRegex, (match) => {
+  const idx = blockIndex++;
+  if (idx === totalBlocks - 2) return newDomPurifyBlock;
+  if (idx === totalBlocks - 1) return newAppBlock;
+  return match; // preserve earlier blocks (GA, etc.) unchanged
 });
 
 // ── Compute SHA-256 hashes ────────────────────────────────────────────────────
-const domPurifyHash = sha256(domPurifyContent);
-const appHash       = sha256(appContent);
+// Hash ALL script blocks for CSP (not just DOMPurify + App)
+const allHashes = scriptMatches.map((m, i) => {
+  const content = (i === scriptMatches.length - 2) ? domPurifyContent :
+                  (i === scriptMatches.length - 1) ? appContent : m[1];
+  return sha256(content);
+});
+const domPurifyHash = allHashes[allHashes.length - 2];
+const appHash       = allHashes[allHashes.length - 1];
 console.log('\nSHA-256 hashes:');
-console.log(`  DOMPurify: sha256-${domPurifyHash}`);
-console.log(`  App code:  sha256-${appHash}`);
+allHashes.forEach((h, i) => console.log(`  Block ${i}: sha256-${h}`));
 
 // ── Build strict CSP string ───────────────────────────────────────────────────
 // strict-dynamic: allows scripts loaded by trusted (hashed) scripts to run.
 // This future-proofs dynamic module loading without needing 'unsafe-inline'.
+const hashDirectives = allHashes.map(h => `'sha256-${h}'`).join(' ');
 const CSP_DIRECTIVES = [
   `default-src 'none'`,
-  `script-src 'strict-dynamic' 'sha256-${domPurifyHash}' 'sha256-${appHash}'`,
+  `script-src 'strict-dynamic' ${hashDirectives}`,
   `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com`,
   `font-src https://fonts.gstatic.com`,
   `img-src 'self' data: blob:`,

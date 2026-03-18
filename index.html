@@ -3536,7 +3536,7 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 .admin-logout-btn{margin-top:12px;background:none;border:1px solid rgba(255,71,87,.25);color:rgba(255,71,87,.7);padding:6px 14px;border-radius:7px;font-size:11px;cursor:pointer;transition:all .2s;font-family:'Syne',sans-serif}
 .admin-logout-btn:hover{border-color:#ff4757;color:#ff4757}
 </style>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-DNjPplbnV4cTy/2PCU9imtLC7N/rRQ33cKsjR8NiTC4=' 'sha256-fRwQeh5ghUkquXK4mdNf5dVVtrgSTzCGhnllRhrQlag=' 'sha256-iJdI18B7P7I1z/Fw/Y+Pyc+uYXZw6KRYa9X2VoAgu9Q='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data: blob: https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-GLmY8jWDWHKc0KKY4S7v7cNBMexh/bWGSfzBfeWNp/s='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
 </head>
 <body>
 
@@ -8101,7 +8101,7 @@ document.addEventListener('DOMContentLoaded',function(){
   }
 });
 })();
-</script><script>
+
 // ============================================================
 // GEOLEARN ADMIN SYSTEM v1.0
 // ============================================================
@@ -8256,7 +8256,6 @@ function _showAdmSt(el,msg,type){
 
 document.addEventListener('DOMContentLoaded',function(){_setupAdminUI();});
 })();
-</script><script>
 
 // ── Input validation helpers ───────────────────────────────────────────
 function safeNum(id, fallback, min, max) {
@@ -8275,6 +8274,8 @@ function sanitizeText(s) {
   }
   return escHtml(String(s));
 }
+
+
 
 
 
@@ -8345,17 +8346,7 @@ function sanitizeText(s) {
       window.trustedTypes.createPolicy('default', {
         createHTML: function(dirty) {
           if (typeof DOMPurify !== 'undefined') {
-            // Pre-convert onclick/onmouseover/onmouseout → data-action/data-hover-on/data-hover-off
-            // so DOMPurify doesn't strip them (DOMPurify always removes on* event attrs).
-            // The MutationObserver + delegated handler will execute data-action on click.
-            var converted = dirty
-              .replace(/ onclick="/g, ' data-action="')
-              .replace(/ onclick='/g, " data-action='")
-              .replace(/ onmouseover="/g, ' data-hover-on="')
-              .replace(/ onmouseover='/g, " data-hover-on='")
-              .replace(/ onmouseout="/g, ' data-hover-off="')
-              .replace(/ onmouseout='/g, " data-hover-off='");
-            return DOMPurify.sanitize(converted, {
+            return DOMPurify.sanitize(dirty, {
               ALLOWED_TAGS: [
                 'a','b','br','button','canvas','code','col','colgroup',
                 'div','em','h1','h2','h3','h4','h5','h6','hr','i','img',
@@ -8364,15 +8355,13 @@ function sanitizeText(s) {
                 'textarea','th','thead','tr','ul'
               ],
               ALLOWED_ATTR: [
-                'class','style','data-action','data-hover-on','data-hover-off',
-                'data-done','data-error','data-change','data-keydown',
-                'id','title','type',
+                'class','style','data-action','id','title','type',
                 'value','min','max','step','placeholder','disabled',
                 'checked','selected','for','name','readonly',
                 'width','height','src','alt','rows','cols'
               ],
               FORBID_ATTR: [
-                'onerror','onload','onclick','onmouseover','onmouseout','onchange',
+                'onerror','onload','onclick','onmouseover','onchange',
                 'onsubmit','onfocus','onblur','onkeydown','onkeyup',
                 'onkeypress','ondblclick','oncontextmenu','onresize'
               ],
@@ -8456,7 +8445,7 @@ function sanitizeText(s) {
       trustedTypes: !!(window.trustedTypes),
       domPurify:    typeof DOMPurify !== 'undefined',
       hardened:     true,
-      built:        '2026-03-12T11:13:17.158Z',
+      built:        '2026-03-18T09:36:23.595Z',
     }),
     writable:     false,
     configurable: false,
