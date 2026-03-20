@@ -3547,7 +3547,7 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 .admin-keygen-copy{background:transparent;border:1px solid var(--border);color:var(--text2);font-size:10px;padding:4px 9px;border-radius:6px;cursor:pointer;transition:all .2s;font-family:'Syne',sans-serif;white-space:nowrap;flex-shrink:0}
 .admin-keygen-copy:hover{border-color:var(--accent);color:var(--accent)}
 </style>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-CPVy5uXnQO1tV8pJJyMFwPxeHmmTpwnMSD8apN6Pewg='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-MwXeatxb47PH+9wfKZhoxlzpGdL9q4NPalHguxVxo/U='; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' https://images.unsplash.com data: blob: https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
 </head>
 <body>
 
@@ -8613,6 +8613,13 @@ window.isPremium=function(){
   return _realIsPremium?_realIsPremium():false;
 };
 
+// Allow admin to navigate to any page freely (bypass upgrade modal regardless of preview mode)
+var _realCPA=window.checkPremiumAccess;
+window.checkPremiumAccess=function(name){
+  if(_adminActive)return true;
+  return _realCPA?_realCPA(name):true;
+};
+
 window.isAdmin=function(){
   return _adminActive;
 };
@@ -8651,9 +8658,9 @@ window.setAdminPreview=function(mode){
     if(cur){
       var id=cur.id.replace('page-','');
       if(id&&id!=='activate'){
-        // Re-navigate to trigger premium recheck but don't block activate
-        document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
-        cur.classList.add('active');
+        // Re-navigate using showPage so page-specific init re-runs with the new state.
+        // checkPremiumAccess is bypassed for admin so this always succeeds.
+        showPage(id);
       }
     }
   }

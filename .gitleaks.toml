@@ -1,0 +1,13 @@
+# Gitleaks configuration for GeoLearn-Japan
+# Supabase anon keys are intentionally public — RLS enforces access control.
+# See: https://supabase.com/docs/guides/api/api-keys
+
+[allowlist]
+  description = "Allowlist for intentionally public keys"
+  regexes = [
+    # Supabase anon key (JWT) — public by design, protected by Row Level Security
+    '''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6''',
+  ]
+  paths = [
+    '''\.gitleaks\.toml''',
+  ]

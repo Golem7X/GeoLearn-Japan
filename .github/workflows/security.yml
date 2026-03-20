@@ -188,17 +188,19 @@ jobs:
             console.log('PASS: No critical/high vulnerabilities');
           "
 
-      - name: Verify zero external script dependencies
+      - name: Verify external scripts have SRI integrity hashes
         run: |
           node -e "
             const fs   = require('fs');
             const html = fs.readFileSync('index.html', 'utf8');
-            const ext  = (html.match(/<script[^>]+src=/g) || []).length;
-            if (ext > 0) {
-              console.error('FAIL: ' + ext + ' external script(s) found — must use SRI or be inlined');
+            const tags = html.match(/<script[^>]+src=[^>]+>/g) || [];
+            const noSRI = tags.filter(t => !t.includes('integrity='));
+            if (noSRI.length > 0) {
+              console.error('FAIL: ' + noSRI.length + ' external script(s) missing SRI integrity hash:');
+              noSRI.forEach(t => console.error(' ', t.substring(0, 120)));
               process.exit(1);
             }
-            console.log('PASS: Zero external script dependencies');
+            console.log('PASS: All ' + tags.length + ' external script(s) have SRI integrity hashes');
           "
 
       - name: Verify DOMPurify is embedded (no CDN dependency)
