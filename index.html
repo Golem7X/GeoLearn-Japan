@@ -3724,14 +3724,79 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 .admin-recovery-status{font-size:11px;min-height:16px;padding:2px 0}
 .admin-recovery-status.ok{color:#4ade80}
 .admin-recovery-status.err{color:#f87171}
+
+/* ══════════════════════════════════════════════════
+   SUPABASE AUTH UPGRADE v2 — Loading Overlay
+   ══════════════════════════════════════════════════ */
+.app-loading-overlay{
+  position:fixed;inset:0;background:var(--bg);z-index:10000;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:20px;transition:opacity .4s ease;
+}
+.app-loading-overlay.hidden{opacity:0;pointer-events:none;}
+.app-loading-logo{width:56px;height:56px;background:linear-gradient(135deg,var(--accent),var(--purple));border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;color:#000;box-shadow:0 0 40px rgba(0,212,255,.25);}
+.app-loading-spinner{
+  width:28px;height:28px;
+  border:2px solid var(--border);
+  border-top-color:var(--accent);
+  border-radius:50%;
+  animation:geo-spin .8s linear infinite;
+}
+@keyframes geo-spin{to{transform:rotate(360deg)}}
+.app-loading-text{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text2);letter-spacing:1.5px;text-transform:uppercase;}
+
+/* ══ USER PLAN BADGE (top-right) ══ */
+.user-plan-badge{
+  display:none;align-items:center;gap:8px;
+  padding:5px 14px;border-radius:20px;
+  font-size:12px;font-weight:700;border:1px solid;
+  font-family:'Syne',sans-serif;letter-spacing:.3px;
+}
+.user-plan-badge.premium{
+  background:linear-gradient(135deg,rgba(255,215,0,.15),rgba(255,140,0,.1));
+  border-color:rgba(255,215,0,.45);color:var(--gold);
+}
+.user-plan-badge.free{
+  background:rgba(0,212,255,.08);
+  border-color:rgba(0,212,255,.25);color:var(--accent);
+}
+.user-plan-upgrade-btn{
+  background:linear-gradient(135deg,#ffd700,#ff8c00);
+  color:#000;border:none;border-radius:8px;
+  padding:3px 10px;font-size:10px;font-weight:800;
+  cursor:pointer;font-family:'Syne',sans-serif;letter-spacing:.3px;
+  transition:all .2s;
+}
+.user-plan-upgrade-btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(255,215,0,.3)}
+
+/* ══ MAGIC LINK TAB ══ */
+.auth-tab-magic-hint{font-size:11px;color:var(--text2);line-height:1.6;margin-bottom:4px;padding:8px 12px;background:rgba(0,212,255,.05);border:1px solid rgba(0,212,255,.15);border-radius:8px;}
+
+/* ══ PAYWALL MODAL BLUR CONTENT ══ */
+[data-premium="true"].premium-blurred,
+[data-premium="1"].premium-blurred{
+  filter:blur(6px);pointer-events:none;user-select:none;
+  position:relative;
+}
 </style>
 
 
 
 
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-mgAlLIciopqmCz7BSvEyST4SunlmMNFyReEaz5ScQp4=' 'sha256-28rkRAVyIgnGHuRcrIclCG/5ZGYcg0vT71kD9OVYyvw=' 'sha256-c7Dyg3U6p/5X9n7OoXvaFKp3TKt9JFklamzV7EX94Lw='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' https://images.unsplash.com data: blob:; connect-src 'self' https://ftmkgkxzgobgjkasnmxn.supabase.co https://*.supabase.co https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-OU01Le5V6I+kMn9d4Y3xUCgkRDozOVRlAgXe7rKVtFY='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' https://images.unsplash.com data: blob:; connect-src 'self' https://ftmkgkxzgobgjkasnmxn.supabase.co https://*.supabase.co https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
 </head>
 <body>
+
+<!-- ══════════════════════════════════════════════════
+     SUPABASE AUTH v2 — LOADING OVERLAY
+     Prevents content flash before subscription check.
+     Shown by default; hidden after plan is verified.
+     ══════════════════════════════════════════════════ -->
+<div id="geo-auth-loading" class="app-loading-overlay" role="status" aria-label="Verifying access">
+  <div class="app-loading-logo">GL</div>
+  <div class="app-loading-spinner"></div>
+  <div class="app-loading-text">Verifying access&hellip;</div>
+</div>
 
 <!-- ══════════════════════════════════════════════════
      SUPABASE AUTH MODAL
@@ -3744,6 +3809,7 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
     <div class="auth-tabs">
       <button class="auth-tab active" id="auth-tab-login" data-action="switchAuthTab('login')">Sign In</button>
       <button class="auth-tab" id="auth-tab-signup" data-action="switchAuthTab('signup')">Sign Up</button>
+      <button class="auth-tab" id="auth-tab-magic" data-action="switchAuthTab('magic')">✉ Magic Link</button>
     </div>
     <div class="auth-error" id="auth-error"></div>
     <div class="auth-success" id="auth-success"></div>
@@ -3760,6 +3826,12 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
       <input type="password" id="auth-pass-signup" placeholder="Password (min 6 characters)" autocomplete="new-password">
       <input type="password" id="auth-pass-signup-confirm" placeholder="Confirm password" autocomplete="new-password">
       <button class="auth-submit" id="auth-btn-signup" data-action="supaSignUp()">Create Account</button>
+    </div>
+    <!-- MAGIC LINK FORM -->
+    <div class="auth-form" id="auth-form-magic" style="display:none">
+      <p class="auth-tab-magic-hint">No password needed. Enter your email and we&apos;ll send a secure one-click sign-in link.</p>
+      <input type="email" id="auth-email-magic" placeholder="Email address" autocomplete="email">
+      <button class="auth-submit" id="auth-btn-magic" data-action="supaSendMagicLink()">Send Magic Link</button>
     </div>
   </div>
 </div>
@@ -3948,6 +4020,11 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
     <div class="admin-header-badge" id="admin-header-badge">⚙ ADMIN</div>
     <div class="premium-badge" id="premium-header-badge">⭐ Premium Active</div>
     <div class="free-badge" id="free-header-tag" data-action="showPage('activate')">🔓 Upgrade to Premium</div>
+    <!-- SUPABASE USER PLAN BADGE (v2) — shown after subscription is verified -->
+    <div id="user-plan-badge" class="user-plan-badge" style="display:none">
+      <span id="user-plan-badge-text">Free User</span>
+      <button class="user-plan-upgrade-btn" id="user-plan-upgrade-btn" data-action="showPage('activate')">Upgrade</button>
+    </div>
     <!-- LANGUAGE SWITCHER (PC: inside header) -->
     <div class="lang-switcher-fixed" id="lang-switcher">
       <button class="lang-trigger" id="lang-trigger" aria-haspopup="listbox" aria-expanded="false" aria-label="Change language">
@@ -9265,6 +9342,8 @@ function sanitizeText(s) {
 
 
 
+
+
 // ╔══════════════════════════════════════════════════════════════════════════╗
 // ║                                                                          ║
 // ║   GeoLearn Japan — Geotechnical & Geophysical Engineering Platform       ║
@@ -9430,7 +9509,7 @@ function sanitizeText(s) {
       trustedTypes: !!(window.trustedTypes),
       domPurify:    typeof DOMPurify !== 'undefined',
       hardened:     true,
-      built:        '2026-03-20T12:43:21.613Z',
+      built:        '2026-03-20T22:55:36.464Z',
     }),
     writable:     false,
     configurable: false,
@@ -19738,6 +19817,224 @@ if (typeof origShowPage === 'function') {
     logAnalyticsEvent('page_view', { page: name });
   };
 }
+
+// ── Expose supabase client for auth upgrade module ───
+// SECURITY: anon key is public by design (Supabase Row Level Security enforces access)
+window._geoSupaClient = supaClient;
+
+})();
+
+// ============================================================
+// SUPABASE AUTH UPGRADE v2.0
+// ── auth.js  → Magic Link + session management
+// ── api.js   → Supabase queries (subscription plan)
+// ── ui.js    → User badge, paywall, plan display
+// ── main.js  → App initialization & orchestration
+// ============================================================
+(function() {
+'use strict';
+
+// ── api.js — Supabase queries ────────────────────────
+// Fetches the user's subscription plan from Supabase.
+// Never reads from localStorage — always server-authoritative.
+async function fetchSubscriptionPlan(userId) {
+  var client = window._geoSupaClient;
+  if (!client || !userId) return 'free';
+  try {
+    var result = await client
+      .from('subscriptions')
+      .select('plan')
+      .eq('user_id', userId)
+      .single();
+    var data = result.data, err = result.error;
+    if (err && err.code !== 'PGRST116') {
+      console.warn('[GeoAuth v2] Subscription fetch error:', err.message);
+      return 'free';
+    }
+    return (data && data.plan === 'premium') ? 'premium' : 'free';
+  } catch(e) {
+    console.warn('[GeoAuth v2] Subscription fetch failed:', e);
+    return 'free';
+  }
+}
+
+// ── auth.js — Session & Magic Link ──────────────────
+// Module-level plan cache — NOT stored in localStorage.
+// Reset on every page load; must be re-fetched from Supabase.
+var _plan = null; // null = not yet verified
+
+// Magic Link: passwordless sign-in via email OTP
+window.supaSendMagicLink = async function() {
+  var client = window._geoSupaClient;
+  if (!client) { _showAuthMsg('error', 'Supabase connection unavailable.'); return; }
+  var emailEl = document.getElementById('auth-email-magic');
+  if (!emailEl) return;
+  var email = emailEl.value.trim();
+  if (!email) { _showAuthMsg('error', 'Please enter your email address.'); return; }
+  var btn = document.getElementById('auth-btn-magic');
+  if (btn) { btn.disabled = true; btn.textContent = 'Sending\u2026'; }
+  try {
+    var result = await client.auth.signInWithOtp({
+      email: email,
+      options: { emailRedirectTo: window.location.origin + window.location.pathname }
+    });
+    if (result.error) throw result.error;
+    _showAuthMsg('success', '\u2713 Magic link sent! Check your email and click the link to sign in.');
+  } catch(e) {
+    _showAuthMsg('error', e.message || 'Failed to send magic link. Please try again.');
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = 'Send Magic Link'; }
+  }
+};
+
+// Extend switchAuthTab to handle 'magic' tab
+var _prevSwitchAuthTab = window.switchAuthTab;
+window.switchAuthTab = function(tab) {
+  var magicForm = document.getElementById('auth-form-magic');
+  var magicTab  = document.getElementById('auth-tab-magic');
+  if (tab === 'magic') {
+    // Hide other tabs/forms
+    var loginTab   = document.getElementById('auth-tab-login');
+    var signupTab  = document.getElementById('auth-tab-signup');
+    var loginForm  = document.getElementById('auth-form-login');
+    var signupForm = document.getElementById('auth-form-signup');
+    if (loginTab)   loginTab.classList.remove('active');
+    if (signupTab)  signupTab.classList.remove('active');
+    if (magicTab)   magicTab.classList.add('active');
+    if (loginForm)  loginForm.style.display  = 'none';
+    if (signupForm) signupForm.style.display = 'none';
+    if (magicForm)  magicForm.style.display  = 'flex';
+    var errEl = document.getElementById('auth-error');
+    var sucEl = document.getElementById('auth-success');
+    if (errEl) errEl.className = 'auth-error';
+    if (sucEl) sucEl.className = 'auth-success';
+  } else {
+    if (magicTab)  magicTab.classList.remove('active');
+    if (magicForm) magicForm.style.display = 'none';
+    if (_prevSwitchAuthTab) _prevSwitchAuthTab(tab);
+  }
+};
+
+function _showAuthMsg(type, msg) {
+  var errEl = document.getElementById('auth-error');
+  var sucEl = document.getElementById('auth-success');
+  if (type === 'error') {
+    if (errEl) { errEl.textContent = msg; errEl.className = 'auth-error show'; }
+    if (sucEl) sucEl.className = 'auth-success';
+  } else {
+    if (sucEl) { sucEl.textContent = msg; sucEl.className = 'auth-success show'; }
+    if (errEl) errEl.className = 'auth-error';
+  }
+}
+
+// ── ui.js — User badge & paywall ────────────────────
+
+function _showLoadingOverlay() {
+  var el = document.getElementById('geo-auth-loading');
+  if (el) { el.classList.remove('hidden'); el.style.display = 'flex'; }
+}
+
+function _hideLoadingOverlay() {
+  var el = document.getElementById('geo-auth-loading');
+  if (!el) return;
+  el.classList.add('hidden');
+  setTimeout(function() { el.style.display = 'none'; }, 420);
+}
+
+// Update the top-right user plan badge
+function _updatePlanBadge(plan, isLoggedIn) {
+  var badge     = document.getElementById('user-plan-badge');
+  var badgeText = document.getElementById('user-plan-badge-text');
+  var upgradeBtn = document.getElementById('user-plan-upgrade-btn');
+  if (!badge) return;
+  if (!isLoggedIn) {
+    badge.style.display = 'none';
+    return;
+  }
+  badge.style.display = 'flex';
+  if (plan === 'premium') {
+    badge.className = 'user-plan-badge premium';
+    if (badgeText)   badgeText.textContent = '\u2B50 Premium User';
+    if (upgradeBtn)  upgradeBtn.style.display = 'none';
+  } else {
+    badge.className = 'user-plan-badge free';
+    if (badgeText)   badgeText.textContent = '\uD83D\uDD13 Free User';
+    if (upgradeBtn)  upgradeBtn.style.display = 'inline-flex';
+  }
+}
+
+// Override isPremium to use server-fetched plan (NOT localStorage)
+var _origIsPremium = window.isPremium;
+window.isPremium = function() {
+  // Admin preview takes highest priority
+  try {
+    if (window.isAdmin && window.isAdmin()) {
+      var p = sessionStorage.getItem('GeoLearn_Admin_Preview');
+      if (p === 'premium') return true;
+      if (p === 'free')    return false;
+    }
+  } catch(e) {}
+  // If plan has been fetched from Supabase, use it
+  if (_plan !== null) return _plan === 'premium';
+  // Fallback to localStorage-based check while loading
+  return _origIsPremium ? _origIsPremium() : false;
+};
+
+// ── main.js — App initialization ────────────────────
+
+async function _initAuthV2() {
+  var client = window._geoSupaClient;
+  if (!client) {
+    // No Supabase client — use localStorage fallback, no loading needed
+    _plan = 'free';
+    _hideLoadingOverlay();
+    return;
+  }
+
+  try {
+    var resp    = await client.auth.getSession();
+    var session = resp.data && resp.data.session;
+
+    if (session && session.user) {
+      // Fetch subscription plan from Supabase (never localStorage)
+      _plan = await fetchSubscriptionPlan(session.user.id);
+      _updatePlanBadge(_plan, true);
+    } else {
+      // Not logged in — free tier
+      _plan = 'free';
+      _updatePlanBadge('free', false);
+    }
+  } catch(e) {
+    console.warn('[GeoAuth v2] Init failed:', e);
+    _plan = 'free';
+  }
+
+  // Apply the verified plan to premium UI (body classes, nav locks, etc.)
+  if (typeof window.initPremiumSystem === 'function') {
+    window.initPremiumSystem();
+  }
+
+  _hideLoadingOverlay();
+}
+
+// React to auth state changes (login / logout / token refresh)
+var _authClient = window._geoSupaClient;
+if (_authClient) {
+  _authClient.auth.onAuthStateChange(async function(event, session) {
+    if ((event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') && session && session.user) {
+      _plan = await fetchSubscriptionPlan(session.user.id);
+      _updatePlanBadge(_plan, true);
+      if (typeof window.initPremiumSystem === 'function') window.initPremiumSystem();
+    } else if (event === 'SIGNED_OUT') {
+      _plan = 'free';
+      _updatePlanBadge('free', false);
+      if (typeof window.initPremiumSystem === 'function') window.initPremiumSystem();
+    }
+  });
+}
+
+// Initialize on DOM ready — loading overlay prevents content flash
+document.addEventListener('DOMContentLoaded', _initAuthV2);
 
 })();
 
