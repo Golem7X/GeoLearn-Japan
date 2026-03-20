@@ -8873,6 +8873,13 @@ window.isPremium=function(){
   return _realIsPremium?_realIsPremium():false;
 };
 
+// Allow admin to navigate to any page freely (bypass upgrade modal regardless of preview mode)
+var _realCPA=window.checkPremiumAccess;
+window.checkPremiumAccess=function(name){
+  if(_adminActive)return true;
+  return _realCPA?_realCPA(name):true;
+};
+
 window.isAdmin=function(){
   return _adminActive;
 };
@@ -8911,9 +8918,9 @@ window.setAdminPreview=function(mode){
     if(cur){
       var id=cur.id.replace('page-','');
       if(id&&id!=='activate'){
-        // Re-navigate to trigger premium recheck but don't block activate
-        document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
-        cur.classList.add('active');
+        // Re-navigate using showPage so page-specific init re-runs with the new state.
+        // checkPremiumAccess is bypassed for admin so this always succeeds.
+        showPage(id);
       }
     }
   }
