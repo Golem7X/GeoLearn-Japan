@@ -3714,11 +3714,22 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 .admin-forgot-text{font-size:11px;color:var(--text2);line-height:1.65}
 .admin-forgot-contact{margin-top:8px;font-size:11px;color:var(--text3)}
 .admin-forgot-contact a{color:var(--gold);text-decoration:underline;text-underline-offset:2px}
+.admin-recovery-form{display:flex;flex-direction:column;gap:7px;margin-top:10px}
+.admin-recovery-input{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,215,0,.2);border-radius:7px;padding:7px 10px;font-size:11px;color:var(--text1);font-family:'Syne',sans-serif;outline:none;box-sizing:border-box;transition:border-color .2s}
+.admin-recovery-input:focus{border-color:rgba(255,215,0,.55)}
+.admin-recovery-textarea{resize:vertical;min-height:60px}
+.admin-recovery-send-btn{margin-top:2px;background:rgba(255,215,0,.12);border:1px solid rgba(255,215,0,.35);border-radius:7px;padding:7px 14px;font-size:11px;font-weight:700;color:var(--gold);font-family:'Syne',sans-serif;cursor:pointer;transition:all .2s;letter-spacing:.3px}
+.admin-recovery-send-btn:hover{background:rgba(255,215,0,.22);border-color:var(--gold)}
+.admin-recovery-send-btn:disabled{opacity:.5;cursor:not-allowed}
+.admin-recovery-status{font-size:11px;min-height:16px;padding:2px 0}
+.admin-recovery-status.ok{color:#4ade80}
+.admin-recovery-status.err{color:#f87171}
 </style>
 
 
 
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-mgAlLIciopqmCz7BSvEyST4SunlmMNFyReEaz5ScQp4=' 'sha256-28rkRAVyIgnGHuRcrIclCG/5ZGYcg0vT71kD9OVYyvw=' 'sha256-bUCyQEaMjwvMPjlEOpphGyg4cMeT3kGgwXz0OWNddwM='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' https://images.unsplash.com data: blob:; connect-src 'self' https://ftmkgkxzgobgjkasnmxn.supabase.co https://*.supabase.co https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
+
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-mgAlLIciopqmCz7BSvEyST4SunlmMNFyReEaz5ScQp4=' 'sha256-28rkRAVyIgnGHuRcrIclCG/5ZGYcg0vT71kD9OVYyvw=' 'sha256-c7Dyg3U6p/5X9n7OoXvaFKp3TKt9JFklamzV7EX94Lw='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' https://images.unsplash.com data: blob:; connect-src 'self' https://ftmkgkxzgobgjkasnmxn.supabase.co https://*.supabase.co https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
 </head>
 <body>
 
@@ -8643,8 +8654,15 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
         <button class="admin-forgot-link" id="admin-forgot-link" type="button" aria-expanded="false" aria-controls="admin-forgot-panel">Forgot admin password?</button>
         <div class="admin-forgot-panel" id="admin-forgot-panel" role="region" aria-label="Admin password recovery">
           <div class="admin-forgot-title">⚙ Admin Password Recovery</div>
-          <div class="admin-forgot-text">Admin master passwords are stored in the application configuration and cannot be reset through the browser for security reasons. Please check your admin credentials file or contact the lead developer.</div>
-          <div class="admin-forgot-contact">Contact: <a href="mailto:admin@geolearn-japan.com?subject=GeoLearn%20Admin%20Password%20Recovery&body=Hello%2C%0A%0AI%20need%20help%20recovering%20admin%20access%20to%20GeoLearn%20Japan.%0A%0APlease%20assist.%0A%0AThank%20you.">admin@geolearn-japan.com</a></div>
+          <div class="admin-forgot-text">Fill in the form below and your request will be sent directly to the lead developer.</div>
+          <div class="admin-recovery-form" id="admin-recovery-form">
+            <input type="text" id="admin-recovery-name" class="admin-recovery-input" placeholder="Your name" maxlength="80" autocomplete="name">
+            <input type="email" id="admin-recovery-email" class="admin-recovery-input" placeholder="Your email (to receive reply)" maxlength="120" autocomplete="email">
+            <textarea id="admin-recovery-msg" class="admin-recovery-input admin-recovery-textarea" placeholder="Describe your issue (e.g. lost admin password, need access...)" maxlength="500" rows="3"></textarea>
+            <button type="button" id="admin-recovery-send" class="admin-recovery-send-btn">✉ Send Recovery Request</button>
+            <div class="admin-recovery-status" id="admin-recovery-status" role="alert" aria-live="polite"></div>
+          </div>
+          <div class="admin-forgot-contact">Or email directly: <a href="mailto:admin@geolearn-japan.com">admin@geolearn-japan.com</a></div>
         </div>
       </div>
       <div class="admin-active-info" id="admin-active-info">
@@ -9167,6 +9185,41 @@ function _setupAdminForgotPanel(){
     var open=panel.classList.toggle('open');
     link.setAttribute('aria-expanded',open?'true':'false');
   });
+  var sendBtn=document.getElementById('admin-recovery-send');
+  if(!sendBtn)return;
+  sendBtn.addEventListener('click',function(){
+    var nameEl=document.getElementById('admin-recovery-name');
+    var emailEl=document.getElementById('admin-recovery-email');
+    var msgEl=document.getElementById('admin-recovery-msg');
+    var statusEl=document.getElementById('admin-recovery-status');
+    var name=(nameEl?nameEl.value.trim():'');
+    var email=(emailEl?emailEl.value.trim():'');
+    var msg=(msgEl?msgEl.value.trim():'');
+    statusEl.className='admin-recovery-status';
+    statusEl.textContent='';
+    if(!name){statusEl.className='admin-recovery-status err';statusEl.textContent='Please enter your name.';return;}
+    if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){statusEl.className='admin-recovery-status err';statusEl.textContent='Please enter a valid email address.';return;}
+    if(!msg){statusEl.className='admin-recovery-status err';statusEl.textContent='Please describe your issue.';return;}
+    var subject=encodeURIComponent('GeoLearn Admin Password Recovery Request');
+    var body=encodeURIComponent(
+      'Admin Password Recovery Request\n'+
+      '================================\n'+
+      'Name: '+name+'\n'+
+      'Reply-to: '+email+'\n'+
+      'Date: '+new Date().toUTCString()+'\n\n'+
+      'Message:\n'+msg+'\n\n'+
+      '-- GeoLearn Japan App'
+    );
+    var mailto='mailto:admin@geolearn-japan.com?subject='+subject+'&body='+body;
+    sendBtn.disabled=true;
+    statusEl.className='admin-recovery-status ok';
+    statusEl.textContent='Opening your email client...';
+    window.location.href=mailto;
+    setTimeout(function(){
+      sendBtn.disabled=false;
+      statusEl.textContent='If your email client did not open, use the direct link below.';
+    },3000);
+  });
 }
 
 document.addEventListener('DOMContentLoaded',function(){
@@ -9192,6 +9245,8 @@ function sanitizeText(s) {
   }
   return escHtml(String(s));
 }
+
+
 
 
 
@@ -9375,7 +9430,7 @@ function sanitizeText(s) {
       trustedTypes: !!(window.trustedTypes),
       domPurify:    typeof DOMPurify !== 'undefined',
       hardened:     true,
-      built:        '2026-03-20T12:11:39.168Z',
+      built:        '2026-03-20T12:43:21.613Z',
     }),
     writable:     false,
     configurable: false,
