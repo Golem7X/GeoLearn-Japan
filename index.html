@@ -19991,6 +19991,13 @@ async function _initAuthV2() {
     return;
   }
 
+  // Safety timeout — always hide overlay within 6s regardless of network
+  var _overlayTimer = setTimeout(function() {
+    console.warn('[GeoAuth v2] Timeout — proceeding with free tier');
+    _plan = _plan || 'free';
+    _hideLoadingOverlay();
+  }, 6000);
+
   try {
     var resp    = await client.auth.getSession();
     var session = resp.data && resp.data.session;
@@ -20008,6 +20015,8 @@ async function _initAuthV2() {
     console.warn('[GeoAuth v2] Init failed:', e);
     _plan = 'free';
   }
+
+  clearTimeout(_overlayTimer);
 
   // Apply the verified plan to premium UI (body classes, nav locks, etc.)
   if (typeof window.initPremiumSystem === 'function') {
