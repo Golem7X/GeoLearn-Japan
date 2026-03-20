@@ -2722,10 +2722,8 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
 /* ── Language Switcher (PC: fixed top-right, Mobile: in sidebar) ──── */
 /* ── LANGUAGE SWITCHER POPUP ── */
 .lang-switcher-fixed {
-  position: fixed;
-  top: 12px;
-  right: 12px;
-  z-index: 1002;
+  position: relative;
+  z-index: 2;
 }
 /* Trigger pill button */
 .lang-trigger {
@@ -2741,7 +2739,6 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
   font-weight: 700;
   color: var(--text2);
   transition: border-color .25s, color .25s, background .25s, box-shadow .25s;
-  box-shadow: 0 2px 12px rgba(0,0,0,.3);
   letter-spacing: .5px;
   position: relative;
   z-index: 1;
@@ -3801,36 +3798,7 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
 
 <div class="app">
 
-<!-- LANGUAGE SWITCHER (PC: fixed top-right popup) -->
-<div class="lang-switcher-fixed" id="lang-switcher">
-  <button class="lang-trigger" id="lang-trigger" aria-haspopup="listbox" aria-expanded="false" aria-label="Change language">
-    <span class="lang-trigger-globe">🌐</span>
-    <span class="lang-trigger-label" id="lang-trigger-label">EN</span>
-    <span class="lang-trigger-caret">▾</span>
-  </button>
-  <div class="lang-popup" id="lang-popup" role="listbox" aria-label="Language options">
-    <button class="lang-btn" data-action="switchLang('en')" title="English" role="option">
-      <span class="lang-popup-flag">🇺🇸</span>
-      <span class="lang-popup-name">English</span>
-      <span class="lang-popup-code">EN</span>
-      <span class="lang-popup-check">✓</span>
-    </button>
-    <div class="lang-popup-divider"></div>
-    <button class="lang-btn" data-action="switchLang('ja')" title="日本語" role="option">
-      <span class="lang-popup-flag">🇯🇵</span>
-      <span class="lang-popup-name">日本語</span>
-      <span class="lang-popup-code">JA</span>
-      <span class="lang-popup-check">✓</span>
-    </button>
-    <div class="lang-popup-divider"></div>
-    <button class="lang-btn" data-action="switchLang('mm')" title="မြန်မာ" role="option">
-      <span class="lang-popup-flag">🇲🇲</span>
-      <span class="lang-popup-name">မြန်မာ</span>
-      <span class="lang-popup-code">MM</span>
-      <span class="lang-popup-check">✓</span>
-    </button>
-  </div>
-</div>
+<!-- LANGUAGE SWITCHER (moved to header on desktop, sidebar on mobile) -->
 
 <!-- LANGUAGE LOADING INDICATOR -->
 <div class="lang-loading" id="lang-loading">Loading translations...</div>
@@ -3969,6 +3937,36 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
     <div class="admin-header-badge" id="admin-header-badge">⚙ ADMIN</div>
     <div class="premium-badge" id="premium-header-badge">⭐ Premium Active</div>
     <div class="free-badge" id="free-header-tag" data-action="showPage('activate')">🔓 Upgrade to Premium</div>
+    <!-- LANGUAGE SWITCHER (PC: inside header) -->
+    <div class="lang-switcher-fixed" id="lang-switcher">
+      <button class="lang-trigger" id="lang-trigger" aria-haspopup="listbox" aria-expanded="false" aria-label="Change language">
+        <span class="lang-trigger-globe">🌐</span>
+        <span class="lang-trigger-label" id="lang-trigger-label">EN</span>
+        <span class="lang-trigger-caret">▾</span>
+      </button>
+      <div class="lang-popup" id="lang-popup" role="listbox" aria-label="Language options">
+        <button class="lang-btn" data-action="switchLang('en')" title="English" role="option">
+          <span class="lang-popup-flag">🇺🇸</span>
+          <span class="lang-popup-name">English</span>
+          <span class="lang-popup-code">EN</span>
+          <span class="lang-popup-check">✓</span>
+        </button>
+        <div class="lang-popup-divider"></div>
+        <button class="lang-btn" data-action="switchLang('ja')" title="日本語" role="option">
+          <span class="lang-popup-flag">🇯🇵</span>
+          <span class="lang-popup-name">日本語</span>
+          <span class="lang-popup-code">JA</span>
+          <span class="lang-popup-check">✓</span>
+        </button>
+        <div class="lang-popup-divider"></div>
+        <button class="lang-btn" data-action="switchLang('mm')" title="မြန်မာ" role="option">
+          <span class="lang-popup-flag">🇲🇲</span>
+          <span class="lang-popup-name">မြန်မာ</span>
+          <span class="lang-popup-code">MM</span>
+          <span class="lang-popup-check">✓</span>
+        </button>
+      </div>
+    </div>
   </div>
 </header>
 
