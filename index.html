@@ -34,7 +34,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- Supabase JS Client -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" integrity="sha384-4bKASEcnXfYfA/rrhF9qD3mYowkb5k4Xbzbrf3ccqgZrplKUrwnA2Q/L5xcdZFAp" crossorigin="anonymous"></script>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet" crossorigin="anonymous">
 <style>
 :root {
@@ -3718,7 +3718,8 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 .admin-forgot-contact{margin-top:8px;font-size:11px;color:var(--text3)}
 .admin-forgot-contact a{color:var(--gold);text-decoration:underline;text-underline-offset:2px}
 </style>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-tqk6DEIVWFC9xj2+MaqpGK2TQP6tD++w2YUuabASzEU=' https://cdn.jsdelivr.net https://ftmkgkxzgobgjkasnmxn.supabase.co; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' https://images.unsplash.com data: blob:; connect-src https://ftmkgkxzgobgjkasnmxn.supabase.co https://*.supabase.co https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
+
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-mgAlLIciopqmCz7BSvEyST4SunlmMNFyReEaz5ScQp4=' 'sha256-28rkRAVyIgnGHuRcrIclCG/5ZGYcg0vT71kD9OVYyvw=' 'sha256-GSbHyqG/Kp05fQhjlhzhu4+zVTlmQ5zigWJUbbgEmQo='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' https://images.unsplash.com data: blob:; connect-src https://ftmkgkxzgobgjkasnmxn.supabase.co https://*.supabase.co https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
 </head>
 <body>
 
@@ -9203,6 +9204,8 @@ function sanitizeText(s) {
 
 
 
+
+
 // ╔══════════════════════════════════════════════════════════════════════════╗
 // ║                                                                          ║
 // ║   GeoLearn Japan — Geotechnical & Geophysical Engineering Platform       ║
@@ -9368,7 +9371,7 @@ function sanitizeText(s) {
       trustedTypes: !!(window.trustedTypes),
       domPurify:    typeof DOMPurify !== 'undefined',
       hardened:     true,
-      built:        '2026-03-18T15:07:16.713Z',
+      built:        '2026-03-20T12:02:32.750Z',
     }),
     writable:     false,
     configurable: false,

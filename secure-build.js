@@ -367,10 +367,10 @@ const hashDirectives = allHashes.map(h => `'sha256-${h}'`).join(' ');
 const CSP_DIRECTIVES = [
   `default-src 'none'`,
   `script-src 'strict-dynamic' ${hashDirectives}`,
-  `style-src 'unsafe-inline' https://fonts.googleapis.com`,
+  `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com`,
   `font-src https://fonts.gstatic.com data:`,
-  `img-src 'self' https://images.unsplash.com data: blob: https://www.google-analytics.com`,
-  `connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com`,
+  `img-src 'self' https://images.unsplash.com data: blob:`,
+  `connect-src https://ftmkgkxzgobgjkasnmxn.supabase.co https://*.supabase.co https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com`,
   `object-src 'none'`,
   `base-uri 'self'`,
   `form-action 'none'`,
