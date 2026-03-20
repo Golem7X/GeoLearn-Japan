@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://geolearn-japan.pages.dev/sitemap.xml
