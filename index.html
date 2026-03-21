@@ -20002,22 +20002,40 @@ window.isPremium = function() {
 
 // ── main.js — App initialization ────────────────────
 
+// Races a promise against a timeout; rejects with 'timeout' if exceeded
+function _withTimeout(promise, ms) {
+  return Promise.race([
+    promise,
+    new Promise(function(_, reject) {
+      setTimeout(function() { reject(new Error('timeout')); }, ms);
+    })
+  ]);
+}
+
 async function _initAuthV2() {
   var client = window._geoSupaClient;
+
+  // Hard safety fallback: always hide overlay after 10s on slow/mobile networks
+  var _safetyTimer = setTimeout(function() {
+    if (_plan === null) { _plan = 'free'; }
+    _hideLoadingOverlay();
+  }, 10000);
+
   if (!client) {
     // No Supabase client — use localStorage fallback, no loading needed
+    clearTimeout(_safetyTimer);
     _plan = 'free';
     _hideLoadingOverlay();
     return;
   }
 
   try {
-    var resp    = await client.auth.getSession();
+    var resp    = await _withTimeout(client.auth.getSession(), 8000);
     var session = resp.data && resp.data.session;
 
     if (session && session.user) {
       // Fetch subscription plan from Supabase (never localStorage)
-      _plan = await fetchSubscriptionPlan(session.user.id);
+      _plan = await _withTimeout(fetchSubscriptionPlan(session.user.id), 5000);
       _updatePlanBadge(_plan, true);
     } else {
       // Not logged in — free tier
@@ -20028,6 +20046,8 @@ async function _initAuthV2() {
     console.warn('[GeoAuth v2] Init failed:', e);
     _plan = 'free';
   }
+
+  clearTimeout(_safetyTimer);
 
   // Apply the verified plan to premium UI (body classes, nav locks, etc.)
   if (typeof window.initPremiumSystem === 'function') {
