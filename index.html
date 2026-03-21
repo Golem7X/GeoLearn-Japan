@@ -52,14 +52,345 @@
   --gold: #ffd700;
   --purple: #a855f7;
 }
+/* ══════════════════════════════════════════════════════════════
+   TYPOGRAPHY SYSTEM v2 — GeoLearn Japan
+   Philosophy: readable-first, dense-never, Japan-grade clarity
+   Scale : 1rem = 17px (desktop) → 16px (mobile ≤ 600px)
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Type-scale tokens ─────────────────────────────────────── */
+:root{
+  /* Font scale */
+  --fs-xs:   0.706rem;   /* 12px @ 17px base — labels, badges     */
+  --fs-sm:   0.824rem;   /* 14px — secondary info, captions        */
+  --fs-base: 1rem;       /* 17px — body text                       */
+  --fs-md:   1.059rem;   /* 18px — comfortable reading             */
+  --fs-lg:   1.176rem;   /* 20px — quiz options, card text         */
+  --fs-xl:   1.353rem;   /* 23px — quiz questions                  */
+  --fs-2xl:  1.647rem;   /* 28px — section headers                 */
+  --fs-3xl:  2.118rem;   /* 36px — page titles                     */
+  --fs-4xl:  2.824rem;   /* 48px — hero titles                     */
+
+  /* Line-height tokens */
+  --lh-tight:  1.25;
+  --lh-snug:   1.45;
+  --lh-normal: 1.65;
+  --lh-relaxed:1.80;
+  --lh-loose:  1.95;     /* Japanese body text                     */
+
+  /* Spacing tokens */
+  --sp-1:  8px;
+  --sp-2:  16px;
+  --sp-3:  24px;
+  --sp-4:  32px;
+  --sp-5:  48px;
+
+  /* Content max-widths */
+  --content-sm:  580px;
+  --content-md:  720px;
+  --content-lg: 1000px;
+}
+
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
+
+/* ── Base rendering ────────────────────────────────────────── */
+html{
+  font-size:17px;            /* 1rem anchor — desktop              */
+  scroll-behavior:smooth;
+  -webkit-text-size-adjust:100%;
+}
 body{
-  font-family:'Syne',sans-serif;
+  font-family:'Syne','Noto Sans JP','Inter',system-ui,sans-serif;
   background:var(--bg);
   color:var(--text);
   min-height:100vh;
   overflow-x:hidden;
+  font-size:var(--fs-base);
+  line-height:var(--lh-normal);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+}
+
+/* ── Japanese text rendering ───────────────────────────────── */
+/* Applied wherever Noto Sans JP is used for readability        */
+.noto, .hero-jp, .topic-jp, .road-jp, .fc-jp,
+[class*="-jp"]:not(.geolearn-jp-exception),
+.jp-text {
+  font-family:'Noto Sans JP','Hiragino Sans','Yu Gothic UI',
+              'Hiragino Kaku Gothic ProN','Meiryo',sans-serif;
+  line-height:var(--lh-loose);
+  letter-spacing:0.04em;
+  word-break:keep-all;
+  overflow-wrap:break-word;
+}
+
+/* ── Heading hierarchy ─────────────────────────────────────── */
+h1,.h1{
+  font-size:var(--fs-4xl);
+  font-weight:800;
+  line-height:var(--lh-tight);
+  letter-spacing:-0.03em;
+}
+h2,.h2{
+  font-size:var(--fs-3xl);
+  font-weight:800;
+  line-height:var(--lh-snug);
+  letter-spacing:-0.02em;
+}
+h3,.h3{
+  font-size:var(--fs-2xl);
+  font-weight:700;
+  line-height:var(--lh-snug);
+}
+h4,.h4{
+  font-size:var(--fs-xl);
+  font-weight:700;
+  line-height:var(--lh-normal);
+}
+
+/* ── Body / paragraph text ─────────────────────────────────── */
+p, .body-text{
+  font-size:var(--fs-md);
+  line-height:var(--lh-relaxed);
+  max-width:var(--content-sm);
+}
+
+/* ── Page-level elements ───────────────────────────────────── */
+.page-title{
+  font-size:var(--fs-3xl) !important;
+  font-weight:800;
+  letter-spacing:-0.025em;
+  line-height:var(--lh-tight);
+}
+.page-sub{
+  font-size:var(--fs-sm) !important;
+  line-height:var(--lh-normal);
+  letter-spacing:0.04em;
+}
+
+/* ── Hero ──────────────────────────────────────────────────── */
+.hero-title{
+  font-size:var(--fs-4xl) !important;
+  font-weight:800;
+  line-height:var(--lh-tight) !important;
+  letter-spacing:-0.04em !important;
+}
+.hero-jp{
+  font-size:var(--fs-lg) !important;
+  letter-spacing:0.06em;
+  line-height:var(--lh-loose);
+}
+.hero-desc{
+  font-size:var(--fs-md) !important;
+  line-height:var(--lh-relaxed) !important;
+  max-width:var(--content-sm);
+}
+
+/* ── Buttons ───────────────────────────────────────────────── */
+.btn{
+  font-size:var(--fs-base) !important;
+  padding:13px 26px !important;
+  border-radius:11px !important;
+  font-weight:700;
+  min-height:48px;            /* Touch-friendly (WCAG 2.5.5) */
+}
+@media(max-width:600px){
+  .btn{ padding:14px 22px !important; width:100%; justify-content:center; }
+  .hero-actions{ flex-direction:column; }
+}
+
+/* ── Cards ─────────────────────────────────────────────────── */
+.card, .topic-card, .stat-card{
+  padding:var(--sp-3) !important;
+}
+.topic-name{
+  font-size:var(--fs-lg) !important;
+  font-weight:700;
+  line-height:var(--lh-snug);
+}
+.topic-jp{
+  font-size:var(--fs-sm) !important;
+  letter-spacing:0.06em;
+  margin-top:4px;
+}
+.topic-desc{
+  font-size:var(--fs-base) !important;
+  line-height:var(--lh-relaxed) !important;
+  margin-top:10px;
+}
+
+/* ── Stat cards ────────────────────────────────────────────── */
+.stat-num{
+  font-size:var(--fs-3xl) !important;
+  font-weight:800;
+}
+.stat-label{
+  font-size:var(--fs-xs) !important;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  margin-top:6px;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   QUIZ TYPOGRAPHY — most important for engagement & retention
+   ══════════════════════════════════════════════════════════════ */
+.quiz-q{
+  font-size:var(--fs-xl) !important;    /* 23px — bold question    */
+  font-weight:800 !important;
+  line-height:var(--lh-relaxed) !important;
+  margin-bottom:var(--sp-3) !important;
+  letter-spacing:-0.01em;
+}
+.quiz-options{
+  gap:12px !important;
+  margin-bottom:var(--sp-3) !important;
+}
+.quiz-opt{
+  font-size:var(--fs-lg) !important;    /* 20px — easy to scan     */
+  padding:16px 20px !important;
+  border-radius:14px !important;
+  min-height:56px;                       /* Touch-friendly           */
+  line-height:var(--lh-snug);
+  font-weight:500;
+  align-items:flex-start !important;
+}
+.quiz-opt:hover:not(.disabled){
+  transform:translateX(4px);             /* Subtle motion feedback   */
+}
+.quiz-explain{
+  font-size:var(--fs-md) !important;    /* 18px — comfortable read  */
+  line-height:var(--lh-relaxed) !important;
+  padding:var(--sp-2) var(--sp-3) !important;
+  margin-top:var(--sp-2) !important;
+  border-left:3px solid var(--accent);
+  border-radius:0 12px 12px 0 !important;
+  color:var(--text) !important;          /* Higher contrast           */
+}
+.quiz-progress{
+  height:6px !important;                 /* Slightly thicker bar     */
+  margin-bottom:var(--sp-3) !important;
+}
+.score-big{
+  font-size:clamp(56px,12vw,80px) !important;
+  font-weight:800;
+  line-height:1;
+}
+
+/* ── Flashcards ─────────────────────────────────────────────── */
+.fc-jp{
+  font-size:var(--fs-3xl) !important;
+  font-weight:700;
+  letter-spacing:0.06em;
+  line-height:var(--lh-loose);
+}
+.fc-en{
+  font-size:var(--fs-lg) !important;
+  font-weight:700;
+  line-height:var(--lh-normal);
+  margin-top:10px;
+}
+.fc-eq{
+  font-size:var(--fs-2xl) !important;
+  letter-spacing:0.02em;
+  margin:var(--sp-2) 0;
+}
+.fc-desc{
+  font-size:var(--fs-base) !important;
+  line-height:var(--lh-relaxed) !important;
+}
+.fc-hint{
+  font-size:var(--fs-xs) !important;
+  letter-spacing:0.05em;
+}
+
+/* ── Calculator inputs ─────────────────────────────────────── */
+.calc-input{
+  font-size:var(--fs-base) !important;
+  padding:12px 16px !important;
+}
+.calc-label{
+  font-size:var(--fs-xs) !important;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+}
+
+/* ── Professor / study steps ───────────────────────────────── */
+.step-title{
+  font-size:var(--fs-base) !important;
+  font-weight:700;
+  line-height:var(--lh-snug);
+}
+.step-body{
+  font-size:var(--fs-md) !important;
+  line-height:var(--lh-relaxed) !important;
+  color:var(--text2);
+}
+
+/* ── Section labels & tabs ─────────────────────────────────── */
+.section-title{
+  font-size:var(--fs-xs) !important;
+  letter-spacing:0.12em !important;
+}
+.tab{
+  font-size:var(--fs-sm) !important;
+  padding:9px 18px !important;
+}
+
+/* ── Page layout: comfortable reading width ────────────────── */
+.page{
+  padding:28px 36px !important;
+}
+.quiz-wrap, .page-quiz-inner, #quiz-wrap{
+  max-width:var(--content-md);
+  margin-left:auto;
+  margin-right:auto;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   RESPONSIVE TYPOGRAPHY
+   Mobile-first scaling: 16px base on small screens
+   ══════════════════════════════════════════════════════════════ */
+@media(max-width:900px){
+  html{ font-size:16.5px; }
+  .page{ padding:22px 24px !important; }
+}
+@media(max-width:600px){
+  html{ font-size:16px; }
+
+  /* Layout */
+  .page{ padding:18px 16px !important; }
+  .hero{ padding:28px 20px !important; }
+
+  /* Hero */
+  .hero-title{ font-size:2rem !important; letter-spacing:-0.02em !important; }
+  .hero-jp   { font-size:1rem !important; }
+  .hero-desc { font-size:0.941rem !important; }
+
+  /* Quiz — keep large on mobile (critical) */
+  .quiz-q   { font-size:1.25rem !important; }
+  .quiz-opt { font-size:1rem !important; padding:14px 16px !important; }
+  .quiz-explain{ font-size:0.941rem !important; }
+
+  /* Cards */
+  .card,.topic-card,.stat-card{ padding:18px !important; }
+  .topic-name{ font-size:1rem !important; }
+  .topic-desc{ font-size:0.882rem !important; }
+
+  /* Flashcard */
+  .fc-jp{ font-size:1.5rem !important; }
+  .fc-eq{ font-size:1.25rem !important; }
+  .fc-desc{ font-size:0.882rem !important; }
+
+  /* Stat */
+  .stat-num{ font-size:1.75rem !important; }
+
+  /* Page header */
+  .page-title{ font-size:1.75rem !important; }
+
+  /* Match game */
+  .match-card{ font-size:0.75rem !important; }
+  .match-grid{ grid-template-columns:repeat(2,1fr) !important; gap:8px !important; }
 }
 /* NOISE TEXTURE */
 body::before{
