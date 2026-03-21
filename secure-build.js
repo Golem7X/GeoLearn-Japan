@@ -361,12 +361,14 @@ console.log('\nSHA-256 hashes:');
 allHashes.forEach((h, i) => console.log(`  Block ${i}: sha256-${h}`));
 
 // ── Build strict CSP string ───────────────────────────────────────────────────
-// strict-dynamic: allows scripts loaded by trusted (hashed) scripts to run.
-// This future-proofs dynamic module loading without needing 'unsafe-inline'.
+// NOTE: 'strict-dynamic' is intentionally NOT used here.
+// The Supabase CDN is loaded via a static <script src> tag which strict-dynamic
+// would block (it only allows dynamically created scripts, not static src tags).
+// Instead we explicitly allowlist cdn.jsdelivr.net alongside the SHA-256 hashes.
 const hashDirectives = allHashes.map(h => `'sha256-${h}'`).join(' ');
 const CSP_DIRECTIVES = [
   `default-src 'none'`,
-  `script-src 'strict-dynamic' ${hashDirectives}`,
+  `script-src 'self' https://cdn.jsdelivr.net ${hashDirectives}`,
   `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com`,
   `font-src https://fonts.gstatic.com data:`,
   `img-src 'self' https://images.unsplash.com data: blob:`,
@@ -392,15 +394,26 @@ if (rebuiltHtml.includes('</head>')) {
 }
 
 // ── Update _headers with actual hashes ───────────────────────────────────────
+// Cloudflare Pages reads `_headers` (not `_headers.built`), so we must update
+// the actual file. We replace the entire script-src directive with the freshly
+// computed hashes so stale values never linger.
 const headersPath = path.join(ROOT, '_headers');
 if (fs.existsSync(headersPath)) {
   let headers = fs.readFileSync(headersPath, 'utf8');
+  // Replace placeholders if present (first build)
   headers = headers
     .replace(/__DOMPURIFY_HASH__/g, domPurifyHash)
     .replace(/__APP_HASH__/g, appHash);
-  // Write updated _headers to a build artifact
+  // Also replace the entire script-src directive with current hashes
+  // so subsequent builds always get fresh values (not stale ones)
+  headers = headers.replace(
+    /script-src\s+(?:'strict-dynamic'\s+)?(?:(?:'self'|https?:\/\/[^\s']+)\s+)*(?:'sha256-[A-Za-z0-9+\/=]+'\s*)*/g,
+    `script-src 'self' https://cdn.jsdelivr.net ${hashDirectives} `
+  );
+  // Write to BOTH files — _headers is what Cloudflare Pages reads
+  fs.writeFileSync(headersPath, headers, 'utf8');
   fs.writeFileSync(path.join(ROOT, '_headers.built'), headers, 'utf8');
-  console.log('\n_headers.built written with actual hashes.');
+  console.log('\n_headers updated with actual hashes (Cloudflare Pages ready).');
 }
 
 // ── Write final output ────────────────────────────────────────────────────────

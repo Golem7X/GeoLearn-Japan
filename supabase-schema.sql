@@ -64,10 +64,6 @@ CREATE POLICY "Allow anonymous analytics inserts"
   WITH CHECK (user_id IS NULL);
 
 -- ============================================================
--- 4. SUBSCRIPTIONS TABLE
--- Tracks user plans: 'free' or 'premium'
--- Premium status is ALWAYS fetched from this table (never localStorage)
--- ============================================================
 CREATE TABLE IF NOT EXISTS public.subscriptions (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
@@ -81,39 +77,67 @@ CREATE INDEX IF NOT EXISTS idx_subscriptions_user_id ON public.subscriptions(use
 ALTER TABLE public.subscriptions ENABLE ROW LEVEL SECURITY;
 
 -- Users can read their own subscription
+=======
+-- 3. SUBSCRIPTIONS TABLE (Auth Upgrade v2)
+-- Stores each user's plan: 'free' or 'premium'.
+-- Premium status is ALWAYS read from this table — never from
+-- localStorage. This is the server-authoritative source of truth.
+-- ============================================================
+CREATE TABLE IF NOT EXISTS public.subscriptions (
+  id         UUID        DEFAULT gen_random_uuid() PRIMARY KEY,
+  user_id    UUID        NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  plan       TEXT        NOT NULL DEFAULT 'free' CHECK (plan IN ('free', 'premium')),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  UNIQUE(user_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_subscriptions_user_id
+  ON public.subscriptions(user_id);
+
+-- Row Level Security: users can only read their own subscription
+ALTER TABLE public.subscriptions ENABLE ROW LEVEL SECURITY;
+
 CREATE POLICY "Users can read own subscription"
   ON public.subscriptions FOR SELECT
   USING (auth.uid() = user_id);
 
--- Users can insert their own subscription (auto-create on first login)
-CREATE POLICY "Users can insert own subscription"
-  ON public.subscriptions FOR INSERT
-  WITH CHECK (auth.uid() = user_id);
-
--- Only service_role (admin) can update subscriptions to prevent client-side plan escalation
--- Users CANNOT change their own plan via the client
-CREATE POLICY "Users cannot update own subscription"
-  ON public.subscriptions FOR UPDATE
-  USING (false);
-
--- ============================================================
 -- 5. AUTO-CREATE SUBSCRIPTION ON SIGN-UP
 -- Trigger function to automatically create a 'free' subscription
 -- when a new user signs up
 -- ============================================================
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS TRIGGER AS $$
+=======
+-- Admins insert/update subscriptions via service key (not anon key)
+-- Uncomment below if you want users to self-insert (free tier only):
+-- CREATE POLICY "Users can insert own free subscription"
+--   ON public.subscriptions FOR INSERT
+--   WITH CHECK (auth.uid() = user_id AND plan = 'free');
+
+-- ── Helper: auto-create free subscription on user signup ─────
+-- Run this trigger so every new signup gets a 'free' row automatically.
+CREATE OR REPLACE FUNCTION public.handle_new_user_subscription()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+SECURITY DEFINER SET search_path = public
+AS $$
 BEGIN
   INSERT INTO public.subscriptions (user_id, plan)
   VALUES (NEW.id, 'free')
   ON CONFLICT (user_id) DO NOTHING;
   RETURN NEW;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$;
 
--- Drop trigger if it exists, then create
-DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
-CREATE TRIGGER on_auth_user_created
+-- Attach trigger to auth.users
+DROP TRIGGER IF EXISTS on_auth_user_created_subscription ON auth.users;
+CREATE TRIGGER on_auth_user_created_subscription
   AFTER INSERT ON auth.users
   FOR EACH ROW
-  EXECUTE FUNCTION public.handle_new_user();
+  EXECUTE PROCEDURE public.handle_new_user_subscription();
+
+-- ── To grant premium to a user (run as service key): ─────────
+-- UPDATE public.subscriptions
+--   SET plan = 'premium', updated_at = now()
+--   WHERE user_id = '<USER_UUID>';
