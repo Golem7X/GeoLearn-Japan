@@ -69,7 +69,9 @@ check('escHtml uses DOMPurify', allJs.includes("DOMPurify.sanitize(String(s),{AL
 console.log('\n▸ Content Security Policy');
 check('CSP meta tag present', /<meta[^>]+Content-Security-Policy[^>]*>/i.test(html));
 check('CSP default-src none', html.includes("default-src 'none'"));
-check("CSP strict-dynamic", html.includes("'strict-dynamic'"));
+// NOTE: strict-dynamic is intentionally NOT used — it blocks static <script src> tags
+// (like the Supabase CDN). We use explicit URL allowlist + SHA-256 hashes instead.
+check("CSP cdn.jsdelivr.net in script-src", html.includes("https://cdn.jsdelivr.net"));
 check('CSP script-src uses SHA-256 hashes',
   html.includes("'sha256-") && html.includes("script-src")
 );
