@@ -3547,7 +3547,7 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 .admin-keygen-copy{background:transparent;border:1px solid var(--border);color:var(--text2);font-size:10px;padding:4px 9px;border-radius:6px;cursor:pointer;transition:all .2s;font-family:'Syne',sans-serif;white-space:nowrap;flex-shrink:0}
 .admin-keygen-copy:hover{border-color:var(--accent);color:var(--accent)}
 </style>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-MwXeatxb47PH+9wfKZhoxlzpGdL9q4NPalHguxVxo/U='; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' https://images.unsplash.com data: blob: https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-4RBnzREwSYNP7ZoTZzrAvRFnY9kJ/Waw2QdO826Ck3o='; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' https://images.unsplash.com data: blob: https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
 </head>
 <body>
 
@@ -4000,6 +4000,15 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
   <div class="page-header">
     <div class="page-title">Engineering <span>Animations</span></div>
     <div class="page-sub">// インタラクティブアニメーション</div>
+  </div>
+
+  <!-- Back bar: shown only when entering from a focused context (e.g. Stage 2 SPT) -->
+  <div id="anim-back-bar" style="display:none;margin-bottom:14px">
+    <div data-action="animExitFocused()"
+      style="display:inline-flex;align-items:center;gap:8px;background:rgba(88,196,88,.08);border:1px solid rgba(88,196,88,.3);border-radius:8px;padding:9px 16px;cursor:pointer;font-size:13px;font-weight:600;color:#58c458;transition:background .2s"
+      onmouseover="this.style.background='rgba(88,196,88,.18)'" onmouseout="this.style.background='rgba(88,196,88,.08)'">
+      ← Back to SPT Stage 2 / 標準貫入試験操作へ戻る
+    </div>
   </div>
 
   <div class="anim-container" style="margin-bottom:20px">
@@ -4603,22 +4612,183 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
       <div class="chisei-sec-chevron">▶</div>
     </div>
     <div class="chisei-sec-body" id="stage01-sb-2">
-      <p style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:12px">
+
+      <!-- ── INTRO ── -->
+      <p style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:16px">
         The <strong style="color:var(--text)">Standard Penetration Test (SPT / 標準貫入試験)</strong> is the most commonly used in-situ test in Japan. It measures the number of hammer blows (N-value / N値) required to drive a split-spoon sampler 300mm into soil. The N-value directly correlates with soil density, bearing capacity, and liquefaction resistance.
         <br><br>
         <strong style="color:var(--accent2)">標準貫入試験（SPT）</strong>は日本で最もよく使われる原位置試験です。スプリットスプーンサンプラーを土中に300mm貫入させるために必要なハンマー打撃回数（N値）を測定します。N値は土の密度、支持力、液状化抵抗と直接相関します。
       </p>
-      <table class="chisei-vocab-table">
-        <thead><tr><th>Japanese / 日本語</th><th>English</th><th>Description / 説明</th></tr></thead>
+
+      <!-- ── DEEP-LINK CARDS ── -->
+      <div style="font-size:12px;font-weight:700;color:var(--accent2);font-family:'JetBrains Mono',monospace;letter-spacing:.8px;margin:0 0 10px">INTERACTIVE TOOLS / インタラクティブツール</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-bottom:20px">
+
+        <!-- Animation card -->
+        <div data-action="showPage('animations');setTimeout(function(){animEnterFocused('spt');},300)"
+          style="background:rgba(0,212,255,.07);border:1px solid rgba(0,212,255,.25);border-radius:10px;padding:14px 12px;cursor:pointer;transition:background .2s"
+          onmouseover="this.style.background='rgba(0,212,255,.14)'" onmouseout="this.style.background='rgba(0,212,255,.07)'">
+          <div style="font-size:22px;margin-bottom:6px">🎬</div>
+          <div style="font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.5px;margin-bottom:3px">ANIMATION</div>
+          <div style="font-size:11px;color:var(--text2);line-height:1.5">Watch SPT hammer drop &amp; N-value counting in real time</div>
+          <div style="font-size:10px;color:var(--accent2);margin-top:6px;font-family:'JetBrains Mono',monospace">→ Open Animations ▶</div>
+        </div>
+
+        <!-- Field Data Lab card -->
+        <div data-action="showPage('fielddata');setTimeout(function(){var tabs=document.querySelectorAll('#page-fielddata .tabs .tab');if(tabs[0]){switchFieldTab(tabs[0],'spt-log');}},300)"
+          style="background:rgba(88,196,88,.07);border:1px solid rgba(88,196,88,.25);border-radius:10px;padding:14px 12px;cursor:pointer;transition:background .2s"
+          onmouseover="this.style.background='rgba(88,196,88,.14)'" onmouseout="this.style.background='rgba(88,196,88,.07)'">
+          <div style="font-size:22px;margin-bottom:6px">📊</div>
+          <div style="font-size:12px;font-weight:700;color:#58c458;letter-spacing:.5px;margin-bottom:3px">FIELD DATA LAB</div>
+          <div style="font-size:11px;color:var(--text2);line-height:1.5">Interpret a real 10-layer SPT borehole log with soil classification</div>
+          <div style="font-size:10px;color:#58c458;margin-top:6px;font-family:'JetBrains Mono',monospace">→ Open SPT Log ▶</div>
+        </div>
+
+        <!-- Calculator card -->
+        <div data-action="showPage('calculator');setTimeout(function(){var tabs=document.querySelectorAll('#page-calculator .tabs .tab');if(tabs[0])switchCalc(tabs[0],'spt-calc');},300)"
+          style="background:rgba(168,85,247,.07);border:1px solid rgba(168,85,247,.25);border-radius:10px;padding:14px 12px;cursor:pointer;transition:background .2s"
+          onmouseover="this.style.background='rgba(168,85,247,.14)'" onmouseout="this.style.background='rgba(168,85,247,.07)'">
+          <div style="font-size:22px;margin-bottom:6px">🧮</div>
+          <div style="font-size:12px;font-weight:700;color:#a855f7;letter-spacing:.5px;margin-bottom:3px">FIELD CALCULATOR</div>
+          <div style="font-size:11px;color:var(--text2);line-height:1.5">Compute N₆₀, (N₁)₆₀, Dr, bearing capacity &amp; liquefaction FL</div>
+          <div style="font-size:10px;color:#a855f7;margin-top:6px;font-family:'JetBrains Mono',monospace">→ Open SPT Calculator ▶</div>
+        </div>
+
+      </div>
+
+      <!-- ── PROCEDURE STEPS ── -->
+      <div style="font-size:12px;font-weight:700;color:var(--accent2);font-family:'JetBrains Mono',monospace;letter-spacing:.8px;margin:0 0 10px">TEST PROCEDURE / 試験手順 (JIS A 1219)</div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px">
+
+        <div style="display:flex;gap:10px;align-items:flex-start;background:rgba(255,255,255,.03);border-radius:8px;padding:10px 12px;border-left:3px solid var(--accent)">
+          <div style="min-width:26px;height:26px;border-radius:50%;background:var(--accent);color:#000;font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0">1</div>
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px">Borehole Preparation / ボーリング孔の準備</div>
+            <div style="font-size:11px;color:var(--text2);line-height:1.6">Advance borehole to test depth using rotary drilling. Flush cuttings and stabilise the borehole. Lower the split-spoon sampler on drill rods to the bottom. / 回転削孔で試験深度まで掘進。削り屑を洗い流し、孔壁を安定させる。スプリットスプーンサンプラーをドリルロッドで孔底まで降下。</div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:10px;align-items:flex-start;background:rgba(255,255,255,.03);border-radius:8px;padding:10px 12px;border-left:3px solid rgba(245,158,11,.8)">
+          <div style="min-width:26px;height:26px;border-radius:50%;background:rgba(245,158,11,.8);color:#000;font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0">2</div>
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px">Seating Drive / 予備打ち (150 mm — <em>not counted</em>)</div>
+            <div style="font-size:11px;color:var(--text2);line-height:1.6">Drop the 63.5 kg hammer from 760 mm to drive the sampler 150 mm. This seating phase seats the sampler past disturbed material and is <strong style="color:rgba(245,158,11,.9)">NOT included in the N-value</strong>. / 63.5kgハンマーを760mm落下させてサンプラーを150mm貫入。この予備打ちはN値に<strong>含まない</strong>。</div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:10px;align-items:flex-start;background:rgba(255,255,255,.03);border-radius:8px;padding:10px 12px;border-left:3px solid rgba(88,196,88,.8)">
+          <div style="min-width:26px;height:26px;border-radius:50%;background:rgba(88,196,88,.8);color:#000;font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0">3</div>
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px">Main Drive — N-value Recording / 本打ち・N値記録</div>
+            <div style="font-size:11px;color:var(--text2);line-height:1.6">Drive sampler through two 150 mm intervals (total 300 mm). Count blows per 150 mm and record as N₁ + N₂. <strong style="color:rgba(88,196,88,.9)">N-value = N₁ + N₂</strong>. If 50 blows &lt; 300 mm penetration → record as "50/Xmm" (refusal). / サンプラーを150mm×2区間（計300mm）打撃。各区間の打撃数を記録。N値 = N₁ + N₂。50回打撃で300mm未達の場合→「50/Xmm」と記録（貫入不能）。</div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:10px;align-items:flex-start;background:rgba(255,255,255,.03);border-radius:8px;padding:10px 12px;border-left:3px solid rgba(168,85,247,.8)">
+          <div style="min-width:26px;height:26px;border-radius:50%;background:rgba(168,85,247,.8);color:#fff;font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0">4</div>
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px">Sample Recovery &amp; Description / 試料回収・記述</div>
+            <div style="font-size:11px;color:var(--text2);line-height:1.6">Retrieve split-spoon sampler. Open it and describe the soil: colour (色調), texture (粒度), consistency (コンシステンシー), odour. Place soil in a labelled sample jar for lab testing. / サンプラーを回収・開口し、土質を記述。色調、粒度、コンシステンシー、臭気を記録。ラベル付き試料瓶に入れて室内試験へ。</div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:10px;align-items:flex-start;background:rgba(255,255,255,.03);border-radius:8px;padding:10px 12px;border-left:3px solid rgba(239,68,68,.7)">
+          <div style="min-width:26px;height:26px;border-radius:50%;background:rgba(239,68,68,.7);color:#fff;font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0">5</div>
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px">Advance &amp; Repeat / 掘進・繰り返し</div>
+            <div style="font-size:11px;color:var(--text2);line-height:1.6">Re-attach drill rods, advance borehole to next 1 m depth interval, repeat from Step 1. Standard intervals: every 1 m in Japan (JIS A 1219). N-values are plotted vs depth to create the borehole log. / ドリルロッドを再接続し、次の1m深度まで掘進して手順1から繰り返す。日本の標準間隔：1mごと（JIS A 1219）。N値を深度に対してプロットして柱状図を作成。</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ── EQUIPMENT VOCAB TABLE ── -->
+      <div style="font-size:12px;font-weight:700;color:var(--accent2);font-family:'JetBrains Mono',monospace;letter-spacing:.8px;margin:0 0 8px">EQUIPMENT &amp; TERMINOLOGY / 機器と用語</div>
+      <table class="chisei-vocab-table" style="margin-bottom:20px">
+        <thead><tr><th>Japanese / 日本語</th><th>English</th><th>Spec / Description</th></tr></thead>
         <tbody>
-          <tr><td>標準貫入試験</td><td>Standard Penetration Test</td><td>Most common in-situ test in Japan / 日本で最も一般的な原位置試験</td></tr>
-          <tr><td>N値</td><td>N-value / Blow Count</td><td>Number of blows per 300mm / 300mmあたりの打撃回数</td></tr>
-          <tr><td>スプリットスプーン</td><td>Split-spoon Sampler</td><td>Standard sample tube for SPT / 標準試料管</td></tr>
-          <tr><td>ハンマー重量</td><td>Hammer Weight</td><td>63.5 kg drop hammer / 63.5kgのドロップハンマー</td></tr>
-          <tr><td>落下高</td><td>Drop Height</td><td>760mm standard drop / 760mmの標準落下高</td></tr>
-          <tr><td>貫入量</td><td>Penetration Depth</td><td>300mm per test interval / 試験区間300mm</td></tr>
+          <tr><td>標準貫入試験</td><td>Standard Penetration Test</td><td>JIS A 1219 — Japan's primary in-situ test / 主要な原位置試験</td></tr>
+          <tr><td>N値</td><td>N-value / Blow Count</td><td>Blows for 300 mm penetration (N₁+N₂) / 300mm貫入打撃回数</td></tr>
+          <tr><td>スプリットスプーン</td><td>Split-spoon Sampler</td><td>OD 51 mm, ID 35 mm, length 812 mm / 外径51mm、内径35mm</td></tr>
+          <tr><td>ハンマー重量</td><td>Hammer Weight</td><td>63.5 kg (±0.5 kg) / 63.5kgドロップハンマー</td></tr>
+          <tr><td>落下高</td><td>Drop Height</td><td>760 mm free fall / 760mm自由落下</td></tr>
+          <tr><td>予備打ち</td><td>Seating Drive</td><td>First 150 mm — excluded from N-value / 最初の150mm（N値除外）</td></tr>
+          <tr><td>本打ち</td><td>Main Drive</td><td>Next 300 mm (2×150 mm) — N = N₁+N₂ / 次の300mm</td></tr>
+          <tr><td>貫入不能</td><td>Refusal</td><td>50 blows &lt; 300 mm penetration → record 50/Xmm / 50回で300mm未満</td></tr>
+          <tr><td>エネルギー効率</td><td>Energy Ratio (ER)</td><td>Japan donut hammer ER≈72% → correction to N₆₀ / 日本のドーナツ型ER≈72%</td></tr>
+          <tr><td>N₆₀ 補正値</td><td>Corrected N₆₀</td><td>N₆₀ = N×(ER/60) — standard energy correction / 標準エネルギー補正</td></tr>
+          <tr><td>上載圧補正</td><td>Overburden Correction</td><td>(N₁)₆₀ = N₆₀×Cₙ, Cₙ=√(100/σ'ᵥ) / 有効土被り圧補正</td></tr>
+          <tr><td>地下水位</td><td>Groundwater Level (GWL)</td><td>Depth to water table — affects σ'ᵥ and liquefaction / 地下水面深度</td></tr>
         </tbody>
       </table>
+
+      <!-- ── N-VALUE INTERPRETATION ── -->
+      <div style="font-size:12px;font-weight:700;color:var(--accent2);font-family:'JetBrains Mono',monospace;letter-spacing:.8px;margin:0 0 8px">N-VALUE INTERPRETATION / N値の解釈</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px">
+
+        <!-- Sandy soils -->
+        <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:8px;overflow:hidden">
+          <div style="background:rgba(245,158,11,.12);padding:8px 12px;font-size:11px;font-weight:700;color:rgba(245,158,11,.9);letter-spacing:.5px">SAND / 砂質土 — Relative Density (Dr)</div>
+          <table style="width:100%;border-collapse:collapse;font-size:11px">
+            <thead><tr style="background:rgba(255,255,255,.04)"><th style="padding:5px 8px;text-align:left;color:var(--text2);font-weight:600">N-value</th><th style="padding:5px 8px;text-align:left;color:var(--text2);font-weight:600">Density / 密度</th><th style="padding:5px 8px;text-align:left;color:var(--text2);font-weight:600">Dr (%)</th></tr></thead>
+            <tbody>
+              <tr style="border-top:1px solid rgba(255,255,255,.05)"><td style="padding:5px 8px;color:var(--text)">0–3</td><td style="padding:5px 8px;color:#ef4444">Very Loose / 非常に緩い</td><td style="padding:5px 8px;color:var(--text2)">&lt;20</td></tr>
+              <tr style="border-top:1px solid rgba(255,255,255,.05);background:rgba(255,255,255,.02)"><td style="padding:5px 8px;color:var(--text)">4–9</td><td style="padding:5px 8px;color:#f97316">Loose / 緩い</td><td style="padding:5px 8px;color:var(--text2)">20–40</td></tr>
+              <tr style="border-top:1px solid rgba(255,255,255,.05)"><td style="padding:5px 8px;color:var(--text)">10–29</td><td style="padding:5px 8px;color:#eab308">Medium Dense / 中程度</td><td style="padding:5px 8px;color:var(--text2)">40–70</td></tr>
+              <tr style="border-top:1px solid rgba(255,255,255,.05);background:rgba(255,255,255,.02)"><td style="padding:5px 8px;color:var(--text)">30–49</td><td style="padding:5px 8px;color:#22c55e">Dense / 密</td><td style="padding:5px 8px;color:var(--text2)">70–85</td></tr>
+              <tr style="border-top:1px solid rgba(255,255,255,.05)"><td style="padding:5px 8px;color:var(--text)">≥50</td><td style="padding:5px 8px;color:#00d4ff">Very Dense / 非常に密</td><td style="padding:5px 8px;color:var(--text2)">&gt;85</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Clay soils -->
+        <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:8px;overflow:hidden">
+          <div style="background:rgba(168,85,247,.12);padding:8px 12px;font-size:11px;font-weight:700;color:rgba(168,85,247,.9);letter-spacing:.5px">CLAY / 粘性土 — Consistency / コンシステンシー</div>
+          <table style="width:100%;border-collapse:collapse;font-size:11px">
+            <thead><tr style="background:rgba(255,255,255,.04)"><th style="padding:5px 8px;text-align:left;color:var(--text2);font-weight:600">N-value</th><th style="padding:5px 8px;text-align:left;color:var(--text2);font-weight:600">State / 状態</th><th style="padding:5px 8px;text-align:left;color:var(--text2);font-weight:600">qu (kPa)</th></tr></thead>
+            <tbody>
+              <tr style="border-top:1px solid rgba(255,255,255,.05)"><td style="padding:5px 8px;color:var(--text)">0–1</td><td style="padding:5px 8px;color:#ef4444">Very Soft / 非常に軟らかい</td><td style="padding:5px 8px;color:var(--text2)">&lt;25</td></tr>
+              <tr style="border-top:1px solid rgba(255,255,255,.05);background:rgba(255,255,255,.02)"><td style="padding:5px 8px;color:var(--text)">2–3</td><td style="padding:5px 8px;color:#f97316">Soft / 軟らかい</td><td style="padding:5px 8px;color:var(--text2)">25–50</td></tr>
+              <tr style="border-top:1px solid rgba(255,255,255,.05)"><td style="padding:5px 8px;color:var(--text)">4–7</td><td style="padding:5px 8px;color:#eab308">Medium / 中程度</td><td style="padding:5px 8px;color:var(--text2)">50–100</td></tr>
+              <tr style="border-top:1px solid rgba(255,255,255,.05);background:rgba(255,255,255,.02)"><td style="padding:5px 8px;color:var(--text)">8–14</td><td style="padding:5px 8px;color:#22c55e">Stiff / 硬い</td><td style="padding:5px 8px;color:var(--text2)">100–200</td></tr>
+              <tr style="border-top:1px solid rgba(255,255,255,.05)"><td style="padding:5px 8px;color:var(--text)">15–29</td><td style="padding:5px 8px;color:#00d4ff">Very Stiff / 非常に硬い</td><td style="padding:5px 8px;color:var(--text2)">200–400</td></tr>
+              <tr style="border-top:1px solid rgba(255,255,255,.05);background:rgba(255,255,255,.02)"><td style="padding:5px 8px;color:var(--text)">≥30</td><td style="padding:5px 8px;color:#a855f7">Hard / 固結</td><td style="padding:5px 8px;color:var(--text2)">&gt;400</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ── N-VALUE CORRECTION FORMULAS ── -->
+      <div style="font-size:12px;font-weight:700;color:var(--accent2);font-family:'JetBrains Mono',monospace;letter-spacing:.8px;margin:0 0 8px">N-VALUE CORRECTIONS / N値補正式</div>
+      <div style="background:rgba(0,212,255,.05);border:1px solid rgba(0,212,255,.18);border-radius:8px;padding:14px 16px;margin-bottom:20px;font-size:12px">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px">
+          <div>
+            <div style="color:var(--accent);font-weight:700;margin-bottom:4px">① Energy Correction / エネルギー補正</div>
+            <div style="font-family:'JetBrains Mono',monospace;color:var(--text);background:rgba(0,0,0,.3);padding:6px 10px;border-radius:4px;font-size:11px">N₆₀ = N × (ER / 60)</div>
+            <div style="color:var(--text2);font-size:11px;margin-top:4px">Japan donut hammer: ER ≈ 72%<br>日本ドーナツ型ハンマー：ER≈72%</div>
+          </div>
+          <div>
+            <div style="color:var(--accent);font-weight:700;margin-bottom:4px">② Overburden Correction / 上載圧補正</div>
+            <div style="font-family:'JetBrains Mono',monospace;color:var(--text);background:rgba(0,0,0,.3);padding:6px 10px;border-radius:4px;font-size:11px">(N₁)₆₀ = N₆₀ × Cₙ<br>Cₙ = min(1.7, √(100/σ'ᵥ))</div>
+            <div style="color:var(--text2);font-size:11px;margin-top:4px">σ'ᵥ = effective vertical stress (kPa)<br>有効鉛直応力（kPa）</div>
+          </div>
+          <div>
+            <div style="color:var(--accent);font-weight:700;margin-bottom:4px">③ Fines Correction / 細粒分補正</div>
+            <div style="font-family:'JetBrains Mono',monospace;color:var(--text);background:rgba(0,0,0,.3);padding:6px 10px;border-radius:4px;font-size:11px">(N₁)₆₀cs = (N₁)₆₀ + ΔN<br>ΔN = f(FC%)</div>
+            <div style="color:var(--text2);font-size:11px;margin-top:4px">FC = fines content (%) — for liquefaction<br>細粒分含有率（液状化判定用）</div>
+          </div>
+          <div>
+            <div style="color:var(--accent);font-weight:700;margin-bottom:4px">④ Liquefaction Check / 液状化判定</div>
+            <div style="font-family:'JetBrains Mono',monospace;color:var(--text);background:rgba(0,0,0,.3);padding:6px 10px;border-radius:4px;font-size:11px">FL = CRR₇.₅ × MSF / CSR</div>
+            <div style="color:var(--text2);font-size:11px;margin-top:4px">FL &lt; 1.0 → liquefaction likely<br>FL &lt; 1.0 → 液状化の可能性あり</div>
+          </div>
+        </div>
+        <div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(0,212,255,.12);font-size:11px;color:var(--text2)">
+          💡 <strong style="color:var(--accent2)">Tip:</strong> Use the <span data-action="showPage('calculator');setTimeout(function(){var tabs=document.querySelectorAll('#page-calculator .tabs .tab');if(tabs[0])switchCalc(tabs[0],'spt-calc');},300)" style="color:var(--accent);cursor:pointer;text-decoration:underline">Field Calculator → SPT Analysis tab</span> to compute all corrections automatically. / <span data-action="showPage('calculator');setTimeout(function(){var tabs=document.querySelectorAll('#page-calculator .tabs .tab');if(tabs[0])switchCalc(tabs[0],'spt-calc');},300)" style="color:var(--accent2);cursor:pointer;text-decoration:underline">フィールド計算機→SPT解析</span>タブで自動計算できます。
+        </div>
+      </div>
+
+      <!-- ── LEARNING TASKS ── -->
       <div style="font-size:12px;font-weight:700;color:var(--accent2);font-family:'JetBrains Mono',monospace;letter-spacing:.8px;margin:16px 0 8px">LEARNING TASKS / 学習タスク</div>
       <div id="stage01-tasks-2"></div>
     </div>
@@ -8689,6 +8859,14 @@ function sanitizeText(s) {
 
 
 
+
+
+
+
+
+
+
+
 // ╔══════════════════════════════════════════════════════════════════════════╗
 // ║                                                                          ║
 // ║   GeoLearn Japan — Geotechnical & Geophysical Engineering Platform       ║
@@ -8854,7 +9032,7 @@ function sanitizeText(s) {
       trustedTypes: !!(window.trustedTypes),
       domPurify:    typeof DOMPurify !== 'undefined',
       hardened:     true,
-      built:        '2026-03-18T13:49:06.919Z',
+      built:        '2026-03-20T23:45:54.227Z',
     }),
     writable:     false,
     configurable: false,
@@ -9452,7 +9630,7 @@ function showPage(name){
   const items=document.querySelectorAll('.nav-item');
   const map={home:0,study:1,animations:2,calculator:3,flashcards:4,quiz:5,game:6,resources:7,career:8,ai:9,professor:10,fielddata:11,studyplan:12,vocab:13,jlpt:14,analytics:15,smart:16,dailyfocus:17,simulations:18,kmap:19,casestudies:20,photos:21,activate:22};
   if(map[name]!==undefined)items[map[name]]&&items[map[name]].classList.add('active');
-  if(name==='animations'){initAnim()}
+  if(name==='animations'){var _as=document.getElementById('anim-selector');if(_as)_as.style.display='';var _ab=document.getElementById('anim-back-bar');if(_ab)_ab.style.display='none';initAnim()}
   if(name==='flashcards'){renderFC()}
   if(name==='calculator'){setTimeout(()=>{calcSPT();initVs30();initLiq();calcBearing();drawSPTChart();},100)}
   if(name==='game'){startGame()}
@@ -10013,6 +10191,25 @@ function toggleAnim(){
 }
 function resetAnim(){animT=0;animRunning=false;document.getElementById('play-btn').textContent='▶ Play';cancelAnimationFrame(animFrame);drawAnimFrame()}
 function initAnim(){updateAnimDesc();drawAnimFrame()}
+function animEnterFocused(type){
+  var s=document.getElementById('anim-selector');
+  if(s){s.value=type;s.style.display='none';changeAnimation();}
+  var bar=document.getElementById('anim-back-bar');
+  if(bar)bar.style.display='block';
+}
+function animExitFocused(){
+  var s=document.getElementById('anim-selector');
+  if(s)s.style.display='';
+  var bar=document.getElementById('anim-back-bar');
+  if(bar)bar.style.display='none';
+  showPage('career');
+  setTimeout(function(){
+    var body=document.getElementById('stage01-sb-2');
+    if(body&&!body.classList.contains('open'))stage01ToggleSection(2);
+    var hdr=document.getElementById('stage01-sh-2');
+    if(hdr)hdr.scrollIntoView({behavior:'smooth',block:'start'});
+  },150);
+}
 function runAnim(){
   animT+=0.8;
   drawAnimFrame();

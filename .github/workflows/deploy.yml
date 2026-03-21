@@ -64,6 +64,7 @@ jobs:
           path: _site
 
   ## ── Deploy ────────────────────────────────────────────────────────────────
+  ## Only deploy to GitHub Pages from master — claude/** branches just verify the build
   deploy:
     name: Deploy
     if: github.ref == 'refs/heads/master'
