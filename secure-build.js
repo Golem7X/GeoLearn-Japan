@@ -392,15 +392,26 @@ if (rebuiltHtml.includes('</head>')) {
 }
 
 // ── Update _headers with actual hashes ───────────────────────────────────────
+// Cloudflare Pages reads `_headers` (not `_headers.built`), so we must update
+// the actual file. We replace the entire script-src directive with the freshly
+// computed hashes so stale values never linger.
 const headersPath = path.join(ROOT, '_headers');
 if (fs.existsSync(headersPath)) {
   let headers = fs.readFileSync(headersPath, 'utf8');
+  // Replace placeholders if present (first build)
   headers = headers
     .replace(/__DOMPURIFY_HASH__/g, domPurifyHash)
     .replace(/__APP_HASH__/g, appHash);
-  // Write updated _headers to a build artifact
+  // Also replace the entire script-src directive with current hashes
+  // so subsequent builds always get fresh values (not stale ones)
+  headers = headers.replace(
+    /script-src\s+'strict-dynamic'\s+(?:'sha256-[A-Za-z0-9+\/=]+'\s*)+/,
+    `script-src 'strict-dynamic' ${hashDirectives} `
+  );
+  // Write to BOTH files — _headers is what Cloudflare Pages reads
+  fs.writeFileSync(headersPath, headers, 'utf8');
   fs.writeFileSync(path.join(ROOT, '_headers.built'), headers, 'utf8');
-  console.log('\n_headers.built written with actual hashes.');
+  console.log('\n_headers updated with actual hashes (Cloudflare Pages ready).');
 }
 
 // ── Write final output ────────────────────────────────────────────────────────
