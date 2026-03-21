@@ -21084,6 +21084,21 @@ document.addEventListener('DOMContentLoaded', function() {
     if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Validating…'; }
 
     try {
+      // First try local checksum validation (admin-generated keys)
+      if (typeof window.activatePremium === 'function' && window.activatePremium(key)) {
+        _geoActStatus(st,
+          'プレミアム有効化完了！ / Premium activated! Unlocking all features…',
+          'success'
+        );
+        if (typeof window._geoUpdatePlan === 'function') window._geoUpdatePlan('premium');
+        if (typeof window.initPremiumSystem === 'function') window.initPremiumSystem();
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Activate'; }
+        setTimeout(function() {
+          if (typeof showPage === 'function') showPage('home');
+        }, 1600);
+        return;
+      }
+
       // Use secure Edge Function (exposed by the Supabase IIFE above)
       var activate = window._geoActivateLicense;
       if (typeof activate !== 'function') {
