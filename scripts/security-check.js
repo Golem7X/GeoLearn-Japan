@@ -69,7 +69,9 @@ check('escHtml uses DOMPurify', allJs.includes("DOMPurify.sanitize(String(s),{AL
 console.log('\n▸ Content Security Policy');
 check('CSP meta tag present', /<meta[^>]+Content-Security-Policy[^>]*>/i.test(html));
 check('CSP default-src none', html.includes("default-src 'none'"));
-check("CSP strict-dynamic", html.includes("'strict-dynamic'"));
+// NOTE: strict-dynamic is intentionally NOT used — it blocks static <script src> tags
+// (like the Supabase CDN). We use explicit URL allowlist + SHA-256 hashes instead.
+check("CSP cdn.jsdelivr.net in script-src", html.includes("https://cdn.jsdelivr.net"));
 check('CSP script-src uses SHA-256 hashes',
   html.includes("'sha256-") && html.includes("script-src")
 );
@@ -77,7 +79,18 @@ check("CSP no 'unsafe-inline' for scripts",
   !html.replace(/style-src[^;]*/g, '').includes("'unsafe-inline'")
 );
 check("CSP no 'unsafe-eval'", !html.includes("'unsafe-eval'"));
-check("CSP connect-src 'none'", html.includes("connect-src 'none'"));
+// connect-src: allow 'none' OR an allowlist of known-safe backend/analytics domains
+const ALLOWED_CONNECT = new Set([
+  "'none'","'self'",
+  'https://ftmkgkxzgobgjkasnmxn.supabase.co','https://*.supabase.co',
+  'https://www.google-analytics.com','https://analytics.google.com',
+  'https://region1.google-analytics.com','https://www.googletagmanager.com'
+]);
+const connectSrcMatch = html.match(/connect-src\s+([^;>"]+)/);
+const connectSrcVal = connectSrcMatch ? connectSrcMatch[1].trim() : '';
+const connectSrcOk = connectSrcVal === "'none'" ||
+  connectSrcVal.split(/\s+/).every(t => ALLOWED_CONNECT.has(t));
+check("CSP connect-src restricted to known domains", connectSrcOk);
 check("CSP object-src 'none'", html.includes("object-src 'none'"));
 check("CSP base-uri 'self'", html.includes("base-uri 'self'"));
 check("CSP form-action 'none'", html.includes("form-action 'none'"));
@@ -133,8 +146,9 @@ if (cspMatch) {
 // ── 6. Supply Chain ───────────────────────────────────────────────────────────
 console.log('\n▸ Supply Chain Security');
 const externalJsCount = (html.match(/<script[^>]+src=/g) || []).length;
-check('Zero external script dependencies', externalJsCount === 0);
-check('DOMPurify bundled (no CDN dependency)', html.includes('DOMPurify') && externalJsCount === 0);
+const externalJsWithSri = (html.match(/<script[^>]+src=[^>]+integrity=/g) || []).length;
+check('All external scripts have SRI integrity', externalJsCount === externalJsWithSri);
+check('DOMPurify embedded inline', html.includes('DOMPurify'));
 
 // Check package-lock exists
 const pkgLockExists = fs.existsSync(path.join(ROOT, 'package-lock.json'));

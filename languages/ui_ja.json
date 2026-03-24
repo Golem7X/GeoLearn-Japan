@@ -178,5 +178,15 @@
   "game_hard": "難しい（10ペア）",
 
   "loading": "読み込み中...",
-  "lang_name": "日本語"
+  "lang_name": "日本語",
+
+  "career_stage01_title": "現場調査技術者",
+  "career_stage01_jp": "Field Investigation Engineer",
+  "career_stage01_desc": "ボーリング、SPT、CPT、および試料採取を行うエントリーレベルの職種。現場調査プロジェクトで監督のもとに働きます。",
+  "career_stage01_salary": "¥250,000–350,000 /月",
+  "career_stage01_skill1": "SPT操作 / SPT Operation",
+  "career_stage01_skill2": "地質柱状図記録 / Soil Logging",
+  "career_stage01_skill3": "安全管理 / Safety Management",
+  "career_stage01_skill4": "AutoCAD基礎 / AutoCAD Basic",
+  "career_open_roadmap": "→ 学習ロードマップを開く"
 }

@@ -178,5 +178,15 @@
   "game_hard": "ခက်ခဲ (10 တွဲ)",
 
   "loading": "ဖွင့်နေသည်...",
-  "lang_name": "မြန်မာ"
+  "lang_name": "မြန်မာ",
+
+  "career_stage01_title": "ကွင်းဆင်းစူးစမ်းအင်ဂျင်နီယာ",
+  "career_stage01_jp": "現場調査技術者",
+  "career_stage01_desc": "တွင်းတူးခြင်း၊ SPT၊ CPT နှင့် နမူနာကောက်ယူခြင်းများပြုလုပ်သည့် အဝင်အဆင့်ရာထူး။ မြေသားစူးစမ်းပရောဂျက်များတွင် အကြီးအကဲ၏ ကြီးကြပ်မှုအောက်တွင် လုပ်ကိုင်သည်။",
+  "career_stage01_salary": "¥250,000–350,000 /လ",
+  "career_stage01_skill1": "SPT စစ်ဆင်ရေး / SPT Operation",
+  "career_stage01_skill2": "မြေသားမှတ်တမ်း / Soil Logging",
+  "career_stage01_skill3": "ဘေးကင်းလုံခြုံရေးစီမံ / Safety Management",
+  "career_stage01_skill4": "AutoCAD အခြေခံ / AutoCAD Basic",
+  "career_open_roadmap": "→ သင်ကြားမှုရောက်မ်ပ်ဖွင့်မည်"
 }
