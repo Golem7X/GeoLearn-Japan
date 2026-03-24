@@ -4293,7 +4293,7 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 }
 .plan-badge-upgrade:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,212,255,.3)}
 </style>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://cdn.jsdelivr.net 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-GioBGlUyCgp5lw0xv6sfEhE/jDdmNi8epXdkvDIhy9g='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' https://images.unsplash.com data: blob:; connect-src 'self' https://ftmkgkxzgobgjkasnmxn.supabase.co https://*.supabase.co https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://cdn.jsdelivr.net 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-Hzc8Y7d9Uz7gFsdnExr/k7CuKUjfCoVR+Qg82GNveBI='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' https://images.unsplash.com data: blob:; connect-src 'self' https://ftmkgkxzgobgjkasnmxn.supabase.co https://*.supabase.co https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
 </head>
 <body>
 
@@ -9909,6 +9909,8 @@ function sanitizeText(s) {
 
 
 
+
+
 // ╔══════════════════════════════════════════════════════════════════════════╗
 // ║                                                                          ║
 // ║   GeoLearn Japan — Geotechnical & Geophysical Engineering Platform       ║
@@ -9984,14 +9986,17 @@ function sanitizeText(s) {
                 'textarea','th','thead','tr','ul'
               ],
               ALLOWED_ATTR: [
-                'class','style','data-action','id','title','type',
-                'value','min','max','step','placeholder','disabled',
-                'checked','selected','for','name','readonly',
+                'class','style','data-action','data-hover-on','data-hover-off',
+                'data-input','data-change','data-keydown','data-premium',
+                'data-i18n','data-i18n-placeholder','data-tid','data-topic-id',
+                'data-done','data-label','data-error',
+                'id','title','type','value','min','max','step','placeholder',
+                'disabled','checked','selected','for','name','readonly',
                 'width','height','src','alt','rows','cols'
               ],
               FORBID_ATTR: [
-                'onerror','onload','onclick','onmouseover','onchange',
-                'onsubmit','onfocus','onblur','onkeydown','onkeyup',
+                'onerror','onload','onclick','onmouseover','onmouseout','onchange',
+                'onsubmit','onfocus','onblur','onkeydown','onkeyup','oninput',
                 'onkeypress','ondblclick','oncontextmenu','onresize'
               ],
               FORBID_TAGS: ['script','object','embed','link','meta','iframe','frame']
@@ -10074,7 +10079,7 @@ function sanitizeText(s) {
       trustedTypes: !!(window.trustedTypes),
       domPurify:    typeof DOMPurify !== 'undefined',
       hardened:     true,
-      built:        '2026-03-21T02:17:01.001Z',
+      built:        '2026-03-24T12:00:10.332Z',
     }),
     writable:     false,
     configurable: false,
@@ -10169,6 +10174,14 @@ function sanitizeText(s) {
       }
       // window.varName = value
       if (/^[a-zA-Z_$][\w$]*$/.test(lhs)) { window[lhs] = rhs; return; }
+      // this.style.prop or this.prop = value
+      if (/^this\./.test(lhs)) {
+        var _parts = lhs.slice(5).split('.');
+        var _obj = el;
+        for (var _k=0; _k<_parts.length-1; _k++) { if(_obj) _obj=_obj[_parts[_k]]; }
+        if (_obj) _obj[_parts[_parts.length-1]] = rhs;
+        return;
+      }
     }
     console.warn('[geolearn] unhandled action:', stmt);
   }
@@ -10212,6 +10225,28 @@ function sanitizeText(s) {
     }
   }, false);
 
+  // Convert oninput → data-input on a DOM subtree
+  function convertOninputs(root) {
+    var els=[];
+    if(root.hasAttribute&&root.hasAttribute('oninput')) els.push(root);
+    if(root.querySelectorAll) root.querySelectorAll('[oninput]').forEach(function(e){ els.push(e); });
+    els.forEach(function(e){
+      e.setAttribute('data-input',e.getAttribute('oninput'));
+      e.removeAttribute('oninput');
+    });
+  }
+
+  // Convert onmouseover/onmouseout → data-hover-on/data-hover-off on a DOM subtree
+  function convertOnmouseovers(root) {
+    var els=[];
+    if(root.querySelectorAll) root.querySelectorAll('[onmouseover],[onmouseout]').forEach(function(e){ els.push(e); });
+    if(root.hasAttribute&&(root.hasAttribute('onmouseover')||root.hasAttribute('onmouseout'))) els.push(root);
+    els.forEach(function(e){
+      if(e.hasAttribute('onmouseover')){ e.setAttribute('data-hover-on',e.getAttribute('onmouseover')); e.removeAttribute('onmouseover'); }
+      if(e.hasAttribute('onmouseout')){ e.setAttribute('data-hover-off',e.getAttribute('onmouseout')); e.removeAttribute('onmouseout'); }
+    });
+  }
+
   // Delegated mouseover/mouseout listeners (data-hover-on / data-hover-off)
   document.addEventListener('mouseover', function(e) {
     var t = e.target;
@@ -10231,6 +10266,14 @@ function sanitizeText(s) {
     var t = e.target;
     if (t && t.hasAttribute && t.hasAttribute('data-change')) {
       execAction(t.getAttribute('data-change'), t);
+    }
+  }, false);
+
+  // Delegated input listener (data-input — replaces oninput on <input>/<textarea>)
+  document.addEventListener('input', function(e) {
+    var t = e.target;
+    if (t && t.hasAttribute && t.hasAttribute('data-input')) {
+      execAction(t.getAttribute('data-input'), t);
     }
   }, false);
 
@@ -10286,12 +10329,16 @@ function sanitizeText(s) {
         m.addedNodes.forEach(function(n) {
           if (n.nodeType === 1) {
             convertOnclicks(n);
+            convertOninputs(n);
+            convertOnmouseovers(n);
             bindImageErrors(n);
           }
         });
       });
     }).observe(document.body, {childList:true, subtree:true});
     convertOnclicks(document.body);
+    convertOninputs(document.body);
+    convertOnmouseovers(document.body);
     bindImageErrors(document);
   }
 
@@ -11139,8 +11186,8 @@ function showTopic(id){
   ];
 
   const sectionsHTML=sectionData.map((s,i)=>`
-    <div class="sr-section" id="${s.id}" onclick="focusSection('${s.id}')">
-      <div class="sr-section-header" onclick="toggleSection('${s.id}-body')">
+    <div class="sr-section" id="${s.id}" data-action="focusSection('${s.id}')">
+      <div class="sr-section-header" data-action="toggleSection('${s.id}-body')">
         <div class="sr-section-header-left">
           <span class="sr-section-icon">${s.icon}</span>
           <span class="sr-section-label">${s.label}</span>
@@ -11153,7 +11200,7 @@ function showTopic(id){
   // Equations section
   const eqHTML=`
     <div class="sr-section">
-      <div class="sr-section-header" onclick="toggleSection('eq-body')">
+      <div class="sr-section-header" data-action="toggleSection('eq-body')">
         <div class="sr-section-header-left">
           <span class="sr-section-icon">📐</span>
           <span class="sr-section-label">${_t('label_key_equations')}</span>
@@ -12725,7 +12772,7 @@ function renderQuizQuestion(){
     <div style="font-size:11px;color:var(--accent3);font-family:'JetBrains Mono',monospace;margin-bottom:8px">QUIZ ${quizState.q+1}/${quizState.total} · ${L.title}</div>
     <div style="font-size:14px;font-weight:700;line-height:1.5;margin-bottom:14px">${q.q}</div>
     <div id="qz-opts" style="display:flex;flex-direction:column;gap:8px">
-      ${q.opts.map((o,i)=>`<button onclick="answerQuiz(${i})" style="text-align:left;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:10px 12px;cursor:pointer;font-size:13px;font-family:'Syne',sans-serif;transition:all .2s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="if(!this.dataset.done){this.style.borderColor='var(--border)'}">${String.fromCharCode(65+i)}. ${o}</button>`).join('')}
+      ${q.opts.map((o,i)=>`<button data-action="answerQuiz(${i})" style="text-align:left;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:10px 12px;cursor:pointer;font-size:13px;font-family:'Syne',sans-serif;transition:all .2s" data-hover-on="this.style.borderColor='var(--accent)'" data-hover-off="this.style.borderColor='var(--border)'">${String.fromCharCode(65+i)}. ${o}</button>`).join('')}
     </div>
     <div id="qz-exp" style="display:none;margin-top:10px;padding:10px;background:rgba(0,212,255,0.05);border:1px solid rgba(0,212,255,0.2);border-radius:8px;font-size:13px;color:var(--text2);line-height:1.6"></div>
     <div id="qz-next" style="display:none;margin-top:10px"></div>
