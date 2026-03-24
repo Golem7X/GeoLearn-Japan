@@ -133,14 +133,17 @@ const SECURITY_RUNTIME = `
                 'textarea','th','thead','tr','ul'
               ],
               ALLOWED_ATTR: [
-                'class','style','data-action','id','title','type',
-                'value','min','max','step','placeholder','disabled',
-                'checked','selected','for','name','readonly',
+                'class','style','data-action','data-hover-on','data-hover-off',
+                'data-input','data-change','data-keydown','data-premium',
+                'data-i18n','data-i18n-placeholder','data-tid','data-topic-id',
+                'data-done','data-label','data-error',
+                'id','title','type','value','min','max','step','placeholder',
+                'disabled','checked','selected','for','name','readonly',
                 'width','height','src','alt','rows','cols'
               ],
               FORBID_ATTR: [
-                'onerror','onload','onclick','onmouseover','onchange',
-                'onsubmit','onfocus','onblur','onkeydown','onkeyup',
+                'onerror','onload','onclick','onmouseover','onmouseout','onchange',
+                'onsubmit','onfocus','onblur','onkeydown','onkeyup','oninput',
                 'onkeypress','ondblclick','oncontextmenu','onresize'
               ],
               FORBID_TAGS: ['script','object','embed','link','meta','iframe','frame']

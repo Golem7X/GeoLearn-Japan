@@ -33,6 +33,8 @@
 <link rel="icon" type="image/svg+xml" href="assets/brand/geolearn_icon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Supabase JS Client -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" integrity="sha384-4bKASEcnXfYfA/rrhF9qD3mYowkb5k4Xbzbrf3ccqgZrplKUrwnA2Q/L5xcdZFAp" crossorigin="anonymous"></script>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet" crossorigin="anonymous">
 <style>
 :root {
@@ -50,14 +52,345 @@
   --gold: #ffd700;
   --purple: #a855f7;
 }
+/* ══════════════════════════════════════════════════════════════
+   TYPOGRAPHY SYSTEM v2 — GeoLearn Japan
+   Philosophy: readable-first, dense-never, Japan-grade clarity
+   Scale : 1rem = 17px (desktop) → 16px (mobile ≤ 600px)
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Type-scale tokens ─────────────────────────────────────── */
+:root{
+  /* Font scale */
+  --fs-xs:   0.706rem;   /* 12px @ 17px base — labels, badges     */
+  --fs-sm:   0.824rem;   /* 14px — secondary info, captions        */
+  --fs-base: 1rem;       /* 17px — body text                       */
+  --fs-md:   1.059rem;   /* 18px — comfortable reading             */
+  --fs-lg:   1.176rem;   /* 20px — quiz options, card text         */
+  --fs-xl:   1.353rem;   /* 23px — quiz questions                  */
+  --fs-2xl:  1.647rem;   /* 28px — section headers                 */
+  --fs-3xl:  2.118rem;   /* 36px — page titles                     */
+  --fs-4xl:  2.824rem;   /* 48px — hero titles                     */
+
+  /* Line-height tokens */
+  --lh-tight:  1.25;
+  --lh-snug:   1.45;
+  --lh-normal: 1.65;
+  --lh-relaxed:1.80;
+  --lh-loose:  1.95;     /* Japanese body text                     */
+
+  /* Spacing tokens */
+  --sp-1:  8px;
+  --sp-2:  16px;
+  --sp-3:  24px;
+  --sp-4:  32px;
+  --sp-5:  48px;
+
+  /* Content max-widths */
+  --content-sm:  580px;
+  --content-md:  720px;
+  --content-lg: 1000px;
+}
+
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
+
+/* ── Base rendering ────────────────────────────────────────── */
+html{
+  font-size:17px;            /* 1rem anchor — desktop              */
+  scroll-behavior:smooth;
+  -webkit-text-size-adjust:100%;
+}
 body{
-  font-family:'Syne',sans-serif;
+  font-family:'Syne','Noto Sans JP','Inter',system-ui,sans-serif;
   background:var(--bg);
   color:var(--text);
   min-height:100vh;
   overflow-x:hidden;
+  font-size:var(--fs-base);
+  line-height:var(--lh-normal);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+}
+
+/* ── Japanese text rendering ───────────────────────────────── */
+/* Applied wherever Noto Sans JP is used for readability        */
+.noto, .hero-jp, .topic-jp, .road-jp, .fc-jp,
+[class*="-jp"]:not(.geolearn-jp-exception),
+.jp-text {
+  font-family:'Noto Sans JP','Hiragino Sans','Yu Gothic UI',
+              'Hiragino Kaku Gothic ProN','Meiryo',sans-serif;
+  line-height:var(--lh-loose);
+  letter-spacing:0.04em;
+  word-break:keep-all;
+  overflow-wrap:break-word;
+}
+
+/* ── Heading hierarchy ─────────────────────────────────────── */
+h1,.h1{
+  font-size:var(--fs-4xl);
+  font-weight:800;
+  line-height:var(--lh-tight);
+  letter-spacing:-0.03em;
+}
+h2,.h2{
+  font-size:var(--fs-3xl);
+  font-weight:800;
+  line-height:var(--lh-snug);
+  letter-spacing:-0.02em;
+}
+h3,.h3{
+  font-size:var(--fs-2xl);
+  font-weight:700;
+  line-height:var(--lh-snug);
+}
+h4,.h4{
+  font-size:var(--fs-xl);
+  font-weight:700;
+  line-height:var(--lh-normal);
+}
+
+/* ── Body / paragraph text ─────────────────────────────────── */
+p, .body-text{
+  font-size:var(--fs-md);
+  line-height:var(--lh-relaxed);
+  max-width:var(--content-sm);
+}
+
+/* ── Page-level elements ───────────────────────────────────── */
+.page-title{
+  font-size:var(--fs-3xl) !important;
+  font-weight:800;
+  letter-spacing:-0.025em;
+  line-height:var(--lh-tight);
+}
+.page-sub{
+  font-size:var(--fs-sm) !important;
+  line-height:var(--lh-normal);
+  letter-spacing:0.04em;
+}
+
+/* ── Hero ──────────────────────────────────────────────────── */
+.hero-title{
+  font-size:var(--fs-4xl) !important;
+  font-weight:800;
+  line-height:var(--lh-tight) !important;
+  letter-spacing:-0.04em !important;
+}
+.hero-jp{
+  font-size:var(--fs-lg) !important;
+  letter-spacing:0.06em;
+  line-height:var(--lh-loose);
+}
+.hero-desc{
+  font-size:var(--fs-md) !important;
+  line-height:var(--lh-relaxed) !important;
+  max-width:var(--content-sm);
+}
+
+/* ── Buttons ───────────────────────────────────────────────── */
+.btn{
+  font-size:var(--fs-base) !important;
+  padding:13px 26px !important;
+  border-radius:11px !important;
+  font-weight:700;
+  min-height:48px;            /* Touch-friendly (WCAG 2.5.5) */
+}
+@media(max-width:600px){
+  .btn{ padding:14px 22px !important; width:100%; justify-content:center; }
+  .hero-actions{ flex-direction:column; }
+}
+
+/* ── Cards ─────────────────────────────────────────────────── */
+.card, .topic-card, .stat-card{
+  padding:var(--sp-3) !important;
+}
+.topic-name{
+  font-size:var(--fs-lg) !important;
+  font-weight:700;
+  line-height:var(--lh-snug);
+}
+.topic-jp{
+  font-size:var(--fs-sm) !important;
+  letter-spacing:0.06em;
+  margin-top:4px;
+}
+.topic-desc{
+  font-size:var(--fs-base) !important;
+  line-height:var(--lh-relaxed) !important;
+  margin-top:10px;
+}
+
+/* ── Stat cards ────────────────────────────────────────────── */
+.stat-num{
+  font-size:var(--fs-3xl) !important;
+  font-weight:800;
+}
+.stat-label{
+  font-size:var(--fs-xs) !important;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  margin-top:6px;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   QUIZ TYPOGRAPHY — most important for engagement & retention
+   ══════════════════════════════════════════════════════════════ */
+.quiz-q{
+  font-size:var(--fs-xl) !important;    /* 23px — bold question    */
+  font-weight:800 !important;
+  line-height:var(--lh-relaxed) !important;
+  margin-bottom:var(--sp-3) !important;
+  letter-spacing:-0.01em;
+}
+.quiz-options{
+  gap:12px !important;
+  margin-bottom:var(--sp-3) !important;
+}
+.quiz-opt{
+  font-size:var(--fs-lg) !important;    /* 20px — easy to scan     */
+  padding:16px 20px !important;
+  border-radius:14px !important;
+  min-height:56px;                       /* Touch-friendly           */
+  line-height:var(--lh-snug);
+  font-weight:500;
+  align-items:flex-start !important;
+}
+.quiz-opt:hover:not(.disabled){
+  transform:translateX(4px);             /* Subtle motion feedback   */
+}
+.quiz-explain{
+  font-size:var(--fs-md) !important;    /* 18px — comfortable read  */
+  line-height:var(--lh-relaxed) !important;
+  padding:var(--sp-2) var(--sp-3) !important;
+  margin-top:var(--sp-2) !important;
+  border-left:3px solid var(--accent);
+  border-radius:0 12px 12px 0 !important;
+  color:var(--text) !important;          /* Higher contrast           */
+}
+.quiz-progress{
+  height:6px !important;                 /* Slightly thicker bar     */
+  margin-bottom:var(--sp-3) !important;
+}
+.score-big{
+  font-size:clamp(56px,12vw,80px) !important;
+  font-weight:800;
+  line-height:1;
+}
+
+/* ── Flashcards ─────────────────────────────────────────────── */
+.fc-jp{
+  font-size:var(--fs-3xl) !important;
+  font-weight:700;
+  letter-spacing:0.06em;
+  line-height:var(--lh-loose);
+}
+.fc-en{
+  font-size:var(--fs-lg) !important;
+  font-weight:700;
+  line-height:var(--lh-normal);
+  margin-top:10px;
+}
+.fc-eq{
+  font-size:var(--fs-2xl) !important;
+  letter-spacing:0.02em;
+  margin:var(--sp-2) 0;
+}
+.fc-desc{
+  font-size:var(--fs-base) !important;
+  line-height:var(--lh-relaxed) !important;
+}
+.fc-hint{
+  font-size:var(--fs-xs) !important;
+  letter-spacing:0.05em;
+}
+
+/* ── Calculator inputs ─────────────────────────────────────── */
+.calc-input{
+  font-size:var(--fs-base) !important;
+  padding:12px 16px !important;
+}
+.calc-label{
+  font-size:var(--fs-xs) !important;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+}
+
+/* ── Professor / study steps ───────────────────────────────── */
+.step-title{
+  font-size:var(--fs-base) !important;
+  font-weight:700;
+  line-height:var(--lh-snug);
+}
+.step-body{
+  font-size:var(--fs-md) !important;
+  line-height:var(--lh-relaxed) !important;
+  color:var(--text2);
+}
+
+/* ── Section labels & tabs ─────────────────────────────────── */
+.section-title{
+  font-size:var(--fs-xs) !important;
+  letter-spacing:0.12em !important;
+}
+.tab{
+  font-size:var(--fs-sm) !important;
+  padding:9px 18px !important;
+}
+
+/* ── Page layout: comfortable reading width ────────────────── */
+.page{
+  padding:28px 36px !important;
+}
+.quiz-wrap, .page-quiz-inner, #quiz-wrap{
+  max-width:var(--content-md);
+  margin-left:auto;
+  margin-right:auto;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   RESPONSIVE TYPOGRAPHY
+   Mobile-first scaling: 16px base on small screens
+   ══════════════════════════════════════════════════════════════ */
+@media(max-width:900px){
+  html{ font-size:16.5px; }
+  .page{ padding:22px 24px !important; }
+}
+@media(max-width:600px){
+  html{ font-size:16px; }
+
+  /* Layout */
+  .page{ padding:18px 16px !important; }
+  .hero{ padding:28px 20px !important; }
+
+  /* Hero */
+  .hero-title{ font-size:2rem !important; letter-spacing:-0.02em !important; }
+  .hero-jp   { font-size:1rem !important; }
+  .hero-desc { font-size:0.941rem !important; }
+
+  /* Quiz — keep large on mobile (critical) */
+  .quiz-q   { font-size:1.25rem !important; }
+  .quiz-opt { font-size:1rem !important; padding:14px 16px !important; }
+  .quiz-explain{ font-size:0.941rem !important; }
+
+  /* Cards */
+  .card,.topic-card,.stat-card{ padding:18px !important; }
+  .topic-name{ font-size:1rem !important; }
+  .topic-desc{ font-size:0.882rem !important; }
+
+  /* Flashcard */
+  .fc-jp{ font-size:1.5rem !important; }
+  .fc-eq{ font-size:1.25rem !important; }
+  .fc-desc{ font-size:0.882rem !important; }
+
+  /* Stat */
+  .stat-num{ font-size:1.75rem !important; }
+
+  /* Page header */
+  .page-title{ font-size:1.75rem !important; }
+
+  /* Match game */
+  .match-card{ font-size:0.75rem !important; }
+  .match-grid{ grid-template-columns:repeat(2,1fr) !important; gap:8px !important; }
 }
 /* NOISE TEXTURE */
 body::before{
@@ -2718,62 +3051,145 @@ body.study-mode .pomo-container { background: #fff; border-color: #D1DCF0; }
    ═══════════════════════════════════════════════════════════════════ */
 
 /* ── Language Switcher (PC: fixed top-right, Mobile: in sidebar) ──── */
+/* ── LANGUAGE SWITCHER POPUP ── */
 .lang-switcher-fixed {
-  position: fixed;
-  top: 12px;
-  right: 12px;
-  z-index: 1002;
+  position: relative;
+  z-index: 2;
+}
+/* Trigger pill button */
+.lang-trigger {
   display: flex;
-  gap: 4px;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px 6px 10px;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 4px;
-}
-.lang-switcher-sidebar {
-  display: none;
-}
-.lang-btn {
-  padding: 6px 10px;
+  border-radius: 20px;
+  cursor: pointer;
   font-family: 'Syne', sans-serif;
   font-weight: 700;
-  font-size: 11px;
-  letter-spacing: 0.5px;
   color: var(--text2);
-  background: transparent;
-  border: 1px solid transparent;
-  border-radius: 6px;
+  transition: border-color .25s, color .25s, background .25s, box-shadow .25s;
+  letter-spacing: .5px;
+  position: relative;
+  z-index: 1;
+}
+.lang-trigger:hover,
+.lang-trigger.open {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(0,212,255,.07);
+  box-shadow: 0 4px 22px rgba(0,212,255,.18);
+}
+.lang-trigger-globe { font-size: 13px; line-height: 1; }
+.lang-trigger-label { font-size: 11px; font-weight: 800; letter-spacing: 1px; }
+.lang-trigger-caret {
+  font-size: 9px;
+  opacity: .55;
+  margin-left: 1px;
+  transition: transform .25s cubic-bezier(.4,0,.2,1);
+}
+.lang-trigger.open .lang-trigger-caret { transform: rotate(180deg); }
+
+/* Popup dropdown */
+.lang-popup {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 6px;
+  min-width: 164px;
+  box-shadow: 0 18px 52px rgba(0,0,0,.6), 0 0 0 1px rgba(0,212,255,.07), inset 0 1px 0 rgba(255,255,255,.04);
+  backdrop-filter: blur(20px);
+  opacity: 0;
+  transform: translateY(-8px) scale(.95);
+  pointer-events: none;
+  transition: opacity .22s cubic-bezier(.4,0,.2,1), transform .22s cubic-bezier(.4,0,.2,1);
+  transform-origin: top right;
+}
+.lang-popup.open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+/* Popup divider between items */
+.lang-popup-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 4px 6px;
+  opacity: .5;
+}
+/* Individual lang buttons */
+.lang-btn {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 9px 11px;
+  border-radius: 9px;
   cursor: pointer;
-  transition: all .2s;
-  text-align: center;
-  line-height: 1;
+  transition: background .15s;
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
+  background: transparent;
+  border: none;
+  text-align: left;
+  box-sizing: border-box;
 }
-.lang-btn:hover {
-  border-color: var(--accent);
+.lang-btn:hover { background: rgba(0,212,255,.08); }
+.lang-btn.active { background: rgba(0,212,255,.13); }
+.lang-popup-flag { font-size: 15px; line-height: 1; flex-shrink: 0; }
+.lang-popup-name { flex: 1; font-size: 12px; color: var(--text2); }
+.lang-btn.active .lang-popup-name { color: var(--accent); }
+.lang-popup-code {
+  font-size: 10px;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text3);
+  letter-spacing: .6px;
+}
+.lang-btn.active .lang-popup-code { color: var(--accent); }
+/* Active check mark */
+.lang-popup-check {
+  font-size: 11px;
   color: var(--accent);
+  opacity: 0;
+  margin-left: 2px;
 }
-.lang-btn.active {
-  background: rgba(0,212,255,0.12);
-  border-color: var(--accent);
-  color: var(--accent);
+.lang-btn.active .lang-popup-check { opacity: 1; }
+
+/* Study-mode overrides */
+body.study-mode .lang-trigger {
+  background: #fff;
+  border-color: #D1DCF0;
+  color: #555;
 }
-body.study-mode .lang-switcher-fixed {
+body.study-mode .lang-trigger:hover,
+body.study-mode .lang-trigger.open {
+  border-color: #4F46E5;
+  color: #4F46E5;
+  background: rgba(79,70,229,.06);
+  box-shadow: 0 4px 20px rgba(79,70,229,.15);
+}
+body.study-mode .lang-popup {
   background: #fff;
   border-color: #D1DCF0;
 }
-body.study-mode .lang-btn {
-  color: #555;
-}
-body.study-mode .lang-btn.active {
-  background: rgba(79,70,229,0.1);
-  border-color: #4F46E5;
-  color: #4F46E5;
-}
+body.study-mode .lang-btn:hover { background: rgba(79,70,229,.07); }
+body.study-mode .lang-btn.active { background: rgba(79,70,229,.1); }
+body.study-mode .lang-btn.active .lang-popup-name { color: #4F46E5; }
+body.study-mode .lang-btn.active .lang-popup-code { color: #4F46E5; }
+body.study-mode .lang-popup-check { color: #4F46E5; }
+
+/* Mobile sidebar (flat horizontal pills) */
+.lang-switcher-sidebar { display: none; }
 @media (max-width: 768px) {
   .lang-switcher-fixed { display: none; }
   .lang-switcher-sidebar {
     display: flex;
-    gap: 4px;
+    gap: 6px;
     justify-content: center;
     margin-top: 10px;
     padding: 0 12px;
@@ -2781,7 +3197,14 @@ body.study-mode .lang-btn.active {
   .lang-switcher-sidebar .lang-btn {
     flex: 1;
     border: 1px solid var(--border);
+    border-radius: 10px;
+    justify-content: center;
+    gap: 5px;
+    padding: 7px 8px;
   }
+  .lang-switcher-sidebar .lang-popup-name { display: none; }
+  .lang-switcher-sidebar .lang-popup-check { display: none; }
+  .lang-switcher-sidebar .lang-btn.active { border-color: var(--accent); }
 }
 .lang-loading {
   position: fixed;
@@ -3545,11 +3968,405 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 .admin-keygen-row{display:flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:9px 12px}
 .admin-keygen-key{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);flex:1;letter-spacing:.8px;word-break:break-all}
 .admin-keygen-copy{background:transparent;border:1px solid var(--border);color:var(--text2);font-size:10px;padding:4px 9px;border-radius:6px;cursor:pointer;transition:all .2s;font-family:'Syne',sans-serif;white-space:nowrap;flex-shrink:0}
+
+/* ══════════════════════════════════════════════════
+   SUPABASE AUTH MODAL
+   ══════════════════════════════════════════════════ */
+.auth-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);z-index:9999;display:none;align-items:center;justify-content:center}
+.auth-overlay.open{display:flex}
+.auth-modal{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:32px;width:90%;max-width:400px;position:relative}
+.auth-modal-close{position:absolute;top:12px;right:16px;background:none;border:none;color:var(--text2);font-size:20px;cursor:pointer;transition:color .2s}
+.auth-modal-close:hover{color:var(--text)}
+.auth-modal h2{font-size:20px;font-weight:700;color:var(--accent);margin-bottom:4px}
+.auth-modal .auth-subtitle{font-size:13px;color:var(--text2);margin-bottom:20px}
+.auth-tabs{display:flex;gap:0;margin-bottom:20px;border-radius:10px;overflow:hidden;border:1px solid var(--border)}
+.auth-tab{flex:1;padding:10px;text-align:center;font-size:13px;font-weight:600;cursor:pointer;background:var(--surface2);color:var(--text2);border:none;transition:all .2s;font-family:'Syne',sans-serif}
+.auth-tab.active{background:var(--accent);color:#0a0c10}
+.auth-form{display:flex;flex-direction:column;gap:12px}
+.auth-form input{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;color:var(--text);font-size:14px;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s}
+.auth-form input:focus{border-color:var(--accent)}
+.auth-form input::placeholder{color:var(--text3)}
+.auth-submit{background:var(--accent);color:#0a0c10;border:none;border-radius:10px;padding:12px;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;font-family:'Syne',sans-serif}
+.auth-submit:hover{opacity:.9;transform:translateY(-1px)}
+.auth-submit:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.auth-error{font-size:12px;color:var(--danger);display:none;padding:8px 12px;background:rgba(255,71,87,.1);border-radius:8px}
+.auth-error.show{display:block}
+.auth-success{font-size:12px;color:var(--accent3);display:none;padding:8px 12px;background:rgba(127,255,110,.1);border-radius:8px}
+.auth-success.show{display:block}
+.auth-divider{display:flex;align-items:center;gap:12px;margin:4px 0;color:var(--text3);font-size:11px}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+.auth-forgot{font-size:12px;color:var(--accent);cursor:pointer;text-align:right;background:none;border:none;font-family:'Syne',sans-serif}
+.auth-forgot:hover{text-decoration:underline}
+/* Sidebar user button */
+.nav-user-btn{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;margin-bottom:8px;border:2px solid var(--border);background:var(--surface2);color:var(--text2);font-size:16px;font-weight:700;font-family:'Syne',sans-serif}
+.nav-user-btn:hover{border-color:var(--accent);color:var(--accent)}
+.nav-user-btn.logged-in{border-color:var(--accent3);color:var(--accent3);background:rgba(127,255,110,.08)}
+.sidebar:hover .nav-user-label{opacity:1;transform:translateX(0)}
+.nav-user-label{opacity:0;transform:translateX(-8px);transition:all .3s;font-size:12px;color:var(--text2);white-space:nowrap;margin-left:8px}
+.nav-user-row{display:flex;align-items:center;padding:4px 14px;cursor:pointer}
+/* User dropdown */
+.user-dropdown{position:absolute;left:80px;bottom:60px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:8px;min-width:180px;z-index:200;display:none;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.user-dropdown.open{display:block}
+.user-dropdown-item{padding:10px 14px;border-radius:8px;font-size:13px;color:var(--text);cursor:pointer;transition:background .2s;font-family:'Syne',sans-serif}
+.user-dropdown-item:hover{background:var(--surface2)}
+.user-dropdown-item.danger{color:var(--danger)}
+.user-dropdown-email{padding:10px 14px;font-size:11px;color:var(--text3);border-bottom:1px solid var(--border);margin-bottom:4px;word-break:break-all}
+.sync-indicator{font-size:10px;padding:4px 8px;border-radius:6px;position:fixed;bottom:16px;right:16px;z-index:9998;display:none;font-family:'JetBrains Mono',monospace}
+.sync-indicator.syncing{display:block;background:rgba(0,212,255,.1);border:1px solid rgba(0,212,255,.3);color:var(--accent)}
+.sync-indicator.synced{display:block;background:rgba(127,255,110,.1);border:1px solid rgba(127,255,110,.3);color:var(--accent3)}
 .admin-keygen-copy:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ═══════════════════════════════════════
+   FORGOT PASSWORD / KEY RECOVERY STYLES
+   ═══════════════════════════════════════ */
+.forgot-key-link{display:inline-block;margin-top:10px;font-size:11px;color:var(--text3);cursor:pointer;text-decoration:underline;text-underline-offset:3px;transition:color .2s;border:none;background:none;padding:0;font-family:'Syne',sans-serif}
+.forgot-key-link:hover{color:var(--accent)}
+.forgot-key-panel{display:none;margin-top:14px;background:rgba(0,212,255,.04);border:1px solid rgba(0,212,255,.15);border-radius:10px;padding:16px}
+.forgot-key-panel.open{display:block}
+.forgot-key-panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.forgot-key-panel-title{font-size:13px;font-weight:700;color:var(--accent)}
+.forgot-key-close{background:none;border:none;color:var(--text3);font-size:15px;cursor:pointer;padding:0;line-height:1;transition:color .2s}
+.forgot-key-close:hover{color:var(--text)}
+.forgot-key-panel-text{font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:12px}
+.forgot-key-email-input{width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text);font-size:13px;padding:9px 14px;border-radius:8px;outline:none;transition:border-color .2s;box-sizing:border-box;margin-bottom:10px;font-family:'Syne',sans-serif}
+.forgot-key-email-input:focus{border-color:var(--accent)}
+.forgot-key-email-input::placeholder{opacity:.45;font-size:12px}
+.forgot-key-send-btn{width:100%;background:rgba(0,212,255,.12);border:1px solid rgba(0,212,255,.3);color:var(--accent);font-size:12px;font-weight:700;padding:9px 16px;border-radius:8px;cursor:pointer;transition:all .2s;font-family:'Syne',sans-serif}
+.forgot-key-send-btn:hover{background:rgba(0,212,255,.2);border-color:var(--accent)}
+.forgot-key-status{display:none;margin-top:10px;padding:9px 12px;border-radius:7px;font-size:12px;font-weight:600}
+.forgot-key-status.error{background:rgba(255,71,87,.1);border:1px solid rgba(255,71,87,.3);color:#ff4757}
+.forgot-key-status.success{background:rgba(127,255,110,.1);border:1px solid rgba(127,255,110,.3);color:var(--accent3)}
+/* Admin forgot password */
+.admin-forgot-link{display:inline-block;margin-top:8px;font-size:11px;color:var(--text3);cursor:pointer;text-decoration:underline;text-underline-offset:3px;transition:color .2s;border:none;background:none;padding:0;font-family:'Syne',sans-serif}
+.admin-forgot-link:hover{color:var(--gold)}
+.admin-forgot-panel{display:none;margin-top:12px;background:rgba(255,215,0,.04);border:1px solid rgba(255,215,0,.15);border-radius:9px;padding:13px 15px}
+.admin-forgot-panel.open{display:block}
+.admin-forgot-title{font-size:12px;font-weight:700;color:var(--gold);margin-bottom:5px}
+.admin-forgot-text{font-size:11px;color:var(--text2);line-height:1.65}
+.admin-forgot-contact{margin-top:8px;font-size:11px;color:var(--text3)}
+.admin-forgot-contact a{color:var(--gold);text-decoration:underline;text-underline-offset:2px}
+.admin-recovery-form{display:flex;flex-direction:column;gap:7px;margin-top:10px}
+.admin-recovery-input{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,215,0,.2);border-radius:7px;padding:7px 10px;font-size:11px;color:var(--text1);font-family:'Syne',sans-serif;outline:none;box-sizing:border-box;transition:border-color .2s}
+.admin-recovery-input:focus{border-color:rgba(255,215,0,.55)}
+.admin-recovery-textarea{resize:vertical;min-height:60px}
+.admin-recovery-send-btn{margin-top:2px;background:rgba(255,215,0,.12);border:1px solid rgba(255,215,0,.35);border-radius:7px;padding:7px 14px;font-size:11px;font-weight:700;color:var(--gold);font-family:'Syne',sans-serif;cursor:pointer;transition:all .2s;letter-spacing:.3px}
+.admin-recovery-send-btn:hover{background:rgba(255,215,0,.22);border-color:var(--gold)}
+.admin-recovery-send-btn:disabled{opacity:.5;cursor:not-allowed}
+.admin-recovery-status{font-size:11px;min-height:16px;padding:2px 0}
+.admin-recovery-status.ok{color:#4ade80}
+.admin-recovery-status.err{color:#f87171}
+
+/* ══════════════════════════════════════════════════
+   SUPABASE AUTH UPGRADE v2 — Loading Overlay
+   ══════════════════════════════════════════════════ */
+.app-loading-overlay{
+  position:fixed;inset:0;background:var(--bg);z-index:10000;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:20px;transition:opacity .4s ease;
+}
+.app-loading-overlay.hidden{opacity:0;pointer-events:none;}
+.app-loading-logo{width:56px;height:56px;background:linear-gradient(135deg,var(--accent),var(--purple));border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;color:#000;box-shadow:0 0 40px rgba(0,212,255,.25);}
+.app-loading-spinner{
+  width:28px;height:28px;
+  border:2px solid var(--border);
+  border-top-color:var(--accent);
+  border-radius:50%;
+  animation:geo-spin .8s linear infinite;
+}
+@keyframes geo-spin{to{transform:rotate(360deg)}}
+.app-loading-text{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text2);letter-spacing:1.5px;text-transform:uppercase;}
+
+/* ══ USER PLAN BADGE (top-right) ══ */
+.user-plan-badge{
+  display:none;align-items:center;gap:8px;
+  padding:5px 14px;border-radius:20px;
+  font-size:12px;font-weight:700;border:1px solid;
+  font-family:'Syne',sans-serif;letter-spacing:.3px;
+}
+.user-plan-badge.premium{
+  background:linear-gradient(135deg,rgba(255,215,0,.15),rgba(255,140,0,.1));
+  border-color:rgba(255,215,0,.45);color:var(--gold);
+}
+.user-plan-badge.free{
+  background:rgba(0,212,255,.08);
+  border-color:rgba(0,212,255,.25);color:var(--accent);
+}
+.user-plan-upgrade-btn{
+  background:linear-gradient(135deg,#ffd700,#ff8c00);
+  color:#000;border:none;border-radius:8px;
+  padding:3px 10px;font-size:10px;font-weight:800;
+  cursor:pointer;font-family:'Syne',sans-serif;letter-spacing:.3px;
+  transition:all .2s;
+}
+.user-plan-upgrade-btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(255,215,0,.3)}
+
+/* ══ MAGIC LINK TAB ══ */
+.auth-tab-magic-hint{font-size:11px;color:var(--text2);line-height:1.6;margin-bottom:4px;padding:8px 12px;background:rgba(0,212,255,.05);border:1px solid rgba(0,212,255,.15);border-radius:8px;}
+
+/* ══ PAYWALL MODAL BLUR CONTENT ══ */
+[data-premium="true"].premium-blurred,
+[data-premium="1"].premium-blurred{
+  filter:blur(6px);pointer-events:none;user-select:none;
+  position:relative;
+}
+
+/* ══════════════════════════════════════════════════
+   PAYWALL MODAL — full-screen centered overlay
+   ══════════════════════════════════════════════════ */
+.paywall-backdrop{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  background:rgba(0,0,0,.82);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  align-items:center;
+  justify-content:center;
+  padding:16px;
+  box-sizing:border-box;
+  overflow-y:auto;
+  /* Prevent iOS Safari from breaking fixed positioning */
+  -webkit-overflow-scrolling:touch;
+}
+.paywall-backdrop.active{display:flex}
+
+.paywall-modal{
+  background:linear-gradient(180deg,var(--surface) 0%,#0d0f14 100%);
+  border:1px solid rgba(255,215,0,.22);
+  border-radius:22px;
+  padding:36px 32px 28px;
+  max-width:460px;
+  width:100%;
+  max-height:90vh;
+  overflow-y:auto;
+  text-align:center;
+  position:relative;
+  box-shadow:0 32px 80px rgba(0,0,0,.7),0 0 60px rgba(255,215,0,.06);
+  box-sizing:border-box;
+  /* Keep modal in the flow of the flex container so it centres */
+  flex-shrink:0;
+}
+.paywall-close{
+  position:absolute;top:14px;right:16px;
+  background:none;border:none;
+  color:var(--text2);font-size:20px;
+  cursor:pointer;line-height:1;padding:6px;
+  transition:color .2s;border-radius:6px;
+}
+.paywall-close:hover{color:var(--text);background:rgba(255,255,255,.06)}
+
+.paywall-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 14px;border-radius:20px;
+  font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+  background:linear-gradient(135deg,rgba(255,215,0,.15),rgba(168,85,247,.15));
+  border:1px solid rgba(255,215,0,.22);color:var(--gold);
+  margin-bottom:14px;
+}
+.paywall-title{font-size:24px;font-weight:800;margin-bottom:8px;line-height:1.2;color:var(--text)}
+.paywall-title span{
+  background:linear-gradient(135deg,var(--gold),#ffaa00);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.paywall-sub{font-size:13px;color:var(--text2);margin-bottom:24px;line-height:1.7}
+
+.paywall-features{text-align:left;margin-bottom:24px;padding:0;list-style:none}
+.paywall-features li{
+  font-size:13px;color:var(--text);
+  padding:9px 0;
+  border-bottom:1px solid rgba(255,255,255,.06);
+  display:flex;align-items:center;gap:10px;
+}
+.paywall-features li:last-child{border-bottom:none}
+.paywall-features li::before{content:'✦';color:var(--gold);font-size:11px;flex-shrink:0}
+
+.paywall-price{margin-bottom:22px}
+.paywall-price-amount{font-size:34px;font-weight:800;color:var(--text)}
+.paywall-price-period{font-size:13px;color:var(--text3);margin-left:4px}
+.paywall-price-note{font-size:11px;color:var(--text3);margin-top:4px}
+
+.paywall-cta{
+  width:100%;padding:14px 28px;border-radius:12px;
+  font-size:15px;font-weight:800;
+  background:linear-gradient(135deg,var(--gold),#ffaa00);
+  color:#0a0c10;border:none;cursor:pointer;
+  transition:all .2s;font-family:'Syne',sans-serif;
+  letter-spacing:.3px;margin-bottom:10px;display:block;
+}
+.paywall-cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,215,0,.28)}
+.paywall-cta:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+
+.paywall-skip{
+  background:none;border:none;color:var(--text3);
+  font-size:12px;cursor:pointer;
+  font-family:'Syne',sans-serif;transition:color .2s;
+}
+.paywall-skip:hover{color:var(--text2)}
+.paywall-guarantee{
+  margin-top:14px;font-size:10px;color:var(--text3);
+  display:flex;align-items:center;justify-content:center;gap:6px;
+}
+
+/* ── Mobile tweaks ───────────────────────────────── */
+@media(max-width:480px){
+  .paywall-modal{padding:28px 20px 22px;border-radius:18px}
+  .paywall-title{font-size:21px}
+  .paywall-price-amount{font-size:28px}
+}
+
+/* ══════════════════════════════════════════════════
+   PREMIUM LOCK OVERLAY (blur + CTA on locked content)
+   ══════════════════════════════════════════════════ */
+.premium-blur{position:relative;overflow:hidden}
+.premium-blur>*{filter:blur(6px);pointer-events:none;user-select:none}
+.premium-blur::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 30%,rgba(10,12,16,.88) 100%);
+  z-index:5;
+}
+.premium-lock-overlay{
+  position:absolute;bottom:0;left:0;right:0;z-index:6;
+  text-align:center;padding:28px 20px 22px;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+}
+.premium-lock-icon{font-size:30px;opacity:.85}
+.premium-lock-text{font-size:14px;font-weight:700;color:var(--text)}
+.premium-lock-sub{font-size:12px;color:var(--text2);max-width:300px;line-height:1.5}
+.premium-lock-btn{
+  padding:10px 24px;border-radius:10px;font-size:13px;font-weight:700;
+  background:linear-gradient(135deg,var(--gold),#ffaa00);
+  color:#0a0c10;border:none;cursor:pointer;
+  transition:all .2s;font-family:'Syne',sans-serif;
+}
+.premium-lock-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,215,0,.3)}
+
+/* ══════════════════════════════════════════════════
+   MAGIC LINK AUTH STYLES
+   ══════════════════════════════════════════════════ */
+.auth-magic-divider{
+  display:flex;align-items:center;gap:12px;
+  margin:14px 0 10px;color:var(--text3);
+  font-size:11px;text-transform:uppercase;letter-spacing:1px;
+}
+.auth-magic-divider::before,.auth-magic-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+.auth-magic-btn{
+  width:100%;padding:12px;border-radius:10px;
+  font-size:13px;font-weight:600;
+  background:linear-gradient(135deg,rgba(168,85,247,.12),rgba(0,212,255,.12));
+  border:1px solid rgba(168,85,247,.25);color:var(--purple);
+  cursor:pointer;transition:all .2s;font-family:'Syne',sans-serif;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.auth-magic-btn:hover{border-color:var(--purple);background:linear-gradient(135deg,rgba(168,85,247,.2),rgba(0,212,255,.2));transform:translateY(-1px)}
+.auth-magic-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.auth-magic-form{display:flex;flex-direction:column;gap:12px}
+.auth-magic-form input{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:10px;padding:12px 14px;
+  color:var(--text);font-size:14px;font-family:'Inter',sans-serif;
+  outline:none;transition:border-color .2s;
+}
+.auth-magic-form input:focus{border-color:var(--purple)}
+.auth-magic-form input::placeholder{color:var(--text3)}
+.auth-magic-info{font-size:11px;color:var(--text3);text-align:center;line-height:1.5}
+
+/* ══ PLAN BADGE (legacy class kept for JS compat) ══ */
+.plan-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 14px;border-radius:20px;
+  font-size:11px;font-weight:700;
+  font-family:'JetBrains Mono',monospace;letter-spacing:.5px;
+  transition:all .3s;cursor:default;
+}
+.plan-badge.free{background:rgba(138,148,168,.1);border:1px solid rgba(138,148,168,.25);color:var(--text2)}
+.plan-badge.premium{background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.3);color:var(--gold);box-shadow:0 0 16px rgba(255,215,0,.08)}
+.plan-badge-dot{width:6px;height:6px;border-radius:50%}
+.plan-badge.free .plan-badge-dot{background:var(--text3)}
+.plan-badge.premium .plan-badge-dot{background:var(--gold);box-shadow:0 0 6px var(--gold)}
+.plan-badge-upgrade{
+  margin-left:6px;padding:3px 10px;border-radius:12px;
+  font-size:10px;font-weight:700;
+  background:linear-gradient(135deg,var(--accent),var(--purple));
+  color:#0a0c10;border:none;cursor:pointer;
+  transition:all .2s;font-family:'Syne',sans-serif;
+}
+.plan-badge-upgrade:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,212,255,.3)}
 </style>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'strict-dynamic' 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-4RBnzREwSYNP7ZoTZzrAvRFnY9kJ/Waw2QdO826Ck3o='; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' https://images.unsplash.com data: blob: https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://cdn.jsdelivr.net 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-Hzc8Y7d9Uz7gFsdnExr/k7CuKUjfCoVR+Qg82GNveBI='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' https://images.unsplash.com data: blob:; connect-src 'self' https://ftmkgkxzgobgjkasnmxn.supabase.co https://*.supabase.co https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
 </head>
 <body>
+
+<!-- APP LOADING OVERLAY — prevents content flash before premium verification -->
+<div class="app-loading-overlay" id="app-loading-overlay">
+  <div class="app-loading-spinner"></div>
+  <div class="app-loading-text">Loading GeoLearn Japan...</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     SUPABASE AUTH v2 — LOADING OVERLAY
+     Prevents content flash before subscription check.
+     Shown by default; hidden after plan is verified.
+     ══════════════════════════════════════════════════ -->
+<div id="geo-auth-loading" class="app-loading-overlay" role="status" aria-label="Verifying access">
+  <div class="app-loading-logo">GL</div>
+  <div class="app-loading-spinner"></div>
+  <div class="app-loading-text">Verifying access&hellip;</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     SUPABASE AUTH MODAL
+     ══════════════════════════════════════════════════ -->
+<div class="auth-overlay" id="auth-overlay">
+  <div class="auth-modal">
+    <button class="auth-modal-close" data-action="closeAuthModal()">&times;</button>
+    <h2>Welcome Back</h2>
+    <p class="auth-subtitle">Sign in to sync your progress across devices</p>
+
+    <!-- MAGIC LINK (Primary Auth Method) -->
+    <div class="auth-magic-form" id="auth-magic-form">
+      <input type="email" id="auth-email-magic" placeholder="Enter your email address" autocomplete="email">
+      <button class="auth-magic-btn" id="auth-btn-magic" data-action="supaMagicLink()">
+        <span>✨</span> Sign in with Magic Link
+      </button>
+      <div class="auth-magic-info">We'll send a sign-in link to your email — no password needed</div>
+    </div>
+
+    <div class="auth-error" id="auth-error"></div>
+    <div class="auth-success" id="auth-success"></div>
+
+    <div class="auth-magic-divider">or use password</div>
+
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="auth-tab-login" data-action="switchAuthTab('login')">Sign In</button>
+      <button class="auth-tab" id="auth-tab-signup" data-action="switchAuthTab('signup')">Sign Up</button>
+      <button class="auth-tab" id="auth-tab-magic" data-action="switchAuthTab('magic')">✉ Magic Link</button>
+    </div>
+    <!-- LOGIN FORM -->
+    <div class="auth-form" id="auth-form-login">
+      <input type="email" id="auth-email-login" placeholder="Email address" autocomplete="email">
+      <input type="password" id="auth-pass-login" placeholder="Password" autocomplete="current-password">
+      <button class="auth-submit" id="auth-btn-login" data-action="supaSignIn()">Sign In</button>
+      <button class="auth-forgot" data-action="supaResetPassword()">Forgot password?</button>
+    </div>
+    <!-- SIGNUP FORM -->
+    <div class="auth-form" id="auth-form-signup" style="display:none">
+      <input type="email" id="auth-email-signup" placeholder="Email address" autocomplete="email">
+      <input type="password" id="auth-pass-signup" placeholder="Password (min 6 characters)" autocomplete="new-password">
+      <input type="password" id="auth-pass-signup-confirm" placeholder="Confirm password" autocomplete="new-password">
+      <button class="auth-submit" id="auth-btn-signup" data-action="supaSignUp()">Create Account</button>
+    </div>
+    <!-- MAGIC LINK FORM -->
+    <div class="auth-form" id="auth-form-magic" style="display:none">
+      <p class="auth-tab-magic-hint">No password needed. Enter your email and we&apos;ll send a secure one-click sign-in link.</p>
+      <input type="email" id="auth-email-magic" placeholder="Email address" autocomplete="email">
+      <button class="auth-submit" id="auth-btn-magic" data-action="supaSendMagicLink()">Send Magic Link</button>
+    </div>
+  </div>
+</div>
+
+<!-- SYNC INDICATOR -->
+<div class="sync-indicator" id="sync-indicator"></div>
 
 <!-- GA4 Analytics (private - developer only) -->
 <script>
@@ -3593,12 +4410,7 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
 
 <div class="app">
 
-<!-- LANGUAGE SWITCHER (PC: fixed top-right) -->
-<div class="lang-switcher-fixed">
-  <button class="lang-btn active" data-action="switchLang('en')" title="English">EN</button>
-  <button class="lang-btn" data-action="switchLang('ja')" title="日本語">JA</button>
-  <button class="lang-btn" data-action="switchLang('mm')" title="မြန်မာ">MM</button>
-</div>
+<!-- LANGUAGE SWITCHER (moved to header on desktop, sidebar on mobile) -->
 
 <!-- LANGUAGE LOADING INDICATOR -->
 <div class="lang-loading" id="lang-loading">Loading translations...</div>
@@ -3690,12 +4502,33 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
     <span class="nav-icon">⭐</span><span class="nav-label">Activate Premium</span>
   </div>
 
+  <!-- USER AUTH BUTTON -->
+  <div style="flex:1"></div>
+  <div class="nav-user-row" id="nav-user-row" data-action="toggleUserMenu()">
+    <div class="nav-user-btn" id="nav-user-btn" title="Account">?</div>
+    <span class="nav-user-label" id="nav-user-label">Sign In</span>
+  </div>
+  <div class="user-dropdown" id="user-dropdown">
+    <div class="user-dropdown-email" id="user-dropdown-email"></div>
+    <div class="user-dropdown-item" data-action="syncProgressNow()">Sync Progress</div>
+    <div class="user-dropdown-item danger" data-action="supaSignOut()">Sign Out</div>
+  </div>
+
   <!-- OWNER BADGE -->
   <!-- Language Switcher (Mobile: in sidebar) -->
   <div class="lang-switcher-sidebar">
-    <button class="lang-btn active" data-action="switchLang('en')" title="English">EN</button>
-    <button class="lang-btn" data-action="switchLang('ja')" title="日本語">JA</button>
-    <button class="lang-btn" data-action="switchLang('mm')" title="မြန်မာ">MM</button>
+    <button class="lang-btn" data-action="switchLang('en')" title="English">
+      <span class="lang-popup-flag">🇺🇸</span>
+      <span class="lang-popup-code">EN</span>
+    </button>
+    <button class="lang-btn" data-action="switchLang('ja')" title="日本語">
+      <span class="lang-popup-flag">🇯🇵</span>
+      <span class="lang-popup-code">JA</span>
+    </button>
+    <button class="lang-btn" data-action="switchLang('mm')" title="မြန်မာ">
+      <span class="lang-popup-flag">🇲🇲</span>
+      <span class="lang-popup-code">MM</span>
+    </button>
   </div>
   <div class="nav-owner">
     <div class="nav-owner-logo">MYO_Geo_Orgs</div>
@@ -3716,6 +4549,41 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
     <div class="admin-header-badge" id="admin-header-badge">⚙ ADMIN</div>
     <div class="premium-badge" id="premium-header-badge">⭐ Premium Active</div>
     <div class="free-badge" id="free-header-tag" data-action="showPage('activate')">🔓 Upgrade to Premium</div>
+    <!-- SUPABASE USER PLAN BADGE (v2) — shown after subscription is verified -->
+    <div id="user-plan-badge" class="user-plan-badge" style="display:none">
+      <span id="user-plan-badge-text">Free User</span>
+      <button class="user-plan-upgrade-btn" id="user-plan-upgrade-btn" data-action="showPage('activate')">Upgrade</button>
+    </div>
+    <!-- LANGUAGE SWITCHER (PC: inside header) -->
+    <div class="lang-switcher-fixed" id="lang-switcher">
+      <button class="lang-trigger" id="lang-trigger" aria-haspopup="listbox" aria-expanded="false" aria-label="Change language">
+        <span class="lang-trigger-globe">🌐</span>
+        <span class="lang-trigger-label" id="lang-trigger-label">EN</span>
+        <span class="lang-trigger-caret">▾</span>
+      </button>
+      <div class="lang-popup" id="lang-popup" role="listbox" aria-label="Language options">
+        <button class="lang-btn" data-action="switchLang('en')" title="English" role="option">
+          <span class="lang-popup-flag">🇺🇸</span>
+          <span class="lang-popup-name">English</span>
+          <span class="lang-popup-code">EN</span>
+          <span class="lang-popup-check">✓</span>
+        </button>
+        <div class="lang-popup-divider"></div>
+        <button class="lang-btn" data-action="switchLang('ja')" title="日本語" role="option">
+          <span class="lang-popup-flag">🇯🇵</span>
+          <span class="lang-popup-name">日本語</span>
+          <span class="lang-popup-code">JA</span>
+          <span class="lang-popup-check">✓</span>
+        </button>
+        <div class="lang-popup-divider"></div>
+        <button class="lang-btn" data-action="switchLang('mm')" title="မြန်မာ" role="option">
+          <span class="lang-popup-flag">🇲🇲</span>
+          <span class="lang-popup-name">မြန်မာ</span>
+          <span class="lang-popup-code">MM</span>
+          <span class="lang-popup-check">✓</span>
+        </button>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -8360,6 +9228,18 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
         </div>
         <div class="activation-status" id="activation-status" role="alert" aria-live="polite"></div>
       </form>
+      <!-- Forgot license key recovery -->
+      <button class="forgot-key-link" id="forgot-key-link" type="button" aria-expanded="false" aria-controls="forgot-key-panel">Lost your license key?</button>
+      <div class="forgot-key-panel" id="forgot-key-panel" role="region" aria-label="License key recovery">
+        <div class="forgot-key-panel-header">
+          <div class="forgot-key-panel-title">🔑 License Key Recovery</div>
+          <button class="forgot-key-close" id="forgot-key-close" type="button" aria-label="Close recovery panel">✕</button>
+        </div>
+        <div class="forgot-key-panel-text">Enter the email address used when purchasing GeoLearn Premium. We'll open your email client with a pre-filled recovery request to send to our support team.</div>
+        <input type="email" id="forgot-key-email" class="forgot-key-email-input" placeholder="your@email.com" maxlength="128" autocomplete="email" aria-label="Email address for key recovery">
+        <button class="forgot-key-send-btn" id="forgot-key-send-btn" type="button">📧 Send Recovery Request</button>
+        <div class="forgot-key-status" id="forgot-key-status" role="alert" aria-live="polite"></div>
+      </div>
     </div>
 
     <!-- Active state (shown for premium users) -->
@@ -8385,6 +9265,20 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
           <button id="admin-login-btn" class="admin-login-btn">Enter Admin</button>
         </div>
         <div class="admin-status" id="admin-status" role="alert" aria-live="polite"></div>
+        <!-- Forgot admin password -->
+        <button class="admin-forgot-link" id="admin-forgot-link" type="button" aria-expanded="false" aria-controls="admin-forgot-panel">Forgot admin password?</button>
+        <div class="admin-forgot-panel" id="admin-forgot-panel" role="region" aria-label="Admin password recovery">
+          <div class="admin-forgot-title">⚙ Admin Password Recovery</div>
+          <div class="admin-forgot-text">Fill in the form below and your request will be sent directly to the lead developer.</div>
+          <div class="admin-recovery-form" id="admin-recovery-form">
+            <input type="text" id="admin-recovery-name" class="admin-recovery-input" placeholder="Your name" maxlength="80" autocomplete="name">
+            <input type="email" id="admin-recovery-email" class="admin-recovery-input" placeholder="Your email (to receive reply)" maxlength="120" autocomplete="email">
+            <textarea id="admin-recovery-msg" class="admin-recovery-input admin-recovery-textarea" placeholder="Describe your issue (e.g. lost admin password, need access...)" maxlength="500" rows="3"></textarea>
+            <button type="button" id="admin-recovery-send" class="admin-recovery-send-btn">✉ Send Recovery Request</button>
+            <div class="admin-recovery-status" id="admin-recovery-status" role="alert" aria-live="polite"></div>
+          </div>
+          <div class="admin-forgot-contact">Or email directly: <a href="mailto:myonaingtun404@gmail.com">myonaingtun404@gmail.com</a></div>
+        </div>
       </div>
       <div class="admin-active-info" id="admin-active-info">
         <div class="admin-active-info-title">⚙ Admin Mode Active</div>
@@ -8454,6 +9348,33 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
       <button class="btn-premium" data-action="closeUpgradeModal();showPage('activate')">⭐ Get Premium Access</button>
       <button class="btn btn-outline" onclick="closeUpgradeModal()">Continue Free</button>
     </div>
+  </div>
+</div>
+
+<!-- PAYWALL MODAL (SaaS-style premium upgrade) -->
+<div class="paywall-backdrop" id="paywall-modal" role="dialog" aria-modal="true" aria-label="Upgrade to Premium">
+  <div class="paywall-modal">
+    <button class="paywall-close" data-action="closePaywallModal()" aria-label="Close">✕</button>
+    <div class="paywall-badge">✨ PREMIUM</div>
+    <div class="paywall-title">Upgrade to <span>Premium</span></div>
+    <div class="paywall-sub">Unlock the full power of GeoLearn Japan — advanced tools, AI tutoring, simulations, and career roadmaps designed for geotechnical professionals.</div>
+    <ul class="paywall-features">
+      <li>Virtual Geotechnical Lab &amp; Simulations</li>
+      <li>Advanced Field Calculators (SPT, CPT, Consolidation)</li>
+      <li>AI-Powered Tutor &amp; Professor Mode</li>
+      <li>Complete Quiz &amp; Flashcard Library</li>
+      <li>Career Roadmaps &amp; Personalized Study Plans</li>
+      <li>Knowledge Maps, Case Studies &amp; Analytics</li>
+      <li>Daily Focus Challenges &amp; Smart Study</li>
+    </ul>
+    <div class="paywall-price">
+      <span class="paywall-price-amount">$XX</span>
+      <span class="paywall-price-period">/ month</span>
+      <div class="paywall-price-note">Price coming soon — Premium launching soon!</div>
+    </div>
+    <button class="paywall-cta" id="paywall-cta-btn" disabled>Coming Soon — Join Waitlist</button>
+    <button class="paywall-skip" data-action="closePaywallModal()">Continue with Free plan</button>
+    <div class="paywall-guarantee">🔒 Secure payment · Cancel anytime</div>
   </div>
 </div>
 
@@ -8832,6 +9753,123 @@ document.addEventListener('DOMContentLoaded',function(){
 });
 })();
 
+// ============================================================
+// FORGOT PASSWORD / KEY RECOVERY SYSTEM
+// ============================================================
+(function(){
+'use strict';
+
+var SUPPORT_EMAIL='myonaingtun404@gmail.com';
+var ADMIN_EMAIL='myonaingtun404@gmail.com';
+
+function _validateEmail(e){return/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);}
+
+function _showFKStatus(el,msg,type){
+  if(!el)return;
+  el.textContent=msg;
+  el.className='forgot-key-status '+type;
+  el.style.display='block';
+}
+
+function _setupForgotKeyPanel(){
+  var link=document.getElementById('forgot-key-link');
+  var panel=document.getElementById('forgot-key-panel');
+  var closeBtn=document.getElementById('forgot-key-close');
+  var sendBtn=document.getElementById('forgot-key-send-btn');
+  var emailInput=document.getElementById('forgot-key-email');
+  var status=document.getElementById('forgot-key-status');
+  if(!link||!panel)return;
+
+  function _togglePanel(open){
+    panel.classList.toggle('open',open);
+    link.setAttribute('aria-expanded',open?'true':'false');
+    if(open&&emailInput)emailInput.focus();
+  }
+
+  link.addEventListener('click',function(){_togglePanel(!panel.classList.contains('open'));});
+  if(closeBtn){
+    closeBtn.addEventListener('click',function(){_togglePanel(false);});
+  }
+
+  if(sendBtn&&emailInput){
+    function _doSend(){
+      var email=emailInput.value.trim();
+      if(!email){_showFKStatus(status,'Please enter your email address.','error');emailInput.focus();return;}
+      if(!_validateEmail(email)){_showFKStatus(status,'Please enter a valid email address.','error');emailInput.focus();return;}
+      var subject=encodeURIComponent('GeoLearn Premium \u2013 License Key Recovery Request');
+      var body=encodeURIComponent(
+        'Hello GeoLearn Support,\n\n'+
+        'I purchased GeoLearn Premium and have lost my license key.\n\n'+
+        'Purchase email: '+email+'\n\n'+
+        'Please resend my license key to this address.\n\n'+
+        'Thank you.'
+      );
+      var mailto='mailto:'+SUPPORT_EMAIL+'?subject='+subject+'&body='+body;
+      var a=document.createElement('a');
+      a.href=mailto;
+      a.rel='noopener';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      _showFKStatus(status,'\u2713 Your email client is opening. Send the pre-filled message to receive your key.','success');
+      emailInput.value='';
+    }
+    sendBtn.addEventListener('click',_doSend);
+    emailInput.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();_doSend();}});
+  }
+}
+
+function _setupAdminForgotPanel(){
+  var link=document.getElementById('admin-forgot-link');
+  var panel=document.getElementById('admin-forgot-panel');
+  if(!link||!panel)return;
+  link.addEventListener('click',function(){
+    var open=panel.classList.toggle('open');
+    link.setAttribute('aria-expanded',open?'true':'false');
+  });
+  var sendBtn=document.getElementById('admin-recovery-send');
+  if(!sendBtn)return;
+  sendBtn.addEventListener('click',function(){
+    var nameEl=document.getElementById('admin-recovery-name');
+    var emailEl=document.getElementById('admin-recovery-email');
+    var msgEl=document.getElementById('admin-recovery-msg');
+    var statusEl=document.getElementById('admin-recovery-status');
+    var name=(nameEl?nameEl.value.trim():'');
+    var email=(emailEl?emailEl.value.trim():'');
+    var msg=(msgEl?msgEl.value.trim():'');
+    statusEl.className='admin-recovery-status';
+    statusEl.textContent='';
+    if(!name){statusEl.className='admin-recovery-status err';statusEl.textContent='Please enter your name.';return;}
+    if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){statusEl.className='admin-recovery-status err';statusEl.textContent='Please enter a valid email address.';return;}
+    if(!msg){statusEl.className='admin-recovery-status err';statusEl.textContent='Please describe your issue.';return;}
+    var subject=encodeURIComponent('GeoLearn Admin Password Recovery Request');
+    var body=encodeURIComponent(
+      'Admin Password Recovery Request\n'+
+      '================================\n'+
+      'Name: '+name+'\n'+
+      'Reply-to: '+email+'\n'+
+      'Date: '+new Date().toUTCString()+'\n\n'+
+      'Message:\n'+msg+'\n\n'+
+      '-- GeoLearn Japan App'
+    );
+    var mailto='mailto:myonaingtun404@gmail.com?subject='+subject+'&body='+body;
+    sendBtn.disabled=true;
+    statusEl.className='admin-recovery-status ok';
+    statusEl.textContent='Opening your email client...';
+    window.location.href=mailto;
+    setTimeout(function(){
+      sendBtn.disabled=false;
+      statusEl.textContent='If your email client did not open, use the direct link below.';
+    },3000);
+  });
+}
+
+document.addEventListener('DOMContentLoaded',function(){
+  _setupForgotKeyPanel();
+  _setupAdminForgotPanel();
+});
+})();
+
 // ── Input validation helpers ───────────────────────────────────────────
 function safeNum(id, fallback, min, max) {
   const el = document.getElementById(id);
@@ -8849,6 +9887,12 @@ function sanitizeText(s) {
   }
   return escHtml(String(s));
 }
+
+
+
+
+
+
 
 
 
@@ -8942,14 +9986,17 @@ function sanitizeText(s) {
                 'textarea','th','thead','tr','ul'
               ],
               ALLOWED_ATTR: [
-                'class','style','data-action','id','title','type',
-                'value','min','max','step','placeholder','disabled',
-                'checked','selected','for','name','readonly',
+                'class','style','data-action','data-hover-on','data-hover-off',
+                'data-input','data-change','data-keydown','data-premium',
+                'data-i18n','data-i18n-placeholder','data-tid','data-topic-id',
+                'data-done','data-label','data-error',
+                'id','title','type','value','min','max','step','placeholder',
+                'disabled','checked','selected','for','name','readonly',
                 'width','height','src','alt','rows','cols'
               ],
               FORBID_ATTR: [
-                'onerror','onload','onclick','onmouseover','onchange',
-                'onsubmit','onfocus','onblur','onkeydown','onkeyup',
+                'onerror','onload','onclick','onmouseover','onmouseout','onchange',
+                'onsubmit','onfocus','onblur','onkeydown','onkeyup','oninput',
                 'onkeypress','ondblclick','oncontextmenu','onresize'
               ],
               FORBID_TAGS: ['script','object','embed','link','meta','iframe','frame']
@@ -9032,7 +10079,7 @@ function sanitizeText(s) {
       trustedTypes: !!(window.trustedTypes),
       domPurify:    typeof DOMPurify !== 'undefined',
       hardened:     true,
-      built:        '2026-03-20T23:45:54.227Z',
+      built:        '2026-03-24T12:00:10.332Z',
     }),
     writable:     false,
     configurable: false,
@@ -9127,6 +10174,14 @@ function sanitizeText(s) {
       }
       // window.varName = value
       if (/^[a-zA-Z_$][\w$]*$/.test(lhs)) { window[lhs] = rhs; return; }
+      // this.style.prop or this.prop = value
+      if (/^this\./.test(lhs)) {
+        var _parts = lhs.slice(5).split('.');
+        var _obj = el;
+        for (var _k=0; _k<_parts.length-1; _k++) { if(_obj) _obj=_obj[_parts[_k]]; }
+        if (_obj) _obj[_parts[_parts.length-1]] = rhs;
+        return;
+      }
     }
     console.warn('[geolearn] unhandled action:', stmt);
   }
@@ -9170,6 +10225,28 @@ function sanitizeText(s) {
     }
   }, false);
 
+  // Convert oninput → data-input on a DOM subtree
+  function convertOninputs(root) {
+    var els=[];
+    if(root.hasAttribute&&root.hasAttribute('oninput')) els.push(root);
+    if(root.querySelectorAll) root.querySelectorAll('[oninput]').forEach(function(e){ els.push(e); });
+    els.forEach(function(e){
+      e.setAttribute('data-input',e.getAttribute('oninput'));
+      e.removeAttribute('oninput');
+    });
+  }
+
+  // Convert onmouseover/onmouseout → data-hover-on/data-hover-off on a DOM subtree
+  function convertOnmouseovers(root) {
+    var els=[];
+    if(root.querySelectorAll) root.querySelectorAll('[onmouseover],[onmouseout]').forEach(function(e){ els.push(e); });
+    if(root.hasAttribute&&(root.hasAttribute('onmouseover')||root.hasAttribute('onmouseout'))) els.push(root);
+    els.forEach(function(e){
+      if(e.hasAttribute('onmouseover')){ e.setAttribute('data-hover-on',e.getAttribute('onmouseover')); e.removeAttribute('onmouseover'); }
+      if(e.hasAttribute('onmouseout')){ e.setAttribute('data-hover-off',e.getAttribute('onmouseout')); e.removeAttribute('onmouseout'); }
+    });
+  }
+
   // Delegated mouseover/mouseout listeners (data-hover-on / data-hover-off)
   document.addEventListener('mouseover', function(e) {
     var t = e.target;
@@ -9189,6 +10266,14 @@ function sanitizeText(s) {
     var t = e.target;
     if (t && t.hasAttribute && t.hasAttribute('data-change')) {
       execAction(t.getAttribute('data-change'), t);
+    }
+  }, false);
+
+  // Delegated input listener (data-input — replaces oninput on <input>/<textarea>)
+  document.addEventListener('input', function(e) {
+    var t = e.target;
+    if (t && t.hasAttribute && t.hasAttribute('data-input')) {
+      execAction(t.getAttribute('data-input'), t);
     }
   }, false);
 
@@ -9244,12 +10329,16 @@ function sanitizeText(s) {
         m.addedNodes.forEach(function(n) {
           if (n.nodeType === 1) {
             convertOnclicks(n);
+            convertOninputs(n);
+            convertOnmouseovers(n);
             bindImageErrors(n);
           }
         });
       });
     }).observe(document.body, {childList:true, subtree:true});
     convertOnclicks(document.body);
+    convertOninputs(document.body);
+    convertOnmouseovers(document.body);
     bindImageErrors(document);
   }
 
@@ -9322,6 +10411,59 @@ function switchLang(lang) {
     applyLanguage(lang);
   });
 }
+
+// ── LANGUAGE SWITCHER POPUP BEHAVIOUR ──────────────────────────────────
+(function(){
+'use strict';
+var _LABELS = { en: 'EN', ja: 'JA', mm: 'MM' };
+
+function _updateTrigger(lang){
+  var lbl = document.getElementById('lang-trigger-label');
+  if (lbl) lbl.textContent = _LABELS[lang] || lang.toUpperCase();
+}
+
+function _closePopup(){
+  var trigger = document.getElementById('lang-trigger');
+  var popup   = document.getElementById('lang-popup');
+  if (trigger){ trigger.classList.remove('open'); trigger.setAttribute('aria-expanded','false'); }
+  if (popup)  { popup.classList.remove('open'); }
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  var trigger = document.getElementById('lang-trigger');
+  var popup   = document.getElementById('lang-popup');
+
+  // Sync trigger label to the saved language
+  _updateTrigger(localStorage.getItem('geoLang') || 'en');
+
+  if (trigger && popup){
+    trigger.addEventListener('click', function(e){
+      e.stopPropagation();
+      var open = popup.classList.toggle('open');
+      trigger.classList.toggle('open', open);
+      trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    // Close on outside click
+    document.addEventListener('click', function(e){
+      if (!trigger.contains(e.target) && !popup.contains(e.target)) _closePopup();
+    });
+    // Close on Escape
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape') _closePopup();
+    });
+  }
+
+  // Patch switchLang to also update trigger label and close popup
+  var _orig = window.switchLang;
+  if (_orig){
+    window.switchLang = function(lang){
+      _orig(lang);
+      _updateTrigger(lang);
+      _closePopup();
+    };
+  }
+});
+})();
 
 // Load all translation JSON files (returns Promise)
 function loadAllTranslationsPromise(lang) {
@@ -10044,8 +11186,8 @@ function showTopic(id){
   ];
 
   const sectionsHTML=sectionData.map((s,i)=>`
-    <div class="sr-section" id="${s.id}" onclick="focusSection('${s.id}')">
-      <div class="sr-section-header" onclick="toggleSection('${s.id}-body')">
+    <div class="sr-section" id="${s.id}" data-action="focusSection('${s.id}')">
+      <div class="sr-section-header" data-action="toggleSection('${s.id}-body')">
         <div class="sr-section-header-left">
           <span class="sr-section-icon">${s.icon}</span>
           <span class="sr-section-label">${s.label}</span>
@@ -10058,7 +11200,7 @@ function showTopic(id){
   // Equations section
   const eqHTML=`
     <div class="sr-section">
-      <div class="sr-section-header" onclick="toggleSection('eq-body')">
+      <div class="sr-section-header" data-action="toggleSection('eq-body')">
         <div class="sr-section-header-left">
           <span class="sr-section-icon">📐</span>
           <span class="sr-section-label">${_t('label_key_equations')}</span>
@@ -11630,7 +12772,7 @@ function renderQuizQuestion(){
     <div style="font-size:11px;color:var(--accent3);font-family:'JetBrains Mono',monospace;margin-bottom:8px">QUIZ ${quizState.q+1}/${quizState.total} · ${L.title}</div>
     <div style="font-size:14px;font-weight:700;line-height:1.5;margin-bottom:14px">${q.q}</div>
     <div id="qz-opts" style="display:flex;flex-direction:column;gap:8px">
-      ${q.opts.map((o,i)=>`<button onclick="answerQuiz(${i})" style="text-align:left;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:10px 12px;cursor:pointer;font-size:13px;font-family:'Syne',sans-serif;transition:all .2s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="if(!this.dataset.done){this.style.borderColor='var(--border)'}">${String.fromCharCode(65+i)}. ${o}</button>`).join('')}
+      ${q.opts.map((o,i)=>`<button data-action="answerQuiz(${i})" style="text-align:left;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:10px 12px;cursor:pointer;font-size:13px;font-family:'Syne',sans-serif;transition:all .2s" data-hover-on="this.style.borderColor='var(--accent)'" data-hover-off="this.style.borderColor='var(--border)'">${String.fromCharCode(65+i)}. ${o}</button>`).join('')}
     </div>
     <div id="qz-exp" style="display:none;margin-top:10px;padding:10px;background:rgba(0,212,255,0.05);border:1px solid rgba(0,212,255,0.2);border-radius:8px;font-size:13px;color:var(--text2);line-height:1.6"></div>
     <div id="qz-next" style="display:none;margin-top:10px"></div>
@@ -18945,6 +20087,1136 @@ function expandCase(id) {
     stage01UpdateHomeCard();
   });
 })();
+
+// ============================================================
+// SUPABASE BACKEND INTEGRATION
+// Organized into: auth.js, api.js, ui.js, main.js (logical modules)
+// ============================================================
+(function() {
+'use strict';
+
+// ╔════════════════════════════════════════════════════════════╗
+// ║  api.js — Supabase client, queries, and data sync         ║
+// ╚════════════════════════════════════════════════════════════╝
+
+// ── Supabase Client Init ─────────────────────────────
+var SUPABASE_URL = 'https://ftmkgkxzgobgjkasnmxn.supabase.co';
+var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0bWtna3h6Z29iZ2prYXNubXhuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzEwMzk5MDQsImV4cCI6MjA4NjYxNTkwNH0.aux0UErkO2zBsDYfiJvAGFR8RokLKbs_Sr1cGHhMRms';
+
+var supaClient = null;
+try {
+  if (typeof supabase !== 'undefined' && supabase.createClient) {
+    supaClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  }
+} catch(e) { console.warn('Supabase init failed:', e); }
+
+// ── Device Fingerprinting ─────────────────────────────────────
+// Lightweight, privacy-safe device ID: userAgent + language + screen.
+// Not stored in a cookie; reconstructed each session.
+function getDeviceFingerprint() {
+  try {
+    var raw = [
+      navigator.userAgent   || '',
+      navigator.language    || '',
+      screen.width + 'x' + screen.height,
+      screen.colorDepth     || '',
+      new Date().getTimezoneOffset()
+    ].join('|');
+    var hash = 0;
+    for (var i = 0; i < raw.length; i++) {
+      hash = Math.imul(31, hash) + raw.charCodeAt(i) | 0;
+    }
+    return Math.abs(hash).toString(16).padStart(8, '0');
+  } catch(e) {
+    return 'unknown';
+  }
+}
+
+// ── Anonymous Authentication ──────────────────────────────────
+// Silently creates a Supabase anonymous user on first visit.
+// Restores the same identity on every return visit via the
+// persisted session stored by the Supabase JS client (localStorage).
+// No login UI is shown; the user never knows this happened.
+async function signInAnonymously() {
+  if (!supaClient) return null;
+  try {
+    var result = await supaClient.auth.signInAnonymously();
+    if (result.error) throw result.error;
+    var anonUser = result.data && result.data.user;
+    if (anonUser) {
+      // Cache the anonymous user-id so the app can use it immediately
+      try { localStorage.setItem('GeoLearn_Anon_User_Id', anonUser.id); } catch(e) {}
+    }
+    return anonUser;
+  } catch(e) {
+    console.warn('Anonymous sign-in failed:', e);
+    return null;
+  }
+}
+
+// ── Secure License Validation (via Edge Function) ─────────────
+// Replaces the old client-side XOR key check.
+// The Edge Function runs server-side on Supabase infrastructure:
+//   · validates the key exists and is active
+//   · enforces per-device limits
+//   · writes the activation record and upgrades the subscription
+// The frontend NEVER sees the license_keys table directly.
+async function activateLicenseViaEdge(key) {
+  if (!supaClient || !key) return { success: false, error: 'Invalid input' };
+
+  // Ensure there is an active session (anonymous or named)
+  var session = null;
+  try {
+    var sessResp = await supaClient.auth.getSession();
+    session = sessResp.data && sessResp.data.session;
+  } catch(e) {}
+
+  if (!session) {
+    var anonUser = await signInAnonymously();
+    if (!anonUser) return { success: false, error: '認証に失敗しました。Authentication failed.' };
+    try {
+      var sessResp2 = await supaClient.auth.getSession();
+      session = sessResp2.data && sessResp2.data.session;
+    } catch(e) {}
+  }
+
+  if (!session) return { success: false, error: 'No active session. Please refresh and try again.' };
+
+  var fingerprint = getDeviceFingerprint();
+
+  try {
+    var invokeResult = await supaClient.functions.invoke('validate-license', {
+      body: {
+        license_key:        key.trim().toUpperCase(),
+        device_fingerprint: fingerprint
+      }
+    });
+
+    if (invokeResult.error) throw invokeResult.error;
+    var data = invokeResult.data;
+
+    if (data && data.success) {
+      // Mirror premium state to localStorage for offline/fallback compatibility
+      try {
+        localStorage.setItem('GeoLearn_Premium_Status',   'true');
+        localStorage.setItem('GeoLearn_License_Key',       btoa(key.trim().toUpperCase()));
+        localStorage.setItem('GeoLearn_Activation_Date',   new Date().toISOString());
+      } catch(e) {}
+      invalidatePlanCache();
+      return { success: true };
+    } else {
+      return { success: false, error: (data && data.error) || 'Invalid license key.' };
+    }
+  } catch(e) {
+    return { success: false, error: e.message || '検証エラー。Validation error. Please try again.' };
+  }
+}
+
+// ── In-memory user plan cache (NEVER stored in localStorage) ─
+var _cachedUserPlan = null; // 'free' | 'premium' | null
+var _planFetched = false;
+
+// ── Fetch subscription from Supabase ─────────────────
+async function fetchSubscription(userId) {
+  if (!supaClient || !userId) return 'free';
+  try {
+    var { data, error } = await supaClient
+      .from('subscriptions')
+      .select('plan')
+      .eq('user_id', userId)
+      .single();
+
+    if (error && error.code === 'PGRST116') {
+      // No subscription row found — create one with 'free' plan
+      await supaClient.from('subscriptions').insert({
+        user_id: userId,
+        plan: 'free'
+      });
+      return 'free';
+    }
+    if (error) throw error;
+    return (data && data.plan) || 'free';
+  } catch(e) {
+    console.warn('Fetch subscription failed:', e);
+    return 'free';
+  }
+}
+
+// ── Get user plan (always from Supabase, cached in memory) ──
+async function getUserPlan() {
+  if (_planFetched && _cachedUserPlan !== null) return _cachedUserPlan;
+  if (!supaClient) return 'free';
+
+  try {
+    var resp = await supaClient.auth.getSession();
+    var session = resp.data.session;
+    if (!session) {
+      _cachedUserPlan = 'free';
+      _planFetched = true;
+      return 'free';
+    }
+    var plan = await fetchSubscription(session.user.id);
+    _cachedUserPlan = plan;
+    _planFetched = true;
+    return plan;
+  } catch(e) {
+    return 'free';
+  }
+}
+
+// ── Invalidate plan cache (call on auth state change) ────
+function invalidatePlanCache() {
+  _cachedUserPlan = null;
+  _planFetched = false;
+}
+
+// ── localStorage keys to sync ────────────────────────
+var SYNC_KEYS = [
+  'GeoLearn_Premium_Status', 'GeoLearn_License_Key', 'GeoLearn_Activation_Date',
+  'geoLang', 'geoSRS', 'geoSRS_stats', 'geoFCMode',
+  'geolearn-best', 'geolearn-week', 'geolearn_user_profile',
+  'geolearn_grammar_progress', 'geolearn-study-mode'
+];
+var DEEP_KEYS = ['chisei_progress', 'butsuri_progress', 'gishi_progress', 'gijutsu_progress', 'stage01-progress'];
+
+function getAllProgressData() {
+  var data = {};
+  SYNC_KEYS.concat(DEEP_KEYS).forEach(function(key) {
+    var val = localStorage.getItem(key);
+    if (val !== null) data[key] = val;
+  });
+  var today = new Date().toISOString().slice(0,10);
+  var dfp = localStorage.getItem('dfp-state-' + today);
+  if (dfp) data['dfp-state-' + today] = dfp;
+  return data;
+}
+
+function applyProgressData(data) {
+  if (!data || typeof data !== 'object') return;
+  Object.keys(data).forEach(function(key) {
+    if (data[key] !== null && data[key] !== undefined) {
+      localStorage.setItem(key, data[key]);
+    }
+  });
+}
+
+function showSyncStatus(msg, type) {
+  var el = document.getElementById('sync-indicator');
+  if (!el) return;
+  el.textContent = msg;
+  el.className = 'sync-indicator ' + type;
+  if (type === 'synced') {
+    setTimeout(function() { el.className = 'sync-indicator'; }, 2500);
+  }
+}
+
+async function pushProgress() {
+  if (!supaClient) return;
+  var session = null;
+  try {
+    var resp = await supaClient.auth.getSession();
+    session = resp.data.session;
+  } catch(e) {}
+  if (!session) return;
+
+  var progressData = getAllProgressData();
+  showSyncStatus('Syncing...', 'syncing');
+
+  try {
+    var { error } = await supaClient
+      .from('user_progress')
+      .upsert({
+        user_id: session.user.id,
+        progress_data: progressData,
+        updated_at: new Date().toISOString()
+      }, { onConflict: 'user_id' });
+
+    if (error) throw error;
+    showSyncStatus('Synced', 'synced');
+  } catch(e) {
+    console.warn('Push progress failed:', e);
+    showSyncStatus('Sync failed', 'syncing');
+    setTimeout(function() {
+      var el = document.getElementById('sync-indicator');
+      if (el) el.className = 'sync-indicator';
+    }, 3000);
+  }
+}
+
+async function pullProgress() {
+  if (!supaClient) return;
+  var session = null;
+  try {
+    var resp = await supaClient.auth.getSession();
+    session = resp.data.session;
+  } catch(e) {}
+  if (!session) return;
+
+  try {
+    var { data, error } = await supaClient
+      .from('user_progress')
+      .select('progress_data')
+      .eq('user_id', session.user.id)
+      .single();
+
+    if (error && error.code !== 'PGRST116') throw error;
+    if (data && data.progress_data) {
+      applyProgressData(data.progress_data);
+      showSyncStatus('Synced', 'synced');
+    }
+  } catch(e) {
+    console.warn('Pull progress failed:', e);
+  }
+}
+
+async function logAnalyticsEvent(eventName, eventData) {
+  if (!supaClient) return;
+  var session = null;
+  try {
+    var resp = await supaClient.auth.getSession();
+    session = resp.data.session;
+  } catch(e) {}
+
+  try {
+    await supaClient.from('analytics_events').insert({
+      user_id: session ? session.user.id : null,
+      event_name: eventName,
+      event_data: eventData || {},
+      created_at: new Date().toISOString()
+    });
+  } catch(e) {}
+}
+
+var syncTimer = null;
+function schedulePush() {
+  if (syncTimer) clearTimeout(syncTimer);
+  syncTimer = setTimeout(pushProgress, 5000);
+}
+
+var origSetItem = localStorage.setItem.bind(localStorage);
+localStorage.setItem = function(key, value) {
+  origSetItem(key, value);
+  var allKeys = SYNC_KEYS.concat(DEEP_KEYS);
+  if (allKeys.indexOf(key) !== -1 || key.indexOf('dfp-state-') === 0) {
+    schedulePush();
+  }
+};
+
+// ╔════════════════════════════════════════════════════════════╗
+// ║  ui.js — UI updates, plan badge, paywall, premium blur    ║
+// ╚════════════════════════════════════════════════════════════╝
+
+// ── Update plan badge in header ──────────────────────
+function updatePlanBadge(plan) {
+  var badge = document.getElementById('plan-badge');
+  var label = document.getElementById('plan-badge-label');
+  var upgradeBtn = document.getElementById('plan-badge-upgrade-btn');
+  if (!badge) return;
+
+  if (plan === 'premium') {
+    badge.className = 'plan-badge premium';
+    if (label) label.textContent = 'Premium User';
+    if (upgradeBtn) upgradeBtn.style.display = 'none';
+  } else {
+    badge.className = 'plan-badge free';
+    if (label) label.textContent = 'Free User';
+    if (upgradeBtn) upgradeBtn.style.display = '';
+  }
+}
+
+// ── Apply premium access control to content ──────────
+// Adds blur + lock overlay to premium content for free users
+function applyPremiumContentAccess(plan) {
+  var premiumElements = document.querySelectorAll('[data-premium]');
+  premiumElements.forEach(function(el) {
+    // Skip nav items (handled by existing system)
+    if (el.classList.contains('nav-item')) return;
+
+    if (plan === 'premium') {
+      // Show premium content
+      el.classList.remove('premium-blur');
+      var overlay = el.querySelector('.premium-lock-overlay');
+      if (overlay) overlay.remove();
+    } else {
+      // Blur and lock premium content
+      if (!el.classList.contains('premium-blur')) {
+        el.classList.add('premium-blur');
+        // Only add lock overlay if not already present
+        if (!el.querySelector('.premium-lock-overlay')) {
+          var lockHTML = '<div class="premium-lock-overlay">' +
+            '<div class="premium-lock-icon">🔒</div>' +
+            '<div class="premium-lock-text">Premium Content</div>' +
+            '<div class="premium-lock-sub">Upgrade to Premium to unlock this feature</div>' +
+            '<button class="premium-lock-btn" onclick="showPaywallModal()">✨ Upgrade Now</button>' +
+            '</div>';
+          el.insertAdjacentHTML('beforeend', lockHTML);
+        }
+      }
+    }
+  });
+}
+
+// ── Apply full premium state to the app ──────────────
+async function applyFullPremiumState() {
+  var plan = await getUserPlan();
+
+  // Also check local license key as fallback
+  var localPremium = false;
+  try { localPremium = localStorage.getItem('GeoLearn_Premium_Status') === 'true'; } catch(e) {}
+
+  // Premium if Supabase says premium OR local license key is valid
+  var effectivePlan = (plan === 'premium' || localPremium) ? 'premium' : 'free';
+
+  // Update plan badge
+  updatePlanBadge(effectivePlan);
+
+  // Apply content access
+  applyPremiumContentAccess(effectivePlan);
+
+  // Update existing premium system for compatibility
+  document.body.classList.toggle('is-premium', effectivePlan === 'premium');
+  document.body.classList.toggle('is-free', effectivePlan !== 'premium');
+
+  var premBadge = document.getElementById('premium-header-badge');
+  var freeBadge = document.getElementById('free-header-tag');
+  if (premBadge) premBadge.style.display = (effectivePlan === 'premium') ? 'flex' : 'none';
+  if (freeBadge) freeBadge.style.display = (effectivePlan === 'premium') ? 'none' : 'flex';
+
+  var navLocked = document.querySelectorAll('.nav-item[data-premium]');
+  navLocked.forEach(function(n) { n.classList.toggle('nav-locked', effectivePlan !== 'premium'); });
+
+  return effectivePlan;
+}
+
+// ── Paywall modal ────────────────────────────────────
+window.showPaywallModal = function() {
+  var m = document.getElementById('paywall-modal');
+  if (m) m.classList.add('active');
+};
+
+window.closePaywallModal = function() {
+  var m = document.getElementById('paywall-modal');
+  if (m) m.classList.remove('active');
+};
+
+// Close paywall on backdrop click
+document.addEventListener('click', function(e) {
+  var m = document.getElementById('paywall-modal');
+  if (m && e.target === m) closePaywallModal();
+});
+
+// ── Loading overlay ──────────────────────────────────
+function hideLoadingOverlay() {
+  var overlay = document.getElementById('app-loading-overlay');
+  if (overlay) {
+    overlay.classList.add('hidden');
+    setTimeout(function() { overlay.style.display = 'none'; }, 400);
+  }
+}
+
+// ╔════════════════════════════════════════════════════════════╗
+// ║  auth.js — Login, logout, session, magic link             ║
+// ╚════════════════════════════════════════════════════════════╝
+
+function updateAuthUI(user) {
+  var btn = document.getElementById('nav-user-btn');
+  var label = document.getElementById('nav-user-label');
+  var emailEl = document.getElementById('user-dropdown-email');
+
+  if (user) {
+    var initial = (user.email || '?')[0].toUpperCase();
+    if (btn) { btn.textContent = initial; btn.classList.add('logged-in'); btn.title = user.email; }
+    if (label) label.textContent = user.email.split('@')[0];
+    if (emailEl) emailEl.textContent = user.email;
+  } else {
+    if (btn) { btn.textContent = '?'; btn.classList.remove('logged-in'); btn.title = 'Sign In'; }
+    if (label) label.textContent = 'Sign In';
+    if (emailEl) emailEl.textContent = '';
+  }
+}
+
+window.openAuthModal = function() {
+  var overlay = document.getElementById('auth-overlay');
+  if (overlay) overlay.classList.add('open');
+  var errEl = document.getElementById('auth-error');
+  var sucEl = document.getElementById('auth-success');
+  if (errEl) errEl.className = 'auth-error';
+  if (sucEl) sucEl.className = 'auth-success';
+};
+
+window.closeAuthModal = function() {
+  var overlay = document.getElementById('auth-overlay');
+  if (overlay) overlay.classList.remove('open');
+};
+
+window.switchAuthTab = function(tab) {
+  var loginTab = document.getElementById('auth-tab-login');
+  var signupTab = document.getElementById('auth-tab-signup');
+  var loginForm = document.getElementById('auth-form-login');
+  var signupForm = document.getElementById('auth-form-signup');
+  var errEl = document.getElementById('auth-error');
+  var sucEl = document.getElementById('auth-success');
+
+  if (errEl) errEl.className = 'auth-error';
+  if (sucEl) sucEl.className = 'auth-success';
+
+  if (tab === 'login') {
+    loginTab.classList.add('active'); signupTab.classList.remove('active');
+    loginForm.style.display = 'flex'; signupForm.style.display = 'none';
+  } else {
+    signupTab.classList.add('active'); loginTab.classList.remove('active');
+    signupForm.style.display = 'flex'; loginForm.style.display = 'none';
+  }
+};
+
+function showAuthError(msg) {
+  var el = document.getElementById('auth-error');
+  if (el) { el.textContent = msg; el.className = 'auth-error show'; }
+  var sucEl = document.getElementById('auth-success');
+  if (sucEl) sucEl.className = 'auth-success';
+}
+
+function showAuthSuccess(msg) {
+  var el = document.getElementById('auth-success');
+  if (el) { el.textContent = msg; el.className = 'auth-success show'; }
+  var errEl = document.getElementById('auth-error');
+  if (errEl) errEl.className = 'auth-error';
+}
+
+window.toggleUserMenu = function() {
+  if (!supaClient) return;
+  supaClient.auth.getSession().then(function(resp) {
+    var session = resp.data.session;
+    if (!session) {
+      openAuthModal();
+    } else {
+      var dd = document.getElementById('user-dropdown');
+      if (dd) dd.classList.toggle('open');
+    }
+  });
+};
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(e) {
+  var dd = document.getElementById('user-dropdown');
+  var row = document.getElementById('nav-user-row');
+  if (dd && dd.classList.contains('open') && !dd.contains(e.target) && !row.contains(e.target)) {
+    dd.classList.remove('open');
+  }
+});
+
+// ── Magic Link Sign In ───────────────────────────────
+window.supaMagicLink = async function() {
+  if (!supaClient) return showAuthError('Connection not available. Please try again later.');
+  var email = document.getElementById('auth-email-magic').value.trim();
+  if (!email) return showAuthError('Please enter your email address.');
+
+  var btn = document.getElementById('auth-btn-magic');
+  btn.disabled = true; btn.innerHTML = '<span>⏳</span> Sending magic link...';
+
+  try {
+    var { error } = await supaClient.auth.signInWithOtp({
+      email: email,
+      options: {
+        emailRedirectTo: window.location.origin + window.location.pathname
+      }
+    });
+    if (error) throw error;
+    showAuthSuccess('Magic link sent! Check your email inbox and click the link to sign in.');
+    logAnalyticsEvent('magic_link_sent', { email: email.split('@')[1] });
+  } catch(e) {
+    showAuthError(e.message || 'Failed to send magic link. Please try again.');
+  } finally {
+    btn.disabled = false; btn.innerHTML = '<span>✨</span> Sign in with Magic Link';
+  }
+};
+
+// ── Email/Password Sign In ───────────────────────────
+window.supaSignIn = async function() {
+  if (!supaClient) return showAuthError('Connection not available. Please try again later.');
+  var email = document.getElementById('auth-email-login').value.trim();
+  var pass = document.getElementById('auth-pass-login').value;
+
+  if (!email || !pass) return showAuthError('Please enter email and password.');
+
+  var btn = document.getElementById('auth-btn-login');
+  btn.disabled = true; btn.textContent = 'Signing in...';
+
+  try {
+    var { data, error } = await supaClient.auth.signInWithPassword({ email: email, password: pass });
+    if (error) throw error;
+    showAuthSuccess('Signed in successfully!');
+    updateAuthUI(data.user);
+    invalidatePlanCache();
+    await pullProgress();
+    await applyFullPremiumState();
+    logAnalyticsEvent('sign_in', { method: 'email' });
+    setTimeout(closeAuthModal, 800);
+  } catch(e) {
+    showAuthError(e.message || 'Sign in failed. Check your credentials.');
+  } finally {
+    btn.disabled = false; btn.textContent = 'Sign In';
+  }
+};
+
+// ── Email/Password Sign Up ───────────────────────────
+window.supaSignUp = async function() {
+  if (!supaClient) return showAuthError('Connection not available. Please try again later.');
+  var email = document.getElementById('auth-email-signup').value.trim();
+  var pass = document.getElementById('auth-pass-signup').value;
+  var confirm = document.getElementById('auth-pass-signup-confirm').value;
+
+  if (!email || !pass) return showAuthError('Please fill in all fields.');
+  if (pass.length < 6) return showAuthError('Password must be at least 6 characters.');
+  if (pass !== confirm) return showAuthError('Passwords do not match.');
+
+  var btn = document.getElementById('auth-btn-signup');
+  btn.disabled = true; btn.textContent = 'Creating account...';
+
+  try {
+    var { data, error } = await supaClient.auth.signUp({ email: email, password: pass });
+    if (error) throw error;
+    if (data.user && !data.session) {
+      showAuthSuccess('Account created! Check your email to confirm, then sign in.');
+    } else if (data.session) {
+      showAuthSuccess('Account created and signed in!');
+      updateAuthUI(data.user);
+      invalidatePlanCache();
+      await pushProgress();
+      await applyFullPremiumState();
+      logAnalyticsEvent('sign_up', { method: 'email' });
+      setTimeout(closeAuthModal, 1200);
+    }
+  } catch(e) {
+    showAuthError(e.message || 'Sign up failed. Please try again.');
+  } finally {
+    btn.disabled = false; btn.textContent = 'Create Account';
+  }
+};
+
+// ── Password Reset ───────────────────────────────────
+window.supaResetPassword = async function() {
+  if (!supaClient) return showAuthError('Connection not available.');
+  var email = document.getElementById('auth-email-login').value.trim();
+  if (!email) return showAuthError('Enter your email above, then click Forgot password.');
+
+  try {
+    var { error } = await supaClient.auth.resetPasswordForEmail(email, {
+      redirectTo: window.location.origin + window.location.pathname
+    });
+    if (error) throw error;
+    showAuthSuccess('Password reset email sent! Check your inbox.');
+  } catch(e) {
+    showAuthError(e.message || 'Failed to send reset email.');
+  }
+};
+
+// ── Sign Out ─────────────────────────────────────────
+window.supaSignOut = async function() {
+  if (!supaClient) return;
+  try { await supaClient.auth.signOut(); } catch(e) {}
+  updateAuthUI(null);
+  invalidatePlanCache();
+  _cachedUserPlan = 'free';
+  _planFetched = true;
+  updatePlanBadge('free');
+  applyPremiumContentAccess('free');
+  // Reset existing premium system UI
+  if (typeof initPremiumSystem === 'function') initPremiumSystem();
+  var dd = document.getElementById('user-dropdown');
+  if (dd) dd.classList.remove('open');
+  logAnalyticsEvent('sign_out', {});
+};
+
+window.syncProgressNow = async function() {
+  var dd = document.getElementById('user-dropdown');
+  if (dd) dd.classList.remove('open');
+  await pushProgress();
+};
+
+// ╔════════════════════════════════════════════════════════════╗
+// ║  main.js — App initialization, auth state, premium check  ║
+// ╚════════════════════════════════════════════════════════════╝
+
+// ── Override isPremium to use Supabase subscription ──
+// This overrides the localStorage-based isPremium with a
+// Supabase-backed version. The function checks in-memory
+// cache first (populated by applyFullPremiumState).
+var _origIsPremiumFn = window.isPremium;
+window.isPremium = function() {
+  // If plan has been fetched from Supabase, use that
+  if (_planFetched && _cachedUserPlan !== null) {
+    if (_cachedUserPlan === 'premium') return true;
+  }
+  // Fallback to original localStorage-based check (license key)
+  return _origIsPremiumFn ? _origIsPremiumFn() : false;
+};
+
+// ── Override checkPremiumAccess to show paywall ──────
+var _origCheckPremium = window.checkPremiumAccess;
+window.checkPremiumAccess = function(name) {
+  // Admin bypass remains
+  if (typeof isAdmin === 'function' && isAdmin()) return true;
+
+  var pp = window._premiumPages || [];
+  if (pp.indexOf(name) === -1) return true;
+
+  if (isPremium()) return true;
+
+  // Show paywall instead of old upgrade modal
+  showPaywallModal();
+  return false;
+};
+
+// ── Auth state change listener ───────────────────────
+if (supaClient) {
+  supaClient.auth.onAuthStateChange(async function(event, session) {
+    if (session && session.user) {
+      updateAuthUI(session.user);
+      invalidatePlanCache();
+      if (event === 'SIGNED_IN') {
+        await pullProgress();
+      }
+      await applyFullPremiumState();
+    } else {
+      updateAuthUI(null);
+      invalidatePlanCache();
+      _cachedUserPlan = 'free';
+      _planFetched = true;
+      updatePlanBadge('free');
+      applyPremiumContentAccess('free');
+    }
+  });
+
+  // ── Initial session check + premium verification ──
+  // On first visit: silently create an anonymous Supabase user so
+  // progress tracking and license binding work without any login UI.
+  (async function() {
+    try {
+      var resp = await supaClient.auth.getSession();
+      if (resp.data.session) {
+        updateAuthUI(resp.data.session.user);
+        await applyFullPremiumState();
+      } else {
+        // No session — create a silent anonymous identity.
+        // This gives the user a stable user_id for progress sync and
+        // license activation without any visible login flow.
+        var anonUser = await signInAnonymously();
+        if (anonUser) {
+          // Anonymous user created — check if they already have premium
+          // (e.g. activated a key in a previous session via same anon account)
+          await applyFullPremiumState();
+        } else {
+          updatePlanBadge('free');
+        }
+      }
+    } catch(e) {
+      updatePlanBadge('free');
+    }
+    // Remove loading overlay after verification
+    hideLoadingOverlay();
+  })();
+} else {
+  // No Supabase — hide overlay immediately, use local premium
+  hideLoadingOverlay();
+  updatePlanBadge(isPremium() ? 'premium' : 'free');
+}
+
+// ── Fallback: hide overlay after timeout ─────────────
+setTimeout(hideLoadingOverlay, 4000);
+
+// ── Track page views in analytics ────────────────────
+var origShowPage = window.showPage;
+if (typeof origShowPage === 'function') {
+  window.showPage = function(name) {
+    origShowPage(name);
+    logAnalyticsEvent('page_view', { page: name });
+  };
+}
+
+// ── Expose supabase client for auth upgrade module ───
+// SECURITY: anon key is public by design (Supabase Row Level Security enforces access)
+window._geoSupaClient = supaClient;
+
+// ── Expose freemium helpers for cross-IIFE access ────
+// These are consumed by the form override below and by GeoAuth v2.
+window._geoActivateLicense  = activateLicenseViaEdge;
+window._geoGetFingerprint   = getDeviceFingerprint;
+window._geoSignInAnonymous  = signInAnonymously;
+
+})();
+
+// ============================================================
+// SUPABASE AUTH UPGRADE v2.0
+// ── auth.js  → Magic Link + session management
+// ── api.js   → Supabase queries (subscription plan)
+// ── ui.js    → User badge, paywall, plan display
+// ── main.js  → App initialization & orchestration
+// ============================================================
+(function() {
+'use strict';
+
+// ── api.js — Supabase queries ────────────────────────
+// Fetches the user's subscription plan from Supabase.
+// Never reads from localStorage — always server-authoritative.
+async function fetchSubscriptionPlan(userId) {
+  var client = window._geoSupaClient;
+  if (!client || !userId) return 'free';
+  try {
+    var result = await client
+      .from('subscriptions')
+      .select('plan')
+      .eq('user_id', userId)
+      .single();
+    var data = result.data, err = result.error;
+    if (err && err.code !== 'PGRST116') {
+      console.warn('[GeoAuth v2] Subscription fetch error:', err.message);
+      return 'free';
+    }
+    return (data && data.plan === 'premium') ? 'premium' : 'free';
+  } catch(e) {
+    console.warn('[GeoAuth v2] Subscription fetch failed:', e);
+    return 'free';
+  }
+}
+
+// ── auth.js — Session & Magic Link ──────────────────
+// Module-level plan cache — NOT stored in localStorage.
+// Reset on every page load; must be re-fetched from Supabase.
+var _plan = null; // null = not yet verified
+
+// Magic Link: passwordless sign-in via email OTP
+window.supaSendMagicLink = async function() {
+  var client = window._geoSupaClient;
+  if (!client) { _showAuthMsg('error', 'Supabase connection unavailable.'); return; }
+  var emailEl = document.getElementById('auth-email-magic');
+  if (!emailEl) return;
+  var email = emailEl.value.trim();
+  if (!email) { _showAuthMsg('error', 'Please enter your email address.'); return; }
+  var btn = document.getElementById('auth-btn-magic');
+  if (btn) { btn.disabled = true; btn.textContent = 'Sending\u2026'; }
+  try {
+    var result = await client.auth.signInWithOtp({
+      email: email,
+      options: { emailRedirectTo: window.location.origin + window.location.pathname }
+    });
+    if (result.error) throw result.error;
+    _showAuthMsg('success', '\u2713 Magic link sent! Check your email and click the link to sign in.');
+  } catch(e) {
+    _showAuthMsg('error', e.message || 'Failed to send magic link. Please try again.');
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = 'Send Magic Link'; }
+  }
+};
+
+// Extend switchAuthTab to handle 'magic' tab
+var _prevSwitchAuthTab = window.switchAuthTab;
+window.switchAuthTab = function(tab) {
+  var magicForm = document.getElementById('auth-form-magic');
+  var magicTab  = document.getElementById('auth-tab-magic');
+  if (tab === 'magic') {
+    // Hide other tabs/forms
+    var loginTab   = document.getElementById('auth-tab-login');
+    var signupTab  = document.getElementById('auth-tab-signup');
+    var loginForm  = document.getElementById('auth-form-login');
+    var signupForm = document.getElementById('auth-form-signup');
+    if (loginTab)   loginTab.classList.remove('active');
+    if (signupTab)  signupTab.classList.remove('active');
+    if (magicTab)   magicTab.classList.add('active');
+    if (loginForm)  loginForm.style.display  = 'none';
+    if (signupForm) signupForm.style.display = 'none';
+    if (magicForm)  magicForm.style.display  = 'flex';
+    var errEl = document.getElementById('auth-error');
+    var sucEl = document.getElementById('auth-success');
+    if (errEl) errEl.className = 'auth-error';
+    if (sucEl) sucEl.className = 'auth-success';
+  } else {
+    if (magicTab)  magicTab.classList.remove('active');
+    if (magicForm) magicForm.style.display = 'none';
+    if (_prevSwitchAuthTab) _prevSwitchAuthTab(tab);
+  }
+};
+
+function _showAuthMsg(type, msg) {
+  var errEl = document.getElementById('auth-error');
+  var sucEl = document.getElementById('auth-success');
+  if (type === 'error') {
+    if (errEl) { errEl.textContent = msg; errEl.className = 'auth-error show'; }
+    if (sucEl) sucEl.className = 'auth-success';
+  } else {
+    if (sucEl) { sucEl.textContent = msg; sucEl.className = 'auth-success show'; }
+    if (errEl) errEl.className = 'auth-error';
+  }
+}
+
+// ── ui.js — User badge & paywall ────────────────────
+
+function _showLoadingOverlay() {
+  var el = document.getElementById('geo-auth-loading');
+  if (el) { el.classList.remove('hidden'); el.style.display = 'flex'; }
+}
+
+function _hideLoadingOverlay() {
+  var el = document.getElementById('geo-auth-loading');
+  if (!el) return;
+  el.classList.add('hidden');
+  setTimeout(function() { el.style.display = 'none'; }, 420);
+}
+
+// Update the top-right user plan badge
+function _updatePlanBadge(plan, isLoggedIn) {
+  var badge     = document.getElementById('user-plan-badge');
+  var badgeText = document.getElementById('user-plan-badge-text');
+  var upgradeBtn = document.getElementById('user-plan-upgrade-btn');
+  if (!badge) return;
+  if (!isLoggedIn) {
+    badge.style.display = 'none';
+    return;
+  }
+  badge.style.display = 'flex';
+  if (plan === 'premium') {
+    badge.className = 'user-plan-badge premium';
+    if (badgeText)   badgeText.textContent = '\u2B50 Premium User';
+    if (upgradeBtn)  upgradeBtn.style.display = 'none';
+  } else {
+    badge.className = 'user-plan-badge free';
+    if (badgeText)   badgeText.textContent = '\uD83D\uDD13 Free User';
+    if (upgradeBtn)  upgradeBtn.style.display = 'inline-flex';
+  }
+}
+
+// Override isPremium to use server-fetched plan (NOT localStorage)
+var _origIsPremium = window.isPremium;
+window.isPremium = function() {
+  // Admin preview takes highest priority
+  try {
+    if (window.isAdmin && window.isAdmin()) {
+      var p = sessionStorage.getItem('GeoLearn_Admin_Preview');
+      if (p === 'premium') return true;
+      if (p === 'free')    return false;
+    }
+  } catch(e) {}
+  // If plan has been fetched from Supabase, use it
+  if (_plan !== null) return _plan === 'premium';
+  // Fallback to localStorage-based check while loading
+  return _origIsPremium ? _origIsPremium() : false;
+};
+
+// ── main.js — App initialization ────────────────────
+
+// Races a promise against a timeout; rejects with 'timeout' if exceeded
+function _withTimeout(promise, ms) {
+  return Promise.race([
+    promise,
+    new Promise(function(_, reject) {
+      setTimeout(function() { reject(new Error('timeout')); }, ms);
+    })
+  ]);
+}
+
+async function _initAuthV2() {
+  var client = window._geoSupaClient;
+
+  // Hard safety fallback: always hide overlay after 10s on slow/mobile networks
+  var _safetyTimer = setTimeout(function() {
+    if (_plan === null) { _plan = 'free'; }
+    _hideLoadingOverlay();
+  }, 10000);
+
+  if (!client) {
+    // No Supabase client — use localStorage fallback, no loading needed
+    clearTimeout(_safetyTimer);
+    _plan = 'free';
+    _hideLoadingOverlay();
+    return;
+  }
+
+  try {
+    var resp    = await _withTimeout(client.auth.getSession(), 8000);
+    var session = resp.data && resp.data.session;
+
+    if (session && session.user) {
+      // Fetch subscription plan from Supabase (never localStorage)
+      _plan = await _withTimeout(fetchSubscriptionPlan(session.user.id), 5000);
+      _updatePlanBadge(_plan, true);
+    } else {
+      // Not logged in — free tier
+      _plan = 'free';
+      _updatePlanBadge('free', false);
+    }
+  } catch(e) {
+    console.warn('[GeoAuth v2] Init failed:', e);
+    _plan = 'free';
+  }
+
+  clearTimeout(_safetyTimer);
+
+  // Apply the verified plan to premium UI (body classes, nav locks, etc.)
+  if (typeof window.initPremiumSystem === 'function') {
+    window.initPremiumSystem();
+  }
+
+  _hideLoadingOverlay();
+}
+
+// React to auth state changes (login / logout / token refresh)
+var _authClient = window._geoSupaClient;
+if (_authClient) {
+  _authClient.auth.onAuthStateChange(async function(event, session) {
+    if ((event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') && session && session.user) {
+      _plan = await fetchSubscriptionPlan(session.user.id);
+      _updatePlanBadge(_plan, true);
+      if (typeof window.initPremiumSystem === 'function') window.initPremiumSystem();
+    } else if (event === 'SIGNED_OUT') {
+      _plan = 'free';
+      _updatePlanBadge('free', false);
+      if (typeof window.initPremiumSystem === 'function') window.initPremiumSystem();
+    }
+  });
+}
+
+// Initialize on DOM ready — loading overlay prevents content flash
+document.addEventListener('DOMContentLoaded', _initAuthV2);
+
+// ── Anonymous Auth on first visit (freemium UX) ─────
+// If there is no session after _initAuthV2 checks, silently create an
+// anonymous Supabase user so progress sync and license binding work
+// from the very first visit without any visible sign-in prompt.
+document.addEventListener('DOMContentLoaded', async function() {
+  if (!window._geoSupaClient) return;
+  try {
+    var resp = await window._geoSupaClient.auth.getSession();
+    if (!resp.data || !resp.data.session) {
+      if (typeof window._geoSignInAnonymous === 'function') {
+        await window._geoSignInAnonymous();
+      }
+    }
+  } catch(e) {}
+});
+
+})();
+
+// ============================================================
+// LICENSE ACTIVATION FORM — Secure Edge Function Override
+// Replaces the client-side XOR key check with a server-side
+// Supabase Edge Function call (validate-license).
+// Runs last (DOMContentLoaded fires after all inline scripts),
+// so the clone-and-replace pattern safely removes the old handler
+// that was registered by the original premium system.
+// ============================================================
+document.addEventListener('DOMContentLoaded', function() {
+  var origForm = document.getElementById('activation-form');
+  if (!origForm) return;
+
+  // Clone removes all existing event listeners (the old XOR handler)
+  var form = origForm.cloneNode(true);
+  origForm.parentNode.replaceChild(form, origForm);
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    var inp       = document.getElementById('license-key-input');
+    var st        = document.getElementById('activation-status');
+    var submitBtn = form.querySelector('button[type="submit"]');
+    if (!inp) return;
+
+    var key = inp.value.trim();
+    if (!key) {
+      _geoActStatus(st, 'ライセンスキーを入力してください。 / Please enter a license key.', 'error');
+      return;
+    }
+
+    // Loading state
+    _geoActStatus(st, '検証中… / Validating…', '');
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Validating…'; }
+
+    try {
+      // First try local checksum validation (admin-generated keys)
+      if (typeof window.activatePremium === 'function' && window.activatePremium(key)) {
+        _geoActStatus(st,
+          'プレミアム有効化完了！ / Premium activated! Unlocking all features…',
+          'success'
+        );
+        if (typeof window._geoUpdatePlan === 'function') window._geoUpdatePlan('premium');
+        if (typeof window.initPremiumSystem === 'function') window.initPremiumSystem();
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Activate'; }
+        setTimeout(function() {
+          if (typeof showPage === 'function') showPage('home');
+        }, 1600);
+        return;
+      }
+
+      // Use secure Edge Function (exposed by the Supabase IIFE above)
+      var activate = window._geoActivateLicense;
+      if (typeof activate !== 'function') {
+        // Fallback: Edge Function not available (offline/init failed)
+        throw new Error('License validation service unavailable. Please check your connection.');
+      }
+
+      var result = await activate(key);
+
+      if (result.success) {
+        _geoActStatus(st,
+          'プレミアム有効化完了！ / Premium activated! Unlocking all features…',
+          'success'
+        );
+        // Refresh plan badge and body classes
+        if (typeof window._geoUpdatePlan === 'function') window._geoUpdatePlan('premium');
+        if (typeof window.initPremiumSystem === 'function') window.initPremiumSystem();
+        setTimeout(function() {
+          if (typeof showPage === 'function') showPage('home');
+        }, 1600);
+      } else {
+        _geoActStatus(st, result.error || 'Invalid license key. Please check and try again.', 'error');
+      }
+    } catch(err) {
+      _geoActStatus(st,
+        (err && err.message) || 'ネットワークエラー。 / Network error. Please check your connection and try again.',
+        'error'
+      );
+    } finally {
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Activate'; }
+    }
+  });
+
+  // Deactivate button
+  var deactBtn = document.getElementById('deactivate-btn');
+  if (deactBtn) {
+    var newDeact = deactBtn.cloneNode(true);
+    deactBtn.parentNode.replaceChild(newDeact, deactBtn);
+    newDeact.addEventListener('click', async function() {
+      if (!confirm('プレミアムを解除しますか？\nDeactivate Premium? You will lose access to premium features.')) return;
+      // Clear local state
+      if (typeof window.deactivatePremium === 'function') window.deactivatePremium();
+      // Downgrade subscription in Supabase
+      var client = window._geoSupaClient;
+      if (client) {
+        try {
+          var sr = await client.auth.getSession();
+          var ss = sr.data && sr.data.session;
+          if (ss) {
+            await client.from('subscriptions').upsert({
+              user_id:    ss.user.id,
+              plan:       'free',
+              license_key: null,
+              updated_at: new Date().toISOString()
+            }, { onConflict: 'user_id' });
+          }
+        } catch(e) {}
+      }
+      if (typeof window.initPremiumSystem === 'function') window.initPremiumSystem();
+      if (typeof showPage === 'function') showPage('home');
+    });
+  }
+});
+
+// Helper used by the form override above
+function _geoActStatus(el, msg, type) {
+  if (!el) return;
+  el.textContent   = msg;
+  el.className     = 'activation-status' + (type ? ' ' + type : '');
+  el.style.display = 'block';
+}
 
 </script>
 </body>
