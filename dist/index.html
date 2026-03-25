@@ -4128,6 +4128,7 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
   position:fixed;inset:0;background:var(--bg);z-index:10000;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:20px;transition:opacity .4s ease;
+  pointer-events:none;
 }
 .app-loading-overlay.hidden{opacity:0;pointer-events:none;}
 .app-loading-logo{width:56px;height:56px;background:linear-gradient(135deg,var(--accent),var(--purple));border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;color:#000;box-shadow:0 0 40px rgba(0,212,255,.25);}
@@ -4358,7 +4359,7 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 }
 .plan-badge-upgrade:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,212,255,.3)}
 </style>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://cdn.jsdelivr.net 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-qEnaO+bQcpSd4dslIPa7pkWu4twhwRbpxX1REVmoKpk='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' https://images.unsplash.com data: blob:; connect-src 'self' https://ftmkgkxzgobgjkasnmxn.supabase.co https://*.supabase.co https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://cdn.jsdelivr.net 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-kKemtSUB+0Gw6Rvuu4X29Zi6plz1vAeuAcnll/oK96U='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' https://images.unsplash.com data: blob:; connect-src 'self' https://ftmkgkxzgobgjkasnmxn.supabase.co https://*.supabase.co https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
 </head>
 <body>
 
@@ -10197,6 +10198,8 @@ function sanitizeText(s) {
 
 
 
+
+
 // ╔══════════════════════════════════════════════════════════════════════════╗
 // ║                                                                          ║
 // ║   GeoLearn Japan — Geotechnical & Geophysical Engineering Platform       ║
@@ -10365,7 +10368,7 @@ function sanitizeText(s) {
       trustedTypes: !!(window.trustedTypes),
       domPurify:    typeof DOMPurify !== 'undefined',
       hardened:     true,
-      built:        '2026-03-24T12:10:49.693Z',
+      built:        '2026-03-25T12:10:32.231Z',
     }),
     writable:     false,
     configurable: false,
@@ -21306,11 +21309,11 @@ function _withTimeout(promise, ms) {
 async function _initAuthV2() {
   var client = window._geoSupaClient;
 
-  // Hard safety fallback: always hide overlay after 10s on slow/mobile networks
+  // Hard safety fallback: always hide overlay after 4s on slow/mobile networks
   var _safetyTimer = setTimeout(function() {
     if (_plan === null) { _plan = 'free'; }
     _hideLoadingOverlay();
-  }, 10000);
+  }, 4000);
 
   if (!client) {
     // No Supabase client — use localStorage fallback, no loading needed
@@ -21321,7 +21324,7 @@ async function _initAuthV2() {
   }
 
   try {
-    var resp    = await _withTimeout(client.auth.getSession(), 8000);
+    var resp    = await _withTimeout(client.auth.getSession(), 3000);
     var session = resp.data && resp.data.session;
 
     if (session && session.user) {
@@ -21341,8 +21344,12 @@ async function _initAuthV2() {
   clearTimeout(_safetyTimer);
 
   // Apply the verified plan to premium UI (body classes, nav locks, etc.)
-  if (typeof window.initPremiumSystem === 'function') {
-    window.initPremiumSystem();
+  try {
+    if (typeof window.initPremiumSystem === 'function') {
+      window.initPremiumSystem();
+    }
+  } catch(e) {
+    console.warn('[GeoAuth v2] initPremiumSystem failed:', e);
   }
 
   _hideLoadingOverlay();
