@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 
+Sitemap: https://golem7x.github.io/GeoLearn-Japan/sitemap.xml
 Sitemap: https://geolearn-japan.pages.dev/sitemap.xml
