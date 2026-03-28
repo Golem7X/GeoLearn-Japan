@@ -3860,7 +3860,8 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 
 /* Header badges */
 .app-header-actions{display:flex;align-items:center;gap:10px}
-.premium-badge{display:none;align-items:center;gap:6px;background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:.5px}
+.premium-badge{display:none;align-items:center;gap:6px;background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:.5px;cursor:pointer;transition:opacity .2s}
+.premium-badge:hover{opacity:.85}
 .is-premium .premium-badge{display:flex}
 .free-badge{display:none;align-items:center;gap:6px;background:rgba(255,255,255,.07);color:var(--text2);font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px;border:1px solid var(--border);cursor:pointer;transition:all .2s;white-space:nowrap}
 .free-badge:hover{background:rgba(0,212,255,.12);color:var(--accent);border-color:var(--accent)}
@@ -3959,7 +3960,8 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 }
 
 /* Admin header badge */
-.admin-header-badge{display:none;align-items:center;gap:5px;background:rgba(255,215,0,.12);border:1px solid rgba(255,215,0,.35);color:var(--gold);font-size:10px;font-weight:800;padding:3px 10px;border-radius:20px;letter-spacing:1px;text-transform:uppercase}
+.admin-header-badge{display:none;align-items:center;gap:5px;background:rgba(255,215,0,.12);border:1px solid rgba(255,215,0,.35);color:var(--gold);font-size:10px;font-weight:800;padding:3px 10px;border-radius:20px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:background .2s,border-color .2s}
+.admin-header-badge:hover{background:rgba(255,215,0,.22);border-color:var(--gold)}
 .is-admin .admin-header-badge{display:flex}
 
 /* Admin login section on activate page */
@@ -4506,7 +4508,7 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 }
 .plan-badge-upgrade:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,212,255,.3)}
 </style>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://cdn.jsdelivr.net 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-fT/YpWOb46QABdI5W54BbicadEsIR+e1oJtuDICId54='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' https://images.unsplash.com data: blob:; connect-src 'self' https://ftmkgkxzgobgjkasnmxn.supabase.co https://*.supabase.co https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://cdn.jsdelivr.net 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-lIgjG6cdd0WPr6Dsn4f2wWqQlv96Ovly1XYhiSQ2SYo='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' https://images.unsplash.com data: blob:; connect-src 'self' https://ftmkgkxzgobgjkasnmxn.supabase.co https://*.supabase.co https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
 </head>
 <body>
 
@@ -4767,8 +4769,8 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
     <img src="assets/brand/geolearn_logo.svg" alt="GeoLearn by MYO_Geo_Orgs" class="app-header-logo">
   </div>
   <div class="app-header-actions">
-    <div class="admin-header-badge" id="admin-header-badge">⚙ ADMIN</div>
-    <div class="premium-badge" id="premium-header-badge">⭐ Premium Active</div>
+    <div class="admin-header-badge" id="admin-header-badge" data-action="showPage('admin')" style="cursor:pointer">⚙ ADMIN</div>
+    <div class="premium-badge" id="premium-header-badge" data-action="showPage('activate')">⭐ Premium Active</div>
     <div class="free-badge" id="free-header-tag" data-action="showPage('activate')">🔓 Upgrade to Premium</div>
     <!-- SUPABASE USER PLAN BADGE (v2) — shown after subscription is verified -->
     <div id="user-plan-badge" class="user-plan-badge" style="display:none">
@@ -10710,6 +10712,8 @@ function sanitizeText(s) {
 
 
 
+
+
 // ╔══════════════════════════════════════════════════════════════════════════╗
 // ║                                                                          ║
 // ║   GeoLearn Japan — Geotechnical & Geophysical Engineering Platform       ║
@@ -10878,7 +10882,7 @@ function sanitizeText(s) {
       trustedTypes: !!(window.trustedTypes),
       domPurify:    typeof DOMPurify !== 'undefined',
       hardened:     true,
-      built:        '2026-03-28T14:38:35.895Z',
+      built:        '2026-03-28T14:48:44.791Z',
     }),
     writable:     false,
     configurable: false,
