@@ -1,0 +1,52 @@
+## ═══════════════════════════════════════════════════════════════
+## GeoLearn Japan — Supabase Edge Functions Deployment
+## Auto-deploys all Edge Functions to Supabase on push to master.
+##
+## Required GitHub Secret (set once):
+##   SUPABASE_ACCESS_TOKEN — get from:
+##   supabase.com → Account → Access Tokens → Generate New Token
+## ═══════════════════════════════════════════════════════════════
+
+name: Deploy Edge Functions
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'supabase/functions/**'
+  workflow_dispatch:   ## also allow manual trigger from GitHub Actions tab
+
+jobs:
+  deploy:
+    name: Deploy to Supabase
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Supabase CLI
+        uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - name: Deploy validate-license
+        run: supabase functions deploy validate-license --no-verify-jwt --project-ref ftmkgkxzgobgjkasnmxn
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+
+      - name: Deploy generate-license
+        run: supabase functions deploy generate-license --no-verify-jwt --project-ref ftmkgkxzgobgjkasnmxn
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+
+      - name: Deploy paypal-webhook
+        run: supabase functions deploy paypal-webhook --no-verify-jwt --project-ref ftmkgkxzgobgjkasnmxn
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+
+      - name: Deploy approve-payment
+        run: supabase functions deploy approve-payment --no-verify-jwt --project-ref ftmkgkxzgobgjkasnmxn
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
