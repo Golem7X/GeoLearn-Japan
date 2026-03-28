@@ -57,8 +57,11 @@ Deno.serve(async (req: Request) => {
 
   const quantity    = Math.min(Math.max(Number(body.quantity)    || 5,  1), 50)
   const max_devices = Math.min(Math.max(Number(body.max_devices) || 2,  1), 10)
-  const expires_at  = (body.expires_at as string) || null
   const note        = ((body.note as string) || '').slice(0, 100) || null
+
+  // Default to 30 days from now if no expiry provided
+  const thirtyDays = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
+  const expires_at = (body.expires_at as string) || thirtyDays
   const prefix      = ((body.prefix as string) || 'GEOLEARN')
     .toUpperCase()
     .replace(/[^A-Z0-9]/g, '')

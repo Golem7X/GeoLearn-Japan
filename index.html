@@ -9544,12 +9544,12 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
           <input type="number" id="skm-devices" class="ap-skm-input-sm" value="2" min="1" max="10">
         </div>
         <div class="ap-skm-field">
-          <label class="ap-skm-label">Expires (optional)</label>
+          <label class="ap-skm-label">Expires <span style="color:var(--accent3);font-weight:700;text-transform:none;letter-spacing:0">(default: 30 days)</span></label>
           <input type="date" id="skm-expiry" class="ap-skm-input-sm">
         </div>
         <div class="ap-skm-field">
           <label class="ap-skm-label">Note / Batch</label>
-          <input type="text" id="skm-note" class="ap-skm-input-sm" placeholder="e.g. Gumroad Jan 2026" maxlength="80">
+          <input type="text" id="skm-note" class="ap-skm-input-sm" placeholder="e.g. Gumroad Feb 2026" maxlength="80">
         </div>
       </div>
 
@@ -10010,13 +10010,19 @@ window.skmCopyAll = function(){
   });
 };
 
-// Restore secret hint on admin panel open
+// Restore secret hint + pre-fill 30-day expiry on admin panel open
 document.addEventListener('DOMContentLoaded', function(){
   if(sessionStorage.getItem('GeoLearn_AdminSecret')){
     var inp  = document.getElementById('skm-secret');
     var hint = document.getElementById('skm-secret-hint');
     if(inp)  inp.value        = '••••••••';
     if(hint){ hint.textContent='✓ Secret saved for this session'; hint.className='ap-skm-hint ok'; }
+  }
+  // Pre-fill expiry with 30 days from today
+  var expEl = document.getElementById('skm-expiry');
+  if(expEl){
+    var d = new Date(); d.setDate(d.getDate() + 30);
+    expEl.value = d.toISOString().slice(0,10);
   }
 });
 // ─────────────────────────────────────────────────────────────────
