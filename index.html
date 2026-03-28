@@ -21484,7 +21484,7 @@ window.toggleSGDetails = function(method, btn) {
     if(d !== details) d.classList.remove('gk-open');
   });
   // Reset other buttons
-  var methodLabels = { paynow:'Pay with PayNow →', dbs:'Pay with DBS →', uob:'Pay with UOB →', kbzpay:'Pay with KBZPay →' };
+  var methodLabels = { paynow:'Pay with PayNow →', uob:'Pay with UOB →', kbzpay:'Pay with KBZPay →' };
   document.querySelectorAll('.get-key-card .get-key-btn[onclick]').forEach(function(b){
     if(b !== btn){
       var m = Object.keys(methodLabels).find(function(k){ return b.getAttribute('onclick').indexOf(k) !== -1; });
