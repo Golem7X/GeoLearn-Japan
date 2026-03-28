@@ -1,8 +1,9 @@
 // ============================================================
 // GeoLearn Japan — approve-payment Edge Function
 //
-// Admin tool for KBZPay payments. Lists pending requests and
-// approves them (generates key + sends email automatically).
+// Admin tool for Singapore bank payments (PayNow, DBS, UOB).
+// Lists pending requests and approves them (generates key +
+// sends email automatically).
 //
 // Authentication: X-Admin-Secret header = GENERATE_SECRET env var
 //
@@ -94,7 +95,7 @@ Deno.serve(async (req: Request) => {
       used_devices: 0,
       is_active:    true,
       expires_at:   expiresAt,
-      note:         `KBZPay approved — ${request.buyer_email}`,
+      note:         `SG payment (${request.method}) approved — ${request.buyer_email}`,
     })
 
     await supabase.from('payment_requests').update({
