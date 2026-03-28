@@ -4017,6 +4017,22 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 .admin-keygen-hint{margin-top:10px;font-size:10px;color:var(--text3);line-height:1.6;background:rgba(255,215,0,.04);border:1px solid rgba(255,215,0,.1);border-radius:6px;padding:8px 10px}
 .admin-keygen-hint code{font-family:'JetBrains Mono',monospace;color:var(--gold);font-size:10px}
 
+/* ── Pending Payments card ───────────────────────────────────── */
+.ap-pending-list{display:flex;flex-direction:column;gap:8px;max-height:320px;overflow-y:auto}
+.ap-pending-empty{font-size:12px;color:var(--text3);text-align:center;padding:20px}
+.ap-pending-row{display:flex;align-items:center;gap:10px;background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:10px 14px;flex-wrap:wrap}
+.ap-pending-email{font-size:12px;color:var(--text);font-weight:600;flex:1;min-width:120px}
+.ap-pending-method{font-size:10px;font-weight:700;padding:3px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:.5px}
+.ap-pending-method.kbzpay{background:rgba(255,107,53,.12);color:var(--accent2);border:1px solid rgba(255,107,53,.25)}
+.ap-pending-method.paypal{background:rgba(0,112,186,.15);color:#4da6d9;border:1px solid rgba(0,112,186,.3)}
+.ap-pending-amount{font-size:11px;color:var(--text3)}
+.ap-pending-time{font-size:10px;color:var(--text3);white-space:nowrap}
+.ap-pending-approve{background:linear-gradient(135deg,rgba(127,255,110,.18),rgba(0,200,80,.12));border:1px solid rgba(127,255,110,.3);color:var(--accent3);font-size:11px;font-weight:700;padding:5px 12px;border-radius:7px;cursor:pointer;font-family:'Syne',sans-serif;transition:all .2s;white-space:nowrap}
+.ap-pending-approve:hover{background:linear-gradient(135deg,rgba(127,255,110,.3),rgba(0,200,80,.22))}
+.ap-pending-approve:disabled{opacity:.5;cursor:not-allowed}
+.ap-pending-reject{background:none;border:1px solid rgba(255,71,87,.2);color:rgba(255,71,87,.6);font-size:11px;font-weight:600;padding:5px 10px;border-radius:7px;cursor:pointer;font-family:'Syne',sans-serif;transition:all .2s;white-space:nowrap}
+.ap-pending-reject:hover{border-color:#ff4757;color:#ff4757}
+
 /* ── Supabase Key Manager card ────────────────────────────────── */
 .ap-card-full{grid-column:1/-1}
 .ap-skm-field-row{margin-bottom:16px}
@@ -9613,6 +9629,17 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
       <div class="ap-valid-result" id="ap-valid-result"></div>
     </div>
 
+    <!-- PENDING PAYMENTS -->
+    <div class="ap-card ap-card-full">
+      <div class="ap-card-title">⏳ Pending Payments</div>
+      <div class="ap-card-sub">KBZPay payments waiting for approval. Click <strong>Approve</strong> to auto-generate a license key and email it to the buyer instantly.</div>
+      <button class="ap-valid-btn" style="margin-bottom:14px" onclick="apLoadPending()">↻ Refresh</button>
+      <div id="ap-pending-list" class="ap-pending-list">
+        <div class="ap-pending-empty">Click Refresh to load pending payments</div>
+      </div>
+      <div id="ap-pending-status" class="ap-skm-status"></div>
+    </div>
+
     <!-- SUPABASE KEY MANAGER -->
     <div class="ap-card ap-card-full gold-border">
       <div class="ap-card-title">🗝 Supabase Key Manager</div>
@@ -10027,6 +10054,111 @@ document.addEventListener('DOMContentLoaded',function(){
   var vi=document.getElementById('ap-valid-input');
   if(vi){vi.addEventListener('keydown',function(e){if(e.key==='Enter')apValidateKey();});}
 });
+// ─────────────────────────────────────────────────────────────────
+
+// ── Pending Payments (admin panel) ───────────────────────────────
+var APPROVE_EDGE_URL = 'https://ftmkgkxzgobgjkasnmxn.supabase.co/functions/v1/approve-payment';
+
+window.apLoadPending = async function(){
+  var listEl   = document.getElementById('ap-pending-list');
+  var statusEl = document.getElementById('ap-pending-status');
+  var secret   = sessionStorage.getItem('GeoLearn_AdminSecret') || '';
+
+  if(!secret){
+    if(statusEl){ statusEl.textContent='⚠ Enter Admin Secret in the Key Manager section first.'; statusEl.className='ap-skm-status err'; }
+    return;
+  }
+  if(listEl) listEl.innerHTML = '<div class="ap-pending-empty">Loading…</div>';
+  if(statusEl) statusEl.className = 'ap-skm-status';
+
+  try {
+    var resp = await fetch(APPROVE_EDGE_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Admin-Secret': secret },
+      body: JSON.stringify({ action: 'list' })
+    });
+    var data = await resp.json();
+    if(!data.success){ if(statusEl){ statusEl.textContent='✕ ' + data.error; statusEl.className='ap-skm-status err'; } return; }
+
+    if(!data.requests.length){
+      if(listEl) listEl.innerHTML = '<div class="ap-pending-empty">No pending payments ✓</div>';
+      return;
+    }
+    if(listEl){
+      listEl.innerHTML = '';
+      data.requests.forEach(function(r){
+        var timeAgo = apTimeAgo(r.created_at);
+        var row = document.createElement('div');
+        row.className = 'ap-pending-row';
+        row.innerHTML =
+          '<span class="ap-pending-email">' + r.buyer_email + '</span>' +
+          '<span class="ap-pending-method ' + r.method + '">' + r.method + '</span>' +
+          '<span class="ap-pending-amount">' + (r.amount || '') + '</span>' +
+          '<span class="ap-pending-time">' + timeAgo + '</span>' +
+          '<button class="ap-pending-approve" onclick="apApprove(\'' + r.id + '\',this)">✓ Approve</button>' +
+          '<button class="ap-pending-reject"  onclick="apReject(\'' + r.id + '\',this)">✕</button>';
+        listEl.appendChild(row);
+      });
+    }
+  } catch(err){
+    if(statusEl){ statusEl.textContent='✕ Network error: ' + err.message; statusEl.className='ap-skm-status err'; }
+  }
+};
+
+window.apApprove = async function(id, btn){
+  var secret = sessionStorage.getItem('GeoLearn_AdminSecret') || '';
+  if(!secret) return;
+  btn.disabled = true; btn.textContent = 'Sending…';
+  var statusEl = document.getElementById('ap-pending-status');
+
+  try {
+    var resp = await fetch(APPROVE_EDGE_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Admin-Secret': secret },
+      body: JSON.stringify({ action: 'approve', payment_request_id: id })
+    });
+    var data = await resp.json();
+    if(data.success){
+      btn.textContent = '✓ Sent!'; btn.style.opacity = '0.5';
+      var row = btn.closest('.ap-pending-row');
+      if(row) row.style.opacity = '0.4';
+      if(statusEl){ statusEl.textContent = '✓ Key emailed: ' + data.key; statusEl.className = 'ap-skm-status ok'; }
+    } else {
+      btn.disabled = false; btn.textContent = '✓ Approve';
+      if(statusEl){ statusEl.textContent = '✕ ' + data.error; statusEl.className = 'ap-skm-status err'; }
+    }
+  } catch(err){
+    btn.disabled = false; btn.textContent = '✓ Approve';
+    if(statusEl){ statusEl.textContent = '✕ Network error'; statusEl.className = 'ap-skm-status err'; }
+  }
+};
+
+window.apReject = async function(id, btn){
+  var secret = sessionStorage.getItem('GeoLearn_AdminSecret') || '';
+  if(!secret) return;
+  if(!confirm('Reject this payment request?')) return;
+  btn.disabled = true;
+
+  try {
+    await fetch(APPROVE_EDGE_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Admin-Secret': secret },
+      body: JSON.stringify({ action: 'reject', payment_request_id: id })
+    });
+    var row = btn.closest('.ap-pending-row');
+    if(row) row.remove();
+  } catch(e){ btn.disabled = false; }
+};
+
+function apTimeAgo(iso){
+  var diff = Date.now() - new Date(iso).getTime();
+  var mins = Math.floor(diff / 60000);
+  if(mins < 1) return 'just now';
+  if(mins < 60) return mins + 'm ago';
+  var hrs = Math.floor(mins / 60);
+  if(hrs < 24) return hrs + 'h ago';
+  return Math.floor(hrs / 24) + 'd ago';
+}
 // ─────────────────────────────────────────────────────────────────
 
 // ── Supabase Key Manager ──────────────────────────────────────────
@@ -21224,7 +21356,7 @@ window.pwShowDetails = function(method) {
   }
 };
 
-window.pwIvePaid = function(method) {
+window.pwIvePaid = async function(method) {
   var emailId = method === 'paypal' ? 'pw-email-pp' : 'pw-email-kbz';
   var emailEl = document.getElementById(emailId);
   var email   = emailEl ? emailEl.value.trim() : '';
@@ -21235,20 +21367,43 @@ window.pwIvePaid = function(method) {
     return;
   }
 
-  var label   = method === 'paypal' ? 'PayPal ($5 USD)' : 'KBZPay (10,000 MMK)';
-  var subject = encodeURIComponent('GeoLearn Premium - Payment Confirmation');
-  var body    = encodeURIComponent(
-    'Hello,\n\nI have paid for GeoLearn Premium.\n\n' +
-    'Payment method: ' + label + '\n' +
-    'My email: ' + email + '\n\n' +
-    'Please send my license key.\n\nThank you!'
-  );
-  window.open('mailto:' + PAYMENT_EMAIL + '?subject=' + subject + '&body=' + body);
+  var btn = document.querySelector('#pw-panel-' + method + ' .pw-paid-btn');
+  if(btn){ btn.disabled = true; btn.textContent = 'Submitting…'; }
 
-  // Show confirmation
-  document.querySelectorAll('.pw-detail-panel').forEach(function(p){ p.classList.remove('pw-open'); });
-  var conf = document.getElementById('pw-confirmed');
-  if(conf) conf.style.display = 'block';
+  try {
+    // Store payment request in Supabase (anon insert allowed)
+    var client = window._geoSupaClient;
+    if(!client && typeof supabase !== 'undefined'){
+      client = supabase.createClient(
+        'https://ftmkgkxzgobgjkasnmxn.supabase.co',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0bWtna3h6Z29iZ2prYXNubXhuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzEwMzk5MDQsImV4cCI6MjA4NjYxNTkwNH0.aux0UErkO2zBsDYfiJvAGFR8RokLKbs_Sr1cGHhMRms'
+      );
+    }
+    if(!client) throw new Error('Client unavailable');
+
+    var { error } = await client.from('payment_requests').insert({
+      method:      method,
+      buyer_email: email,
+      amount:      method === 'paypal' ? '$5.00 USD' : '10,000 MMK',
+      status:      'pending',
+    });
+    if(error) throw error;
+
+    // Show confirmation
+    document.querySelectorAll('.pw-detail-panel').forEach(function(p){ p.classList.remove('pw-open'); });
+    var conf = document.getElementById('pw-confirmed');
+    if(conf) conf.style.display = 'block';
+
+  } catch(err) {
+    console.error('pwIvePaid error:', err);
+    if(btn){ btn.disabled = false; btn.textContent = 'I\'ve Paid ✓'; }
+    // Fallback: open email client
+    var label   = method === 'paypal' ? 'PayPal ($5 USD)' : 'KBZPay (10,000 MMK)';
+    var subject = encodeURIComponent('GeoLearn Premium - Payment Confirmation');
+    var body    = encodeURIComponent('Hello,\n\nI have paid for GeoLearn Premium.\n\nPayment: ' + label + '\nEmail: ' + email + '\n\nPlease send my license key.\n\nThank you!');
+    window.open('mailto:' + PAYMENT_EMAIL + '?subject=' + subject + '&body=' + body);
+    showNotif('Please check your email app to confirm payment.');
+  }
 };
 
 window.pwCopyNumber = function(btn) {
