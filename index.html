@@ -4023,8 +4023,10 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 .ap-pending-row{display:flex;align-items:center;gap:10px;background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:10px 14px;flex-wrap:wrap}
 .ap-pending-email{font-size:12px;color:var(--text);font-weight:600;flex:1;min-width:120px}
 .ap-pending-method{font-size:10px;font-weight:700;padding:3px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:.5px}
+.ap-pending-method.paynow{background:rgba(220,38,127,.12);color:#e05ca0;border:1px solid rgba(220,38,127,.25)}
+
+.ap-pending-method.uob{background:rgba(0,112,186,.15);color:#4da6d9;border:1px solid rgba(0,112,186,.3)}
 .ap-pending-method.kbzpay{background:rgba(255,107,53,.12);color:var(--accent2);border:1px solid rgba(255,107,53,.25)}
-.ap-pending-method.paypal{background:rgba(0,112,186,.15);color:#4da6d9;border:1px solid rgba(0,112,186,.3)}
 .ap-pending-amount{font-size:11px;color:var(--text3)}
 .ap-pending-time{font-size:10px;color:var(--text3);white-space:nowrap}
 .ap-pending-approve{background:linear-gradient(135deg,rgba(127,255,110,.18),rgba(0,200,80,.12));border:1px solid rgba(127,255,110,.3);color:var(--accent3);font-size:11px;font-weight:700;padding:5px 12px;border-radius:7px;cursor:pointer;font-family:'Syne',sans-serif;transition:all .2s;white-space:nowrap}
@@ -4380,8 +4382,6 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 .pw-detail-panel{display:none;background:rgba(0,0,0,.2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:10px}
 .pw-detail-panel.pw-open{display:block}
 .pw-detail-step{font-size:11px;color:var(--text3);font-weight:600;margin-bottom:8px;letter-spacing:.2px}
-.pw-paypal-btn{display:block;width:100%;background:#0070BA;color:#fff;font-size:13px;font-weight:700;padding:11px;border-radius:8px;text-decoration:none;text-align:center;margin-bottom:12px;font-family:'Syne',sans-serif;transition:background .2s}
-.pw-paypal-btn:hover{background:#005ea6}
 .pw-kbz-number{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid rgba(255,107,53,.3);border-radius:8px;padding:10px 12px;margin-bottom:12px}
 .pw-kbz-num-text{font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:700;color:var(--accent2);flex:1;letter-spacing:1px}
 .pw-kbz-copy{background:none;border:1px solid rgba(255,107,53,.3);color:var(--accent2);font-size:10px;font-weight:600;padding:4px 10px;border-radius:5px;cursor:pointer;font-family:'Syne',sans-serif;transition:all .15s}
@@ -9440,24 +9440,50 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
       <div class="get-key-title">Get a License Key</div>
       <div class="get-key-cards">
         <div class="get-key-card">
-          <div class="get-key-method">💳 PayPal</div>
-          <div class="get-key-price">$5 USD</div>
-          <div class="get-key-region">Worldwide · Credit card · Apple Pay · 1 month</div>
-          <a class="get-key-btn" id="get-key-paypal-link" href="#" target="_blank" rel="noopener noreferrer">Pay with PayPal →</a>
+          <div class="get-key-method">⚡ PayNow</div>
+          <div class="get-key-price">SGD 7</div>
+          <div class="get-key-region">Singapore · Instant transfer · 1 month</div>
+          <button class="get-key-btn" onclick="toggleSGDetails('paynow', this)">Pay with PayNow →</button>
+          <div class="get-key-sg-details" id="get-key-sg-paynow">
+            <div class="get-key-kbz-step">Send SGD 7 via PayNow to:</div>
+            <div class="get-key-kbz-num-row">
+              <span class="get-key-kbz-num" id="get-key-paynow-uen">—</span>
+              <button class="get-key-kbz-copy" onclick="copySGDetail('paynow', this)">Copy</button>
+            </div>
+            <div class="get-key-kbz-step">Then email your transaction ID:</div>
+            <a class="get-key-kbz-email" id="get-key-paynow-email-link" href="#">📧 Send Payment Proof</a>
+          </div>
+        </div>
+
+        <div class="get-key-card">
+          <div class="get-key-method">🏦 UOB Bank</div>
+          <div class="get-key-price">SGD 7</div>
+          <div class="get-key-region">Singapore · Bank transfer · 1 month</div>
+          <button class="get-key-btn" onclick="toggleSGDetails('uob', this)">Pay with UOB →</button>
+          <div class="get-key-sg-details" id="get-key-sg-uob">
+            <div class="get-key-kbz-step">Transfer SGD 7 to UOB account:</div>
+            <div class="get-key-kbz-num-row">
+              <span class="get-key-kbz-num" id="get-key-uob-acc">—</span>
+              <button class="get-key-kbz-copy" onclick="copySGDetail('uob', this)">Copy</button>
+            </div>
+            <div class="get-key-kbz-step">Account name: <span id="get-key-uob-name">—</span></div>
+            <div class="get-key-kbz-step">Then email your transaction ID:</div>
+            <a class="get-key-kbz-email" id="get-key-uob-email-link" href="#">📧 Send Payment Proof</a>
+          </div>
         </div>
         <div class="get-key-card get-key-card-mm">
           <div class="get-key-method">📱 KBZPay</div>
           <div class="get-key-price">10,000 MMK</div>
           <div class="get-key-region">Myanmar only · Mobile wallet · 1 month</div>
-          <button class="get-key-btn" onclick="toggleKBZDetails(this)">Pay with KBZPay →</button>
-          <div class="get-key-kbz-details" id="get-key-kbz-details">
+          <button class="get-key-btn" onclick="toggleSGDetails('kbzpay', this)">Pay with KBZPay →</button>
+          <div class="get-key-sg-details" id="get-key-sg-kbzpay">
             <div class="get-key-kbz-step">Send 10,000 MMK to:</div>
             <div class="get-key-kbz-num-row">
-              <span class="get-key-kbz-num" id="get-key-kbz-num">—</span>
-              <button class="get-key-kbz-copy" onclick="copyKBZActivate(this)">Copy</button>
+              <span class="get-key-kbz-num" id="get-key-kbzpay-uen">—</span>
+              <button class="get-key-kbz-copy" onclick="copySGDetail('kbzpay', this)">Copy</button>
             </div>
             <div class="get-key-kbz-step">Then email your payment proof:</div>
-            <a class="get-key-kbz-email" id="get-key-kbz-email-link" href="#">📧 Send Payment Proof</a>
+            <a class="get-key-kbz-email" id="get-key-kbzpay-email-link" href="#">📧 Send Payment Proof</a>
           </div>
         </div>
       </div>
@@ -9632,7 +9658,7 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
     <!-- PENDING PAYMENTS -->
     <div class="ap-card ap-card-full">
       <div class="ap-card-title">⏳ Pending Payments</div>
-      <div class="ap-card-sub">KBZPay payments waiting for approval. Click <strong>Approve</strong> to auto-generate a license key and email it to the buyer instantly.</div>
+      <div class="ap-card-sub">Singapore bank payments (PayNow, DBS, UOB) waiting for approval. Click <strong>Approve</strong> to auto-generate a license key and email it to the buyer instantly.</div>
       <button class="ap-valid-btn" style="margin-bottom:14px" onclick="apLoadPending()">↻ Refresh</button>
       <div id="ap-pending-list" class="ap-pending-list">
         <div class="ap-pending-empty">Click Refresh to load pending payments</div>
@@ -9763,11 +9789,18 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
     <div class="pw-methods">
       <div class="pw-methods-label">1 month · 2 devices · Choose payment</div>
       <div class="pw-method-cards">
-        <button class="pw-method-card" onclick="pwShowDetails('paypal')">
-          <span class="pw-method-icon">💳</span>
-          <span class="pw-method-name">PayPal</span>
-          <span class="pw-method-price">$5 USD</span>
-          <span class="pw-method-region">Worldwide</span>
+        <button class="pw-method-card" onclick="pwShowDetails('paynow')">
+          <span class="pw-method-icon">⚡</span>
+          <span class="pw-method-name">PayNow</span>
+          <span class="pw-method-price">SGD 7</span>
+          <span class="pw-method-region">Singapore</span>
+        </button>
+
+        <button class="pw-method-card" onclick="pwShowDetails('uob')">
+          <span class="pw-method-icon">🏦</span>
+          <span class="pw-method-name">UOB Bank</span>
+          <span class="pw-method-price">SGD 7</span>
+          <span class="pw-method-region">Singapore</span>
         </button>
         <button class="pw-method-card pw-method-card-mm" onclick="pwShowDetails('kbzpay')">
           <span class="pw-method-icon">📱</span>
@@ -9776,24 +9809,44 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
           <span class="pw-method-region">Myanmar</span>
         </button>
       </div>
-      <div class="pw-detail-panel" id="pw-panel-paypal">
-        <div class="pw-detail-step">Step 1 — Click below to pay $5 via PayPal</div>
-        <a class="pw-paypal-btn" href="#" id="pw-paypal-link" target="_blank" rel="noopener noreferrer">Open PayPal →</a>
-        <div class="pw-detail-step">Step 2 — Enter your email to receive the license key</div>
+      <div class="pw-detail-panel" id="pw-panel-paynow">
+        <div class="pw-detail-step">Step 1 — Send SGD 7 via PayNow to</div>
+        <div class="pw-kbz-number">
+          <span id="pw-paynow-uen" class="pw-kbz-num-text">—</span>
+          <button class="pw-kbz-copy" onclick="pwCopySG('paynow',this)">Copy</button>
+        </div>
+        <div class="pw-detail-step">Step 2 — Enter your email &amp; transaction ID</div>
         <div class="pw-detail-input-row">
-          <input type="email" id="pw-email-pp" class="pw-detail-email" placeholder="your@email.com" autocomplete="email">
-          <button class="pw-paid-btn" onclick="pwIvePaid('paypal')">I've Paid ✓</button>
+          <input type="email" id="pw-email-paynow" class="pw-detail-email" placeholder="your@email.com" autocomplete="email">
+          <input type="text" id="pw-txn-paynow" class="pw-detail-email" placeholder="Transaction ID" style="margin-top:6px">
+          <button class="pw-paid-btn" onclick="pwIvePaid('paynow')">I've Paid ✓</button>
+        </div>
+      </div>
+
+      <div class="pw-detail-panel" id="pw-panel-uob">
+        <div class="pw-detail-step">Step 1 — Transfer SGD 7 to UOB account</div>
+        <div class="pw-kbz-number">
+          <span id="pw-uob-acc" class="pw-kbz-num-text">—</span>
+          <button class="pw-kbz-copy" onclick="pwCopySG('uob',this)">Copy</button>
+        </div>
+        <div class="pw-detail-step">Account name: <span id="pw-uob-name">—</span></div>
+        <div class="pw-detail-step">Step 2 — Enter your email &amp; transaction ID</div>
+        <div class="pw-detail-input-row">
+          <input type="email" id="pw-email-uob" class="pw-detail-email" placeholder="your@email.com" autocomplete="email">
+          <input type="text" id="pw-txn-uob" class="pw-detail-email" placeholder="Transaction ID" style="margin-top:6px">
+          <button class="pw-paid-btn" onclick="pwIvePaid('uob')">I've Paid ✓</button>
         </div>
       </div>
       <div class="pw-detail-panel" id="pw-panel-kbzpay">
         <div class="pw-detail-step">Step 1 — Send 10,000 MMK to KBZPay number</div>
         <div class="pw-kbz-number">
-          <span id="pw-kbz-num" class="pw-kbz-num-text">—</span>
-          <button class="pw-kbz-copy" onclick="pwCopyNumber(this)">Copy</button>
+          <span id="pw-kbzpay-uen" class="pw-kbz-num-text">—</span>
+          <button class="pw-kbz-copy" onclick="pwCopySG('kbzpay',this)">Copy</button>
         </div>
-        <div class="pw-detail-step">Step 2 — Enter your email to receive the license key</div>
+        <div class="pw-detail-step">Step 2 — Enter your email &amp; transaction reference</div>
         <div class="pw-detail-input-row">
-          <input type="email" id="pw-email-kbz" class="pw-detail-email" placeholder="your@email.com" autocomplete="email">
+          <input type="email" id="pw-email-kbzpay" class="pw-detail-email" placeholder="your@email.com" autocomplete="email">
+          <input type="text" id="pw-txn-kbzpay" class="pw-detail-email" placeholder="Transaction reference" style="margin-top:6px">
           <button class="pw-paid-btn pw-paid-btn-mm" onclick="pwIvePaid('kbzpay')">I've Paid ✓</button>
         </div>
       </div>
@@ -21326,19 +21379,27 @@ window.closePaywallModal = function() {
 };
 
 // ── Payment Config ────────────────────────────────────────────────
-var PAYPAL_ME_URL   = 'https://paypal.me/MYO_Geo_Orgs/5USD';
-var KBZPAY_NUMBER   = '09250333177';
-var PAYMENT_EMAIL   = 'myonaingtun404@gmail.com';
+// TODO: Fill in your actual Singapore bank details below
+var PAYNOW_UEN    = '83105164';
+var UOB_ACCOUNT   = '5183708768';
+var UOB_NAME      = 'Arkar Hein';
+var SG_PRICE      = 'SGD 7';
+var KBZPAY_NUMBER = '09250333177';
+var PAYMENT_EMAIL = 'myonaingtun404@gmail.com';
 
-// ── Payment UI functions ──────────────────────────────────────────
+var _SG_VALUES = {
+  paynow: { value: PAYNOW_UEN,    name: null,     amount: SG_PRICE,      label: 'PayNow (' + SG_PRICE + ')' },
+  uob:    { value: UOB_ACCOUNT,   name: UOB_NAME, amount: SG_PRICE,      label: 'UOB Bank (' + SG_PRICE + ')' },
+  kbzpay: { value: KBZPAY_NUMBER, name: null,     amount: '10,000 MMK',  label: 'KBZPay (10,000 MMK)' },
+};
+
+// ── Paywall modal payment UI ──────────────────────────────────────
 window.pwShowDetails = function(method) {
-  // Deactivate all
   document.querySelectorAll('.pw-detail-panel').forEach(function(p){ p.classList.remove('pw-open'); });
   document.querySelectorAll('.pw-method-card').forEach(function(c){ c.classList.remove('pw-active'); });
   var conf = document.getElementById('pw-confirmed');
   if(conf) conf.style.display = 'none';
 
-  // Activate chosen panel + card
   var panel = document.getElementById('pw-panel-' + method);
   if(panel) panel.classList.add('pw-open');
   document.querySelectorAll('.pw-method-card').forEach(function(c){
@@ -21346,20 +21407,21 @@ window.pwShowDetails = function(method) {
   });
 
   // Inject live values
-  if(method === 'paypal'){
-    var link = document.getElementById('pw-paypal-link');
-    if(link) link.href = PAYPAL_ME_URL;
-  }
-  if(method === 'kbzpay'){
-    var numEl = document.getElementById('pw-kbz-num');
-    if(numEl) numEl.textContent = KBZPAY_NUMBER;
+  var cfg = _SG_VALUES[method];
+  if(!cfg) return;
+  var valEl = document.getElementById('pw-' + method + (method === 'paynow' || method === 'kbzpay' ? '-uen' : '-acc'));
+  if(valEl) valEl.textContent = cfg.value;
+  if(cfg.name){
+    var nameEl = document.getElementById('pw-' + method + '-name');
+    if(nameEl) nameEl.textContent = cfg.name;
   }
 };
 
 window.pwIvePaid = async function(method) {
-  var emailId = method === 'paypal' ? 'pw-email-pp' : 'pw-email-kbz';
-  var emailEl = document.getElementById(emailId);
+  var emailEl = document.getElementById('pw-email-' + method);
+  var txnEl   = document.getElementById('pw-txn-' + method);
   var email   = emailEl ? emailEl.value.trim() : '';
+  var txnRef  = txnEl   ? txnEl.value.trim()   : '';
 
   if(!email || email.indexOf('@') === -1){
     showNotif('Please enter a valid email address.');
@@ -21371,7 +21433,6 @@ window.pwIvePaid = async function(method) {
   if(btn){ btn.disabled = true; btn.textContent = 'Submitting…'; }
 
   try {
-    // Store payment request in Supabase (anon insert allowed)
     var client = window._geoSupaClient;
     if(!client && typeof supabase !== 'undefined'){
       client = supabase.createClient(
@@ -21384,69 +21445,80 @@ window.pwIvePaid = async function(method) {
     var { error } = await client.from('payment_requests').insert({
       method:      method,
       buyer_email: email,
-      amount:      method === 'paypal' ? '$5.00 USD' : '10,000 MMK',
+      txn_ref:     txnRef || null,
+      amount:      (_SG_VALUES[method] || {}).amount || SG_PRICE,
       status:      'pending',
     });
     if(error) throw error;
 
-    // Show confirmation
     document.querySelectorAll('.pw-detail-panel').forEach(function(p){ p.classList.remove('pw-open'); });
     var conf = document.getElementById('pw-confirmed');
     if(conf) conf.style.display = 'block';
 
   } catch(err) {
     console.error('pwIvePaid error:', err);
-    if(btn){ btn.disabled = false; btn.textContent = 'I\'ve Paid ✓'; }
-    // Fallback: open email client
-    var label   = method === 'paypal' ? 'PayPal ($5 USD)' : 'KBZPay (10,000 MMK)';
+    if(btn){ btn.disabled = false; btn.textContent = "I've Paid ✓"; }
+    var label   = (_SG_VALUES[method] || {}).label || method;
     var subject = encodeURIComponent('GeoLearn Premium - Payment Confirmation');
-    var body    = encodeURIComponent('Hello,\n\nI have paid for GeoLearn Premium.\n\nPayment: ' + label + '\nEmail: ' + email + '\n\nPlease send my license key.\n\nThank you!');
+    var body    = encodeURIComponent('Hello,\n\nI have paid for GeoLearn Premium.\n\nPayment: ' + label + '\nEmail: ' + email + '\nTransaction ID: ' + txnRef + '\n\nPlease send my license key.\n\nThank you!');
     window.open('mailto:' + PAYMENT_EMAIL + '?subject=' + subject + '&body=' + body);
     showNotif('Please check your email app to confirm payment.');
   }
 };
 
-window.pwCopyNumber = function(btn) {
+window.pwCopySG = function(method, btn) {
+  var val = (_SG_VALUES[method] || {}).value || '';
   function done(){ btn.textContent='Copied!'; setTimeout(function(){ btn.textContent='Copy'; }, 2000); }
-  navigator.clipboard.writeText(KBZPAY_NUMBER).then(done).catch(function(){
-    var ta=document.createElement('textarea'); ta.value=KBZPAY_NUMBER; ta.style.cssText='position:fixed;opacity:0';
+  navigator.clipboard.writeText(val).then(done).catch(function(){
+    var ta=document.createElement('textarea'); ta.value=val; ta.style.cssText='position:fixed;opacity:0';
     document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); done();
   });
 };
 
 // ── Activate-page payment helpers ────────────────────────────────
-window.toggleKBZDetails = function(btn) {
-  var details = document.getElementById('get-key-kbz-details');
+window.toggleSGDetails = function(method, btn) {
+  var details = document.getElementById('get-key-sg-' + method);
   if(!details) return;
+  // Close other open panels first
+  document.querySelectorAll('.get-key-sg-details').forEach(function(d){
+    if(d !== details) d.classList.remove('gk-open');
+  });
+  // Reset other buttons
+  var methodLabels = { paynow:'Pay with PayNow →', uob:'Pay with UOB →', kbzpay:'Pay with KBZPay →' };
+  document.querySelectorAll('.get-key-card .get-key-btn[onclick]').forEach(function(b){
+    if(b !== btn){
+      var m = Object.keys(methodLabels).find(function(k){ return b.getAttribute('onclick').indexOf(k) !== -1; });
+      if(m) b.textContent = methodLabels[m];
+    }
+  });
   details.classList.toggle('gk-open');
   var isOpen = details.classList.contains('gk-open');
-  btn.textContent = isOpen ? 'Hide Details ↑' : 'Pay with KBZPay →';
+  btn.textContent = isOpen ? 'Hide Details ↑' : (methodLabels[method] || 'Pay →');
   if(isOpen){
-    var numEl = document.getElementById('get-key-kbz-num');
-    if(numEl) numEl.textContent = KBZPAY_NUMBER;
+    var cfg = _SG_VALUES[method];
+    if(!cfg) return;
+    var numEl = document.getElementById('get-key-' + method + (method === 'paynow' || method === 'kbzpay' ? '-uen' : '-acc'));
+    if(numEl) numEl.textContent = cfg.value;
+    var nameEl = document.getElementById('get-key-' + method + '-name');
+    if(nameEl && cfg.name) nameEl.textContent = cfg.name;
+    // Set email link
+    var mailEl = document.getElementById('get-key-' + method + '-email-link');
+    if(mailEl){
+      var sub  = encodeURIComponent('GeoLearn Premium - ' + cfg.label + ' Payment');
+      var body = encodeURIComponent('Hi,\n\nI paid ' + SG_PRICE + ' via ' + cfg.label + '.\n\nTransaction ID: \nMy email: \n\nPlease send my license key.\n\nThank you!');
+      mailEl.href = 'mailto:' + PAYMENT_EMAIL + '?subject=' + sub + '&body=' + body;
+    }
   }
 };
 
-window.copyKBZActivate = function(btn) {
+window.copySGDetail = function(method, btn) {
+  var val = (_SG_VALUES[method] || {}).value || '';
   function done(){ btn.textContent='Copied!'; setTimeout(function(){ btn.textContent='Copy'; }, 2000); }
-  navigator.clipboard.writeText(KBZPAY_NUMBER).then(done).catch(function(){
-    var ta=document.createElement('textarea'); ta.value=KBZPAY_NUMBER; ta.style.cssText='position:fixed;opacity:0';
+  navigator.clipboard.writeText(val).then(done).catch(function(){
+    var ta=document.createElement('textarea'); ta.value=val; ta.style.cssText='position:fixed;opacity:0';
     document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); done();
   });
 };
-
-// Set PayPal link and KBZPay email on page load
-document.addEventListener('DOMContentLoaded', function(){
-  var ppLink = document.getElementById('get-key-paypal-link');
-  if(ppLink) ppLink.href = PAYPAL_ME_URL;
-
-  var kbzMailEl = document.getElementById('get-key-kbz-email-link');
-  if(kbzMailEl){
-    var sub  = encodeURIComponent('GeoLearn Premium - KBZPay Payment');
-    var body = encodeURIComponent('Hi,\n\nI paid 10,000 MMK via KBZPay.\n\nTransaction reference: \nMy email: \n\nPlease send my license key.\n\nThank you!');
-    kbzMailEl.href = 'mailto:' + PAYMENT_EMAIL + '?subject=' + sub + '&body=' + body;
-  }
-});
 
 // Close paywall on backdrop click
 document.addEventListener('click', function(e) {

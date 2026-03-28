@@ -5,10 +5,10 @@
 
 CREATE TABLE IF NOT EXISTS payment_requests (
   id           uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-  method       text NOT NULL CHECK (method IN ('paypal', 'kbzpay')),
+  method       text NOT NULL CHECK (method IN ('paynow', 'uob', 'kbzpay')),
   buyer_email  text NOT NULL,
-  txn_ref      text,                  -- PayPal transaction ID or KBZPay ref
-  amount       text,                  -- '$5.00 USD' or '10,000 MMK'
+  txn_ref      text,                  -- transaction reference / ID
+  amount       text,                  -- e.g. 'SGD 7' or '10,000 MMK'
   status       text DEFAULT 'pending' CHECK (status IN ('pending', 'approved', 'rejected')),
   license_key  text,                  -- filled after approval
   created_at   timestamptz DEFAULT now(),
