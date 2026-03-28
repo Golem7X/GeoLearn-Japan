@@ -4017,6 +4017,43 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 .admin-keygen-hint{margin-top:10px;font-size:10px;color:var(--text3);line-height:1.6;background:rgba(255,215,0,.04);border:1px solid rgba(255,215,0,.1);border-radius:6px;padding:8px 10px}
 .admin-keygen-hint code{font-family:'JetBrains Mono',monospace;color:var(--gold);font-size:10px}
 
+/* ── Supabase Key Manager card ────────────────────────────────── */
+.ap-card-full{grid-column:1/-1}
+.ap-skm-field-row{margin-bottom:16px}
+.ap-skm-label{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;display:block;margin-bottom:6px}
+.ap-skm-input-row{display:flex;gap:8px}
+.ap-skm-input{flex:1;background:var(--surface);border:1px solid rgba(255,215,0,.2);color:var(--text);font-family:'JetBrains Mono',monospace;font-size:12px;padding:9px 12px;border-radius:8px;outline:none;transition:border-color .2s}
+.ap-skm-input:focus{border-color:var(--gold)}
+.ap-skm-save-btn{background:rgba(255,215,0,.12);border:1px solid rgba(255,215,0,.3);color:var(--gold);font-size:11px;font-weight:700;padding:9px 14px;border-radius:8px;cursor:pointer;white-space:nowrap;font-family:'Syne',sans-serif;transition:all .2s}
+.ap-skm-save-btn:hover{background:rgba(255,215,0,.22);border-color:var(--gold)}
+.ap-skm-hint{font-size:10px;color:var(--text3);margin-top:5px;min-height:14px}
+.ap-skm-hint.ok{color:var(--accent3)}
+.ap-skm-hint.err{color:#ff4757}
+.ap-skm-options-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
+.ap-skm-field{display:flex;flex-direction:column;gap:6px}
+.ap-skm-input-sm{background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:'Syne',sans-serif;font-size:12px;padding:8px 10px;border-radius:7px;outline:none;transition:border-color .2s}
+.ap-skm-input-sm:focus{border-color:var(--gold)}
+.ap-skm-gen-btn{width:100%;background:linear-gradient(135deg,rgba(255,215,0,.22),rgba(255,140,0,.18));border:1px solid rgba(255,215,0,.4);color:var(--gold);font-size:13px;font-weight:700;padding:13px;border-radius:10px;cursor:pointer;font-family:'Syne',sans-serif;transition:all .2s;margin-bottom:12px}
+.ap-skm-gen-btn:hover{background:linear-gradient(135deg,rgba(255,215,0,.35),rgba(255,140,0,.3))}
+.ap-skm-gen-btn:disabled{opacity:.5;cursor:not-allowed}
+.ap-skm-status{font-size:12px;font-weight:600;padding:10px 14px;border-radius:8px;display:none;margin-bottom:12px}
+.ap-skm-status.err{background:rgba(255,71,87,.1);border:1px solid rgba(255,71,87,.3);color:#ff4757;display:block}
+.ap-skm-status.ok{background:rgba(127,255,110,.08);border:1px solid rgba(127,255,110,.3);color:var(--accent3);display:block}
+.ap-skm-status.loading{background:rgba(255,215,0,.06);border:1px solid rgba(255,215,0,.2);color:var(--gold);display:block}
+.ap-skm-results{display:none;border:1px solid rgba(255,215,0,.2);border-radius:10px;padding:14px;background:rgba(0,0,0,.2)}
+.ap-skm-results.visible{display:block}
+.ap-skm-results-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px}
+.ap-skm-results-count{font-size:11px;color:var(--text2);font-weight:600}
+.ap-skm-copy-all{background:rgba(0,212,255,.1);border:1px solid rgba(0,212,255,.3);color:var(--accent);font-size:11px;font-weight:700;padding:6px 14px;border-radius:7px;cursor:pointer;font-family:'Syne',sans-serif;transition:all .2s}
+.ap-skm-copy-all:hover{background:rgba(0,212,255,.2)}
+.ap-skm-list{display:flex;flex-direction:column;gap:6px;max-height:300px;overflow-y:auto}
+.ap-skm-key-row{display:flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;padding:8px 10px}
+.ap-skm-key-text{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);flex:1;letter-spacing:.8px}
+.ap-skm-key-meta{font-size:10px;color:var(--text3);white-space:nowrap}
+.ap-skm-key-copy{background:none;border:1px solid var(--border);color:var(--text3);font-size:10px;font-weight:600;padding:3px 8px;border-radius:5px;cursor:pointer;font-family:'Syne',sans-serif;transition:all .15s;flex-shrink:0}
+.ap-skm-key-copy:hover{border-color:var(--accent);color:var(--accent)}
+.ap-skm-key-copy.copied{border-color:var(--accent3);color:var(--accent3)}
+
 /* ── Admin nav item (hidden until is-admin) ───────────────────── */
 .nav-item.nav-admin-only{display:none}
 .is-admin .nav-item.nav-admin-only{display:flex}
@@ -9483,6 +9520,52 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
       <div class="ap-valid-result" id="ap-valid-result"></div>
     </div>
 
+    <!-- SUPABASE KEY MANAGER -->
+    <div class="ap-card ap-card-full gold-border">
+      <div class="ap-card-title">🗝 Supabase Key Manager</div>
+      <div class="ap-card-sub">Generate real license keys and save them directly to the Supabase database. Copy the keys into Gumroad for automatic delivery to buyers worldwide.</div>
+
+      <div class="ap-skm-field-row">
+        <label class="ap-skm-label">Admin Secret <span style="color:var(--text3);font-weight:400;text-transform:none;letter-spacing:0">(set <code style="font-family:'JetBrains Mono',monospace;font-size:10px">GENERATE_SECRET</code> in Supabase → Settings → Edge Functions → Secrets)</span></label>
+        <div class="ap-skm-input-row">
+          <input type="password" id="skm-secret" class="ap-skm-input" placeholder="Paste your GENERATE_SECRET here..." autocomplete="off" spellcheck="false">
+          <button class="ap-skm-save-btn" onclick="skmSaveSecret()">Save</button>
+        </div>
+        <div class="ap-skm-hint" id="skm-secret-hint"></div>
+      </div>
+
+      <div class="ap-skm-options-grid">
+        <div class="ap-skm-field">
+          <label class="ap-skm-label">Quantity</label>
+          <input type="number" id="skm-qty" class="ap-skm-input-sm" value="5" min="1" max="50">
+        </div>
+        <div class="ap-skm-field">
+          <label class="ap-skm-label">Max Devices</label>
+          <input type="number" id="skm-devices" class="ap-skm-input-sm" value="2" min="1" max="10">
+        </div>
+        <div class="ap-skm-field">
+          <label class="ap-skm-label">Expires (optional)</label>
+          <input type="date" id="skm-expiry" class="ap-skm-input-sm">
+        </div>
+        <div class="ap-skm-field">
+          <label class="ap-skm-label">Note / Batch</label>
+          <input type="text" id="skm-note" class="ap-skm-input-sm" placeholder="e.g. Gumroad Jan 2026" maxlength="80">
+        </div>
+      </div>
+
+      <button class="ap-skm-gen-btn" id="skm-gen-btn" onclick="skmGenerate()">⚡ Generate Keys</button>
+
+      <div id="skm-status" class="ap-skm-status"></div>
+
+      <div id="skm-results" class="ap-skm-results">
+        <div class="ap-skm-results-header">
+          <span id="skm-results-count" class="ap-skm-results-count"></span>
+          <button class="ap-skm-copy-all" onclick="skmCopyAll()">📋 Copy All for Gumroad</button>
+        </div>
+        <div id="skm-results-list" class="ap-skm-list"></div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -9813,6 +9896,128 @@ document.addEventListener('DOMContentLoaded',function(){
   if(inp){inp.addEventListener('keydown',function(e){if(e.key==='Enter')adminGenerateKey();});}
   var vi=document.getElementById('ap-valid-input');
   if(vi){vi.addEventListener('keydown',function(e){if(e.key==='Enter')apValidateKey();});}
+});
+// ─────────────────────────────────────────────────────────────────
+
+// ── Supabase Key Manager ──────────────────────────────────────────
+var SKM_EDGE_URL = 'https://ftmkgkxzgobgjkasnmxn.supabase.co/functions/v1/generate-license';
+
+window.skmSaveSecret = function(){
+  var inp  = document.getElementById('skm-secret');
+  var hint = document.getElementById('skm-secret-hint');
+  if(!inp) return;
+  var val = inp.value.trim();
+  if(!val){ if(hint){hint.textContent='Enter a secret first';hint.className='ap-skm-hint err';} return; }
+  sessionStorage.setItem('GeoLearn_AdminSecret', val);
+  inp.value = '••••••••';
+  if(hint){ hint.textContent='✓ Secret saved for this session'; hint.className='ap-skm-hint ok'; }
+};
+
+window.skmGenerate = async function(){
+  var secret  = sessionStorage.getItem('GeoLearn_AdminSecret') || '';
+  var statusEl = document.getElementById('skm-status');
+  var btn      = document.getElementById('skm-gen-btn');
+
+  function setStatus(msg, cls){
+    if(!statusEl) return;
+    statusEl.textContent = msg;
+    statusEl.className   = 'ap-skm-status ' + cls;
+  }
+
+  if(!secret){ setStatus('⚠ Enter and save your Admin Secret first.', 'err'); return; }
+
+  var qty     = parseInt(document.getElementById('skm-qty')?.value     || '5');
+  var devices = parseInt(document.getElementById('skm-devices')?.value || '2');
+  var expiry  = document.getElementById('skm-expiry')?.value  || null;
+  var note    = (document.getElementById('skm-note')?.value   || '').trim();
+
+  if(btn) btn.disabled = true;
+  setStatus('⏳ Generating keys and saving to Supabase…', 'loading');
+  var resultsEl = document.getElementById('skm-results');
+  if(resultsEl) resultsEl.classList.remove('visible');
+
+  try {
+    var body = { quantity: qty, max_devices: devices };
+    if(expiry) body.expires_at = expiry;
+    if(note)   body.note       = note;
+
+    var resp = await fetch(SKM_EDGE_URL, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Admin-Secret': secret },
+      body:    JSON.stringify(body)
+    });
+    var data = await resp.json();
+
+    if(!data.success){
+      setStatus('✕ ' + (data.error || 'Failed to generate keys.'), 'err');
+      return;
+    }
+
+    setStatus('✓ ' + data.keys.length + ' keys generated and saved to Supabase!', 'ok');
+    skmRenderKeys(data.keys);
+
+  } catch(err){
+    setStatus('✕ Network error: ' + err.message, 'err');
+  } finally {
+    if(btn) btn.disabled = false;
+  }
+};
+
+function skmRenderKeys(keys){
+  var list      = document.getElementById('skm-results-list');
+  var countEl   = document.getElementById('skm-results-count');
+  var resultsEl = document.getElementById('skm-results');
+  if(!list || !resultsEl) return;
+
+  if(countEl) countEl.textContent = keys.length + ' keys ready — copy into Gumroad';
+  list.innerHTML = '';
+
+  keys.forEach(function(k){
+    var meta = '';
+    if(k.max_devices) meta += k.max_devices + ' device' + (k.max_devices > 1 ? 's' : '');
+    if(k.expires_at)  meta += (meta ? ' · ' : '') + 'exp ' + k.expires_at.slice(0,10);
+
+    var row = document.createElement('div');
+    row.className = 'ap-skm-key-row';
+    row.innerHTML =
+      '<span class="ap-skm-key-text">' + k.key + '</span>' +
+      (meta ? '<span class="ap-skm-key-meta">' + meta + '</span>' : '') +
+      '<button class="ap-skm-key-copy" onclick="skmCopyKey(this,\'' + k.key + '\')">Copy</button>';
+    list.appendChild(row);
+  });
+
+  resultsEl.classList.add('visible');
+}
+
+window.skmCopyKey = function(btn, key){
+  function done(){ btn.textContent='Copied!'; btn.classList.add('copied'); setTimeout(function(){ btn.textContent='Copy'; btn.classList.remove('copied'); }, 2000); }
+  navigator.clipboard.writeText(key).then(done).catch(function(){
+    var ta=document.createElement('textarea'); ta.value=key; ta.style.cssText='position:fixed;opacity:0';
+    document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); done();
+  });
+};
+
+window.skmCopyAll = function(){
+  var keys = [];
+  document.querySelectorAll('.ap-skm-key-text').forEach(function(el){ keys.push(el.textContent.trim()); });
+  if(!keys.length) return;
+  var text = keys.join('\n');
+  var btn  = document.querySelector('.ap-skm-copy-all');
+  function done(){ if(btn){ btn.textContent='✓ Copied!'; setTimeout(function(){ btn.textContent='📋 Copy All for Gumroad'; }, 2500); } }
+  navigator.clipboard.writeText(text).then(done).catch(function(){
+    var ta=document.createElement('textarea'); ta.value=text; ta.style.cssText='position:fixed;opacity:0';
+    document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); done();
+  });
+};
+
+// Restore secret hint on admin panel open
+document.addEventListener('DOMContentLoaded', function(){
+  if(sessionStorage.getItem('GeoLearn_AdminSecret')){
+    var inp  = document.getElementById('skm-secret');
+    var hint = document.getElementById('skm-secret-hint');
+    if(inp)  inp.value        = '••••••••';
+    if(hint){ hint.textContent='✓ Secret saved for this session'; hint.className='ap-skm-hint ok'; }
+  }
 });
 // ─────────────────────────────────────────────────────────────────
 
