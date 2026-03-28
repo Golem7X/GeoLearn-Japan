@@ -1696,8 +1696,38 @@ body.focus-mode .sr-section.focused-section { opacity: 1; }
   right: 24px;
   display: flex;
   flex-direction: column;
+  align-items: flex-end;
   gap: 8px;
   z-index: 500;
+}
+#toolbar-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: hidden;
+  max-height: 400px;
+  transition: max-height 0.3s ease, opacity 0.25s ease;
+  opacity: 1;
+}
+#study-toolbar.toolbar-collapsed #toolbar-buttons {
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+.toolbar-toggle-btn {
+  font-size: 16px;
+  padding: 8px 12px !important;
+  border-radius: 50% !important;
+  min-width: 40px;
+  justify-content: center;
+  opacity: 0.7;
+}
+.toolbar-toggle-btn:hover { opacity: 1; }
+#study-toolbar.toolbar-collapsed .toolbar-toggle-btn {
+  opacity: 1;
+  background: #3A6EA5 !important;
+  color: #fff !important;
+  border-color: #3A6EA5 !important;
 }
 .toolbar-btn {
   display: flex;
@@ -4457,21 +4487,26 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
 
 <!-- STUDY TOOLBAR -->
 <div id="study-toolbar">
-  <button class="toolbar-btn" data-action="toggleStudyMode()" id="study-mode-btn" title="Switch between dark engineering mode and soft study mode">
-    ☀️ Study Mode
+  <button class="toolbar-btn toolbar-toggle-btn" data-action="toggleToolbar()" id="toolbar-toggle-btn" title="Show/hide toolbar">
+    ⚙
   </button>
-  <button class="toolbar-btn study-only" data-action="toggleFocusMode()" id="focus-mode-btn" title="Focus Mode: hides sidebar, increases text size">
-    🎯 Focus Mode
-  </button>
-  <button class="toolbar-btn study-only" data-action="toggleHighlightMode()" id="highlight-btn" title="Toggle key term highlighting">
-    🖊 Highlight Terms
-  </button>
-  <button class="toolbar-btn study-only" data-action="showSpacedReview()" title="Show a random spaced review card">
-    🔁 Quick Review
-  </button>
-  <button class="toolbar-btn focus-hide-tb" data-action="scrollToTop()" title="Back to top">
-    ↑ Top
-  </button>
+  <div id="toolbar-buttons">
+    <button class="toolbar-btn" data-action="toggleStudyMode()" id="study-mode-btn" title="Switch between dark engineering mode and soft study mode">
+      ☀️ Study Mode
+    </button>
+    <button class="toolbar-btn study-only" data-action="toggleFocusMode()" id="focus-mode-btn" title="Focus Mode: hides sidebar, increases text size">
+      🎯 Focus Mode
+    </button>
+    <button class="toolbar-btn study-only" data-action="toggleHighlightMode()" id="highlight-btn" title="Toggle key term highlighting">
+      🖊 Highlight Terms
+    </button>
+    <button class="toolbar-btn study-only" data-action="showSpacedReview()" title="Show a random spaced review card">
+      🔁 Quick Review
+    </button>
+    <button class="toolbar-btn focus-hide-tb" data-action="scrollToTop()" title="Back to top">
+      ↑ Top
+    </button>
+  </div>
 </div>
 
 <div class="app">
@@ -17928,6 +17963,23 @@ function renderTodayPlan(p) {
 let studyModeActive = false;
 let focusModeActive = false;
 let highlightModeActive = false;
+let toolbarCollapsed = false;
+let _toolbarCollapseTimer = null;
+
+function toggleToolbar(){
+  toolbarCollapsed = !toolbarCollapsed;
+  document.getElementById('study-toolbar').classList.toggle('toolbar-collapsed', toolbarCollapsed);
+  const btn = document.getElementById('toolbar-toggle-btn');
+  if(btn) btn.title = toolbarCollapsed ? 'Show options' : 'Hide toolbar';
+}
+
+function scheduleToolbarCollapse(){
+  clearTimeout(_toolbarCollapseTimer);
+  _toolbarCollapseTimer = setTimeout(()=>{
+    toolbarCollapsed = true;
+    document.getElementById('study-toolbar').classList.add('toolbar-collapsed');
+  }, 1500);
+}
 
 function toggleStudyMode(){
   studyModeActive = !studyModeActive;
@@ -17942,6 +17994,7 @@ function toggleStudyMode(){
   document.querySelectorAll('.app-header-logo, .hero-brand-full-logo').forEach(img => { img.src = logoSrc; });
   localStorage.setItem('geolearn-study-mode', studyModeActive ? '1' : '0');
   showNotif(studyModeActive ? '☀️ Study Mode ON — soft colors, readable fonts' : '🌙 Dark Mode restored');
+  scheduleToolbarCollapse();
 }
 
 function toggleFocusMode(){
@@ -17954,6 +18007,7 @@ function toggleFocusMode(){
     btn.classList.toggle('active-mode', focusModeActive);
   }
   showNotif(focusModeActive ? '🎯 Focus Mode — sidebar hidden, text enlarged' : '↩ Focus Mode off');
+  scheduleToolbarCollapse();
 }
 
 function toggleHighlightMode(){
@@ -17965,6 +18019,7 @@ function toggleHighlightMode(){
     btn.classList.toggle('active-mode', highlightModeActive);
   }
   showNotif(highlightModeActive ? '🖊 Key terms highlighted' : 'Highlighting off');
+  scheduleToolbarCollapse();
 }
 
 function scrollToTop(){
@@ -17997,6 +18052,7 @@ function showSpacedReview(){
   document.getElementById('spaced-note').classList.add('visible');
   clearTimeout(window._spacedTimer);
   window._spacedTimer = setTimeout(closeSpacedNote, 8000);
+  scheduleToolbarCollapse();
 }
 function closeSpacedNote(){
   document.getElementById('spaced-note').classList.remove('visible');
