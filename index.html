@@ -4024,7 +4024,7 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 .ap-pending-email{font-size:12px;color:var(--text);font-weight:600;flex:1;min-width:120px}
 .ap-pending-method{font-size:10px;font-weight:700;padding:3px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:.5px}
 .ap-pending-method.paynow{background:rgba(220,38,127,.12);color:#e05ca0;border:1px solid rgba(220,38,127,.25)}
-.ap-pending-method.dbs{background:rgba(210,30,30,.12);color:#e05555;border:1px solid rgba(210,30,30,.25)}
+
 .ap-pending-method.uob{background:rgba(0,112,186,.15);color:#4da6d9;border:1px solid rgba(0,112,186,.3)}
 .ap-pending-method.kbzpay{background:rgba(255,107,53,.12);color:var(--accent2);border:1px solid rgba(255,107,53,.25)}
 .ap-pending-amount{font-size:11px;color:var(--text3)}
@@ -9454,22 +9454,7 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
             <a class="get-key-kbz-email" id="get-key-paynow-email-link" href="#">📧 Send Payment Proof</a>
           </div>
         </div>
-        <div class="get-key-card">
-          <div class="get-key-method">🏦 DBS Bank</div>
-          <div class="get-key-price">SGD 7</div>
-          <div class="get-key-region">Singapore · Bank transfer · 1 month</div>
-          <button class="get-key-btn" onclick="toggleSGDetails('dbs', this)">Pay with DBS →</button>
-          <div class="get-key-sg-details" id="get-key-sg-dbs">
-            <div class="get-key-kbz-step">Transfer SGD 7 to DBS account:</div>
-            <div class="get-key-kbz-num-row">
-              <span class="get-key-kbz-num" id="get-key-dbs-acc">—</span>
-              <button class="get-key-kbz-copy" onclick="copySGDetail('dbs', this)">Copy</button>
-            </div>
-            <div class="get-key-kbz-step">Account name: <span id="get-key-dbs-name">—</span></div>
-            <div class="get-key-kbz-step">Then email your transaction ID:</div>
-            <a class="get-key-kbz-email" id="get-key-dbs-email-link" href="#">📧 Send Payment Proof</a>
-          </div>
-        </div>
+
         <div class="get-key-card">
           <div class="get-key-method">🏦 UOB Bank</div>
           <div class="get-key-price">SGD 7</div>
@@ -9810,12 +9795,7 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
           <span class="pw-method-price">SGD 7</span>
           <span class="pw-method-region">Singapore</span>
         </button>
-        <button class="pw-method-card" onclick="pwShowDetails('dbs')">
-          <span class="pw-method-icon">🏦</span>
-          <span class="pw-method-name">DBS Bank</span>
-          <span class="pw-method-price">SGD 7</span>
-          <span class="pw-method-region">Singapore</span>
-        </button>
+
         <button class="pw-method-card" onclick="pwShowDetails('uob')">
           <span class="pw-method-icon">🏦</span>
           <span class="pw-method-name">UOB Bank</span>
@@ -9842,20 +9822,7 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
           <button class="pw-paid-btn" onclick="pwIvePaid('paynow')">I've Paid ✓</button>
         </div>
       </div>
-      <div class="pw-detail-panel" id="pw-panel-dbs">
-        <div class="pw-detail-step">Step 1 — Transfer SGD 7 to DBS account</div>
-        <div class="pw-kbz-number">
-          <span id="pw-dbs-acc" class="pw-kbz-num-text">—</span>
-          <button class="pw-kbz-copy" onclick="pwCopySG('dbs',this)">Copy</button>
-        </div>
-        <div class="pw-detail-step">Account name: <span id="pw-dbs-name">—</span></div>
-        <div class="pw-detail-step">Step 2 — Enter your email &amp; transaction ID</div>
-        <div class="pw-detail-input-row">
-          <input type="email" id="pw-email-dbs" class="pw-detail-email" placeholder="your@email.com" autocomplete="email">
-          <input type="text" id="pw-txn-dbs" class="pw-detail-email" placeholder="Transaction ID" style="margin-top:6px">
-          <button class="pw-paid-btn" onclick="pwIvePaid('dbs')">I've Paid ✓</button>
-        </div>
-      </div>
+
       <div class="pw-detail-panel" id="pw-panel-uob">
         <div class="pw-detail-step">Step 1 — Transfer SGD 7 to UOB account</div>
         <div class="pw-kbz-number">
@@ -21413,18 +21380,15 @@ window.closePaywallModal = function() {
 
 // ── Payment Config ────────────────────────────────────────────────
 // TODO: Fill in your actual Singapore bank details below
-var PAYNOW_UEN    = 'YOUR_PAYNOW_UEN_OR_PHONE';  // e.g. phone: 91234567 or UEN: 12345678A
-var DBS_ACCOUNT   = 'YOUR_DBS_ACCOUNT_NUMBER';
-var DBS_NAME      = 'YOUR_NAME';
-var UOB_ACCOUNT   = 'YOUR_UOB_ACCOUNT_NUMBER';
-var UOB_NAME      = 'YOUR_NAME';
+var PAYNOW_UEN    = '83105164';
+var UOB_ACCOUNT   = '5183708768';
+var UOB_NAME      = 'Arkar Hein';
 var SG_PRICE      = 'SGD 7';
 var KBZPAY_NUMBER = '09250333177';
 var PAYMENT_EMAIL = 'myonaingtun404@gmail.com';
 
 var _SG_VALUES = {
   paynow: { value: PAYNOW_UEN,    name: null,     amount: SG_PRICE,      label: 'PayNow (' + SG_PRICE + ')' },
-  dbs:    { value: DBS_ACCOUNT,   name: DBS_NAME, amount: SG_PRICE,      label: 'DBS Bank (' + SG_PRICE + ')' },
   uob:    { value: UOB_ACCOUNT,   name: UOB_NAME, amount: SG_PRICE,      label: 'UOB Bank (' + SG_PRICE + ')' },
   kbzpay: { value: KBZPAY_NUMBER, name: null,     amount: '10,000 MMK',  label: 'KBZPay (10,000 MMK)' },
 };
