@@ -4374,6 +4374,17 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 .pw-method-card{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:14px 10px;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;transition:all .2s;font-family:'Syne',sans-serif}
 .pw-method-card:hover,.pw-method-card.pw-active{border-color:var(--gold);background:rgba(255,215,0,.07)}
 .pw-method-card-mm:hover,.pw-method-card-mm.pw-active{border-color:var(--accent2);background:rgba(255,107,53,.07)}
+.pw-method-card-stripe{border-color:rgba(99,91,255,.35)!important}
+.pw-method-card-stripe:hover,.pw-method-card-stripe.pw-active{border-color:#635bff!important;background:rgba(99,91,255,.08)!important}
+.pw-method-card-stripe .pw-method-price{color:#635bff}
+.pw-stripe-features{display:flex;flex-direction:column;gap:5px;margin:8px 0 12px;padding:10px 12px;background:rgba(99,91,255,.08);border:1px solid rgba(99,91,255,.2);border-radius:8px}
+.pw-stripe-features span{font-size:11px;color:var(--text2);font-weight:600}
+.pw-stripe-pay-btn{display:block;width:100%;background:linear-gradient(135deg,#635bff,#4f46e5);color:#fff;font-size:13px;font-weight:700;padding:12px;border-radius:8px;border:none;cursor:pointer;font-family:'Syne',sans-serif;transition:opacity .2s;margin-top:10px}
+.pw-stripe-pay-btn:hover{opacity:.88}
+.pw-stripe-pay-btn:disabled{opacity:.5;cursor:not-allowed}
+.get-key-card-stripe{border-color:rgba(99,91,255,.35)!important}
+.get-key-btn-stripe{background:linear-gradient(135deg,#635bff,#4f46e5)!important;border:none!important;color:#fff!important}
+.get-key-btn-stripe:hover{opacity:.88!important}
 .pw-method-icon{font-size:22px}
 .pw-method-name{font-size:13px;font-weight:800;color:var(--text)}
 .pw-method-price{font-size:15px;font-weight:800;color:var(--gold)}
@@ -9439,8 +9450,12 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
     <div class="get-key-section" id="get-key-section">
       <div class="get-key-title">Get a License Key</div>
       <div class="get-key-cards">
-        <div class="get-key-card">
-          <div class="get-key-method">⚡ PayNow</div>
+        <div class="get-key-card get-key-card-stripe">
+          <div class="get-key-method">💳 Card · Apple Pay · Google Pay</div>
+          <div class="get-key-price">SGD 7</div>
+          <div class="get-key-region">Worldwide · Instant · PayNow available · 1 month</div>
+          <button class="get-key-btn get-key-btn-stripe" onclick="stripeCheckout(this)">Pay Securely →</button>
+        </div>
           <div class="get-key-price">SGD 7</div>
           <div class="get-key-region">Singapore · Instant transfer · 1 month</div>
           <button class="get-key-btn" onclick="toggleSGDetails('paynow', this)">Pay with PayNow →</button>
@@ -9789,6 +9804,12 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
     <div class="pw-methods">
       <div class="pw-methods-label">1 month · 2 devices · Choose payment</div>
       <div class="pw-method-cards">
+        <button class="pw-method-card pw-method-card-stripe" onclick="pwShowDetails('stripe')">
+          <span class="pw-method-icon">💳</span>
+          <span class="pw-method-name">Card / Apple Pay</span>
+          <span class="pw-method-price">SGD 7</span>
+          <span class="pw-method-region">Worldwide</span>
+        </button>
         <button class="pw-method-card" onclick="pwShowDetails('paynow')">
           <span class="pw-method-icon">⚡</span>
           <span class="pw-method-name">PayNow</span>
@@ -9808,6 +9829,16 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
           <span class="pw-method-price">10,000 MMK</span>
           <span class="pw-method-region">Myanmar</span>
         </button>
+      </div>
+      <div class="pw-detail-panel" id="pw-panel-stripe">
+        <div class="pw-detail-step">Secure checkout powered by Stripe</div>
+        <div class="pw-stripe-features">
+          <span>✓ Visa / Mastercard / AMEX</span>
+          <span>✓ Apple Pay / Google Pay</span>
+          <span>✓ PayNow (Singapore)</span>
+        </div>
+        <div class="pw-detail-step" style="margin-top:10px">Your license key is emailed instantly after payment.</div>
+        <button class="pw-stripe-pay-btn" onclick="stripeCheckout(this)">Pay SGD 7 Securely →</button>
       </div>
       <div class="pw-detail-panel" id="pw-panel-paynow">
         <div class="pw-detail-step">Step 1 — Send SGD 7 via PayNow to</div>
@@ -21378,6 +21409,47 @@ window.closePaywallModal = function() {
   if(conf) conf.style.display = 'none';
 };
 
+// ── Stripe Config ─────────────────────────────────────────────────
+var STRIPE_CHECKOUT_URL = 'https://ftmkgkxzgobgjkasnmxn.supabase.co/functions/v1/create-checkout';
+var STRIPE_PUBLISHABLE_KEY = 'pk_test_51TFxODK8ZmF5sF3ilNa6qW9y8bZ3UKEPLs76voBe95opvuQTVOydMC8oUQ7TZ6Z2emVDjpM94BecqW4laqVzAPZt007CoWm3XB';
+
+window.stripeCheckout = async function(btn) {
+  if(btn){ btn.disabled = true; btn.textContent = 'Loading…'; }
+  try {
+    var successUrl = window.location.origin + window.location.pathname + '?payment=success';
+    var cancelUrl  = window.location.origin + window.location.pathname + '?payment=cancelled';
+    var res  = await fetch(STRIPE_CHECKOUT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ success_url: successUrl, cancel_url: cancelUrl }),
+    });
+    var data = await res.json();
+    if(data.url){ window.location.href = data.url; }
+    else { throw new Error(data.error || 'No checkout URL returned'); }
+  } catch(err) {
+    console.error('stripeCheckout error:', err);
+    if(btn){ btn.disabled = false; btn.textContent = btn.textContent.indexOf('Pay') !== -1 ? btn.textContent : 'Pay Securely →'; }
+    showNotif('Could not start payment. Please try again.');
+  }
+};
+
+// Handle return from Stripe Checkout
+(function(){
+  var p = new URLSearchParams(window.location.search);
+  if(p.get('payment') === 'success'){
+    history.replaceState({}, '', window.location.pathname);
+    document.addEventListener('DOMContentLoaded', function(){
+      showNotif('Payment successful! Check your email for your license key.');
+      if(typeof showPage === 'function') showPage('activate');
+    });
+  } else if(p.get('payment') === 'cancelled'){
+    history.replaceState({}, '', window.location.pathname);
+    document.addEventListener('DOMContentLoaded', function(){
+      showNotif('Payment cancelled. You can try again anytime.');
+    });
+  }
+})();
+
 // ── Payment Config ────────────────────────────────────────────────
 // TODO: Fill in your actual Singapore bank details below
 var PAYNOW_UEN    = '83105164';
@@ -21405,6 +21477,9 @@ window.pwShowDetails = function(method) {
   document.querySelectorAll('.pw-method-card').forEach(function(c){
     if(c.getAttribute('onclick') && c.getAttribute('onclick').indexOf(method) !== -1) c.classList.add('pw-active');
   });
+
+  // Stripe has no number/name to inject — panel is self-contained
+  if(method === 'stripe') return;
 
   // Inject live values
   var cfg = _SG_VALUES[method];
