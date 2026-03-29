@@ -3917,6 +3917,8 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 .activation-status{display:none;margin-top:14px;padding:11px 15px;border-radius:8px;font-size:13px;font-weight:600}
 .activation-status.error{background:rgba(255,71,87,.12);border:1px solid rgba(255,71,87,.3);color:#ff4757}
 .activation-status.success{background:rgba(127,255,110,.12);border:1px solid rgba(127,255,110,.3);color:var(--accent3)}
+.activation-status.loading{background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.2);color:var(--accent);animation:gk-pulse .8s ease infinite alternate}
+@keyframes gk-pulse{from{opacity:.7}to{opacity:1}}
 .premium-active-card{background:linear-gradient(135deg,rgba(255,215,0,.08),rgba(255,140,0,.06));border:1px solid rgba(255,215,0,.25);border-radius:16px;padding:28px;text-align:center;display:none}
 .is-premium .premium-active-card{display:block}
 .is-premium .activation-form-wrap{display:none}
@@ -4109,6 +4111,7 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 .ap-valid-result{display:none;margin-top:10px;padding:10px 12px;border-radius:8px;font-size:12px;font-weight:600;font-family:'JetBrains Mono',monospace}
 .ap-valid-result.ok{background:rgba(127,255,110,.1);border:1px solid rgba(127,255,110,.3);color:var(--accent3)}
 .ap-valid-result.fail{background:rgba(255,71,87,.1);border:1px solid rgba(255,71,87,.3);color:#ff4757}
+.ap-valid-result.loading{background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.2);color:var(--accent);animation:gk-pulse .8s ease infinite alternate}
 /* System info card */
 .ap-info-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
 .ap-info-item{display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:7px 0;border-bottom:1px solid var(--border)}
@@ -9682,8 +9685,8 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
 
     <!-- LICENSE KEY GENERATOR -->
     <div class="ap-card gold-border">
-      <div class="ap-card-title">⚡ Key Generator</div>
-      <div class="ap-card-sub">Generate a new license key hash to add to <code style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold)">_VK</code> in index.html.</div>
+      <div class="ap-card-title">⚡ Key Generator <span style="font-size:9px;color:var(--text3);font-weight:500;letter-spacing:0">(Offline)</span></div>
+      <div class="ap-card-sub">Generate a hash for hardcoding into <code style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold)">_VK</code> in index.html. For production keys, use the Supabase Key Manager instead.</div>
       <div class="admin-keygen-presets" style="margin-bottom:10px">
         <button class="admin-keygen-preset" onclick="adminKeygenFill('GEOJPN-2026-PRO')">GEOJPN-2026-PRO</button>
         <button class="admin-keygen-preset" onclick="adminKeygenFill('MYOGEO-PREMIUM')">MYOGEO-PREMIUM</button>
@@ -9712,7 +9715,7 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
     <!-- LICENSE VALIDATOR -->
     <div class="ap-card">
       <div class="ap-card-title">🔍 Key Validator</div>
-      <div class="ap-card-sub">Check whether a key is accepted by the current <code style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold)">_VK</code> hash list.</div>
+      <div class="ap-card-sub">Check a key against <code style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold)">_VK</code> (offline) and Supabase database (online).</div>
       <div class="ap-valid-row">
         <input type="text" id="ap-valid-input" class="ap-valid-input" placeholder="Paste license key..." maxlength="64" autocomplete="off" spellcheck="false">
         <button class="ap-valid-btn" onclick="apValidateKey()">Check</button>
@@ -9734,7 +9737,15 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
     <!-- SUPABASE KEY MANAGER -->
     <div class="ap-card ap-card-full gold-border">
       <div class="ap-card-title">🗝 Supabase Key Manager</div>
-      <div class="ap-card-sub">Generate real license keys and save them directly to the Supabase database. Copy the keys into Gumroad for automatic delivery to buyers worldwide.</div>
+      <div class="ap-card-sub">Generate real license keys and save them directly to the Supabase database. Keys are auto-registered for instant activation in this session. Copy into Gumroad for delivery to buyers.</div>
+      <div style="margin:8px 0 12px;padding:10px 12px;background:rgba(0,212,255,.06);border:1px solid rgba(0,212,255,.15);border-radius:8px;font-size:10px;line-height:1.6;color:var(--text2)">
+        <strong style="color:var(--accent)">How it works:</strong>
+        <span style="color:var(--text3)">Step 1</span> → Enter admin secret and save &nbsp;
+        <span style="color:var(--text3)">Step 2</span> → Set quantity, devices, expiry &nbsp;
+        <span style="color:var(--text3)">Step 3</span> → Click Generate → keys saved to Supabase + auto-registered in _VK &nbsp;
+        <span style="color:var(--text3)">Step 4</span> → Copy keys for Gumroad delivery &nbsp;
+        <span style="color:var(--text3)">Step 5</span> → Validate in Key Validator below (checks both _VK &amp; Supabase)
+      </div>
 
       <div class="ap-skm-field-row">
         <label class="ap-skm-label">Admin Secret <span style="color:var(--text3);font-weight:400;text-transform:none;letter-spacing:0">(set <code style="font-family:'JetBrains Mono',monospace;font-size:10px">GENERATE_SECRET</code> in Supabase → Settings → Edge Functions → Secrets)</span></label>
@@ -10022,19 +10033,46 @@ window.initPremiumSystem=function(){
 function _setupActivateForm(){
   var form=document.getElementById('activation-form');
   if(!form)return;
-  form.addEventListener('submit',function(e){
+  form.addEventListener('submit',async function(e){
     e.preventDefault();
     var inp=document.getElementById('license-key-input');
     var st=document.getElementById('activation-status');
+    var btn=form.querySelector('button[type="submit"]');
     if(!inp)return;
     var key=inp.value.trim();
     if(!key){_showActSt(st,'Please enter a license key.','error');return;}
+
+    // Step 1: Quick offline check against _VK hash list
     if(activatePremium(key)){
       _showActSt(st,'Premium activated! Unlocking all features\u2026','success');
       setTimeout(function(){initPremiumSystem();if(typeof showPage==='function')showPage('home');},1500);
-    }else{
-      _showActSt(st,'Invalid license key. Please check and try again.','error');
+      return;
     }
+
+    // Step 2: Online check via Supabase Edge Function
+    var activate=window._geoActivateLicense;
+    if(typeof activate==='function'){
+      _showActSt(st,'Verifying with server\u2026','loading');
+      if(btn){btn.disabled=true;btn.textContent='Checking\u2026';}
+      try{
+        var result=await activate(key);
+        if(result&&result.success){
+          _showActSt(st,'Premium activated! Unlocking all features\u2026','success');
+          if(typeof initPremiumSystem==='function')initPremiumSystem();
+          setTimeout(function(){if(typeof showPage==='function')showPage('home');},1500);
+        }else{
+          _showActSt(st,(result&&result.error)||'Invalid license key. Please check and try again.','error');
+        }
+      }catch(err){
+        _showActSt(st,'Validation failed. Please try again.','error');
+      }finally{
+        if(btn){btn.disabled=false;btn.textContent='Activate';}
+      }
+      return;
+    }
+
+    // Fallback: no Supabase available
+    _showActSt(st,'Invalid license key. Please check and try again.','error');
   });
   var deactBtn=document.getElementById('deactivate-btn');
   if(deactBtn){
@@ -10352,6 +10390,16 @@ window.skmGenerate = async function(){
     setStatus('✓ ' + data.keys.length + ' keys generated and saved to Supabase!', 'ok');
     skmRenderKeys(data.keys);
 
+    // Auto-register hashes in runtime _VK so keys work immediately this session
+    if(typeof _VK !== 'undefined' && typeof _E === 'function'){
+      var added = 0;
+      data.keys.forEach(function(k){
+        var h = _E(k.key.trim().toUpperCase());
+        if(_VK.indexOf(h) === -1){ _VK.push(h); added++; }
+      });
+      if(added) setStatus('✓ ' + data.keys.length + ' keys saved to Supabase + registered for instant activation!', 'ok');
+    }
+
   } catch(err){
     setStatus('✕ Network error: ' + err.message, 'err');
   } finally {
@@ -10468,26 +10516,55 @@ window.apRefreshSysInfo=function(){
   }catch(e){}
 };
 
-window.apValidateKey=function(){
+window.apValidateKey=async function(){
   var inp=document.getElementById('ap-valid-input');
   var res=document.getElementById('ap-valid-result');
   if(!inp||!res)return;
   var raw=inp.value.trim().toUpperCase();
   if(!raw){res.style.display='none';return;}
-  // Use the existing validation chain
-  var valid=false;
+
+  // Step 1: Check offline _VK hash list
+  var inVK=false;
   try{
-    // _CAP checks admin passwords; for license keys use the premium check path
     if(typeof _VK!=='undefined'&&typeof _E==='function'){
-      valid=_VK.indexOf(_E(raw))!==-1;
-    }else if(typeof window.isPremium==='function'){
-      // fallback: can't validate without internals exposed
-      valid=false;
+      inVK=_VK.indexOf(_E(raw))!==-1;
     }
-  }catch(e){valid=false;}
-  res.textContent=valid?'✔ Valid license key — this key will activate Premium.':'✘ Invalid key — not found in the current _VK list.';
-  res.className='ap-valid-result '+(valid?'ok':'fail');
+  }catch(e){}
+
+  if(inVK){
+    res.textContent='✔ Valid — found in _VK (offline). Will activate instantly.';
+    res.className='ap-valid-result ok';
+    res.style.display='block';
+    return;
+  }
+
+  // Step 2: Check Supabase database
+  res.textContent='⏳ Not in _VK. Checking Supabase database…';
+  res.className='ap-valid-result loading';
   res.style.display='block';
+
+  try{
+    var checker=window._geoCheckLicense;
+    if(typeof checker==='function'){
+      var result=await checker(raw);
+      if(result&&result.success){
+        res.textContent='✔ Valid — found in Supabase! ' +
+          (result.devices ? '('+result.devices+' devices)' : '') +
+          (result.expires_at ? ' · Expires: '+result.expires_at.slice(0,10) : ' · No expiry') +
+          ' — will activate via server.';
+        res.className='ap-valid-result ok';
+      }else{
+        res.textContent='✘ Not found in _VK or Supabase. '+(result&&result.error?result.error:'');
+        res.className='ap-valid-result fail';
+      }
+    }else{
+      res.textContent='✘ Not in _VK. Supabase check unavailable (edge function not loaded).';
+      res.className='ap-valid-result fail';
+    }
+  }catch(e){
+    res.textContent='✘ Not in _VK. Supabase check failed: '+(e.message||'Network error');
+    res.className='ap-valid-result fail';
+  }
 };
 // ─────────────────────────────────────────────────────────────────
 
@@ -21110,60 +21187,107 @@ async function signInAnonymously() {
 }
 
 // ── Secure License Validation (via Edge Function) ─────────────
-// Replaces the old client-side XOR key check.
+// Two-tier validation:
+//   Tier 1: Use Supabase client with full auth (device tracking + subscription)
+//   Tier 2: Direct fetch fallback (anonymous mode — key validation + basic tracking)
 // The Edge Function runs server-side on Supabase infrastructure:
 //   · validates the key exists and is active
 //   · enforces per-device limits
 //   · writes the activation record and upgrades the subscription
-// The frontend NEVER sees the license_keys table directly.
-async function activateLicenseViaEdge(key) {
-  if (!supaClient || !key) return { success: false, error: 'Invalid input' };
+var VALIDATE_LICENSE_URL = SUPABASE_URL + '/functions/v1/validate-license';
 
-  // Ensure there is an active session (anonymous or named)
-  var session = null;
+function _storePremiumState(key) {
   try {
-    var sessResp = await supaClient.auth.getSession();
-    session = sessResp.data && sessResp.data.session;
+    localStorage.setItem('GeoLearn_Premium_Status',   'true');
+    localStorage.setItem('GeoLearn_License_Key',       btoa(key.trim().toUpperCase()));
+    localStorage.setItem('GeoLearn_Activation_Date',   new Date().toISOString());
   } catch(e) {}
+}
 
-  if (!session) {
-    var anonUser = await signInAnonymously();
-    if (!anonUser) return { success: false, error: '認証に失敗しました。Authentication failed.' };
+async function activateLicenseViaEdge(key) {
+  if (!key || !key.trim()) return { success: false, error: 'Please enter a license key.' };
+
+  var normalizedKey = key.trim().toUpperCase();
+  var fingerprint   = getDeviceFingerprint();
+  var reqBody       = { license_key: normalizedKey, device_fingerprint: fingerprint };
+
+  // ── Tier 1: Supabase client with session auth ─────────────
+  if (supaClient) {
+    var session = null;
     try {
-      var sessResp2 = await supaClient.auth.getSession();
-      session = sessResp2.data && sessResp2.data.session;
+      var sessResp = await supaClient.auth.getSession();
+      session = sessResp.data && sessResp.data.session;
     } catch(e) {}
+
+    if (!session) {
+      var anonUser = await signInAnonymously();
+      if (anonUser) {
+        try {
+          var sessResp2 = await supaClient.auth.getSession();
+          session = sessResp2.data && sessResp2.data.session;
+        } catch(e) {}
+      }
+    }
+
+    if (session) {
+      try {
+        var invokeResult = await supaClient.functions.invoke('validate-license', { body: reqBody });
+        if (invokeResult.error) throw invokeResult.error;
+        var data = invokeResult.data;
+        if (data && data.success) {
+          _storePremiumState(normalizedKey);
+          invalidatePlanCache();
+          return { success: true };
+        } else {
+          return { success: false, error: (data && data.error) || 'Invalid license key.' };
+        }
+      } catch(e) {
+        // Fall through to Tier 2 on network/invoke error
+        console.warn('Tier 1 validation failed, trying direct fetch:', e.message);
+      }
+    }
   }
 
-  if (!session) return { success: false, error: 'No active session. Please refresh and try again.' };
-
-  var fingerprint = getDeviceFingerprint();
-
+  // ── Tier 2: Direct fetch without Supabase client ──────────
+  // Works even when the Supabase JS library fails to load.
+  // The edge function accepts anonymous requests for basic validation.
   try {
-    var invokeResult = await supaClient.functions.invoke('validate-license', {
-      body: {
-        license_key:        key.trim().toUpperCase(),
-        device_fingerprint: fingerprint
-      }
+    var resp = await fetch(VALIDATE_LICENSE_URL, {
+      method:  'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey':        SUPABASE_ANON_KEY
+      },
+      body: JSON.stringify(reqBody)
     });
 
-    if (invokeResult.error) throw invokeResult.error;
-    var data = invokeResult.data;
-
-    if (data && data.success) {
-      // Mirror premium state to localStorage for offline/fallback compatibility
-      try {
-        localStorage.setItem('GeoLearn_Premium_Status',   'true');
-        localStorage.setItem('GeoLearn_License_Key',       btoa(key.trim().toUpperCase()));
-        localStorage.setItem('GeoLearn_Activation_Date',   new Date().toISOString());
-      } catch(e) {}
-      invalidatePlanCache();
+    var data2 = await resp.json();
+    if (data2 && data2.success) {
+      _storePremiumState(normalizedKey);
+      if (typeof invalidatePlanCache === 'function') invalidatePlanCache();
       return { success: true };
     } else {
-      return { success: false, error: (data && data.error) || 'Invalid license key.' };
+      return { success: false, error: (data2 && data2.error) || 'Invalid license key.' };
     }
+  } catch(e2) {
+    return { success: false, error: 'Network error. Please check your connection and try again.' };
+  }
+}
+
+// ── Check-only validation (no activation side effects) ──────
+async function checkLicenseViaEdge(key) {
+  if (!key || !key.trim()) return { success: false, error: 'No key provided.' };
+  var normalizedKey = key.trim().toUpperCase();
+  var fingerprint   = getDeviceFingerprint();
+  try {
+    var resp = await fetch(VALIDATE_LICENSE_URL, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY },
+      body: JSON.stringify({ license_key: normalizedKey, device_fingerprint: fingerprint, mode: 'check' })
+    });
+    return await resp.json();
   } catch(e) {
-    return { success: false, error: e.message || '検証エラー。Validation error. Please try again.' };
+    return { success: false, error: 'Network error.' };
   }
 }
 
@@ -21987,6 +22111,7 @@ window._geoSupaClient = supaClient;
 // ── Expose freemium helpers for cross-IIFE access ────
 // These are consumed by the form override below and by GeoAuth v2.
 window._geoActivateLicense  = activateLicenseViaEdge;
+window._geoCheckLicense     = checkLicenseViaEdge;
 window._geoGetFingerprint   = getDeviceFingerprint;
 window._geoSignInAnonymous  = signInAnonymously;
 
