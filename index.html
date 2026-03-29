@@ -4044,6 +4044,8 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 .ap-skm-input:focus{border-color:var(--gold)}
 .ap-skm-save-btn{background:rgba(255,215,0,.12);border:1px solid rgba(255,215,0,.3);color:var(--gold);font-size:11px;font-weight:700;padding:9px 14px;border-radius:8px;cursor:pointer;white-space:nowrap;font-family:'Syne',sans-serif;transition:all .2s}
 .ap-skm-save-btn:hover{background:rgba(255,215,0,.22);border-color:var(--gold)}
+.ap-skm-toggle-btn{background:none;border:1px solid rgba(255,215,0,.2);color:var(--text3);font-size:15px;line-height:1;padding:0 11px;border-radius:8px;cursor:pointer;flex-shrink:0;transition:border-color .18s,color .18s;display:flex;align-items:center;height:100%}
+.ap-skm-toggle-btn:hover{border-color:rgba(255,215,0,.4);color:var(--gold)}
 .ap-skm-hint{font-size:10px;color:var(--text3);margin-top:5px;min-height:14px}
 .ap-skm-hint.ok{color:var(--accent3)}
 .ap-skm-hint.err{color:#ff4757}
@@ -9766,7 +9768,8 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
       <div class="ap-skm-field-row">
         <label class="ap-skm-label">Admin Secret <span style="color:var(--text3);font-weight:400;text-transform:none;letter-spacing:0">(set <code style="font-family:'JetBrains Mono',monospace;font-size:10px">GENERATE_SECRET</code> in Supabase → Settings → Edge Functions → Secrets)</span></label>
         <div class="ap-skm-input-row">
-          <input type="password" id="skm-secret" class="ap-skm-input" placeholder="Paste your GENERATE_SECRET here..." autocomplete="off" spellcheck="false">
+          <input type="password" id="skm-secret" class="ap-skm-input" placeholder="Paste your GENERATE_SECRET here..." autocomplete="off" spellcheck="false" oninput="this.removeAttribute('data-masked')">
+          <button class="ap-skm-toggle-btn" id="skm-toggle-btn" type="button" onclick="skmToggleSecret()" title="Show / hide secret" aria-label="Toggle secret visibility">👁</button>
           <button class="ap-skm-save-btn" onclick="skmSaveSecret()">Save</button>
         </div>
         <div class="ap-skm-hint" id="skm-secret-hint"></div>
@@ -10329,11 +10332,41 @@ window.skmSaveSecret = function(){
   var inp  = document.getElementById('skm-secret');
   var hint = document.getElementById('skm-secret-hint');
   if(!inp) return;
+  // If the field is showing the masked placeholder, the secret is already saved — don't overwrite with dots
+  if(inp.dataset.masked === 'true'){
+    if(hint){ hint.textContent='✓ Secret already saved for this session'; hint.className='ap-skm-hint ok'; }
+    return;
+  }
   var val = inp.value.trim();
   if(!val){ if(hint){hint.textContent='Enter a secret first';hint.className='ap-skm-hint err';} return; }
   sessionStorage.setItem('GeoLearn_AdminSecret', val);
   inp.value = '••••••••';
+  inp.type = 'password';
+  inp.dataset.masked = 'true';
+  var toggleBtn = document.getElementById('skm-toggle-btn');
+  if(toggleBtn) toggleBtn.textContent = '👁';
   if(hint){ hint.textContent='✓ Secret saved for this session'; hint.className='ap-skm-hint ok'; }
+};
+
+window.skmToggleSecret = function(){
+  var inp = document.getElementById('skm-secret');
+  var btn = document.getElementById('skm-toggle-btn');
+  if(!inp) return;
+  if(inp.dataset.masked === 'true'){
+    // Reveal: load real value from sessionStorage
+    inp.value = sessionStorage.getItem('GeoLearn_AdminSecret') || '';
+    inp.removeAttribute('data-masked');
+    inp.type = 'text';
+    if(btn) btn.textContent = '🙈';
+  } else if(inp.type === 'text'){
+    // Hide visible text
+    inp.type = 'password';
+    if(btn) btn.textContent = '👁';
+  } else {
+    // Show typed password
+    inp.type = 'text';
+    if(btn) btn.textContent = '🙈';
+  }
 };
 
 window.skmGenerate = async function(){
@@ -10438,7 +10471,7 @@ document.addEventListener('DOMContentLoaded', function(){
   if(sessionStorage.getItem('GeoLearn_AdminSecret')){
     var inp  = document.getElementById('skm-secret');
     var hint = document.getElementById('skm-secret-hint');
-    if(inp)  inp.value        = '••••••••';
+    if(inp){ inp.value = '••••••••'; inp.dataset.masked = 'true'; }
     if(hint){ hint.textContent='✓ Secret saved for this session'; hint.className='ap-skm-hint ok'; }
   }
   // Pre-fill expiry with 30 days from today
