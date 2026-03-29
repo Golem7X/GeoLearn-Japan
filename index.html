@@ -4438,6 +4438,12 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 .get-key-divider::before{left:0}.get-key-divider::after{right:0}
 /* Hide buy section for premium users */
 .is-premium #get-key-section{display:none}
+/* ── Premium Sales Notice ─────────────────────────────────── */
+.premium-sales-notice{background:linear-gradient(135deg,rgba(255,193,7,.08),rgba(255,152,0,.06));border:1px solid rgba(255,193,7,.35);border-radius:14px;padding:18px 22px;margin-bottom:20px;text-align:center}
+.premium-sales-notice-icon{font-size:26px;margin-bottom:8px}
+.premium-sales-notice-title{font-size:15px;font-weight:800;color:var(--text);margin-bottom:6px}
+.premium-sales-notice-body{font-size:13px;color:var(--text2);line-height:1.65}
+.premium-sales-notice-tag{display:inline-block;background:rgba(255,193,7,.15);color:#f5c518;font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-bottom:10px}
 
 /* ══════════════════════════════════════════════════
    PREMIUM LOCK OVERLAY (blur + CTA on locked content)
@@ -9449,6 +9455,13 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
     <!-- Buy section (shown for free users) -->
     <div class="get-key-section" id="get-key-section">
       <div class="get-key-title">Get a License Key</div>
+      <!-- PREMIUM SALES NOTICE -->
+      <div class="premium-sales-notice">
+        <div class="premium-sales-notice-tag">Notice</div>
+        <div class="premium-sales-notice-icon">🔔</div>
+        <div class="premium-sales-notice-title">Premium Keys Not Available Yet</div>
+        <div class="premium-sales-notice-body">We are not selling premium license keys at this time. We want to make sure everything is perfect before opening sales. We will announce when premium licenses become available — stay tuned!</div>
+      </div>
       <div class="get-key-cards">
         <div class="get-key-card get-key-card-stripe">
           <div class="get-key-method">💳 Card · Apple Pay · Google Pay</div>
@@ -9778,8 +9791,12 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
       <li>Career Roadmaps &amp; Study Plans</li>
       <li>Knowledge Maps, Case Studies &amp; Analytics</li>
     </ul>
+    <div class="premium-sales-notice" style="margin-top:0;margin-bottom:18px">
+      <div class="premium-sales-notice-tag">Notice</div>
+      <div class="premium-sales-notice-title" style="font-size:13px">Premium licenses are not on sale yet</div>
+      <div class="premium-sales-notice-body" style="font-size:12px">We will announce when licenses become available. Stay tuned!</div>
+    </div>
     <div class="upgrade-modal-actions">
-      <button class="btn-premium" data-action="closeUpgradeModal();showPage('activate')">⭐ Get Premium Access</button>
       <button class="btn btn-outline" onclick="closeUpgradeModal()">Continue Free</button>
     </div>
   </div>
@@ -9801,7 +9818,13 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
       <li>Knowledge Maps, Case Studies &amp; Analytics</li>
       <li>Daily Focus Challenges &amp; Smart Study</li>
     </ul>
-    <div class="pw-methods">
+    <div class="premium-sales-notice" style="margin-bottom:18px">
+      <div class="premium-sales-notice-tag">Notice</div>
+      <div class="premium-sales-notice-icon">🔔</div>
+      <div class="premium-sales-notice-title">Premium Licenses Not Available Yet</div>
+      <div class="premium-sales-notice-body">We are not selling premium license keys at this time. We want to make sure everything is right before opening sales. We will announce when licenses become available — stay tuned!</div>
+    </div>
+    <div class="pw-methods" style="display:none">
       <div class="pw-methods-label">1 month · 2 devices · Choose payment</div>
       <div class="pw-method-cards">
         <button class="pw-method-card pw-method-card-stripe" onclick="pwShowDetails('stripe')">
@@ -9888,7 +9911,7 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
       </div>
     </div>
     <button class="paywall-skip" data-action="closePaywallModal()">Continue with Free plan</button>
-    <div class="paywall-guarantee">🔒 Secure · 1 month · 2 devices</div>
+    <div class="paywall-guarantee">📢 Sales opening soon — we'll announce when ready</div>
   </div>
 </div>
 
