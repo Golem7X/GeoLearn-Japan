@@ -55,6 +55,32 @@ Deno.serve(async (req: Request) => {
     return json({ success: false, error: 'Invalid JSON body' }, 400)
   }
 
+  // ── Check action: look up a key in the database ─────────────
+  if (body.action === 'check' && typeof body.key === 'string') {
+    const supabaseAdmin = createClient(
+      Deno.env.get('SUPABASE_URL')              ?? '',
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '',
+      { auth: { persistSession: false, autoRefreshToken: false } }
+    )
+    const normalizedKey = (body.key as string).trim().toUpperCase()
+    const { data: license, error: licErr } = await supabaseAdmin
+      .from('license_keys')
+      .select('id, is_active, max_devices, used_devices, expires_at')
+      .eq('key', normalizedKey)
+      .single()
+    if (licErr || !license) {
+      return json({ success: true, exists: false })
+    }
+    return json({
+      success: true,
+      exists: true,
+      is_active: license.is_active,
+      max_devices: license.max_devices,
+      used_devices: license.used_devices,
+      expires_at: license.expires_at,
+    })
+  }
+
   const quantity    = Math.min(Math.max(Number(body.quantity)    || 5,  1), 50)
   const max_devices = Math.min(Math.max(Number(body.max_devices) || 2,  1), 10)
   const note        = ((body.note as string) || '').slice(0, 100) || null
