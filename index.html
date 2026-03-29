@@ -4439,6 +4439,52 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 /* Hide buy section for premium users */
 .is-premium #get-key-section{display:none}
 
+/* ── Compact Payment Tabs ───────────────────────────── */
+.pay-compact{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:16px}
+.pay-tabs{display:flex;border-bottom:1px solid var(--border);background:rgba(0,0,0,.25)}
+.pay-tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 6px;background:none;border:none;border-right:1px solid var(--border);color:var(--text3);cursor:pointer;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;transition:background .18s,color .18s;line-height:1}
+.pay-tab:last-child{border-right:none}
+.pay-tab-icon{font-size:15px;display:block}
+.pay-tab-label{display:block;margin-top:2px}
+.pay-tab:hover:not(.active){background:rgba(255,255,255,.04);color:var(--text2)}
+.pay-tab.active{color:var(--gold);background:rgba(255,215,0,.07)}
+.pay-tab-stripe.active{color:#7c6eff;background:rgba(99,91,255,.09)}
+.pay-tab-mm.active{color:var(--accent2);background:rgba(255,107,53,.08)}
+
+.pay-panel-wrap{position:relative;min-height:120px}
+.pay-panel{display:none;flex-direction:column;gap:10px;padding:18px 20px;animation:payFadeIn .2s ease}
+.pay-panel.active{display:flex}
+@keyframes payFadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+
+.pay-panel-header{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.pay-panel-price{font-size:26px;font-weight:800;color:var(--gold);line-height:1}
+.pay-price-mm{color:var(--accent2)}
+.pay-panel-region{font-size:10px;color:var(--text3)}
+
+.pay-panel-chips{display:flex;gap:6px;flex-wrap:wrap}
+.pay-panel-chips span{font-size:10px;color:#8a85ff;background:rgba(99,91,255,.09);border:1px solid rgba(99,91,255,.2);border-radius:5px;padding:3px 7px}
+
+.pay-panel-step{font-size:11px;color:var(--text3)}
+.pay-acct-name{color:var(--text2);font-weight:600}
+
+.pay-num-row{display:flex;align-items:center;gap:8px;background:rgba(255,215,0,.05);border:1px solid rgba(255,215,0,.15);border-radius:8px;padding:9px 12px}
+.pay-num-row-mm{background:rgba(255,107,53,.05);border-color:rgba(255,107,53,.15)}
+.pay-num{font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:700;color:var(--gold);flex:1}
+.pay-num-mm{color:var(--accent2)}
+
+.pay-copy-btn{background:none;border:1px solid rgba(255,215,0,.3);color:var(--gold);font-size:10px;font-weight:600;padding:3px 9px;border-radius:5px;cursor:pointer;font-family:'Syne',sans-serif;transition:background .15s;white-space:nowrap}
+.pay-copy-btn:hover{background:rgba(255,215,0,.12)}
+.pay-copy-mm{border-color:rgba(255,107,53,.3);color:var(--accent2)}
+.pay-copy-mm:hover{background:rgba(255,107,53,.1)}
+
+.pay-action-btn{display:block;width:100%;padding:12px 16px;border-radius:9px;font-weight:700;font-size:13px;cursor:pointer;text-align:center;font-family:'Syne',sans-serif;border:none;transition:opacity .18s,transform .18s;margin-top:2px}
+.pay-action-stripe{background:linear-gradient(135deg,#635bff,#4f46e5);color:#fff}
+.pay-action-stripe:hover{opacity:.88;transform:translateY(-1px)}
+.pay-action-stripe:active{transform:translateY(0)}
+
+.pay-email-btn{display:block;background:rgba(0,212,255,.07);border:1px solid rgba(0,212,255,.2);color:var(--accent);font-size:11px;font-weight:700;padding:9px 12px;border-radius:8px;text-decoration:none;text-align:center;font-family:'Syne',sans-serif;transition:background .18s}
+.pay-email-btn:hover{background:rgba(0,212,255,.15)}
+
 /* ══════════════════════════════════════════════════
    PREMIUM LOCK OVERLAY (blur + CTA on locked content)
    ══════════════════════════════════════════════════ */
@@ -9449,56 +9495,87 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
     <!-- Buy section (shown for free users) -->
     <div class="get-key-section" id="get-key-section">
       <div class="get-key-title">Get a License Key</div>
-      <div class="get-key-cards">
-        <div class="get-key-card get-key-card-stripe">
-          <div class="get-key-method">💳 Card · Apple Pay · Google Pay</div>
-          <div class="get-key-price">SGD 7</div>
-          <div class="get-key-region">Worldwide · Instant · PayNow available · 1 month</div>
-          <button class="get-key-btn get-key-btn-stripe" onclick="stripeCheckout(this)">Pay Securely →</button>
-        </div>
-          <div class="get-key-price">SGD 7</div>
-          <div class="get-key-region">Singapore · Instant transfer · 1 month</div>
-          <button class="get-key-btn" onclick="toggleSGDetails('paynow', this)">Pay with PayNow →</button>
-          <div class="get-key-sg-details" id="get-key-sg-paynow">
-            <div class="get-key-kbz-step">Send SGD 7 via PayNow to:</div>
-            <div class="get-key-kbz-num-row">
-              <span class="get-key-kbz-num" id="get-key-paynow-uen">—</span>
-              <button class="get-key-kbz-copy" onclick="copySGDetail('paynow', this)">Copy</button>
-            </div>
-            <div class="get-key-kbz-step">Then email your transaction ID:</div>
-            <a class="get-key-kbz-email" id="get-key-paynow-email-link" href="#">📧 Send Payment Proof</a>
-          </div>
+      <div class="pay-compact">
+        <!-- Method tabs -->
+        <div class="pay-tabs" role="tablist">
+          <button class="pay-tab pay-tab-stripe active" role="tab" aria-selected="true" aria-controls="pay-panel-stripe" onclick="paySelectTab('stripe',this)">
+            <span class="pay-tab-icon">💳</span>
+            <span class="pay-tab-label">Card / Apple Pay</span>
+          </button>
+          <button class="pay-tab" role="tab" aria-selected="false" aria-controls="pay-panel-paynow" onclick="paySelectTab('paynow',this)">
+            <span class="pay-tab-icon">⚡</span>
+            <span class="pay-tab-label">PayNow</span>
+          </button>
+          <button class="pay-tab" role="tab" aria-selected="false" aria-controls="pay-panel-uob" onclick="paySelectTab('uob',this)">
+            <span class="pay-tab-icon">🏦</span>
+            <span class="pay-tab-label">UOB Bank</span>
+          </button>
+          <button class="pay-tab pay-tab-mm" role="tab" aria-selected="false" aria-controls="pay-panel-kbzpay" onclick="paySelectTab('kbzpay',this)">
+            <span class="pay-tab-icon">📱</span>
+            <span class="pay-tab-label">KBZPay</span>
+          </button>
         </div>
 
-        <div class="get-key-card">
-          <div class="get-key-method">🏦 UOB Bank</div>
-          <div class="get-key-price">SGD 7</div>
-          <div class="get-key-region">Singapore · Bank transfer · 1 month</div>
-          <button class="get-key-btn" onclick="toggleSGDetails('uob', this)">Pay with UOB →</button>
-          <div class="get-key-sg-details" id="get-key-sg-uob">
-            <div class="get-key-kbz-step">Transfer SGD 7 to UOB account:</div>
-            <div class="get-key-kbz-num-row">
-              <span class="get-key-kbz-num" id="get-key-uob-acc">—</span>
-              <button class="get-key-kbz-copy" onclick="copySGDetail('uob', this)">Copy</button>
+        <!-- Panel area -->
+        <div class="pay-panel-wrap">
+          <!-- Stripe -->
+          <div class="pay-panel active" id="pay-panel-stripe" role="tabpanel">
+            <div class="pay-panel-header">
+              <span class="pay-panel-price">SGD 7</span>
+              <span class="pay-panel-region">Worldwide · Instant · 1 month · 2 devices</span>
             </div>
-            <div class="get-key-kbz-step">Account name: <span id="get-key-uob-name">—</span></div>
-            <div class="get-key-kbz-step">Then email your transaction ID:</div>
-            <a class="get-key-kbz-email" id="get-key-uob-email-link" href="#">📧 Send Payment Proof</a>
+            <div class="pay-panel-chips">
+              <span>✓ Visa / Mastercard / AMEX</span>
+              <span>✓ Apple Pay / Google Pay</span>
+              <span>✓ PayNow (SG)</span>
+            </div>
+            <button class="pay-action-btn pay-action-stripe" onclick="stripeCheckout(this)">Pay SGD 7 Securely →</button>
           </div>
-        </div>
-        <div class="get-key-card get-key-card-mm">
-          <div class="get-key-method">📱 KBZPay</div>
-          <div class="get-key-price">10,000 MMK</div>
-          <div class="get-key-region">Myanmar only · Mobile wallet · 1 month</div>
-          <button class="get-key-btn" onclick="toggleSGDetails('kbzpay', this)">Pay with KBZPay →</button>
-          <div class="get-key-sg-details" id="get-key-sg-kbzpay">
-            <div class="get-key-kbz-step">Send 10,000 MMK to:</div>
-            <div class="get-key-kbz-num-row">
-              <span class="get-key-kbz-num" id="get-key-kbzpay-uen">—</span>
-              <button class="get-key-kbz-copy" onclick="copySGDetail('kbzpay', this)">Copy</button>
+
+          <!-- PayNow -->
+          <div class="pay-panel" id="pay-panel-paynow" role="tabpanel">
+            <div class="pay-panel-header">
+              <span class="pay-panel-price">SGD 7</span>
+              <span class="pay-panel-region">Singapore · Instant transfer · 1 month</span>
             </div>
-            <div class="get-key-kbz-step">Then email your payment proof:</div>
-            <a class="get-key-kbz-email" id="get-key-kbzpay-email-link" href="#">📧 Send Payment Proof</a>
+            <div class="pay-panel-step">Send SGD 7 via PayNow to:</div>
+            <div class="pay-num-row">
+              <span class="pay-num" id="pay-paynow-uen">—</span>
+              <button class="pay-copy-btn" onclick="payCopy('paynow',this)">Copy</button>
+            </div>
+            <div class="pay-panel-step">Then email your transaction ID:</div>
+            <a class="pay-email-btn" id="pay-paynow-email" href="#">📧 Send Payment Proof</a>
+          </div>
+
+          <!-- UOB -->
+          <div class="pay-panel" id="pay-panel-uob" role="tabpanel">
+            <div class="pay-panel-header">
+              <span class="pay-panel-price">SGD 7</span>
+              <span class="pay-panel-region">Singapore · Bank transfer · 1 month</span>
+            </div>
+            <div class="pay-panel-step">Transfer SGD 7 to UOB account:</div>
+            <div class="pay-num-row">
+              <span class="pay-num" id="pay-uob-acc">—</span>
+              <button class="pay-copy-btn" onclick="payCopy('uob',this)">Copy</button>
+            </div>
+            <div class="pay-panel-step">Account name: <span class="pay-acct-name" id="pay-uob-name">—</span></div>
+            <div class="pay-panel-step">Then email your transaction ID:</div>
+            <a class="pay-email-btn" id="pay-uob-email" href="#">📧 Send Payment Proof</a>
+          </div>
+
+          <!-- KBZPay -->
+          <div class="pay-panel pay-panel-mm" id="pay-panel-kbzpay" role="tabpanel">
+            <div class="pay-panel-header">
+              <span class="pay-panel-price pay-price-mm">10,000 MMK</span>
+              <span class="pay-panel-region">Myanmar only · Mobile wallet · 1 month</span>
+            </div>
+            <div class="pay-panel-step">Send 10,000 MMK to:</div>
+            <div class="pay-num-row pay-num-row-mm">
+              <span class="pay-num pay-num-mm" id="pay-kbzpay-num">—</span>
+              <button class="pay-copy-btn pay-copy-mm" onclick="payCopy('kbzpay',this)">Copy</button>
+            </div>
+            <div class="pay-panel-step">Then email your payment proof:</div>
+            <a class="pay-email-btn" id="pay-kbzpay-email" href="#">📧 Send Payment Proof</a>
           </div>
         </div>
       </div>
@@ -21587,6 +21664,44 @@ window.toggleSGDetails = function(method, btn) {
 };
 
 window.copySGDetail = function(method, btn) {
+  var val = (_SG_VALUES[method] || {}).value || '';
+  function done(){ btn.textContent='Copied!'; setTimeout(function(){ btn.textContent='Copy'; }, 2000); }
+  navigator.clipboard.writeText(val).then(done).catch(function(){
+    var ta=document.createElement('textarea'); ta.value=val; ta.style.cssText='position:fixed;opacity:0';
+    document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); done();
+  });
+};
+
+// ── Compact payment tab system ───────────────────────
+window.paySelectTab = function(method, btn) {
+  document.querySelectorAll('.pay-tab').forEach(function(t){ t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+  btn.classList.add('active'); btn.setAttribute('aria-selected','true');
+  document.querySelectorAll('.pay-panel').forEach(function(p){ p.classList.remove('active'); });
+  var panel = document.getElementById('pay-panel-' + method);
+  if(panel) panel.classList.add('active');
+  var cfg = _SG_VALUES[method];
+  if(!cfg) return;
+  if(method === 'paynow') {
+    var numEl = document.getElementById('pay-paynow-uen'); if(numEl) numEl.textContent = cfg.value;
+    paySetEmailLink(document.getElementById('pay-paynow-email'), method, cfg);
+  } else if(method === 'uob') {
+    var accEl = document.getElementById('pay-uob-acc'); if(accEl) accEl.textContent = cfg.value;
+    var nameEl = document.getElementById('pay-uob-name'); if(nameEl && cfg.name) nameEl.textContent = cfg.name;
+    paySetEmailLink(document.getElementById('pay-uob-email'), method, cfg);
+  } else if(method === 'kbzpay') {
+    var numEl = document.getElementById('pay-kbzpay-num'); if(numEl) numEl.textContent = cfg.value;
+    paySetEmailLink(document.getElementById('pay-kbzpay-email'), method, cfg);
+  }
+};
+
+function paySetEmailLink(el, method, cfg) {
+  if(!el) return;
+  var sub  = encodeURIComponent('GeoLearn Premium - ' + cfg.label + ' Payment');
+  var body = encodeURIComponent('Hi,\n\nI paid ' + cfg.amount + ' via ' + cfg.label + '.\n\nTransaction ID: \nMy email: \n\nPlease send my license key.\n\nThank you!');
+  el.href = 'mailto:' + PAYMENT_EMAIL + '?subject=' + sub + '&body=' + body;
+}
+
+window.payCopy = function(method, btn) {
   var val = (_SG_VALUES[method] || {}).value || '';
   function done(){ btn.textContent='Copied!'; setTimeout(function(){ btn.textContent='Copy'; }, 2000); }
   navigator.clipboard.writeText(val).then(done).catch(function(){
