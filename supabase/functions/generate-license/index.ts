@@ -55,6 +55,43 @@ Deno.serve(async (req: Request) => {
     return json({ success: false, error: 'Invalid JSON body' }, 400)
   }
 
+  // ── Shared admin client (used by both actions) ───────────────
+  const supabaseAdmin = createClient(
+    Deno.env.get('SUPABASE_URL')              ?? '',
+    Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '',
+    { auth: { persistSession: false, autoRefreshToken: false } }
+  )
+
+  // ── check_key action — validate a single key without consuming it ──
+  if (body.action === 'check_key') {
+    const keyToCheck = ((body.key as string) || '').trim().toUpperCase()
+    if (!keyToCheck) return json({ success: false, error: 'key is required' }, 400)
+
+    const { data: row, error: lookupErr } = await supabaseAdmin
+      .from('license_keys')
+      .select('key, is_active, expires_at, max_devices, used_devices, created_at, note')
+      .eq('key', keyToCheck)
+      .single()
+
+    if (lookupErr || !row) {
+      return json({ found: false, valid: false })
+    }
+
+    const isExpired = !!row.expires_at && new Date(row.expires_at) < new Date()
+    return json({
+      found:        true,
+      valid:        row.is_active && !isExpired,
+      is_active:    row.is_active,
+      expired:      isExpired,
+      expires_at:   row.expires_at,
+      max_devices:  row.max_devices,
+      used_devices: row.used_devices,
+      created_at:   row.created_at,
+      note:         row.note ?? null,
+    })
+  }
+
+  // ── Generate action ──────────────────────────────────────────
   const quantity    = Math.min(Math.max(Number(body.quantity)    || 5,  1), 50)
   const max_devices = Math.min(Math.max(Number(body.max_devices) || 2,  1), 10)
   const note        = ((body.note as string) || '').slice(0, 100) || null
@@ -75,13 +112,6 @@ Deno.serve(async (req: Request) => {
     const key = `${prefix}-${year}-${randomSegment(4)}-${randomSegment(4)}`
     if (!keys.includes(key)) keys.push(key)
   }
-
-  // ── Insert into Supabase ─────────────────────────────────────
-  const supabaseAdmin = createClient(
-    Deno.env.get('SUPABASE_URL')              ?? '',
-    Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '',
-    { auth: { persistSession: false, autoRefreshToken: false } }
-  )
 
   const rows = keys.map(key => ({
     key,
