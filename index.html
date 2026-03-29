@@ -34,7 +34,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- Supabase JS Client -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.1/dist/umd/supabase.min.js" crossorigin="anonymous"></script>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet" crossorigin="anonymous">
 <style>
 :root {
@@ -10418,26 +10418,60 @@ window.apRefreshSysInfo=function(){
   }catch(e){}
 };
 
-window.apValidateKey=function(){
+window.apValidateKey=async function(){
   var inp=document.getElementById('ap-valid-input');
   var res=document.getElementById('ap-valid-result');
   if(!inp||!res)return;
   var raw=inp.value.trim().toUpperCase();
   if(!raw){res.style.display='none';return;}
-  // Use the existing validation chain
+
+  // 1) Check local _VK hash list (legacy admin keys)
   var valid=false;
   try{
-    // _CAP checks admin passwords; for license keys use the premium check path
     if(typeof _VK!=='undefined'&&typeof _E==='function'){
       valid=_VK.indexOf(_E(raw))!==-1;
-    }else if(typeof window.isPremium==='function'){
-      // fallback: can't validate without internals exposed
-      valid=false;
     }
-  }catch(e){valid=false;}
-  res.textContent=valid?'✔ Valid license key — this key will activate Premium.':'✘ Invalid key — not found in the current _VK list.';
-  res.className='ap-valid-result '+(valid?'ok':'fail');
+  }catch(e){}
+
+  if(valid){
+    res.textContent='✔ Valid license key (local _VK) — this key will activate Premium.';
+    res.className='ap-valid-result ok';
+    res.style.display='block';
+    return;
+  }
+
+  // 2) Check local checksum-based keys (GLJP-* format)
+  if(typeof _valGenKey==='function'&&_valGenKey(raw)){
+    res.textContent='✔ Valid license key (GLJP checksum) — this key will activate Premium.';
+    res.className='ap-valid-result ok';
+    res.style.display='block';
+    return;
+  }
+
+  // 3) Check Supabase database via Edge Function lookup
+  res.textContent='⏳ Checking Supabase…';
+  res.className='ap-valid-result';
   res.style.display='block';
+  try{
+    var secret=sessionStorage.getItem('GeoLearn_AdminSecret')||'';
+    var checkUrl='https://ftmkgkxzgobgjkasnmxn.supabase.co/functions/v1/generate-license';
+    var resp=await fetch(checkUrl,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','X-Admin-Secret':secret},
+      body:JSON.stringify({action:'check',key:raw})
+    });
+    var data=await resp.json();
+    if(data&&data.exists){
+      res.textContent='✔ Valid license key (Supabase DB) — active: '+(data.is_active?'yes':'no')+', devices: '+(data.used_devices||0)+'/'+(data.max_devices||'?');
+      res.className='ap-valid-result ok';
+    }else{
+      res.textContent='✘ Key not found in _VK list or Supabase database.';
+      res.className='ap-valid-result fail';
+    }
+  }catch(e){
+    res.textContent='✘ Key not in _VK list. Supabase check failed: '+e.message;
+    res.className='ap-valid-result fail';
+  }
 };
 // ─────────────────────────────────────────────────────────────────
 
@@ -21043,6 +21077,14 @@ function getDeviceFingerprint() {
 // persisted session stored by the Supabase JS client (localStorage).
 // No login UI is shown; the user never knows this happened.
 async function signInAnonymously() {
+  // Lazy-init Supabase client if it wasn't ready when the IIFE first ran
+  if (!supaClient) {
+    try {
+      if (typeof supabase !== 'undefined' && supabase.createClient) {
+        supaClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      }
+    } catch(e) {}
+  }
   if (!supaClient) return null;
   try {
     var result = await supaClient.auth.signInAnonymously();
@@ -21067,7 +21109,21 @@ async function signInAnonymously() {
 //   · writes the activation record and upgrades the subscription
 // The frontend NEVER sees the license_keys table directly.
 async function activateLicenseViaEdge(key) {
-  if (!supaClient || !key) return { success: false, error: 'Invalid input' };
+  if (!key) return { success: false, error: 'Please enter a license key.' };
+
+  // Lazy-init Supabase client if it wasn't ready when the IIFE first ran
+  if (!supaClient) {
+    try {
+      if (typeof supabase !== 'undefined' && supabase.createClient) {
+        supaClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      }
+    } catch(e) {}
+  }
+
+  // If supaClient is still null, fall back to direct REST calls
+  if (!supaClient) {
+    return activateLicenseDirectFetch(key);
+  }
 
   // Ensure there is an active session (anonymous or named)
   var session = null;
@@ -21114,6 +21170,57 @@ async function activateLicenseViaEdge(key) {
     }
   } catch(e) {
     return { success: false, error: e.message || '検証エラー。Validation error. Please try again.' };
+  }
+}
+
+// Direct-fetch fallback when Supabase JS client fails to load.
+// Mirrors activateLicenseViaEdge but uses raw REST API calls.
+async function activateLicenseDirectFetch(key) {
+  try {
+    var normalizedKey = key.trim().toUpperCase();
+    var fingerprint   = getDeviceFingerprint();
+
+    // Step 1: Anonymous sign-in via Supabase Auth REST API
+    var authResp = await fetch(SUPABASE_URL + '/auth/v1/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_ANON_KEY
+      },
+      body: JSON.stringify({})
+    });
+    var authData = await authResp.json();
+    var token = authData.access_token;
+    if (!token) return { success: false, error: 'Authentication failed. Please refresh and try again.' };
+
+    // Step 2: Call validate-license Edge Function directly
+    var resp = await fetch(SUPABASE_URL + '/functions/v1/validate-license', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token,
+        'apikey': SUPABASE_ANON_KEY
+      },
+      body: JSON.stringify({
+        license_key:        normalizedKey,
+        device_fingerprint: fingerprint
+      })
+    });
+    var data = await resp.json();
+
+    if (data && data.success) {
+      try {
+        localStorage.setItem('GeoLearn_Premium_Status',   'true');
+        localStorage.setItem('GeoLearn_License_Key',       btoa(normalizedKey));
+        localStorage.setItem('GeoLearn_Activation_Date',   new Date().toISOString());
+      } catch(e) {}
+      invalidatePlanCache();
+      return { success: true };
+    } else {
+      return { success: false, error: (data && data.error) || 'Invalid license key.' };
+    }
+  } catch(e) {
+    return { success: false, error: e.message || 'Validation error. Please try again.' };
   }
 }
 
