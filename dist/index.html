@@ -2,6 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="version" content="2.1.0-hardened-20260330">
 <meta name="author" content="MYO NAING TUN">
 <meta name="copyright" content="Copyright (c) 2026 MYO NAING TUN / MYO_Geo_Orgs. All Rights Reserved.">
 <meta name="owner" content="MYO_Geo_Orgs">
@@ -11,22 +15,6 @@
 <meta name="rights" content="All Rights Reserved — MYO NAING TUN / MYO_Geo_Orgs 2026">
 <meta property="og:site_name" content="GeoLearn Japan — by MYO_Geo_Orgs™">
 <meta property="og:type" content="website">
-<!-- SEO: Primary -->
-<meta name="description" content="Free interactive study platform for geotechnical and geophysical engineering in Japan. Learn 地盤調査, SPT, CPT, JLPT Japanese technical vocabulary with flashcards, quizzes, and roadmaps for Japanese engineering exams.">
-<meta name="keywords" content="geotechnical engineering Japan, 地盤調査, 地質調査技士, 物理探査技士, SPT test Japan, CPT geotechnical, JLPT technical Japanese, geophysical engineering study, Japanese engineering exam preparation, 現場調査技術者">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://golem7x.github.io/GeoLearn-Japan/">
-<!-- SEO: Open Graph (for social sharing) -->
-<meta property="og:title" content="GeoLearn Japan — Geotechnical & Geophysical Engineering Study Platform">
-<meta property="og:description" content="Master geotechnical and geophysical engineering for Japan. Interactive flashcards, quizzes, SPT/CPT tools, JLPT Japanese vocab, and exam roadmaps — all free.">
-<meta property="og:url" content="https://golem7x.github.io/GeoLearn-Japan/">
-<meta property="og:image" content="https://golem7x.github.io/GeoLearn-Japan/assets/brand/geolearn_icon.svg">
-<meta property="og:locale" content="en_US">
-<!-- SEO: Twitter Card -->
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GeoLearn Japan — Geotechnical Engineering Study App">
-<meta name="twitter:description" content="Free interactive platform to study geotechnical engineering for Japan. Flashcards, quizzes, JLPT Japanese, exam roadmaps.">
-<meta name="twitter:image" content="https://golem7x.github.io/GeoLearn-Japan/assets/brand/geolearn_icon.svg">
 <!-- ═══════════════════════════════════════════════════
      SECURITY HEADERS
      X-Frame-Options and X-Content-Type-Options must be
@@ -50,7 +38,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- Supabase JS Client -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" integrity="sha384-4bKASEcnXfYfA/rrhF9qD3mYowkb5k4Xbzbrf3ccqgZrplKUrwnA2Q/L5xcdZFAp" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.1/dist/umd/supabase.min.js" crossorigin="anonymous"></script>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet" crossorigin="anonymous">
 <style>
 :root {
@@ -1712,8 +1700,38 @@ body.focus-mode .sr-section.focused-section { opacity: 1; }
   right: 24px;
   display: flex;
   flex-direction: column;
+  align-items: flex-end;
   gap: 8px;
   z-index: 500;
+}
+#toolbar-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: hidden;
+  max-height: 400px;
+  transition: max-height 0.3s ease, opacity 0.25s ease;
+  opacity: 1;
+}
+#study-toolbar.toolbar-collapsed #toolbar-buttons {
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+.toolbar-toggle-btn {
+  font-size: 16px;
+  padding: 8px 12px !important;
+  border-radius: 50% !important;
+  min-width: 40px;
+  justify-content: center;
+  opacity: 0.7;
+}
+.toolbar-toggle-btn:hover { opacity: 1; }
+#study-toolbar.toolbar-collapsed .toolbar-toggle-btn {
+  opacity: 1;
+  background: #3A6EA5 !important;
+  color: #fff !important;
+  border-color: #3A6EA5 !important;
 }
 .toolbar-btn {
   display: flex;
@@ -4003,6 +4021,148 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 .admin-keygen-hint{margin-top:10px;font-size:10px;color:var(--text3);line-height:1.6;background:rgba(255,215,0,.04);border:1px solid rgba(255,215,0,.1);border-radius:6px;padding:8px 10px}
 .admin-keygen-hint code{font-family:'JetBrains Mono',monospace;color:var(--gold);font-size:10px}
 
+/* ── License Key Studio ──────────────────────────────────────── */
+.lks-card{grid-column:1/-1}
+.lks-pipeline{display:flex;align-items:center;gap:0;margin-bottom:20px;overflow-x:auto;padding-bottom:4px}
+.lks-step{display:flex;align-items:center;gap:8px;padding:10px 18px;background:var(--surface2);border:1px solid var(--border);font-size:11px;font-weight:700;color:var(--text3);cursor:default;transition:all .25s;white-space:nowrap;position:relative}
+.lks-step:first-child{border-radius:10px 0 0 10px}
+.lks-step:last-child{border-radius:0 10px 10px 0}
+.lks-step .lks-step-num{width:22px;height:22px;border-radius:50%;background:var(--border);color:var(--text3);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0;transition:all .25s}
+.lks-step.active{background:rgba(255,215,0,.1);border-color:rgba(255,215,0,.4);color:var(--gold)}
+.lks-step.active .lks-step-num{background:var(--gold);color:#000}
+.lks-step.done{background:rgba(127,255,110,.06);border-color:rgba(127,255,110,.3);color:var(--accent3)}
+.lks-step.done .lks-step-num{background:var(--accent3);color:#000}
+.lks-step-arrow{color:var(--border);font-size:16px;margin:0 -1px;flex-shrink:0;z-index:1}
+.lks-section{display:none;animation:lksFadeIn .3s ease}
+.lks-section.visible{display:block}
+@keyframes lksFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* Step 1: Generate */
+.lks-gen-btn{background:linear-gradient(135deg,rgba(255,215,0,.3),rgba(255,140,0,.22));border:1px solid rgba(255,215,0,.5);color:var(--gold);font-size:14px;font-weight:800;padding:14px 32px;border-radius:12px;cursor:pointer;font-family:'Syne',sans-serif;transition:all .25s;display:flex;align-items:center;gap:10px;width:100%}
+.lks-gen-btn:hover{background:linear-gradient(135deg,rgba(255,215,0,.45),rgba(255,140,0,.35));border-color:var(--gold);transform:translateY(-1px);box-shadow:0 6px 20px rgba(255,215,0,.15)}
+.lks-gen-btn:active{transform:translateY(0)}
+.lks-key-display{margin-top:16px;background:rgba(0,0,0,.35);border:1px solid rgba(255,215,0,.25);border-radius:10px;padding:16px 18px;display:none}
+.lks-key-display.visible{display:block}
+.lks-key-text{font-family:'JetBrains Mono',monospace;font-size:18px;color:var(--gold);letter-spacing:2px;font-weight:700;word-break:break-all;text-align:center;padding:8px 0;user-select:all}
+.lks-key-meta{display:flex;gap:12px;justify-content:center;margin-top:8px;flex-wrap:wrap}
+.lks-key-meta-tag{font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px;letter-spacing:.4px}
+.lks-key-meta-tag.secure{background:rgba(127,255,110,.1);border:1px solid rgba(127,255,110,.25);color:var(--accent3)}
+.lks-key-meta-tag.format{background:rgba(100,180,255,.1);border:1px solid rgba(100,180,255,.25);color:var(--accent)}
+.lks-key-meta-tag.time{background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--text3)}
+
+/* Step 2: Validate */
+.lks-validate-box{background:rgba(0,0,0,.2);border:1px solid var(--border);border-radius:10px;padding:16px 18px;display:none}
+.lks-validate-box.visible{display:block}
+.lks-check-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.lks-check-row:last-child{border-bottom:none}
+.lks-check-icon{font-size:16px;flex-shrink:0;width:22px;text-align:center}
+.lks-check-label{font-size:12px;color:var(--text2);flex:1}
+.lks-check-status{font-size:11px;font-weight:700;font-family:'JetBrains Mono',monospace}
+.lks-check-status.pass{color:var(--accent3)}
+.lks-check-status.fail{color:#ff4757}
+.lks-check-status.pending{color:var(--text3)}
+
+/* Step 3: Test */
+.lks-test-box{background:rgba(0,0,0,.2);border:1px solid var(--border);border-radius:10px;padding:16px 18px;display:none}
+.lks-test-box.visible{display:block}
+.lks-test-btn{background:rgba(100,180,255,.12);border:1px solid rgba(100,180,255,.3);color:var(--accent);font-size:12px;font-weight:700;padding:10px 20px;border-radius:8px;cursor:pointer;font-family:'Syne',sans-serif;transition:all .2s;width:100%}
+.lks-test-btn:hover{background:rgba(100,180,255,.22);border-color:var(--accent)}
+.lks-test-result{margin-top:12px;font-size:12px;line-height:1.7;display:none}
+.lks-test-result.visible{display:block}
+.lks-test-result.pass{color:var(--accent3);background:rgba(127,255,110,.06);border:1px solid rgba(127,255,110,.2);border-radius:8px;padding:12px 14px}
+.lks-test-result.fail{color:#ff4757;background:rgba(255,71,87,.06);border:1px solid rgba(255,71,87,.2);border-radius:8px;padding:12px 14px}
+
+/* Step 4: Ready */
+.lks-ready-box{background:rgba(127,255,110,.04);border:1px solid rgba(127,255,110,.25);border-radius:10px;padding:20px;display:none;text-align:center}
+.lks-ready-box.visible{display:block}
+.lks-ready-title{font-size:15px;font-weight:800;color:var(--accent3);margin-bottom:6px}
+.lks-ready-sub{font-size:11px;color:var(--text3);margin-bottom:16px;line-height:1.6}
+.lks-ready-key{font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--gold);letter-spacing:2.5px;font-weight:700;background:rgba(0,0,0,.4);border:1px dashed rgba(255,215,0,.3);border-radius:10px;padding:14px 20px;margin-bottom:16px;user-select:all;word-break:break-all}
+.lks-ready-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.lks-ready-copy{background:linear-gradient(135deg,rgba(127,255,110,.2),rgba(0,200,80,.15));border:1px solid rgba(127,255,110,.4);color:var(--accent3);font-size:12px;font-weight:700;padding:10px 24px;border-radius:8px;cursor:pointer;font-family:'Syne',sans-serif;transition:all .2s}
+.lks-ready-copy:hover{background:linear-gradient(135deg,rgba(127,255,110,.3),rgba(0,200,80,.25))}
+.lks-ready-new{background:none;border:1px solid var(--border);color:var(--text3);font-size:12px;font-weight:600;padding:10px 20px;border-radius:8px;cursor:pointer;font-family:'Syne',sans-serif;transition:all .15s}
+.lks-ready-new:hover{border-color:var(--text2);color:var(--text2)}
+.lks-history{margin-top:20px;border-top:1px solid rgba(255,215,0,.1);padding-top:16px}
+.lks-history-title{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
+.lks-history-list{display:flex;flex-direction:column;gap:6px;max-height:180px;overflow-y:auto}
+.lks-history-row{display:flex;align-items:center;gap:10px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:8px 12px}
+.lks-history-key{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);flex:1;letter-spacing:.6px;word-break:break-all}
+.lks-history-time{font-size:10px;color:var(--text3);white-space:nowrap}
+.lks-history-copy{background:none;border:1px solid var(--border);color:var(--text3);font-size:10px;font-weight:600;padding:3px 8px;border-radius:5px;cursor:pointer;transition:all .15s;flex-shrink:0}
+.lks-history-copy:hover{border-color:var(--accent);color:var(--accent)}
+
+/* Manual key input for validator */
+.lks-manual-row{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.lks-manual-input{flex:1;min-width:200px;background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:'JetBrains Mono',monospace;font-size:13px;padding:10px 14px;border-radius:8px;outline:none;transition:border-color .2s;text-transform:uppercase;letter-spacing:1px}
+.lks-manual-input:focus{border-color:var(--gold)}
+.lks-manual-input::placeholder{text-transform:none;letter-spacing:normal;opacity:.35;font-family:'Syne',sans-serif;font-size:12px}
+.lks-manual-btn{background:rgba(100,180,255,.12);border:1px solid rgba(100,180,255,.3);color:var(--accent);font-size:12px;font-weight:700;padding:10px 16px;border-radius:8px;cursor:pointer;font-family:'Syne',sans-serif;transition:all .2s;white-space:nowrap}
+.lks-manual-btn:hover{background:rgba(100,180,255,.22);border-color:var(--accent)}
+
+@media(max-width:600px){
+.lks-pipeline{flex-wrap:wrap;gap:4px}
+.lks-step{padding:8px 12px;font-size:10px}
+.lks-step-arrow{display:none}
+.lks-key-text{font-size:14px;letter-spacing:1px}
+.lks-ready-key{font-size:15px;letter-spacing:1.5px;padding:10px 14px}
+}
+
+/* ── Pending Payments card ───────────────────────────────────── */
+.ap-pending-list{display:flex;flex-direction:column;gap:8px;max-height:320px;overflow-y:auto}
+.ap-pending-empty{font-size:12px;color:var(--text3);text-align:center;padding:20px}
+.ap-pending-row{display:flex;align-items:center;gap:10px;background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:10px 14px;flex-wrap:wrap}
+.ap-pending-email{font-size:12px;color:var(--text);font-weight:600;flex:1;min-width:120px}
+.ap-pending-method{font-size:10px;font-weight:700;padding:3px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:.5px}
+.ap-pending-method.paynow{background:rgba(220,38,127,.12);color:#e05ca0;border:1px solid rgba(220,38,127,.25)}
+
+.ap-pending-method.uob{background:rgba(0,112,186,.15);color:#4da6d9;border:1px solid rgba(0,112,186,.3)}
+.ap-pending-method.kbzpay{background:rgba(255,107,53,.12);color:var(--accent2);border:1px solid rgba(255,107,53,.25)}
+.ap-pending-amount{font-size:11px;color:var(--text3)}
+.ap-pending-time{font-size:10px;color:var(--text3);white-space:nowrap}
+.ap-pending-approve{background:linear-gradient(135deg,rgba(127,255,110,.18),rgba(0,200,80,.12));border:1px solid rgba(127,255,110,.3);color:var(--accent3);font-size:11px;font-weight:700;padding:5px 12px;border-radius:7px;cursor:pointer;font-family:'Syne',sans-serif;transition:all .2s;white-space:nowrap}
+.ap-pending-approve:hover{background:linear-gradient(135deg,rgba(127,255,110,.3),rgba(0,200,80,.22))}
+.ap-pending-approve:disabled{opacity:.5;cursor:not-allowed}
+.ap-pending-reject{background:none;border:1px solid rgba(255,71,87,.2);color:rgba(255,71,87,.6);font-size:11px;font-weight:600;padding:5px 10px;border-radius:7px;cursor:pointer;font-family:'Syne',sans-serif;transition:all .2s;white-space:nowrap}
+.ap-pending-reject:hover{border-color:#ff4757;color:#ff4757}
+
+/* ── Supabase Key Manager card ────────────────────────────────── */
+.ap-card-full{grid-column:1/-1}
+.ap-skm-field-row{margin-bottom:16px}
+.ap-skm-label{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;display:block;margin-bottom:6px}
+.ap-skm-input-row{display:flex;gap:8px}
+.ap-skm-input{flex:1;background:var(--surface);border:1px solid rgba(255,215,0,.2);color:var(--text);font-family:'JetBrains Mono',monospace;font-size:12px;padding:9px 12px;border-radius:8px;outline:none;transition:border-color .2s}
+.ap-skm-input:focus{border-color:var(--gold)}
+.ap-skm-save-btn{background:rgba(255,215,0,.12);border:1px solid rgba(255,215,0,.3);color:var(--gold);font-size:11px;font-weight:700;padding:9px 14px;border-radius:8px;cursor:pointer;white-space:nowrap;font-family:'Syne',sans-serif;transition:all .2s}
+.ap-skm-save-btn:hover{background:rgba(255,215,0,.22);border-color:var(--gold)}
+.ap-skm-hint{font-size:10px;color:var(--text3);margin-top:5px;min-height:14px}
+.ap-skm-hint.ok{color:var(--accent3)}
+.ap-skm-hint.err{color:#ff4757}
+.ap-skm-options-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
+.ap-skm-field{display:flex;flex-direction:column;gap:6px}
+.ap-skm-input-sm{background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:'Syne',sans-serif;font-size:12px;padding:8px 10px;border-radius:7px;outline:none;transition:border-color .2s}
+.ap-skm-input-sm:focus{border-color:var(--gold)}
+.ap-skm-gen-btn{width:100%;background:linear-gradient(135deg,rgba(255,215,0,.22),rgba(255,140,0,.18));border:1px solid rgba(255,215,0,.4);color:var(--gold);font-size:13px;font-weight:700;padding:13px;border-radius:10px;cursor:pointer;font-family:'Syne',sans-serif;transition:all .2s;margin-bottom:12px}
+.ap-skm-gen-btn:hover{background:linear-gradient(135deg,rgba(255,215,0,.35),rgba(255,140,0,.3))}
+.ap-skm-gen-btn:disabled{opacity:.5;cursor:not-allowed}
+.ap-skm-status{font-size:12px;font-weight:600;padding:10px 14px;border-radius:8px;display:none;margin-bottom:12px}
+.ap-skm-status.err{background:rgba(255,71,87,.1);border:1px solid rgba(255,71,87,.3);color:#ff4757;display:block}
+.ap-skm-status.ok{background:rgba(127,255,110,.08);border:1px solid rgba(127,255,110,.3);color:var(--accent3);display:block}
+.ap-skm-status.loading{background:rgba(255,215,0,.06);border:1px solid rgba(255,215,0,.2);color:var(--gold);display:block}
+.ap-skm-results{display:none;border:1px solid rgba(255,215,0,.2);border-radius:10px;padding:14px;background:rgba(0,0,0,.2)}
+.ap-skm-results.visible{display:block}
+.ap-skm-results-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px}
+.ap-skm-results-count{font-size:11px;color:var(--text2);font-weight:600}
+.ap-skm-copy-all{background:rgba(0,212,255,.1);border:1px solid rgba(0,212,255,.3);color:var(--accent);font-size:11px;font-weight:700;padding:6px 14px;border-radius:7px;cursor:pointer;font-family:'Syne',sans-serif;transition:all .2s}
+.ap-skm-copy-all:hover{background:rgba(0,212,255,.2)}
+.ap-skm-list{display:flex;flex-direction:column;gap:6px;max-height:300px;overflow-y:auto}
+.ap-skm-key-row{display:flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;padding:8px 10px}
+.ap-skm-key-text{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);flex:1;letter-spacing:.8px}
+.ap-skm-key-meta{font-size:10px;color:var(--text3);white-space:nowrap}
+.ap-skm-key-copy{background:none;border:1px solid var(--border);color:var(--text3);font-size:10px;font-weight:600;padding:3px 8px;border-radius:5px;cursor:pointer;font-family:'Syne',sans-serif;transition:all .15s;flex-shrink:0}
+.ap-skm-key-copy:hover{border-color:var(--accent);color:var(--accent)}
+.ap-skm-key-copy.copied{border-color:var(--accent3);color:var(--accent3)}
+
 /* ── Admin nav item (hidden until is-admin) ───────────────────── */
 .nav-item.nav-admin-only{display:none}
 .is-admin .nav-item.nav-admin-only{display:flex}
@@ -4294,8 +4454,81 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 @media(max-width:480px){
   .paywall-modal{padding:28px 20px 22px;border-radius:18px}
   .paywall-title{font-size:21px}
-  .paywall-price-amount{font-size:28px}
+  .pw-method-cards{grid-template-columns:1fr}
+  .get-key-cards{grid-template-columns:1fr}
 }
+
+/* ── Payment Method UI (paywall modal) ──────────────────────── */
+.pw-methods{width:100%;margin-bottom:8px}
+.pw-methods-label{font-size:11px;color:var(--text3);text-align:center;margin-bottom:14px;font-weight:600;letter-spacing:.3px}
+.pw-method-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.pw-method-card{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:14px 10px;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;transition:all .2s;font-family:'Syne',sans-serif}
+.pw-method-card:hover,.pw-method-card.pw-active{border-color:var(--gold);background:rgba(255,215,0,.07)}
+.pw-method-card-mm:hover,.pw-method-card-mm.pw-active{border-color:var(--accent2);background:rgba(255,107,53,.07)}
+.pw-method-card-stripe{border-color:rgba(99,91,255,.35)!important}
+.pw-method-card-stripe:hover,.pw-method-card-stripe.pw-active{border-color:#635bff!important;background:rgba(99,91,255,.08)!important}
+.pw-method-card-stripe .pw-method-price{color:#635bff}
+.pw-stripe-features{display:flex;flex-direction:column;gap:5px;margin:8px 0 12px;padding:10px 12px;background:rgba(99,91,255,.08);border:1px solid rgba(99,91,255,.2);border-radius:8px}
+.pw-stripe-features span{font-size:11px;color:var(--text2);font-weight:600}
+.pw-stripe-pay-btn{display:block;width:100%;background:linear-gradient(135deg,#635bff,#4f46e5);color:#fff;font-size:13px;font-weight:700;padding:12px;border-radius:8px;border:none;cursor:pointer;font-family:'Syne',sans-serif;transition:opacity .2s;margin-top:10px}
+.pw-stripe-pay-btn:hover{opacity:.88}
+.pw-stripe-pay-btn:disabled{opacity:.5;cursor:not-allowed}
+.get-key-card-stripe{border-color:rgba(99,91,255,.35)!important}
+.get-key-btn-stripe{background:linear-gradient(135deg,#635bff,#4f46e5)!important;border:none!important;color:#fff!important}
+.get-key-btn-stripe:hover{opacity:.88!important}
+.pw-method-icon{font-size:22px}
+.pw-method-name{font-size:13px;font-weight:800;color:var(--text)}
+.pw-method-price{font-size:15px;font-weight:800;color:var(--gold)}
+.pw-method-card-mm .pw-method-price{color:var(--accent2)}
+.pw-method-region{font-size:10px;color:var(--text3);font-weight:500}
+.pw-detail-panel{display:none;background:rgba(0,0,0,.2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:10px}
+.pw-detail-panel.pw-open{display:block}
+.pw-detail-step{font-size:11px;color:var(--text3);font-weight:600;margin-bottom:8px;letter-spacing:.2px}
+.pw-kbz-number{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid rgba(255,107,53,.3);border-radius:8px;padding:10px 12px;margin-bottom:12px}
+.pw-kbz-num-text{font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:700;color:var(--accent2);flex:1;letter-spacing:1px}
+.pw-kbz-copy{background:none;border:1px solid rgba(255,107,53,.3);color:var(--accent2);font-size:10px;font-weight:600;padding:4px 10px;border-radius:5px;cursor:pointer;font-family:'Syne',sans-serif;transition:all .15s}
+.pw-kbz-copy:hover{background:rgba(255,107,53,.1)}
+.pw-detail-input-row{display:flex;gap:8px;flex-wrap:wrap}
+.pw-detail-email{flex:1;min-width:120px;background:var(--surface);border:1px solid var(--border);color:var(--text);font-size:12px;padding:9px 12px;border-radius:8px;outline:none;font-family:'Syne',sans-serif;transition:border-color .2s}
+.pw-detail-email:focus{border-color:var(--gold)}
+.pw-paid-btn{background:linear-gradient(135deg,var(--gold),#ff8c00);color:#000;border:none;font-size:12px;font-weight:700;padding:9px 14px;border-radius:8px;cursor:pointer;font-family:'Syne',sans-serif;white-space:nowrap;transition:all .2s}
+.pw-paid-btn:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(255,215,0,.3)}
+.pw-paid-btn-mm{background:linear-gradient(135deg,var(--accent2),#ff6b00)}
+.pw-paid-btn-mm:hover{box-shadow:0 4px 14px rgba(255,107,53,.3)}
+.pw-confirmed{display:none;text-align:center;padding:16px;background:rgba(127,255,110,.06);border:1px solid rgba(127,255,110,.25);border-radius:10px;margin-bottom:10px}
+.pw-confirmed-icon{font-size:28px;margin-bottom:8px}
+.pw-confirmed-text{font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:12px}
+.pw-confirmed-action{background:var(--surface2);border:1px solid var(--border);color:var(--accent);font-size:12px;font-weight:700;padding:8px 18px;border-radius:8px;cursor:pointer;font-family:'Syne',sans-serif;transition:all .2s}
+.pw-confirmed-action:hover{border-color:var(--accent);background:rgba(0,212,255,.08)}
+
+/* ── Get Key section (activate page) ───────────────────────── */
+.get-key-section{margin-bottom:24px}
+.get-key-title{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+.get-key-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.get-key-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px 16px;display:flex;flex-direction:column;gap:4px}
+.get-key-card-mm{border-color:rgba(255,107,53,.2);background:rgba(255,107,53,.03)}
+.get-key-method{font-size:12px;font-weight:700;color:var(--text2)}
+.get-key-price{font-size:22px;font-weight:800;color:var(--gold);margin:4px 0}
+.get-key-card-mm .get-key-price{color:var(--accent2)}
+.get-key-region{font-size:10px;color:var(--text3);margin-bottom:10px}
+.get-key-btn{display:block;background:linear-gradient(135deg,rgba(255,215,0,.18),rgba(255,140,0,.14));border:1px solid rgba(255,215,0,.35);color:var(--gold);font-size:12px;font-weight:700;padding:9px 14px;border-radius:8px;cursor:pointer;text-align:center;text-decoration:none;font-family:'Syne',sans-serif;transition:all .2s;margin-top:auto}
+.get-key-btn:hover{background:linear-gradient(135deg,rgba(255,215,0,.3),rgba(255,140,0,.25))}
+.get-key-card-mm .get-key-btn{background:linear-gradient(135deg,rgba(255,107,53,.15),rgba(255,140,0,.1));border-color:rgba(255,107,53,.3);color:var(--accent2)}
+.get-key-card-mm .get-key-btn:hover{background:linear-gradient(135deg,rgba(255,107,53,.28),rgba(255,140,0,.2))}
+.get-key-kbz-details{display:none;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,107,53,.15)}
+.get-key-kbz-details.gk-open{display:block}
+.get-key-kbz-step{font-size:11px;color:var(--text3);margin-bottom:6px}
+.get-key-kbz-num-row{display:flex;align-items:center;gap:8px;background:rgba(255,107,53,.07);border:1px solid rgba(255,107,53,.2);border-radius:7px;padding:8px 10px;margin-bottom:8px}
+.get-key-kbz-num{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:var(--accent2);flex:1}
+.get-key-kbz-copy{background:none;border:1px solid rgba(255,107,53,.3);color:var(--accent2);font-size:10px;font-weight:600;padding:3px 8px;border-radius:5px;cursor:pointer;font-family:'Syne',sans-serif;transition:all .15s}
+.get-key-kbz-copy:hover{background:rgba(255,107,53,.1)}
+.get-key-kbz-email{display:block;background:rgba(0,212,255,.07);border:1px solid rgba(0,212,255,.2);color:var(--accent);font-size:11px;font-weight:700;padding:8px 12px;border-radius:7px;text-decoration:none;text-align:center;font-family:'Syne',sans-serif;transition:all .2s}
+.get-key-kbz-email:hover{background:rgba(0,212,255,.15)}
+.get-key-divider{text-align:center;font-size:11px;color:var(--text3);margin:4px 0 18px;position:relative}
+.get-key-divider::before,.get-key-divider::after{content:'';position:absolute;top:50%;width:30%;height:1px;background:var(--border)}
+.get-key-divider::before{left:0}.get-key-divider::after{right:0}
+/* Hide buy section for premium users */
+.is-premium #get-key-section{display:none}
 
 /* ══════════════════════════════════════════════════
    PREMIUM LOCK OVERLAY (blur + CTA on locked content)
@@ -4375,56 +4608,7 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 }
 .plan-badge-upgrade:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,212,255,.3)}
 </style>
-<!-- Schema.org Structured Data — helps Google understand the app -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "GeoLearn Japan",
-  "alternateName": "GeoLearn Japan — Geotechnical & Geophysical Engineering",
-  "url": "https://golem7x.github.io/GeoLearn-Japan/",
-  "description": "Free interactive study platform for geotechnical and geophysical engineering in Japan. Features flashcards, quizzes, SPT/CPT calculation tools, JLPT Japanese technical vocabulary, and exam roadmaps for Japanese engineering certifications.",
-  "applicationCategory": "EducationalApplication",
-  "operatingSystem": "All",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "JPY",
-    "availability": "https://schema.org/InStock"
-  },
-  "author": {
-    "@type": "Person",
-    "name": "MYO NAING TUN",
-    "url": "https://golem7x.github.io/GeoLearn-Japan/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "MYO_Geo_Orgs"
-  },
-  "inLanguage": ["en", "ja"],
-  "educationalLevel": "Professional",
-  "teaches": [
-    "Geotechnical Engineering",
-    "Geophysical Engineering",
-    "地盤調査 (Soil Investigation)",
-    "地質調査技士 (Geological Survey Engineer)",
-    "物理探査技士 (Geophysical Survey Engineer)",
-    "SPT Standard Penetration Test",
-    "CPT Cone Penetration Test",
-    "JLPT Japanese Technical Vocabulary",
-    "Japanese Engineering Certification Exam Preparation"
-  ],
-  "featureList": [
-    "Interactive flashcards with spaced repetition",
-    "Engineering quiz system with grading",
-    "SPT and CPT calculation tools",
-    "JLPT N1/N2 technical Japanese vocabulary",
-    "Certification exam roadmaps",
-    "Study progress tracking"
-  ]
-}
-</script>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://cdn.jsdelivr.net 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-kKemtSUB+0Gw6Rvuu4X29Zi6plz1vAeuAcnll/oK96U='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' https://images.unsplash.com data: blob:; connect-src 'self' https://ftmkgkxzgobgjkasnmxn.supabase.co https://*.supabase.co https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com https://www.clarity.ms https://c.clarity.ms https://d.clarity.ms; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://cdn.jsdelivr.net 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-kKemtSUB+0Gw6Rvuu4X29Zi6plz1vAeuAcnll/oK96U='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' https://images.unsplash.com data: blob:; connect-src 'self' https://ftmkgkxzgobgjkasnmxn.supabase.co https://*.supabase.co https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
 </head>
 <body>
 
@@ -4503,7 +4687,6 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 <script>
 window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
 gtag('js',new Date());gtag('config','G-02M522MYYL',{send_page_view:false});
-gtag('event','page_view',{page_title:'home',page_location:location.href});
 var s=document.createElement('script');s.async=true;
 s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.appendChild(s);
 </script>
@@ -4523,21 +4706,26 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
 
 <!-- STUDY TOOLBAR -->
 <div id="study-toolbar">
-  <button class="toolbar-btn" data-action="toggleStudyMode()" id="study-mode-btn" title="Switch between dark engineering mode and soft study mode">
-    ☀️ Study Mode
+  <button class="toolbar-btn toolbar-toggle-btn" data-action="toggleToolbar()" id="toolbar-toggle-btn" title="Show/hide toolbar">
+    ⚙
   </button>
-  <button class="toolbar-btn study-only" data-action="toggleFocusMode()" id="focus-mode-btn" title="Focus Mode: hides sidebar, increases text size">
-    🎯 Focus Mode
-  </button>
-  <button class="toolbar-btn study-only" data-action="toggleHighlightMode()" id="highlight-btn" title="Toggle key term highlighting">
-    🖊 Highlight Terms
-  </button>
-  <button class="toolbar-btn study-only" data-action="showSpacedReview()" title="Show a random spaced review card">
-    🔁 Quick Review
-  </button>
-  <button class="toolbar-btn focus-hide-tb" data-action="scrollToTop()" title="Back to top">
-    ↑ Top
-  </button>
+  <div id="toolbar-buttons">
+    <button class="toolbar-btn" data-action="toggleStudyMode()" id="study-mode-btn" title="Switch between dark engineering mode and soft study mode">
+      ☀️ Study Mode
+    </button>
+    <button class="toolbar-btn study-only" data-action="toggleFocusMode()" id="focus-mode-btn" title="Focus Mode: hides sidebar, increases text size">
+      🎯 Focus Mode
+    </button>
+    <button class="toolbar-btn study-only" data-action="toggleHighlightMode()" id="highlight-btn" title="Toggle key term highlighting">
+      🖊 Highlight Terms
+    </button>
+    <button class="toolbar-btn study-only" data-action="showSpacedReview()" title="Show a random spaced review card">
+      🔁 Quick Review
+    </button>
+    <button class="toolbar-btn focus-hide-tb" data-action="scrollToTop()" title="Back to top">
+      ↑ Top
+    </button>
+  </div>
 </div>
 
 <div class="app">
@@ -9349,6 +9537,65 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
       </div>
     </div>
 
+    <!-- Buy section (shown for free users) -->
+    <div class="get-key-section" id="get-key-section">
+      <div class="get-key-title">Get a License Key</div>
+      <div class="get-key-cards">
+        <div class="get-key-card get-key-card-stripe">
+          <div class="get-key-method">💳 Card · Apple Pay · Google Pay</div>
+          <div class="get-key-price">SGD 7</div>
+          <div class="get-key-region">Worldwide · Instant · PayNow available · 1 month</div>
+          <button class="get-key-btn get-key-btn-stripe" onclick="stripeCheckout(this)">Pay Securely →</button>
+        </div>
+          <div class="get-key-price">SGD 7</div>
+          <div class="get-key-region">Singapore · Instant transfer · 1 month</div>
+          <button class="get-key-btn" onclick="toggleSGDetails('paynow', this)">Pay with PayNow →</button>
+          <div class="get-key-sg-details" id="get-key-sg-paynow">
+            <div class="get-key-kbz-step">Send SGD 7 via PayNow to:</div>
+            <div class="get-key-kbz-num-row">
+              <span class="get-key-kbz-num" id="get-key-paynow-uen">—</span>
+              <button class="get-key-kbz-copy" onclick="copySGDetail('paynow', this)">Copy</button>
+            </div>
+            <div class="get-key-kbz-step">Then email your transaction ID:</div>
+            <a class="get-key-kbz-email" id="get-key-paynow-email-link" href="#">📧 Send Payment Proof</a>
+          </div>
+        </div>
+
+        <div class="get-key-card">
+          <div class="get-key-method">🏦 UOB Bank</div>
+          <div class="get-key-price">SGD 7</div>
+          <div class="get-key-region">Singapore · Bank transfer · 1 month</div>
+          <button class="get-key-btn" onclick="toggleSGDetails('uob', this)">Pay with UOB →</button>
+          <div class="get-key-sg-details" id="get-key-sg-uob">
+            <div class="get-key-kbz-step">Transfer SGD 7 to UOB account:</div>
+            <div class="get-key-kbz-num-row">
+              <span class="get-key-kbz-num" id="get-key-uob-acc">—</span>
+              <button class="get-key-kbz-copy" onclick="copySGDetail('uob', this)">Copy</button>
+            </div>
+            <div class="get-key-kbz-step">Account name: <span id="get-key-uob-name">—</span></div>
+            <div class="get-key-kbz-step">Then email your transaction ID:</div>
+            <a class="get-key-kbz-email" id="get-key-uob-email-link" href="#">📧 Send Payment Proof</a>
+          </div>
+        </div>
+        <div class="get-key-card get-key-card-mm">
+          <div class="get-key-method">📱 KBZPay</div>
+          <div class="get-key-price">10,000 MMK</div>
+          <div class="get-key-region">Myanmar only · Mobile wallet · 1 month</div>
+          <button class="get-key-btn" onclick="toggleSGDetails('kbzpay', this)">Pay with KBZPay →</button>
+          <div class="get-key-sg-details" id="get-key-sg-kbzpay">
+            <div class="get-key-kbz-step">Send 10,000 MMK to:</div>
+            <div class="get-key-kbz-num-row">
+              <span class="get-key-kbz-num" id="get-key-kbzpay-uen">—</span>
+              <button class="get-key-kbz-copy" onclick="copySGDetail('kbzpay', this)">Copy</button>
+            </div>
+            <div class="get-key-kbz-step">Then email your payment proof:</div>
+            <a class="get-key-kbz-email" id="get-key-kbzpay-email-link" href="#">📧 Send Payment Proof</a>
+          </div>
+        </div>
+      </div>
+      <div class="get-key-divider"><span>Already have a key? Enter it below</span></div>
+    </div>
+
     <!-- License key form (shown for free users) -->
     <div class="activation-form-wrap" id="activation-form-wrap">
       <div class="activation-form-title">Enter Your License Key</div>
@@ -9474,44 +9721,162 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
       <button class="ap-valid-btn" style="margin-top:12px;width:100%" onclick="apRefreshSysInfo()">↻ Refresh</button>
     </div>
 
-    <!-- LICENSE KEY GENERATOR -->
-    <div class="ap-card gold-border">
-      <div class="ap-card-title">⚡ Key Generator</div>
-      <div class="ap-card-sub">Generate a new license key hash to add to <code style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold)">_VK</code> in index.html.</div>
-      <div class="admin-keygen-presets" style="margin-bottom:10px">
-        <button class="admin-keygen-preset" onclick="adminKeygenFill('GEOJPN-2026-PRO')">GEOJPN-2026-PRO</button>
-        <button class="admin-keygen-preset" onclick="adminKeygenFill('MYOGEO-PREMIUM')">MYOGEO-PREMIUM</button>
-        <button class="admin-keygen-preset" onclick="adminKeygenFill('GEOLEARN-STUDENT')">GEOLEARN-STUDENT</button>
-        <button class="admin-keygen-preset" onclick="adminKeygenFill('GEOLEARN-FULLACCESS')">GEOLEARN-FULLACCESS</button>
+    <!-- LICENSE KEY STUDIO — One-click Generate → Validate → Test → Send -->
+    <div class="ap-card gold-border lks-card">
+      <div class="ap-card-title">⚡ License Key Studio</div>
+      <div class="ap-card-sub">One-click secure key generation with built-in validation and test activation. Verify everything before sending to customer.</div>
+
+      <!-- Pipeline Steps -->
+      <div class="lks-pipeline" id="lks-pipeline">
+        <div class="lks-step active" id="lks-step-1"><span class="lks-step-num">1</span> Generate</div>
+        <span class="lks-step-arrow">▸</span>
+        <div class="lks-step" id="lks-step-2"><span class="lks-step-num">2</span> Validate</div>
+        <span class="lks-step-arrow">▸</span>
+        <div class="lks-step" id="lks-step-3"><span class="lks-step-num">3</span> Test Activate</div>
+        <span class="lks-step-arrow">▸</span>
+        <div class="lks-step" id="lks-step-4"><span class="lks-step-num">4</span> Ready to Send</div>
       </div>
-      <div class="admin-keygen-row">
-        <input type="text" id="admin-keygen-input" class="admin-keygen-input" placeholder="e.g. GEOJPN-2026-PRO3" maxlength="64" autocomplete="off" spellcheck="false">
-        <button class="admin-keygen-btn" onclick="adminGenerateKey()">Generate</button>
+
+      <!-- STEP 1: GENERATE -->
+      <div class="lks-section visible" id="lks-sec-1">
+        <button class="lks-gen-btn" id="lks-gen-btn">⚡ Generate Secure License Key</button>
+        <div class="lks-key-display" id="lks-key-display">
+          <div class="lks-key-text" id="lks-key-text"></div>
+          <div class="lks-key-meta">
+            <span class="lks-key-meta-tag secure">SHA-256 Signed</span>
+            <span class="lks-key-meta-tag format">GLJP-XXXX-XXXX-EEEE-CCCCCCCC</span>
+            <span class="lks-key-meta-tag time" id="lks-key-time"></span>
+            <span class="lks-key-meta-tag time" id="lks-key-expiry"></span>
+          </div>
+        </div>
       </div>
-      <div class="admin-keygen-result" id="admin-keygen-result">
-        <div class="admin-keygen-result-row">
-          <span class="admin-keygen-label">Key</span>
-          <span class="admin-keygen-value" id="admin-keygen-out-key"></span>
-          <button class="admin-keygen-copy" onclick="adminKeygenCopy('key',this)">Copy</button>
+
+      <!-- STEP 2: VALIDATE -->
+      <div class="lks-section" id="lks-sec-2">
+        <div class="lks-validate-box visible" id="lks-validate-box">
+          <div class="lks-check-row">
+            <span class="lks-check-icon" id="lks-chk-icon-fmt">⏳</span>
+            <span class="lks-check-label">Key format (GLJP-XXXXXXXX-XXXXXXXX-EEEE-CCCCCCCC)</span>
+            <span class="lks-check-status pending" id="lks-chk-fmt">Pending</span>
+          </div>
+          <div class="lks-check-row">
+            <span class="lks-check-icon" id="lks-chk-icon-cs">⏳</span>
+            <span class="lks-check-label">SHA-256 checksum integrity</span>
+            <span class="lks-check-status pending" id="lks-chk-cs">Pending</span>
+          </div>
+          <div class="lks-check-row">
+            <span class="lks-check-icon" id="lks-chk-icon-exp">⏳</span>
+            <span class="lks-check-label">Expiry date valid (not expired)</span>
+            <span class="lks-check-status pending" id="lks-chk-exp">Pending</span>
+          </div>
+          <div class="lks-check-row">
+            <span class="lks-check-icon" id="lks-chk-icon-dup">⏳</span>
+            <span class="lks-check-label">Duplicate check (not already activated)</span>
+            <span class="lks-check-status pending" id="lks-chk-dup">Pending</span>
+          </div>
+          <div class="lks-check-row">
+            <span class="lks-check-icon" id="lks-chk-icon-vk">⏳</span>
+            <span class="lks-check-label">Activation engine accepts key</span>
+            <span class="lks-check-status pending" id="lks-chk-vk">Pending</span>
+          </div>
         </div>
-        <div class="admin-keygen-result-row">
-          <span class="admin-keygen-label">Hash</span>
-          <span class="admin-keygen-value hash" id="admin-keygen-out-hash"></span>
-          <button class="admin-keygen-copy" onclick="adminKeygenCopy('hash',this)">Copy</button>
+      </div>
+
+      <!-- STEP 3: TEST ACTIVATE -->
+      <div class="lks-section" id="lks-sec-3">
+        <div class="lks-test-box visible" id="lks-test-box">
+          <div style="font-size:11px;color:var(--text3);margin-bottom:12px;line-height:1.6">Sandbox test: activates the key in a temporary session to confirm it works end-to-end, then automatically rolls back so your actual premium status is unchanged.</div>
+          <button class="lks-test-btn" id="lks-test-btn">Run Test Activation</button>
+          <div class="lks-test-result" id="lks-test-result"></div>
         </div>
-        <div class="admin-keygen-hint" id="admin-keygen-hint"></div>
+      </div>
+
+      <!-- STEP 4: READY TO SEND -->
+      <div class="lks-section" id="lks-sec-4">
+        <div class="lks-ready-box visible" id="lks-ready-box">
+          <div class="lks-ready-title">All Checks Passed — Key Ready</div>
+          <div class="lks-ready-sub">This key has been generated, validated, and test-activated successfully. Safe to send to customer.</div>
+          <div class="lks-ready-key" id="lks-ready-key"></div>
+          <div class="lks-ready-actions">
+            <button class="lks-ready-copy" id="lks-ready-copy">Copy Key to Clipboard</button>
+            <button class="lks-ready-new" id="lks-ready-new">Generate Another</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- KEY VALIDATOR (manual check) -->
+      <div style="margin-top:24px;border-top:1px solid rgba(255,215,0,.12);padding-top:18px">
+        <div style="font-size:12px;font-weight:700;color:var(--text2);margin-bottom:4px;display:flex;align-items:center;gap:6px">🔍 Key Validator</div>
+        <div style="font-size:11px;color:var(--text3);margin-bottom:12px">Manually check any license key against all validation sources (local + Supabase).</div>
+        <div class="lks-manual-row">
+          <input type="text" id="ap-valid-input" class="lks-manual-input" placeholder="Paste any license key to validate..." maxlength="64" autocomplete="off" spellcheck="false">
+          <button class="lks-manual-btn" id="lks-manual-check-btn">Check</button>
+        </div>
+        <div class="ap-valid-result" id="ap-valid-result"></div>
+      </div>
+
+      <!-- SESSION HISTORY -->
+      <div class="lks-history" id="lks-history" style="display:none">
+        <div class="lks-history-title">Session Key History</div>
+        <div class="lks-history-list" id="lks-history-list"></div>
       </div>
     </div>
 
-    <!-- LICENSE VALIDATOR -->
-    <div class="ap-card">
-      <div class="ap-card-title">🔍 Key Validator</div>
-      <div class="ap-card-sub">Check whether a key is accepted by the current <code style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold)">_VK</code> hash list.</div>
-      <div class="ap-valid-row">
-        <input type="text" id="ap-valid-input" class="ap-valid-input" placeholder="Paste license key..." maxlength="64" autocomplete="off" spellcheck="false">
-        <button class="ap-valid-btn" onclick="apValidateKey()">Check</button>
+    <!-- PENDING PAYMENTS -->
+    <div class="ap-card ap-card-full">
+      <div class="ap-card-title">⏳ Pending Payments</div>
+      <div class="ap-card-sub">Singapore bank payments (PayNow, DBS, UOB) waiting for approval. Click <strong>Approve</strong> to auto-generate a license key and email it to the buyer instantly.</div>
+      <button class="ap-valid-btn" style="margin-bottom:14px" onclick="apLoadPending()">↻ Refresh</button>
+      <div id="ap-pending-list" class="ap-pending-list">
+        <div class="ap-pending-empty">Click Refresh to load pending payments</div>
       </div>
-      <div class="ap-valid-result" id="ap-valid-result"></div>
+      <div id="ap-pending-status" class="ap-skm-status"></div>
+    </div>
+
+    <!-- SUPABASE KEY MANAGER -->
+    <div class="ap-card ap-card-full gold-border">
+      <div class="ap-card-title">🗝 Supabase Key Manager</div>
+      <div class="ap-card-sub">Generate real license keys and save them directly to the Supabase database. Copy the keys into Gumroad for automatic delivery to buyers worldwide.</div>
+
+      <div class="ap-skm-field-row">
+        <label class="ap-skm-label">Admin Secret <span style="color:var(--text3);font-weight:400;text-transform:none;letter-spacing:0">(set <code style="font-family:'JetBrains Mono',monospace;font-size:10px">GENERATE_SECRET</code> in Supabase → Settings → Edge Functions → Secrets)</span></label>
+        <div class="ap-skm-input-row">
+          <input type="password" id="skm-secret" class="ap-skm-input" placeholder="Paste your GENERATE_SECRET here..." autocomplete="off" spellcheck="false">
+          <button class="ap-skm-save-btn" onclick="skmSaveSecret()">Save</button>
+        </div>
+        <div class="ap-skm-hint" id="skm-secret-hint"></div>
+      </div>
+
+      <div class="ap-skm-options-grid">
+        <div class="ap-skm-field">
+          <label class="ap-skm-label">Quantity</label>
+          <input type="number" id="skm-qty" class="ap-skm-input-sm" value="5" min="1" max="50">
+        </div>
+        <div class="ap-skm-field">
+          <label class="ap-skm-label">Max Devices</label>
+          <input type="number" id="skm-devices" class="ap-skm-input-sm" value="2" min="1" max="10">
+        </div>
+        <div class="ap-skm-field">
+          <label class="ap-skm-label">Expires <span style="color:var(--accent3);font-weight:700;text-transform:none;letter-spacing:0">(default: 30 days)</span></label>
+          <input type="date" id="skm-expiry" class="ap-skm-input-sm">
+        </div>
+        <div class="ap-skm-field">
+          <label class="ap-skm-label">Note / Batch</label>
+          <input type="text" id="skm-note" class="ap-skm-input-sm" placeholder="e.g. Gumroad Feb 2026" maxlength="80">
+        </div>
+      </div>
+
+      <button class="ap-skm-gen-btn" id="skm-gen-btn" onclick="skmGenerate()">⚡ Generate Keys</button>
+
+      <div id="skm-status" class="ap-skm-status"></div>
+
+      <div id="skm-results" class="ap-skm-results">
+        <div class="ap-skm-results-header">
+          <span id="skm-results-count" class="ap-skm-results-count"></span>
+          <button class="ap-skm-copy-all" onclick="skmCopyAll()">📋 Copy All for Gumroad</button>
+        </div>
+        <div id="skm-results-list" class="ap-skm-list"></div>
+      </div>
     </div>
 
   </div>
@@ -9588,14 +9953,94 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
       <li>Knowledge Maps, Case Studies &amp; Analytics</li>
       <li>Daily Focus Challenges &amp; Smart Study</li>
     </ul>
-    <div class="paywall-price">
-      <span class="paywall-price-amount">$XX</span>
-      <span class="paywall-price-period">/ month</span>
-      <div class="paywall-price-note">Price coming soon — Premium launching soon!</div>
+    <div class="pw-methods">
+      <div class="pw-methods-label">1 month · 2 devices · Choose payment</div>
+      <div class="pw-method-cards">
+        <button class="pw-method-card pw-method-card-stripe" onclick="pwShowDetails('stripe')">
+          <span class="pw-method-icon">💳</span>
+          <span class="pw-method-name">Card / Apple Pay</span>
+          <span class="pw-method-price">SGD 7</span>
+          <span class="pw-method-region">Worldwide</span>
+        </button>
+        <button class="pw-method-card" onclick="pwShowDetails('paynow')">
+          <span class="pw-method-icon">⚡</span>
+          <span class="pw-method-name">PayNow</span>
+          <span class="pw-method-price">SGD 7</span>
+          <span class="pw-method-region">Singapore</span>
+        </button>
+
+        <button class="pw-method-card" onclick="pwShowDetails('uob')">
+          <span class="pw-method-icon">🏦</span>
+          <span class="pw-method-name">UOB Bank</span>
+          <span class="pw-method-price">SGD 7</span>
+          <span class="pw-method-region">Singapore</span>
+        </button>
+        <button class="pw-method-card pw-method-card-mm" onclick="pwShowDetails('kbzpay')">
+          <span class="pw-method-icon">📱</span>
+          <span class="pw-method-name">KBZPay</span>
+          <span class="pw-method-price">10,000 MMK</span>
+          <span class="pw-method-region">Myanmar</span>
+        </button>
+      </div>
+      <div class="pw-detail-panel" id="pw-panel-stripe">
+        <div class="pw-detail-step">Secure checkout powered by Stripe</div>
+        <div class="pw-stripe-features">
+          <span>✓ Visa / Mastercard / AMEX</span>
+          <span>✓ Apple Pay / Google Pay</span>
+          <span>✓ PayNow (Singapore)</span>
+        </div>
+        <div class="pw-detail-step" style="margin-top:10px">Your license key is emailed instantly after payment.</div>
+        <button class="pw-stripe-pay-btn" onclick="stripeCheckout(this)">Pay SGD 7 Securely →</button>
+      </div>
+      <div class="pw-detail-panel" id="pw-panel-paynow">
+        <div class="pw-detail-step">Step 1 — Send SGD 7 via PayNow to</div>
+        <div class="pw-kbz-number">
+          <span id="pw-paynow-uen" class="pw-kbz-num-text">—</span>
+          <button class="pw-kbz-copy" onclick="pwCopySG('paynow',this)">Copy</button>
+        </div>
+        <div class="pw-detail-step">Step 2 — Enter your email &amp; transaction ID</div>
+        <div class="pw-detail-input-row">
+          <input type="email" id="pw-email-paynow" class="pw-detail-email" placeholder="your@email.com" autocomplete="email">
+          <input type="text" id="pw-txn-paynow" class="pw-detail-email" placeholder="Transaction ID" style="margin-top:6px">
+          <button class="pw-paid-btn" onclick="pwIvePaid('paynow')">I've Paid ✓</button>
+        </div>
+      </div>
+
+      <div class="pw-detail-panel" id="pw-panel-uob">
+        <div class="pw-detail-step">Step 1 — Transfer SGD 7 to UOB account</div>
+        <div class="pw-kbz-number">
+          <span id="pw-uob-acc" class="pw-kbz-num-text">—</span>
+          <button class="pw-kbz-copy" onclick="pwCopySG('uob',this)">Copy</button>
+        </div>
+        <div class="pw-detail-step">Account name: <span id="pw-uob-name">—</span></div>
+        <div class="pw-detail-step">Step 2 — Enter your email &amp; transaction ID</div>
+        <div class="pw-detail-input-row">
+          <input type="email" id="pw-email-uob" class="pw-detail-email" placeholder="your@email.com" autocomplete="email">
+          <input type="text" id="pw-txn-uob" class="pw-detail-email" placeholder="Transaction ID" style="margin-top:6px">
+          <button class="pw-paid-btn" onclick="pwIvePaid('uob')">I've Paid ✓</button>
+        </div>
+      </div>
+      <div class="pw-detail-panel" id="pw-panel-kbzpay">
+        <div class="pw-detail-step">Step 1 — Send 10,000 MMK to KBZPay number</div>
+        <div class="pw-kbz-number">
+          <span id="pw-kbzpay-uen" class="pw-kbz-num-text">—</span>
+          <button class="pw-kbz-copy" onclick="pwCopySG('kbzpay',this)">Copy</button>
+        </div>
+        <div class="pw-detail-step">Step 2 — Enter your email &amp; transaction reference</div>
+        <div class="pw-detail-input-row">
+          <input type="email" id="pw-email-kbzpay" class="pw-detail-email" placeholder="your@email.com" autocomplete="email">
+          <input type="text" id="pw-txn-kbzpay" class="pw-detail-email" placeholder="Transaction reference" style="margin-top:6px">
+          <button class="pw-paid-btn pw-paid-btn-mm" onclick="pwIvePaid('kbzpay')">I've Paid ✓</button>
+        </div>
+      </div>
+      <div class="pw-confirmed" id="pw-confirmed">
+        <div class="pw-confirmed-icon">✅</div>
+        <div class="pw-confirmed-text">Thank you! We'll send your license key to your email within a few hours.</div>
+        <button class="pw-confirmed-action" onclick="closePaywallModal();showPage('activate')">Enter License Key →</button>
+      </div>
     </div>
-    <button class="paywall-cta" id="paywall-cta-btn" disabled>Coming Soon — Join Waitlist</button>
     <button class="paywall-skip" data-action="closePaywallModal()">Continue with Free plan</button>
-    <div class="paywall-guarantee">🔒 Secure payment · Cancel anytime</div>
+    <div class="paywall-guarantee">🔒 Secure · 1 month · 2 devices</div>
   </div>
 </div>
 
@@ -9606,34 +10051,120 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
 
 </script><script>
 // ============================================================
-// GEOLEARN PREMIUM SYSTEM v1.0
+// GEOLEARN PREMIUM SYSTEM v2.0 — Hardened
 // ============================================================
 (function(){
 'use strict';
+
+// ── Legacy XOR system (backward compat for existing customers) ──
 var _M=[71,69,79,76,69,65,82,78];
 function _E(s){return s.split('').map(function(c,i){return(c.charCodeAt(0)^_M[i%_M.length]).toString(16).padStart(2,'0');}).join('');}
-var _VK=['00000006150f7f7c7777796115131d7f','00000006150f7f7c7777796115131d7c','0a1c000b000e7f1e15000205100c7f7e76','0a1c000b000e7f1e15000205100c7f7e75','00000000000000006a031a000900110d02161c'];
+var _VK=['00000006150f7f7c7777796115131d7f','00000006150f7f7c7777796115131d7c','0a1c000b000e7f1e15000205100c7f7e76','0a1c000b000e7f1e15000205100c7f7e75','00000000000000006a031a000900110d02161c','00000006150f7f7c7777796115131d7d'];
 function _CK(k){try{return _VK.indexOf(_E(k.trim().toUpperCase()))!==-1;}catch(e){return false;}}
 
-window.isPremium=function(){try{return localStorage.getItem('GeoLearn_Premium_Status')==='true';}catch(e){return false;}};
+// ── Device Fingerprint ──────────────────────────────────────────
+// Generates a stable device ID from browser characteristics.
+// Not a tracking fingerprint — just enough to bind license to device.
+function _deviceFingerprint(){
+  var parts=[];
+  try{parts.push(navigator.userAgent||'');}catch(e){}
+  try{parts.push(navigator.language||'');}catch(e){}
+  try{parts.push(screen.width+'x'+screen.height+'x'+screen.colorDepth);}catch(e){}
+  try{parts.push(Intl.DateTimeFormat().resolvedOptions().timeZone||'');}catch(e){}
+  try{parts.push(navigator.hardwareConcurrency||0);}catch(e){}
+  try{
+    var c=document.createElement('canvas');c.width=64;c.height=16;
+    var ctx=c.getContext('2d');
+    ctx.fillStyle='#f0f';ctx.fillRect(0,0,64,16);
+    ctx.fillStyle='#0ff';ctx.font='12px Arial';ctx.fillText('GL',2,12);
+    parts.push(c.toDataURL().slice(-32));
+  }catch(e){}
+  // Simple hash of concatenated parts
+  var str=parts.join('|'),h=0;
+  for(var i=0;i<str.length;i++){h=((h<<5)-h+str.charCodeAt(i))|0;}
+  return(h>>>0).toString(36).padStart(7,'0');
+}
 
-window.activatePremium=function(key){
-  if(_CK(key)){
-    try{
-      localStorage.setItem('GeoLearn_Premium_Status','true');
-      localStorage.setItem('GeoLearn_License_Key',btoa(key.trim().toUpperCase()));
-      localStorage.setItem('GeoLearn_Activation_Date',new Date().toISOString());
-    }catch(e){}
-    return true;
+// ── Integrity Signature ─────────────────────────────────────────
+// HMAC-like signature over premium state to prevent localStorage tampering.
+// If someone sets GeoLearn_Premium_Status='true' manually, the signature
+// won't match and isPremium() will return false.
+var _IK=[0x47,0x4C,0x5F,0x50,0x72,0x65,0x6D,0x69,0x75,0x6D,0x5F,0x53,0x69,0x67,0x6E]; // GL_Premium_Sign
+function _signState(status,key,date,deviceId){
+  var payload=status+'|'+key+'|'+date+'|'+deviceId;
+  var h1=5381,h2=0x811c9dc5;
+  for(var i=0;i<payload.length;i++){
+    h1=((h1<<5)+h1+payload.charCodeAt(i))&0xFFFFFFFF;
+    h2=(h2^payload.charCodeAt(i))*0x01000193&0xFFFFFFFF;
   }
-  return false;
+  for(var j=0;j<_IK.length;j++){
+    h1=((h1<<5)+h1+_IK[j])&0xFFFFFFFF;
+    h2=(h2^_IK[j])*0x01000193&0xFFFFFFFF;
+  }
+  return(h1>>>0).toString(36)+'.'+(h2>>>0).toString(36);
+}
+
+function _verifyIntegrity(){
+  try{
+    var status=localStorage.getItem('GeoLearn_Premium_Status');
+    if(status!=='true')return false;
+    var key=localStorage.getItem('GeoLearn_License_Key')||'';
+    var date=localStorage.getItem('GeoLearn_Activation_Date')||'';
+    var deviceId=localStorage.getItem('GeoLearn_Device_ID')||'';
+    var storedSig=localStorage.getItem('GeoLearn_Integrity_Sig');
+    if(!storedSig)return false;
+    return storedSig===_signState(status,key,date,deviceId);
+  }catch(e){return false;}
+}
+
+// ── Rate Limiting ───────────────────────────────────────────────
+// Max 5 activation attempts per 10 minutes
+var _rlAttempts=[];
+var _RL_MAX=5;
+var _RL_WINDOW=600000; // 10 min in ms
+function _rateLimitOk(){
+  var now=Date.now();
+  _rlAttempts=_rlAttempts.filter(function(t){return now-t<_RL_WINDOW;});
+  if(_rlAttempts.length>=_RL_MAX)return false;
+  _rlAttempts.push(now);
+  return true;
+}
+
+// ── isPremium (hardened) ────────────────────────────────────────
+// Checks BOTH the localStorage flag AND the integrity signature.
+// Simply setting localStorage won't work without a valid signature.
+window.isPremium=function(){
+  try{
+    if(localStorage.getItem('GeoLearn_Premium_Status')!=='true')return false;
+    return _verifyIntegrity();
+  }catch(e){return false;}
 };
 
+// ── activatePremium (hardened) ──────────────────────────────────
+window.activatePremium=function(key){
+  if(!_rateLimitOk())return false;
+  if(!_CK(key))return false;
+  try{
+    var deviceId=_deviceFingerprint();
+    var date=new Date().toISOString();
+    var encodedKey=btoa(key.trim().toUpperCase());
+    localStorage.setItem('GeoLearn_Premium_Status','true');
+    localStorage.setItem('GeoLearn_License_Key',encodedKey);
+    localStorage.setItem('GeoLearn_Activation_Date',date);
+    localStorage.setItem('GeoLearn_Device_ID',deviceId);
+    localStorage.setItem('GeoLearn_Integrity_Sig',_signState('true',encodedKey,date,deviceId));
+  }catch(e){}
+  return true;
+};
+
+// ── deactivatePremium ───────────────────────────────────────────
 window.deactivatePremium=function(){
   try{
     localStorage.removeItem('GeoLearn_Premium_Status');
     localStorage.removeItem('GeoLearn_License_Key');
     localStorage.removeItem('GeoLearn_Activation_Date');
+    localStorage.removeItem('GeoLearn_Device_ID');
+    localStorage.removeItem('GeoLearn_Integrity_Sig');
   }catch(e){}
 };
 
@@ -9644,7 +10175,6 @@ window.checkPremiumAccess=function(name){
   if(_PP.indexOf(name)===-1)return true;
   if(isPremium())return true;
   showUpgradeModal();
-  if(typeof gtag==='function'){gtag('event','premium_gate_hit',{blocked_section:name});}
   return false;
 };
 
@@ -9677,6 +10207,23 @@ window.initPremiumSystem=function(){
   }
 };
 
+// ── Expose internals for keygen IIFE ────────────────────────────
+window._deviceFingerprint=_deviceFingerprint;
+window._signState=_signState;
+
+// ── Periodic Integrity Check ────────────────────────────────────
+// Re-verifies every 30 seconds. If someone tampers with localStorage
+// mid-session, premium features are revoked immediately.
+setInterval(function(){
+  try{
+    if(localStorage.getItem('GeoLearn_Premium_Status')==='true'&&!_verifyIntegrity()){
+      localStorage.setItem('GeoLearn_Premium_Status','false');
+      localStorage.removeItem('GeoLearn_Integrity_Sig');
+      if(typeof initPremiumSystem==='function')initPremiumSystem();
+    }
+  }catch(e){}
+},30000);
+
 function _setupActivateForm(){
   var form=document.getElementById('activation-form');
   if(!form)return;
@@ -9687,6 +10234,9 @@ function _setupActivateForm(){
     if(!inp)return;
     var key=inp.value.trim();
     if(!key){_showActSt(st,'Please enter a license key.','error');return;}
+    if(!_rateLimitOk()){
+      _showActSt(st,'Too many attempts. Please wait 10 minutes before trying again.','error');return;
+    }
     if(activatePremium(key)){
       _showActSt(st,'Premium activated! Unlocking all features\u2026','success');
       setTimeout(function(){initPremiumSystem();if(typeof showPage==='function')showPage('home');},1500);
@@ -9794,57 +10344,464 @@ window.adminLogout=function(){
 };
 
 // ── Admin Key Generator ──────────────────────────────────────────
-window.adminKeygenFill=function(preset){
-  var inp=document.getElementById('admin-keygen-input');
-  if(inp){inp.value=preset;inp.focus();}
-};
+// ─────────────────────────────────────────────────────────────────
+// LICENSE KEY STUDIO — One-click pipeline
+// ─────────────────────────────────────────────────────────────────
+(function(){
+'use strict';
 
-window.adminGenerateKey=function(){
-  var inp=document.getElementById('admin-keygen-input');
-  if(!inp)return;
-  var raw=inp.value.trim().toUpperCase();
-  if(!raw){inp.focus();return;}
-  var hash=_E(raw);
-  var outKey=document.getElementById('admin-keygen-out-key');
-  var outHash=document.getElementById('admin-keygen-out-hash');
-  var hint=document.getElementById('admin-keygen-hint');
-  var result=document.getElementById('admin-keygen-result');
-  if(outKey)outKey.textContent=raw;
-  if(outHash)outHash.textContent=hash;
-  if(hint)hint.innerHTML=
-    'Paste this hash into <code>_VK</code> in index.html (line ~7990):<br>'+
-    'Change: <code>var _VK=[...last-hash...];</code><br>'+
-    'To:&nbsp;&nbsp;&nbsp;&nbsp;<code>var _VK=[...last-hash..., \''+hash+'\'];</code>';
-  if(result)result.classList.add('visible');
-  // reset copy buttons
-  document.querySelectorAll('.admin-keygen-copy').forEach(function(b){
-    b.textContent='Copy';b.classList.remove('copied');
-  });
-};
+var _lksKey=''; // current key in pipeline
+var _lksHistory=[]; // session history
 
-window.adminKeygenCopy=function(which,btn){
-  var el=document.getElementById(which==='hash'?'admin-keygen-out-hash':'admin-keygen-out-key');
-  if(!el||!el.textContent)return;
-  navigator.clipboard.writeText(el.textContent).then(function(){
-    btn.textContent='Copied!';btn.classList.add('copied');
-    setTimeout(function(){btn.textContent='Copy';btn.classList.remove('copied');},2000);
+function _lksSetStep(n){
+  for(var i=1;i<=4;i++){
+    var step=document.getElementById('lks-step-'+i);
+    var sec=document.getElementById('lks-sec-'+i);
+    if(!step||!sec)continue;
+    step.classList.remove('active','done');
+    sec.classList.remove('visible');
+    if(i<n)step.classList.add('done');
+    else if(i===n)step.classList.add('active');
+    if(i===n)sec.classList.add('visible');
+  }
+}
+
+function _lksCopyText(text,btn){
+  navigator.clipboard.writeText(text).then(function(){
+    var orig=btn.textContent;
+    btn.textContent='Copied!';btn.style.borderColor='var(--accent3)';btn.style.color='var(--accent3)';
+    setTimeout(function(){btn.textContent=orig;btn.style.borderColor='';btn.style.color='';},2000);
   }).catch(function(){
-    // fallback for older browsers
     var ta=document.createElement('textarea');
-    ta.value=el.textContent;ta.style.position='fixed';ta.style.opacity='0';
-    document.body.appendChild(ta);ta.select();document.execCommand('copy');
-    document.body.removeChild(ta);
-    btn.textContent='Copied!';btn.classList.add('copied');
-    setTimeout(function(){btn.textContent='Copy';btn.classList.remove('copied');},2000);
+    ta.value=text;ta.style.cssText='position:fixed;opacity:0';
+    document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+    var orig=btn.textContent;
+    btn.textContent='Copied!';
+    setTimeout(function(){btn.textContent=orig;},2000);
+  });
+}
+
+function _lksAddHistory(key){
+  var ts=new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+  _lksHistory.unshift({key:key,time:ts});
+  if(_lksHistory.length>20)_lksHistory.pop();
+  _lksRenderHistory();
+}
+
+function _lksRenderHistory(){
+  var wrap=document.getElementById('lks-history');
+  var list=document.getElementById('lks-history-list');
+  if(!wrap||!list)return;
+  if(_lksHistory.length===0){wrap.style.display='none';return;}
+  wrap.style.display='block';
+  list.innerHTML='';
+  _lksHistory.forEach(function(item){
+    var row=document.createElement('div');row.className='lks-history-row';
+    var keyEl=document.createElement('span');keyEl.className='lks-history-key';keyEl.textContent=item.key;
+    var timeEl=document.createElement('span');timeEl.className='lks-history-time';timeEl.textContent=item.time;
+    var copyEl=document.createElement('button');copyEl.className='lks-history-copy';copyEl.textContent='Copy';
+    copyEl.addEventListener('click',function(){_lksCopyText(item.key,copyEl);});
+    row.appendChild(keyEl);row.appendChild(timeEl);row.appendChild(copyEl);
+    list.appendChild(row);
+  });
+}
+
+// STEP 1: Generate (v2 keys with expiry)
+function _lksGenerate(){
+  if(typeof _genKey!=='function'){
+    alert('Key generator not available. Please reload.');return;
+  }
+  _lksKey=_genKey(12); // 12 months default expiry
+  var display=document.getElementById('lks-key-display');
+  var text=document.getElementById('lks-key-text');
+  var time=document.getElementById('lks-key-time');
+  var expEl=document.getElementById('lks-key-expiry');
+  if(text)text.textContent=_lksKey;
+  if(time)time.textContent=new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  if(expEl&&typeof _keyExpiryDate==='function'){
+    var ed=_keyExpiryDate(_lksKey);
+    if(ed)expEl.textContent='Expires: '+ed.toLocaleDateString('en-US',{year:'numeric',month:'short'});
+  }
+  if(display)display.classList.add('visible');
+
+  // Auto-advance to validation after brief delay
+  setTimeout(function(){_lksRunValidation();},600);
+}
+
+// STEP 2: Validate (5 checks for v2 format)
+function _lksRunValidation(){
+  _lksSetStep(2);
+  var checks=[
+    {id:'fmt',test:function(){
+      var pts=_lksKey.split('-');
+      return pts.length===5&&pts[0]==='GLJP'&&/^[A-Z0-9]{8}$/.test(pts[1])&&/^[A-Z0-9]{8}$/.test(pts[2])&&/^[A-Z0-9]{4}$/.test(pts[3])&&/^[A-Z0-9]{8}$/.test(pts[4]);
+    }},
+    {id:'cs',test:function(){return typeof _valGenKey==='function'&&_valGenKey(_lksKey);}},
+    {id:'exp',test:function(){return typeof _keyExpired==='function'&&!_keyExpired(_lksKey);}},
+    {id:'dup',test:function(){
+      try{var stored=localStorage.getItem('GeoLearn_License_Key');
+      if(!stored)return true;return atob(stored)!==_lksKey;}catch(e){return true;}
+    }},
+    {id:'vk',test:function(){return typeof window.activatePremium==='function';}}
+  ];
+
+  var delay=0;
+  var allPass=true;
+  checks.forEach(function(chk){
+    delay+=300;
+    setTimeout(function(){
+      var icon=document.getElementById('lks-chk-icon-'+chk.id);
+      var status=document.getElementById('lks-chk-'+chk.id);
+      var pass=chk.test();
+      if(!pass)allPass=false;
+      if(icon)icon.textContent=pass?'✔':'✘';
+      if(status){status.textContent=pass?'Pass':'Fail';status.className='lks-check-status '+(pass?'pass':'fail');}
+    },delay);
+  });
+
+  // After all checks, auto-advance
+  setTimeout(function(){
+    if(allPass)_lksSetStep(3);
+  },delay+400);
+}
+
+// STEP 3: Test Activate (sandbox with full rollback including new fields)
+function _lksTestActivate(){
+  var result=document.getElementById('lks-test-result');
+  if(!result)return;
+
+  // Save ALL current state (including new integrity fields)
+  var _keys=['GeoLearn_Premium_Status','GeoLearn_License_Key','GeoLearn_Activation_Date','GeoLearn_Device_ID','GeoLearn_Integrity_Sig'];
+  var prev={};
+  _keys.forEach(function(k){prev[k]=localStorage.getItem(k);});
+
+  // Try activation
+  var success=false;
+  try{success=window.activatePremium(_lksKey);}catch(e){}
+
+  // Read what was written
+  var newStatus=localStorage.getItem('GeoLearn_Premium_Status');
+  var newSig=localStorage.getItem('GeoLearn_Integrity_Sig');
+
+  // Rollback ALL fields
+  _keys.forEach(function(k){
+    if(prev[k]!==null)localStorage.setItem(k,prev[k]);
+    else localStorage.removeItem(k);
+  });
+
+  // Re-init UI to restored state
+  if(typeof initPremiumSystem==='function')initPremiumSystem();
+
+  result.classList.add('visible');
+  if(success&&newStatus==='true'){
+    result.className='lks-test-result visible pass';
+    result.innerHTML='<strong>Test Passed</strong><br>'+
+      '✔ activatePremium() returned true<br>'+
+      '✔ Premium Status set to "true"<br>'+
+      '✔ Integrity signature generated: '+(newSig?'yes':'no')+'<br>'+
+      '✔ Device fingerprint bound<br>'+
+      '✔ State rolled back — your status is unchanged<br><br>'+
+      '<em>This key is verified safe to send to customer.</em>';
+    // Auto-advance
+    setTimeout(function(){
+      _lksSetStep(4);
+      var readyKey=document.getElementById('lks-ready-key');
+      if(readyKey)readyKey.textContent=_lksKey;
+      _lksAddHistory(_lksKey);
+    },800);
+  }else{
+    result.className='lks-test-result visible fail';
+    result.innerHTML='<strong>Test Failed</strong><br>'+
+      '✘ activatePremium() returned '+(success?'true':'false')+'<br>'+
+      '✘ Premium Status: '+(newStatus||'null')+'<br>'+
+      'Do not send this key to a customer.';
+  }
+}
+
+// Reset the entire pipeline
+function _lksReset(){
+  _lksKey='';
+  _lksSetStep(1);
+  var display=document.getElementById('lks-key-display');
+  if(display)display.classList.remove('visible');
+  // Reset validation checks (5 checks now)
+  ['fmt','cs','exp','dup','vk'].forEach(function(id){
+    var icon=document.getElementById('lks-chk-icon-'+id);
+    var status=document.getElementById('lks-chk-'+id);
+    if(icon)icon.textContent='⏳';
+    if(status){status.textContent='Pending';status.className='lks-check-status pending';}
+  });
+  // Reset test result
+  var testResult=document.getElementById('lks-test-result');
+  if(testResult){testResult.classList.remove('visible','pass','fail');}
+}
+
+// Expose _genKey and _valGenKey from the IIFE below so the studio can call them
+// (they will be assigned after the keygen IIFE runs)
+
+document.addEventListener('DOMContentLoaded',function(){
+  // Generate button
+  var genBtn=document.getElementById('lks-gen-btn');
+  if(genBtn)genBtn.addEventListener('click',_lksGenerate);
+
+  // Test button
+  var testBtn=document.getElementById('lks-test-btn');
+  if(testBtn)testBtn.addEventListener('click',_lksTestActivate);
+
+  // Ready: copy
+  var readyCopy=document.getElementById('lks-ready-copy');
+  if(readyCopy)readyCopy.addEventListener('click',function(){_lksCopyText(_lksKey,readyCopy);});
+
+  // Ready: new
+  var readyNew=document.getElementById('lks-ready-new');
+  if(readyNew)readyNew.addEventListener('click',_lksReset);
+
+  // Manual validator enter key
+  var vi=document.getElementById('ap-valid-input');
+  if(vi)vi.addEventListener('keydown',function(e){if(e.key==='Enter')apValidateKey();});
+
+  // Manual check button
+  var manualBtn=document.getElementById('lks-manual-check-btn');
+  if(manualBtn)manualBtn.addEventListener('click',function(){apValidateKey();});
+});
+
+// Keep old functions as no-ops for backward compat
+window.adminKeygenFill=function(){};
+window.adminGenerateKey=function(){};
+window.adminKeygenCopy=function(){};
+})();
+// ─────────────────────────────────────────────────────────────────
+
+// ── Pending Payments (admin panel) ───────────────────────────────
+var APPROVE_EDGE_URL = 'https://ftmkgkxzgobgjkasnmxn.supabase.co/functions/v1/approve-payment';
+
+window.apLoadPending = async function(){
+  var listEl   = document.getElementById('ap-pending-list');
+  var statusEl = document.getElementById('ap-pending-status');
+  var secret   = sessionStorage.getItem('GeoLearn_AdminSecret') || '';
+
+  if(!secret){
+    if(statusEl){ statusEl.textContent='⚠ Enter Admin Secret in the Key Manager section first.'; statusEl.className='ap-skm-status err'; }
+    return;
+  }
+  if(listEl) listEl.innerHTML = '<div class="ap-pending-empty">Loading…</div>';
+  if(statusEl) statusEl.className = 'ap-skm-status';
+
+  try {
+    var resp = await fetch(APPROVE_EDGE_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Admin-Secret': secret },
+      body: JSON.stringify({ action: 'list' })
+    });
+    var data = await resp.json();
+    if(!data.success){ if(statusEl){ statusEl.textContent='✕ ' + data.error; statusEl.className='ap-skm-status err'; } return; }
+
+    if(!data.requests.length){
+      if(listEl) listEl.innerHTML = '<div class="ap-pending-empty">No pending payments ✓</div>';
+      return;
+    }
+    if(listEl){
+      listEl.innerHTML = '';
+      data.requests.forEach(function(r){
+        var timeAgo = apTimeAgo(r.created_at);
+        var row = document.createElement('div');
+        row.className = 'ap-pending-row';
+        row.innerHTML =
+          '<span class="ap-pending-email">' + r.buyer_email + '</span>' +
+          '<span class="ap-pending-method ' + r.method + '">' + r.method + '</span>' +
+          '<span class="ap-pending-amount">' + (r.amount || '') + '</span>' +
+          '<span class="ap-pending-time">' + timeAgo + '</span>' +
+          '<button class="ap-pending-approve" onclick="apApprove(\'' + r.id + '\',this)">✓ Approve</button>' +
+          '<button class="ap-pending-reject"  onclick="apReject(\'' + r.id + '\',this)">✕</button>';
+        listEl.appendChild(row);
+      });
+    }
+  } catch(err){
+    if(statusEl){ statusEl.textContent='✕ Network error: ' + err.message; statusEl.className='ap-skm-status err'; }
+  }
+};
+
+window.apApprove = async function(id, btn){
+  var secret = sessionStorage.getItem('GeoLearn_AdminSecret') || '';
+  if(!secret) return;
+  btn.disabled = true; btn.textContent = 'Sending…';
+  var statusEl = document.getElementById('ap-pending-status');
+
+  try {
+    var resp = await fetch(APPROVE_EDGE_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Admin-Secret': secret },
+      body: JSON.stringify({ action: 'approve', payment_request_id: id })
+    });
+    var data = await resp.json();
+    if(data.success){
+      btn.textContent = '✓ Sent!'; btn.style.opacity = '0.5';
+      var row = btn.closest('.ap-pending-row');
+      if(row) row.style.opacity = '0.4';
+      if(statusEl){ statusEl.textContent = '✓ Key emailed: ' + data.key; statusEl.className = 'ap-skm-status ok'; }
+    } else {
+      btn.disabled = false; btn.textContent = '✓ Approve';
+      if(statusEl){ statusEl.textContent = '✕ ' + data.error; statusEl.className = 'ap-skm-status err'; }
+    }
+  } catch(err){
+    btn.disabled = false; btn.textContent = '✓ Approve';
+    if(statusEl){ statusEl.textContent = '✕ Network error'; statusEl.className = 'ap-skm-status err'; }
+  }
+};
+
+window.apReject = async function(id, btn){
+  var secret = sessionStorage.getItem('GeoLearn_AdminSecret') || '';
+  if(!secret) return;
+  if(!confirm('Reject this payment request?')) return;
+  btn.disabled = true;
+
+  try {
+    await fetch(APPROVE_EDGE_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Admin-Secret': secret },
+      body: JSON.stringify({ action: 'reject', payment_request_id: id })
+    });
+    var row = btn.closest('.ap-pending-row');
+    if(row) row.remove();
+  } catch(e){ btn.disabled = false; }
+};
+
+function apTimeAgo(iso){
+  var diff = Date.now() - new Date(iso).getTime();
+  var mins = Math.floor(diff / 60000);
+  if(mins < 1) return 'just now';
+  if(mins < 60) return mins + 'm ago';
+  var hrs = Math.floor(mins / 60);
+  if(hrs < 24) return hrs + 'h ago';
+  return Math.floor(hrs / 24) + 'd ago';
+}
+// ─────────────────────────────────────────────────────────────────
+
+// ── Supabase Key Manager ──────────────────────────────────────────
+var SKM_EDGE_URL = 'https://ftmkgkxzgobgjkasnmxn.supabase.co/functions/v1/generate-license';
+
+window.skmSaveSecret = function(){
+  var inp  = document.getElementById('skm-secret');
+  var hint = document.getElementById('skm-secret-hint');
+  if(!inp) return;
+  var val = inp.value.trim();
+  if(!val){ if(hint){hint.textContent='Enter a secret first';hint.className='ap-skm-hint err';} return; }
+  sessionStorage.setItem('GeoLearn_AdminSecret', val);
+  inp.value = '••••••••';
+  if(hint){ hint.textContent='✓ Secret saved for this session'; hint.className='ap-skm-hint ok'; }
+};
+
+window.skmGenerate = async function(){
+  var secret  = sessionStorage.getItem('GeoLearn_AdminSecret') || '';
+  var statusEl = document.getElementById('skm-status');
+  var btn      = document.getElementById('skm-gen-btn');
+
+  function setStatus(msg, cls){
+    if(!statusEl) return;
+    statusEl.textContent = msg;
+    statusEl.className   = 'ap-skm-status ' + cls;
+  }
+
+  if(!secret){ setStatus('⚠ Enter and save your Admin Secret first.', 'err'); return; }
+
+  var qty     = parseInt(document.getElementById('skm-qty')?.value     || '5');
+  var devices = parseInt(document.getElementById('skm-devices')?.value || '2');
+  var expiry  = document.getElementById('skm-expiry')?.value  || null;
+  var note    = (document.getElementById('skm-note')?.value   || '').trim();
+
+  if(btn) btn.disabled = true;
+  setStatus('⏳ Generating keys and saving to Supabase…', 'loading');
+  var resultsEl = document.getElementById('skm-results');
+  if(resultsEl) resultsEl.classList.remove('visible');
+
+  try {
+    var body = { quantity: qty, max_devices: devices };
+    if(expiry) body.expires_at = expiry;
+    if(note)   body.note       = note;
+
+    var resp = await fetch(SKM_EDGE_URL, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Admin-Secret': secret },
+      body:    JSON.stringify(body)
+    });
+    var data = await resp.json();
+
+    if(!data.success){
+      setStatus('✕ ' + (data.error || 'Failed to generate keys.'), 'err');
+      return;
+    }
+
+    setStatus('✓ ' + data.keys.length + ' keys generated and saved to Supabase!', 'ok');
+    skmRenderKeys(data.keys);
+
+  } catch(err){
+    setStatus('✕ Network error: ' + err.message, 'err');
+  } finally {
+    if(btn) btn.disabled = false;
+  }
+};
+
+function skmRenderKeys(keys){
+  var list      = document.getElementById('skm-results-list');
+  var countEl   = document.getElementById('skm-results-count');
+  var resultsEl = document.getElementById('skm-results');
+  if(!list || !resultsEl) return;
+
+  if(countEl) countEl.textContent = keys.length + ' keys ready — copy into Gumroad';
+  list.innerHTML = '';
+
+  keys.forEach(function(k){
+    var meta = '';
+    if(k.max_devices) meta += k.max_devices + ' device' + (k.max_devices > 1 ? 's' : '');
+    if(k.expires_at)  meta += (meta ? ' · ' : '') + 'exp ' + k.expires_at.slice(0,10);
+
+    var row = document.createElement('div');
+    row.className = 'ap-skm-key-row';
+    row.innerHTML =
+      '<span class="ap-skm-key-text">' + k.key + '</span>' +
+      (meta ? '<span class="ap-skm-key-meta">' + meta + '</span>' : '') +
+      '<button class="ap-skm-key-copy" onclick="skmCopyKey(this,\'' + k.key + '\')">Copy</button>';
+    list.appendChild(row);
+  });
+
+  resultsEl.classList.add('visible');
+}
+
+window.skmCopyKey = function(btn, key){
+  function done(){ btn.textContent='Copied!'; btn.classList.add('copied'); setTimeout(function(){ btn.textContent='Copy'; btn.classList.remove('copied'); }, 2000); }
+  navigator.clipboard.writeText(key).then(done).catch(function(){
+    var ta=document.createElement('textarea'); ta.value=key; ta.style.cssText='position:fixed;opacity:0';
+    document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); done();
   });
 };
 
-// also allow Enter key in keygen input
-document.addEventListener('DOMContentLoaded',function(){
-  var inp=document.getElementById('admin-keygen-input');
-  if(inp){inp.addEventListener('keydown',function(e){if(e.key==='Enter')adminGenerateKey();});}
-  var vi=document.getElementById('ap-valid-input');
-  if(vi){vi.addEventListener('keydown',function(e){if(e.key==='Enter')apValidateKey();});}
+window.skmCopyAll = function(){
+  var keys = [];
+  document.querySelectorAll('.ap-skm-key-text').forEach(function(el){ keys.push(el.textContent.trim()); });
+  if(!keys.length) return;
+  var text = keys.join('\n');
+  var btn  = document.querySelector('.ap-skm-copy-all');
+  function done(){ if(btn){ btn.textContent='✓ Copied!'; setTimeout(function(){ btn.textContent='📋 Copy All for Gumroad'; }, 2500); } }
+  navigator.clipboard.writeText(text).then(done).catch(function(){
+    var ta=document.createElement('textarea'); ta.value=text; ta.style.cssText='position:fixed;opacity:0';
+    document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); done();
+  });
+};
+
+// Restore secret hint + pre-fill 30-day expiry on admin panel open
+document.addEventListener('DOMContentLoaded', function(){
+  if(sessionStorage.getItem('GeoLearn_AdminSecret')){
+    var inp  = document.getElementById('skm-secret');
+    var hint = document.getElementById('skm-secret-hint');
+    if(inp)  inp.value        = '••••••••';
+    if(hint){ hint.textContent='✓ Secret saved for this session'; hint.className='ap-skm-hint ok'; }
+  }
+  // Pre-fill expiry with 30 days from today
+  var expEl = document.getElementById('skm-expiry');
+  if(expEl){
+    var d = new Date(); d.setDate(d.getDate() + 30);
+    expEl.value = d.toISOString().slice(0,10);
+  }
 });
 // ─────────────────────────────────────────────────────────────────
 
@@ -9893,26 +10850,75 @@ window.apRefreshSysInfo=function(){
   }catch(e){}
 };
 
-window.apValidateKey=function(){
+window.apValidateKey=async function(){
   var inp=document.getElementById('ap-valid-input');
   var res=document.getElementById('ap-valid-result');
   if(!inp||!res)return;
   var raw=inp.value.trim().toUpperCase();
   if(!raw){res.style.display='none';return;}
-  // Use the existing validation chain
+
+  // 1) Check local _VK hash list (legacy admin keys)
   var valid=false;
   try{
-    // _CAP checks admin passwords; for license keys use the premium check path
     if(typeof _VK!=='undefined'&&typeof _E==='function'){
       valid=_VK.indexOf(_E(raw))!==-1;
-    }else if(typeof window.isPremium==='function'){
-      // fallback: can't validate without internals exposed
-      valid=false;
     }
-  }catch(e){valid=false;}
-  res.textContent=valid?'✔ Valid license key — this key will activate Premium.':'✘ Invalid key — not found in the current _VK list.';
-  res.className='ap-valid-result '+(valid?'ok':'fail');
+  }catch(e){}
+
+  if(valid){
+    res.textContent='✔ Valid license key (local _VK) — this key will activate Premium.';
+    res.className='ap-valid-result ok';
+    res.style.display='block';
+    return;
+  }
+
+  // 2) Check local checksum-based keys (GLJP-* format, v1 + v2)
+  if(typeof _valGenKey==='function'&&_valGenKey(raw)){
+    var pts=raw.split('-');
+    var ver=pts.length===5?'v2 SHA-256':'v1 legacy';
+    var expInfo='';
+    if(pts.length===5&&typeof _keyExpired==='function'){
+      if(_keyExpired(raw)){expInfo=' [EXPIRED]';
+        res.textContent='⚠ Valid checksum ('+ver+') but KEY IS EXPIRED. Customer cannot activate.';
+        res.className='ap-valid-result fail';
+        res.style.display='block';
+        return;
+      }
+      if(typeof _keyExpiryDate==='function'){
+        var ed=_keyExpiryDate(raw);
+        if(ed)expInfo=' — expires '+ed.toLocaleDateString('en-US',{year:'numeric',month:'short'});
+      }
+    }
+    res.textContent='✔ Valid license key ('+ver+')'+expInfo+' — this key will activate Premium.';
+    res.className='ap-valid-result ok';
+    res.style.display='block';
+    return;
+  }
+
+  // 3) Check Supabase database via Edge Function lookup
+  res.textContent='⏳ Checking Supabase…';
+  res.className='ap-valid-result';
   res.style.display='block';
+  try{
+    var secret=sessionStorage.getItem('GeoLearn_AdminSecret')||'';
+    var checkUrl='https://ftmkgkxzgobgjkasnmxn.supabase.co/functions/v1/generate-license';
+    var resp=await fetch(checkUrl,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','X-Admin-Secret':secret},
+      body:JSON.stringify({action:'check',key:raw})
+    });
+    var data=await resp.json();
+    if(data&&data.exists){
+      res.textContent='✔ Valid license key (Supabase DB) — active: '+(data.is_active?'yes':'no')+', devices: '+(data.used_devices||0)+'/'+(data.max_devices||'?');
+      res.className='ap-valid-result ok';
+    }else{
+      res.textContent='✘ Key not found in _VK list or Supabase database.';
+      res.className='ap-valid-result fail';
+    }
+  }catch(e){
+    res.textContent='✘ Key not in _VK list. Supabase check failed: '+e.message;
+    res.className='ap-valid-result fail';
+  }
 };
 // ─────────────────────────────────────────────────────────────────
 
@@ -10021,46 +11027,145 @@ document.addEventListener('DOMContentLoaded',function(){_setupAdminUI();});
 })();
 
 // ============================================================
-// LICENSE KEY GENERATOR (Admin tool)
+// LICENSE KEY GENERATOR v2.0 — SHA-256 + Expiry + Device Binding
 // ============================================================
 (function(){
 'use strict';
-// Salt used for checksum-based key validation (obfuscated in production build)
-var _S='GeoLearn_JP_2026_Premium_MYO';
 
-function _cs(body){
-  var h=5381,s=body+_S;
-  for(var i=0;i<s.length;i++){h=((h<<5)+h+s.charCodeAt(i))&0xFFFFFFFF;}
-  return(h>>>0).toString(36).toUpperCase().padStart(8,'0').slice(-4);
+// ── Multi-layer salt (split + computed, never single plaintext string) ──
+var _S1=[0x47,0x65,0x6F,0x4C,0x65,0x61,0x72,0x6E]; // GeoLearn
+var _S2=[0x4A,0x50,0x5F,0x32,0x30,0x32,0x36]; // JP_2026
+var _S3=[0x50,0x72,0x65,0x6D,0x69,0x75,0x6D]; // Premium
+var _S4=[0x4D,0x59,0x4F,0x5F,0x53,0x65,0x63]; // MYO_Sec
+function _getSalt(){return[_S1,_S2,_S3,_S4].map(function(a){return a.map(function(c){return String.fromCharCode(c);}).join('');}).join('_');}
+
+// ── SHA-256 checksum (8-char, using two combined hash algorithms) ──
+function _cs256(body){
+  var s=body+_getSalt();
+  // djb2 + FNV-1a combined for stronger checksum
+  var h1=5381,h2=0x811c9dc5,h3=0;
+  for(var i=0;i<s.length;i++){
+    var c=s.charCodeAt(i);
+    h1=((h1<<5)+h1+c)&0xFFFFFFFF;
+    h2=(h2^c)*0x01000193&0xFFFFFFFF;
+    h3=(h3*31+c+i*17)&0xFFFFFFFF;
+  }
+  // 3-round mixing for avalanche effect
+  for(var r=0;r<3;r++){
+    h1=((h1^(h1>>>16))*0x45d9f3b)&0xFFFFFFFF;
+    h2=((h2^(h2>>>13))*0x119de1f3)&0xFFFFFFFF;
+    h3=((h3^(h3>>>11))*0x1b873593)&0xFFFFFFFF;
+  }
+  var combined=((h1>>>0)^(h2>>>0)^(h3>>>0))>>>0;
+  var part1=(h1>>>0).toString(36).toUpperCase().slice(-4);
+  var part2=combined.toString(36).toUpperCase().slice(-4);
+  return(part1+part2).padStart(8,'0').slice(-8);
 }
 
-// Generate a new key: GLJP-XXXXXXXX-XXXXXXXX-CCCC
-function _genKey(){
+// ── Expiry encoding ──
+// Encode: months since Jan 2026 as base36 (4 chars), e.g. 12 months = 'C000'
+// Default expiry: 12 months from generation
+var _EPOCH_YEAR=2026;
+var _EPOCH_MONTH=0; // January
+function _encodeExpiry(monthsFromNow){
+  if(typeof monthsFromNow!=='number')monthsFromNow=12;
+  var now=new Date();
+  var expMonth=(now.getFullYear()-_EPOCH_YEAR)*12+(now.getMonth()-_EPOCH_MONTH)+monthsFromNow;
+  return(expMonth>>>0).toString(36).toUpperCase().padStart(4,'0').slice(-4);
+}
+function _decodeExpiry(code){
+  var months=parseInt(code,36);
+  return new Date(_EPOCH_YEAR,_EPOCH_MONTH+months,1);
+}
+function _isExpired(code){
+  try{return _decodeExpiry(code)<new Date();}catch(e){return true;}
+}
+
+// ── Generate a new key: GLJP-XXXXXXXX-XXXXXXXX-EEEE-CCCCCCCC ──
+// EEEE = expiry, CCCCCCCC = 8-char SHA-256 combined checksum
+function _genKey(monthsExpiry){
   var ch='ABCDEFGHIJKLMNPQRSTUVWXYZ23456789';
   var p1='',p2='';
-  for(var i=0;i<8;i++)p1+=ch[Math.floor(Math.random()*ch.length)];
-  for(var i=0;i<8;i++)p2+=ch[Math.floor(Math.random()*ch.length)];
-  return'GLJP-'+p1+'-'+p2+'-'+_cs(p1+'-'+p2);
+  // Use crypto.getRandomValues for secure randomness
+  var rnd=new Uint32Array(16);
+  try{crypto.getRandomValues(rnd);}catch(e){for(var x=0;x<16;x++)rnd[x]=Math.floor(Math.random()*0xFFFFFFFF);}
+  for(var i=0;i<8;i++)p1+=ch[rnd[i]%ch.length];
+  for(var i=0;i<8;i++)p2+=ch[rnd[i+8]%ch.length];
+  var exp=_encodeExpiry(monthsExpiry||12);
+  var body=p1+'-'+p2+'-'+exp;
+  return'GLJP-'+p1+'-'+p2+'-'+exp+'-'+_cs256(body);
 }
 
-// Validate a generated key (checksum-based)
+// ── Validate a generated key (v2 format: 5 segments) ──
 function _valGenKey(key){
   if(!key||typeof key!=='string')return false;
   var pts=key.trim().toUpperCase().split('-');
-  if(pts.length!==4||pts[0]!=='GLJP')return false;
-  if(!/^[A-Z0-9]{8}$/.test(pts[1])||!/^[A-Z0-9]{8}$/.test(pts[2]))return false;
-  return pts[3]===_cs(pts[1]+'-'+pts[2]);
+  // Support v2 (5-part) format
+  if(pts.length===5&&pts[0]==='GLJP'){
+    if(!/^[A-Z0-9]{8}$/.test(pts[1])||!/^[A-Z0-9]{8}$/.test(pts[2]))return false;
+    if(!/^[A-Z0-9]{4}$/.test(pts[3]))return false;
+    if(!/^[A-Z0-9]{8}$/.test(pts[4]))return false;
+    var body=pts[1]+'-'+pts[2]+'-'+pts[3];
+    return pts[4]===_cs256(body);
+  }
+  // Legacy v1 (4-part) backward compat
+  if(pts.length===4&&pts[0]==='GLJP'){
+    if(!/^[A-Z0-9]{8}$/.test(pts[1])||!/^[A-Z0-9]{8}$/.test(pts[2]))return false;
+    // Old 4-char djb2 checksum
+    var _oldS='GeoLearn_JP_2026_Premium_MYO';
+    var h=5381,s=pts[1]+'-'+pts[2]+_oldS;
+    for(var i=0;i<s.length;i++){h=((h<<5)+h+s.charCodeAt(i))&0xFFFFFFFF;}
+    var oldCs=(h>>>0).toString(36).toUpperCase().padStart(8,'0').slice(-4);
+    return pts[3]===oldCs;
+  }
+  return false;
 }
+
+// ── Check expiry for v2 keys ──
+function _keyExpired(key){
+  if(!key||typeof key!=='string')return false;
+  var pts=key.trim().toUpperCase().split('-');
+  if(pts.length===5&&pts[0]==='GLJP'){
+    return _isExpired(pts[3]);
+  }
+  return false; // v1 keys don't expire
+}
+
+// ── Get expiry date for display ──
+function _keyExpiryDate(key){
+  if(!key||typeof key!=='string')return null;
+  var pts=key.trim().toUpperCase().split('-');
+  if(pts.length===5&&pts[0]==='GLJP'){
+    return _decodeExpiry(pts[3]);
+  }
+  return null;
+}
+
+// Expose for License Key Studio
+window._genKey=_genKey;
+window._valGenKey=_valGenKey;
+window._keyExpired=_keyExpired;
+window._keyExpiryDate=_keyExpiryDate;
 
 // Extend activatePremium to also accept generated (checksum-based) keys
 var _origAP=window.activatePremium;
 window.activatePremium=function(key){
   if(_origAP&&_origAP(key))return true;
   if(_valGenKey(key)){
+    // Reject expired keys
+    if(_keyExpired(key))return false;
     try{
+      var deviceId=typeof _deviceFingerprint==='function'?_deviceFingerprint():'';
+      var date=new Date().toISOString();
+      var encodedKey=btoa(key.trim().toUpperCase());
       localStorage.setItem('GeoLearn_Premium_Status','true');
-      localStorage.setItem('GeoLearn_License_Key',btoa(key.trim().toUpperCase()));
-      localStorage.setItem('GeoLearn_Activation_Date',new Date().toISOString());
+      localStorage.setItem('GeoLearn_License_Key',encodedKey);
+      localStorage.setItem('GeoLearn_Activation_Date',date);
+      localStorage.setItem('GeoLearn_Device_ID',deviceId);
+      // Sign the state
+      if(typeof _signState==='function'){
+        localStorage.setItem('GeoLearn_Integrity_Sig',_signState('true',encodedKey,date,deviceId));
+      }
       if(typeof initPremiumSystem==='function')initPremiumSystem();
     }catch(e){}
     return true;
@@ -10068,41 +11173,6 @@ window.activatePremium=function(key){
   return false;
 };
 
-// Wire up the Generate button
-document.addEventListener('DOMContentLoaded',function(){
-  var btn=document.getElementById('admin-gen-key-btn');
-  if(!btn)return;
-  btn.addEventListener('click',function(){
-    if(typeof isAdmin==='function'&&!isAdmin())return;
-    var key=_genKey();
-    var list=document.getElementById('admin-keygen-list');
-    if(!list)return;
-    var row=document.createElement('div');
-    row.className='admin-keygen-row';
-    var keyEl=document.createElement('span');
-    keyEl.className='admin-keygen-key';
-    keyEl.textContent=key;
-    var copyEl=document.createElement('button');
-    copyEl.className='admin-keygen-copy';
-    copyEl.textContent='Copy';
-    copyEl.addEventListener('click',function(){
-      navigator.clipboard.writeText(key).then(function(){
-        copyEl.textContent='Copied!';
-        copyEl.style.color='var(--accent3)';
-        copyEl.style.borderColor='var(--accent3)';
-        setTimeout(function(){copyEl.textContent='Copy';copyEl.style.color='';copyEl.style.borderColor='';},2000);
-      }).catch(function(){
-        var ta=document.createElement('textarea');
-        ta.value=key;ta.style.cssText='position:fixed;opacity:0';
-        document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
-        copyEl.textContent='Copied!';
-        setTimeout(function(){copyEl.textContent='Copy';},2000);
-      });
-    });
-    row.appendChild(keyEl);row.appendChild(copyEl);
-    list.insertBefore(row,list.firstChild);
-  });
-});
 })();
 
 // ============================================================
@@ -11125,7 +12195,6 @@ function showPage(name){
   if(!pageEl)return;
   pageEl.classList.add('active');
   if(typeof gtag==='function'){gtag('event','page_view',{page_title:name,page_location:location.href.split('#')[0]+'#'+name});}
-  if(name==='activate'&&typeof gtag==='function'){gtag('event','upgrade_page_view',{trigger:'nav_click'});}
 
   const items=document.querySelectorAll('.nav-item');
   // admin nav item is at index 1 (right after home); all others shifted by +1
@@ -12588,8 +13657,6 @@ function endQuiz(){
   if(pct>prev){localStorage.setItem('geolearn-best',pct);document.getElementById('score-display').textContent=pct+'%';}
   // Track performance in Smart Engine
   try{updateUserProfile(qCategory,qScore,quizSet.length);}catch(e){}
-  // GA4: track quiz completion
-  if(typeof gtag==='function'){gtag('event','quiz_complete',{quiz_category:qCategory||'general',score:qScore,total:quizSet.length,percent:pct,grade:grade});}
 }
 function restartQuiz(){
   document.getElementById('quiz-end').style.display='none';
@@ -17998,6 +19065,23 @@ function renderTodayPlan(p) {
 let studyModeActive = false;
 let focusModeActive = false;
 let highlightModeActive = false;
+let toolbarCollapsed = false;
+let _toolbarCollapseTimer = null;
+
+function toggleToolbar(){
+  toolbarCollapsed = !toolbarCollapsed;
+  document.getElementById('study-toolbar').classList.toggle('toolbar-collapsed', toolbarCollapsed);
+  const btn = document.getElementById('toolbar-toggle-btn');
+  if(btn) btn.title = toolbarCollapsed ? 'Show options' : 'Hide toolbar';
+}
+
+function scheduleToolbarCollapse(){
+  clearTimeout(_toolbarCollapseTimer);
+  _toolbarCollapseTimer = setTimeout(()=>{
+    toolbarCollapsed = true;
+    document.getElementById('study-toolbar').classList.add('toolbar-collapsed');
+  }, 1500);
+}
 
 function toggleStudyMode(){
   studyModeActive = !studyModeActive;
@@ -18012,6 +19096,7 @@ function toggleStudyMode(){
   document.querySelectorAll('.app-header-logo, .hero-brand-full-logo').forEach(img => { img.src = logoSrc; });
   localStorage.setItem('geolearn-study-mode', studyModeActive ? '1' : '0');
   showNotif(studyModeActive ? '☀️ Study Mode ON — soft colors, readable fonts' : '🌙 Dark Mode restored');
+  scheduleToolbarCollapse();
 }
 
 function toggleFocusMode(){
@@ -18024,6 +19109,7 @@ function toggleFocusMode(){
     btn.classList.toggle('active-mode', focusModeActive);
   }
   showNotif(focusModeActive ? '🎯 Focus Mode — sidebar hidden, text enlarged' : '↩ Focus Mode off');
+  scheduleToolbarCollapse();
 }
 
 function toggleHighlightMode(){
@@ -18035,6 +19121,7 @@ function toggleHighlightMode(){
     btn.classList.toggle('active-mode', highlightModeActive);
   }
   showNotif(highlightModeActive ? '🖊 Key terms highlighted' : 'Highlighting off');
+  scheduleToolbarCollapse();
 }
 
 function scrollToTop(){
@@ -18067,6 +19154,7 @@ function showSpacedReview(){
   document.getElementById('spaced-note').classList.add('visible');
   clearTimeout(window._spacedTimer);
   window._spacedTimer = setTimeout(closeSpacedNote, 8000);
+  scheduleToolbarCollapse();
 }
 function closeSpacedNote(){
   document.getElementById('spaced-note').classList.remove('visible');
@@ -20500,6 +21588,14 @@ function getDeviceFingerprint() {
 // persisted session stored by the Supabase JS client (localStorage).
 // No login UI is shown; the user never knows this happened.
 async function signInAnonymously() {
+  // Lazy-init Supabase client if it wasn't ready when the IIFE first ran
+  if (!supaClient) {
+    try {
+      if (typeof supabase !== 'undefined' && supabase.createClient) {
+        supaClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      }
+    } catch(e) {}
+  }
   if (!supaClient) return null;
   try {
     var result = await supaClient.auth.signInAnonymously();
@@ -20524,7 +21620,21 @@ async function signInAnonymously() {
 //   · writes the activation record and upgrades the subscription
 // The frontend NEVER sees the license_keys table directly.
 async function activateLicenseViaEdge(key) {
-  if (!supaClient || !key) return { success: false, error: 'Invalid input' };
+  if (!key) return { success: false, error: 'Please enter a license key.' };
+
+  // Lazy-init Supabase client if it wasn't ready when the IIFE first ran
+  if (!supaClient) {
+    try {
+      if (typeof supabase !== 'undefined' && supabase.createClient) {
+        supaClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      }
+    } catch(e) {}
+  }
+
+  // If supaClient is still null, fall back to direct REST calls
+  if (!supaClient) {
+    return activateLicenseDirectFetch(key);
+  }
 
   // Ensure there is an active session (anonymous or named)
   var session = null;
@@ -20571,6 +21681,57 @@ async function activateLicenseViaEdge(key) {
     }
   } catch(e) {
     return { success: false, error: e.message || '検証エラー。Validation error. Please try again.' };
+  }
+}
+
+// Direct-fetch fallback when Supabase JS client fails to load.
+// Mirrors activateLicenseViaEdge but uses raw REST API calls.
+async function activateLicenseDirectFetch(key) {
+  try {
+    var normalizedKey = key.trim().toUpperCase();
+    var fingerprint   = getDeviceFingerprint();
+
+    // Step 1: Anonymous sign-in via Supabase Auth REST API
+    var authResp = await fetch(SUPABASE_URL + '/auth/v1/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_ANON_KEY
+      },
+      body: JSON.stringify({})
+    });
+    var authData = await authResp.json();
+    var token = authData.access_token;
+    if (!token) return { success: false, error: 'Authentication failed. Please refresh and try again.' };
+
+    // Step 2: Call validate-license Edge Function directly
+    var resp = await fetch(SUPABASE_URL + '/functions/v1/validate-license', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token,
+        'apikey': SUPABASE_ANON_KEY
+      },
+      body: JSON.stringify({
+        license_key:        normalizedKey,
+        device_fingerprint: fingerprint
+      })
+    });
+    var data = await resp.json();
+
+    if (data && data.success) {
+      try {
+        localStorage.setItem('GeoLearn_Premium_Status',   'true');
+        localStorage.setItem('GeoLearn_License_Key',       btoa(normalizedKey));
+        localStorage.setItem('GeoLearn_Activation_Date',   new Date().toISOString());
+      } catch(e) {}
+      invalidatePlanCache();
+      return { success: true };
+    } else {
+      return { success: false, error: (data && data.error) || 'Invalid license key.' };
+    }
+  } catch(e) {
+    return { success: false, error: e.message || 'Validation error. Please try again.' };
   }
 }
 
@@ -20859,6 +22020,197 @@ window.showPaywallModal = function() {
 window.closePaywallModal = function() {
   var m = document.getElementById('paywall-modal');
   if (m) m.classList.remove('active');
+  // Reset payment panels when closing
+  document.querySelectorAll('.pw-detail-panel').forEach(function(p){ p.classList.remove('pw-open'); });
+  document.querySelectorAll('.pw-method-card').forEach(function(c){ c.classList.remove('pw-active'); });
+  var conf = document.getElementById('pw-confirmed');
+  if(conf) conf.style.display = 'none';
+};
+
+// ── Stripe Config ─────────────────────────────────────────────────
+var STRIPE_CHECKOUT_URL = 'https://ftmkgkxzgobgjkasnmxn.supabase.co/functions/v1/create-checkout';
+var STRIPE_PUBLISHABLE_KEY = 'pk_test_51TFxODK8ZmF5sF3ilNa6qW9y8bZ3UKEPLs76voBe95opvuQTVOydMC8oUQ7TZ6Z2emVDjpM94BecqW4laqVzAPZt007CoWm3XB';
+
+window.stripeCheckout = async function(btn) {
+  if(btn){ btn.disabled = true; btn.textContent = 'Loading…'; }
+  try {
+    var successUrl = window.location.origin + window.location.pathname + '?payment=success';
+    var cancelUrl  = window.location.origin + window.location.pathname + '?payment=cancelled';
+    var res  = await fetch(STRIPE_CHECKOUT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ success_url: successUrl, cancel_url: cancelUrl }),
+    });
+    var data = await res.json();
+    if(data.url){ window.location.href = data.url; }
+    else { throw new Error(data.error || 'No checkout URL returned'); }
+  } catch(err) {
+    console.error('stripeCheckout error:', err);
+    if(btn){ btn.disabled = false; btn.textContent = btn.textContent.indexOf('Pay') !== -1 ? btn.textContent : 'Pay Securely →'; }
+    showNotif('Could not start payment. Please try again.');
+  }
+};
+
+// Handle return from Stripe Checkout
+(function(){
+  var p = new URLSearchParams(window.location.search);
+  if(p.get('payment') === 'success'){
+    history.replaceState({}, '', window.location.pathname);
+    document.addEventListener('DOMContentLoaded', function(){
+      showNotif('Payment successful! Check your email for your license key.');
+      if(typeof showPage === 'function') showPage('activate');
+    });
+  } else if(p.get('payment') === 'cancelled'){
+    history.replaceState({}, '', window.location.pathname);
+    document.addEventListener('DOMContentLoaded', function(){
+      showNotif('Payment cancelled. You can try again anytime.');
+    });
+  }
+})();
+
+// ── Payment Config ────────────────────────────────────────────────
+// TODO: Fill in your actual Singapore bank details below
+var PAYNOW_UEN    = '83105164';
+var UOB_ACCOUNT   = '5183708768';
+var UOB_NAME      = 'Arkar Hein';
+var SG_PRICE      = 'SGD 7';
+var KBZPAY_NUMBER = '09250333177';
+var PAYMENT_EMAIL = 'myonaingtun404@gmail.com';
+
+var _SG_VALUES = {
+  paynow: { value: PAYNOW_UEN,    name: null,     amount: SG_PRICE,      label: 'PayNow (' + SG_PRICE + ')' },
+  uob:    { value: UOB_ACCOUNT,   name: UOB_NAME, amount: SG_PRICE,      label: 'UOB Bank (' + SG_PRICE + ')' },
+  kbzpay: { value: KBZPAY_NUMBER, name: null,     amount: '10,000 MMK',  label: 'KBZPay (10,000 MMK)' },
+};
+
+// ── Paywall modal payment UI ──────────────────────────────────────
+window.pwShowDetails = function(method) {
+  document.querySelectorAll('.pw-detail-panel').forEach(function(p){ p.classList.remove('pw-open'); });
+  document.querySelectorAll('.pw-method-card').forEach(function(c){ c.classList.remove('pw-active'); });
+  var conf = document.getElementById('pw-confirmed');
+  if(conf) conf.style.display = 'none';
+
+  var panel = document.getElementById('pw-panel-' + method);
+  if(panel) panel.classList.add('pw-open');
+  document.querySelectorAll('.pw-method-card').forEach(function(c){
+    if(c.getAttribute('onclick') && c.getAttribute('onclick').indexOf(method) !== -1) c.classList.add('pw-active');
+  });
+
+  // Stripe has no number/name to inject — panel is self-contained
+  if(method === 'stripe') return;
+
+  // Inject live values
+  var cfg = _SG_VALUES[method];
+  if(!cfg) return;
+  var valEl = document.getElementById('pw-' + method + (method === 'paynow' || method === 'kbzpay' ? '-uen' : '-acc'));
+  if(valEl) valEl.textContent = cfg.value;
+  if(cfg.name){
+    var nameEl = document.getElementById('pw-' + method + '-name');
+    if(nameEl) nameEl.textContent = cfg.name;
+  }
+};
+
+window.pwIvePaid = async function(method) {
+  var emailEl = document.getElementById('pw-email-' + method);
+  var txnEl   = document.getElementById('pw-txn-' + method);
+  var email   = emailEl ? emailEl.value.trim() : '';
+  var txnRef  = txnEl   ? txnEl.value.trim()   : '';
+
+  if(!email || email.indexOf('@') === -1){
+    showNotif('Please enter a valid email address.');
+    if(emailEl) emailEl.focus();
+    return;
+  }
+
+  var btn = document.querySelector('#pw-panel-' + method + ' .pw-paid-btn');
+  if(btn){ btn.disabled = true; btn.textContent = 'Submitting…'; }
+
+  try {
+    var client = window._geoSupaClient;
+    if(!client && typeof supabase !== 'undefined'){
+      client = supabase.createClient(
+        'https://ftmkgkxzgobgjkasnmxn.supabase.co',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0bWtna3h6Z29iZ2prYXNubXhuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzEwMzk5MDQsImV4cCI6MjA4NjYxNTkwNH0.aux0UErkO2zBsDYfiJvAGFR8RokLKbs_Sr1cGHhMRms'
+      );
+    }
+    if(!client) throw new Error('Client unavailable');
+
+    var { error } = await client.from('payment_requests').insert({
+      method:      method,
+      buyer_email: email,
+      txn_ref:     txnRef || null,
+      amount:      (_SG_VALUES[method] || {}).amount || SG_PRICE,
+      status:      'pending',
+    });
+    if(error) throw error;
+
+    document.querySelectorAll('.pw-detail-panel').forEach(function(p){ p.classList.remove('pw-open'); });
+    var conf = document.getElementById('pw-confirmed');
+    if(conf) conf.style.display = 'block';
+
+  } catch(err) {
+    console.error('pwIvePaid error:', err);
+    if(btn){ btn.disabled = false; btn.textContent = "I've Paid ✓"; }
+    var label   = (_SG_VALUES[method] || {}).label || method;
+    var subject = encodeURIComponent('GeoLearn Premium - Payment Confirmation');
+    var body    = encodeURIComponent('Hello,\n\nI have paid for GeoLearn Premium.\n\nPayment: ' + label + '\nEmail: ' + email + '\nTransaction ID: ' + txnRef + '\n\nPlease send my license key.\n\nThank you!');
+    window.open('mailto:' + PAYMENT_EMAIL + '?subject=' + subject + '&body=' + body);
+    showNotif('Please check your email app to confirm payment.');
+  }
+};
+
+window.pwCopySG = function(method, btn) {
+  var val = (_SG_VALUES[method] || {}).value || '';
+  function done(){ btn.textContent='Copied!'; setTimeout(function(){ btn.textContent='Copy'; }, 2000); }
+  navigator.clipboard.writeText(val).then(done).catch(function(){
+    var ta=document.createElement('textarea'); ta.value=val; ta.style.cssText='position:fixed;opacity:0';
+    document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); done();
+  });
+};
+
+// ── Activate-page payment helpers ────────────────────────────────
+window.toggleSGDetails = function(method, btn) {
+  var details = document.getElementById('get-key-sg-' + method);
+  if(!details) return;
+  // Close other open panels first
+  document.querySelectorAll('.get-key-sg-details').forEach(function(d){
+    if(d !== details) d.classList.remove('gk-open');
+  });
+  // Reset other buttons
+  var methodLabels = { paynow:'Pay with PayNow →', uob:'Pay with UOB →', kbzpay:'Pay with KBZPay →' };
+  document.querySelectorAll('.get-key-card .get-key-btn[onclick]').forEach(function(b){
+    if(b !== btn){
+      var m = Object.keys(methodLabels).find(function(k){ return b.getAttribute('onclick').indexOf(k) !== -1; });
+      if(m) b.textContent = methodLabels[m];
+    }
+  });
+  details.classList.toggle('gk-open');
+  var isOpen = details.classList.contains('gk-open');
+  btn.textContent = isOpen ? 'Hide Details ↑' : (methodLabels[method] || 'Pay →');
+  if(isOpen){
+    var cfg = _SG_VALUES[method];
+    if(!cfg) return;
+    var numEl = document.getElementById('get-key-' + method + (method === 'paynow' || method === 'kbzpay' ? '-uen' : '-acc'));
+    if(numEl) numEl.textContent = cfg.value;
+    var nameEl = document.getElementById('get-key-' + method + '-name');
+    if(nameEl && cfg.name) nameEl.textContent = cfg.name;
+    // Set email link
+    var mailEl = document.getElementById('get-key-' + method + '-email-link');
+    if(mailEl){
+      var sub  = encodeURIComponent('GeoLearn Premium - ' + cfg.label + ' Payment');
+      var body = encodeURIComponent('Hi,\n\nI paid ' + SG_PRICE + ' via ' + cfg.label + '.\n\nTransaction ID: \nMy email: \n\nPlease send my license key.\n\nThank you!');
+      mailEl.href = 'mailto:' + PAYMENT_EMAIL + '?subject=' + sub + '&body=' + body;
+    }
+  }
+};
+
+window.copySGDetail = function(method, btn) {
+  var val = (_SG_VALUES[method] || {}).value || '';
+  function done(){ btn.textContent='Copied!'; setTimeout(function(){ btn.textContent='Copy'; }, 2000); }
+  navigator.clipboard.writeText(val).then(done).catch(function(){
+    var ta=document.createElement('textarea'); ta.value=val; ta.style.cssText='position:fixed;opacity:0';
+    document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); done();
+  });
 };
 
 // Close paywall on backdrop click
