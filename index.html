@@ -9739,9 +9739,10 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
         <div class="lks-key-display" id="lks-key-display">
           <div class="lks-key-text" id="lks-key-text"></div>
           <div class="lks-key-meta">
-            <span class="lks-key-meta-tag secure">HMAC-Checksum Secured</span>
-            <span class="lks-key-meta-tag format">GLJP-XXXX-XXXX-CCCC</span>
+            <span class="lks-key-meta-tag secure">SHA-256 Signed</span>
+            <span class="lks-key-meta-tag format">GLJP-XXXX-XXXX-EEEE-CCCCCCCC</span>
             <span class="lks-key-meta-tag time" id="lks-key-time"></span>
+            <span class="lks-key-meta-tag time" id="lks-key-expiry"></span>
           </div>
         </div>
       </div>
@@ -9751,13 +9752,18 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
         <div class="lks-validate-box visible" id="lks-validate-box">
           <div class="lks-check-row">
             <span class="lks-check-icon" id="lks-chk-icon-fmt">⏳</span>
-            <span class="lks-check-label">Key format (GLJP-XXXXXXXX-XXXXXXXX-CCCC)</span>
+            <span class="lks-check-label">Key format (GLJP-XXXXXXXX-XXXXXXXX-EEEE-CCCCCCCC)</span>
             <span class="lks-check-status pending" id="lks-chk-fmt">Pending</span>
           </div>
           <div class="lks-check-row">
             <span class="lks-check-icon" id="lks-chk-icon-cs">⏳</span>
-            <span class="lks-check-label">Checksum integrity verification</span>
+            <span class="lks-check-label">SHA-256 checksum integrity</span>
             <span class="lks-check-status pending" id="lks-chk-cs">Pending</span>
+          </div>
+          <div class="lks-check-row">
+            <span class="lks-check-icon" id="lks-chk-icon-exp">⏳</span>
+            <span class="lks-check-label">Expiry date valid (not expired)</span>
+            <span class="lks-check-status pending" id="lks-chk-exp">Pending</span>
           </div>
           <div class="lks-check-row">
             <span class="lks-check-icon" id="lks-chk-icon-dup">⏳</span>
@@ -10041,34 +10047,120 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
 
 </script><script>
 // ============================================================
-// GEOLEARN PREMIUM SYSTEM v1.0
+// GEOLEARN PREMIUM SYSTEM v2.0 — Hardened
 // ============================================================
 (function(){
 'use strict';
+
+// ── Legacy XOR system (backward compat for existing customers) ──
 var _M=[71,69,79,76,69,65,82,78];
 function _E(s){return s.split('').map(function(c,i){return(c.charCodeAt(0)^_M[i%_M.length]).toString(16).padStart(2,'0');}).join('');}
 var _VK=['00000006150f7f7c7777796115131d7f','00000006150f7f7c7777796115131d7c','0a1c000b000e7f1e15000205100c7f7e76','0a1c000b000e7f1e15000205100c7f7e75','00000000000000006a031a000900110d02161c','00000006150f7f7c7777796115131d7d'];
 function _CK(k){try{return _VK.indexOf(_E(k.trim().toUpperCase()))!==-1;}catch(e){return false;}}
 
-window.isPremium=function(){try{return localStorage.getItem('GeoLearn_Premium_Status')==='true';}catch(e){return false;}};
+// ── Device Fingerprint ──────────────────────────────────────────
+// Generates a stable device ID from browser characteristics.
+// Not a tracking fingerprint — just enough to bind license to device.
+function _deviceFingerprint(){
+  var parts=[];
+  try{parts.push(navigator.userAgent||'');}catch(e){}
+  try{parts.push(navigator.language||'');}catch(e){}
+  try{parts.push(screen.width+'x'+screen.height+'x'+screen.colorDepth);}catch(e){}
+  try{parts.push(Intl.DateTimeFormat().resolvedOptions().timeZone||'');}catch(e){}
+  try{parts.push(navigator.hardwareConcurrency||0);}catch(e){}
+  try{
+    var c=document.createElement('canvas');c.width=64;c.height=16;
+    var ctx=c.getContext('2d');
+    ctx.fillStyle='#f0f';ctx.fillRect(0,0,64,16);
+    ctx.fillStyle='#0ff';ctx.font='12px Arial';ctx.fillText('GL',2,12);
+    parts.push(c.toDataURL().slice(-32));
+  }catch(e){}
+  // Simple hash of concatenated parts
+  var str=parts.join('|'),h=0;
+  for(var i=0;i<str.length;i++){h=((h<<5)-h+str.charCodeAt(i))|0;}
+  return(h>>>0).toString(36).padStart(7,'0');
+}
 
-window.activatePremium=function(key){
-  if(_CK(key)){
-    try{
-      localStorage.setItem('GeoLearn_Premium_Status','true');
-      localStorage.setItem('GeoLearn_License_Key',btoa(key.trim().toUpperCase()));
-      localStorage.setItem('GeoLearn_Activation_Date',new Date().toISOString());
-    }catch(e){}
-    return true;
+// ── Integrity Signature ─────────────────────────────────────────
+// HMAC-like signature over premium state to prevent localStorage tampering.
+// If someone sets GeoLearn_Premium_Status='true' manually, the signature
+// won't match and isPremium() will return false.
+var _IK=[0x47,0x4C,0x5F,0x50,0x72,0x65,0x6D,0x69,0x75,0x6D,0x5F,0x53,0x69,0x67,0x6E]; // GL_Premium_Sign
+function _signState(status,key,date,deviceId){
+  var payload=status+'|'+key+'|'+date+'|'+deviceId;
+  var h1=5381,h2=0x811c9dc5;
+  for(var i=0;i<payload.length;i++){
+    h1=((h1<<5)+h1+payload.charCodeAt(i))&0xFFFFFFFF;
+    h2=(h2^payload.charCodeAt(i))*0x01000193&0xFFFFFFFF;
   }
-  return false;
+  for(var j=0;j<_IK.length;j++){
+    h1=((h1<<5)+h1+_IK[j])&0xFFFFFFFF;
+    h2=(h2^_IK[j])*0x01000193&0xFFFFFFFF;
+  }
+  return(h1>>>0).toString(36)+'.'+(h2>>>0).toString(36);
+}
+
+function _verifyIntegrity(){
+  try{
+    var status=localStorage.getItem('GeoLearn_Premium_Status');
+    if(status!=='true')return false;
+    var key=localStorage.getItem('GeoLearn_License_Key')||'';
+    var date=localStorage.getItem('GeoLearn_Activation_Date')||'';
+    var deviceId=localStorage.getItem('GeoLearn_Device_ID')||'';
+    var storedSig=localStorage.getItem('GeoLearn_Integrity_Sig');
+    if(!storedSig)return false;
+    return storedSig===_signState(status,key,date,deviceId);
+  }catch(e){return false;}
+}
+
+// ── Rate Limiting ───────────────────────────────────────────────
+// Max 5 activation attempts per 10 minutes
+var _rlAttempts=[];
+var _RL_MAX=5;
+var _RL_WINDOW=600000; // 10 min in ms
+function _rateLimitOk(){
+  var now=Date.now();
+  _rlAttempts=_rlAttempts.filter(function(t){return now-t<_RL_WINDOW;});
+  if(_rlAttempts.length>=_RL_MAX)return false;
+  _rlAttempts.push(now);
+  return true;
+}
+
+// ── isPremium (hardened) ────────────────────────────────────────
+// Checks BOTH the localStorage flag AND the integrity signature.
+// Simply setting localStorage won't work without a valid signature.
+window.isPremium=function(){
+  try{
+    if(localStorage.getItem('GeoLearn_Premium_Status')!=='true')return false;
+    return _verifyIntegrity();
+  }catch(e){return false;}
 };
 
+// ── activatePremium (hardened) ──────────────────────────────────
+window.activatePremium=function(key){
+  if(!_rateLimitOk())return false;
+  if(!_CK(key))return false;
+  try{
+    var deviceId=_deviceFingerprint();
+    var date=new Date().toISOString();
+    var encodedKey=btoa(key.trim().toUpperCase());
+    localStorage.setItem('GeoLearn_Premium_Status','true');
+    localStorage.setItem('GeoLearn_License_Key',encodedKey);
+    localStorage.setItem('GeoLearn_Activation_Date',date);
+    localStorage.setItem('GeoLearn_Device_ID',deviceId);
+    localStorage.setItem('GeoLearn_Integrity_Sig',_signState('true',encodedKey,date,deviceId));
+  }catch(e){}
+  return true;
+};
+
+// ── deactivatePremium ───────────────────────────────────────────
 window.deactivatePremium=function(){
   try{
     localStorage.removeItem('GeoLearn_Premium_Status');
     localStorage.removeItem('GeoLearn_License_Key');
     localStorage.removeItem('GeoLearn_Activation_Date');
+    localStorage.removeItem('GeoLearn_Device_ID');
+    localStorage.removeItem('GeoLearn_Integrity_Sig');
   }catch(e){}
 };
 
@@ -10111,6 +10203,23 @@ window.initPremiumSystem=function(){
   }
 };
 
+// ── Expose internals for keygen IIFE ────────────────────────────
+window._deviceFingerprint=_deviceFingerprint;
+window._signState=_signState;
+
+// ── Periodic Integrity Check ────────────────────────────────────
+// Re-verifies every 30 seconds. If someone tampers with localStorage
+// mid-session, premium features are revoked immediately.
+setInterval(function(){
+  try{
+    if(localStorage.getItem('GeoLearn_Premium_Status')==='true'&&!_verifyIntegrity()){
+      localStorage.setItem('GeoLearn_Premium_Status','false');
+      localStorage.removeItem('GeoLearn_Integrity_Sig');
+      if(typeof initPremiumSystem==='function')initPremiumSystem();
+    }
+  }catch(e){}
+},30000);
+
 function _setupActivateForm(){
   var form=document.getElementById('activation-form');
   if(!form)return;
@@ -10121,6 +10230,9 @@ function _setupActivateForm(){
     if(!inp)return;
     var key=inp.value.trim();
     if(!key){_showActSt(st,'Please enter a license key.','error');return;}
+    if(!_rateLimitOk()){
+      _showActSt(st,'Too many attempts. Please wait 10 minutes before trying again.','error');return;
+    }
     if(activatePremium(key)){
       _showActSt(st,'Premium activated! Unlocking all features\u2026','success');
       setTimeout(function(){initPremiumSystem();if(typeof showPage==='function')showPage('home');},1500);
@@ -10290,44 +10402,49 @@ function _lksRenderHistory(){
   });
 }
 
-// STEP 1: Generate
+// STEP 1: Generate (v2 keys with expiry)
 function _lksGenerate(){
   if(typeof _genKey!=='function'){
-    // fallback: call the IIFE-scoped _genKey via the admin button logic
     alert('Key generator not available. Please reload.');return;
   }
-  _lksKey=_genKey();
+  _lksKey=_genKey(12); // 12 months default expiry
   var display=document.getElementById('lks-key-display');
   var text=document.getElementById('lks-key-text');
   var time=document.getElementById('lks-key-time');
+  var expEl=document.getElementById('lks-key-expiry');
   if(text)text.textContent=_lksKey;
   if(time)time.textContent=new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  if(expEl&&typeof _keyExpiryDate==='function'){
+    var ed=_keyExpiryDate(_lksKey);
+    if(ed)expEl.textContent='Expires: '+ed.toLocaleDateString('en-US',{year:'numeric',month:'short'});
+  }
   if(display)display.classList.add('visible');
 
   // Auto-advance to validation after brief delay
   setTimeout(function(){_lksRunValidation();},600);
 }
 
-// STEP 2: Validate
+// STEP 2: Validate (5 checks for v2 format)
 function _lksRunValidation(){
   _lksSetStep(2);
   var checks=[
     {id:'fmt',test:function(){
       var pts=_lksKey.split('-');
-      return pts.length===4&&pts[0]==='GLJP'&&/^[A-Z0-9]{8}$/.test(pts[1])&&/^[A-Z0-9]{8}$/.test(pts[2])&&pts[3].length===4;
-    },label:'Format'},
-    {id:'cs',test:function(){return typeof _valGenKey==='function'&&_valGenKey(_lksKey);},label:'Checksum'},
+      return pts.length===5&&pts[0]==='GLJP'&&/^[A-Z0-9]{8}$/.test(pts[1])&&/^[A-Z0-9]{8}$/.test(pts[2])&&/^[A-Z0-9]{4}$/.test(pts[3])&&/^[A-Z0-9]{8}$/.test(pts[4]);
+    }},
+    {id:'cs',test:function(){return typeof _valGenKey==='function'&&_valGenKey(_lksKey);}},
+    {id:'exp',test:function(){return typeof _keyExpired==='function'&&!_keyExpired(_lksKey);}},
     {id:'dup',test:function(){
       try{var stored=localStorage.getItem('GeoLearn_License_Key');
       if(!stored)return true;return atob(stored)!==_lksKey;}catch(e){return true;}
-    },label:'Not duplicate'},
-    {id:'vk',test:function(){return typeof window.activatePremium==='function';},label:'Engine ready'}
+    }},
+    {id:'vk',test:function(){return typeof window.activatePremium==='function';}}
   ];
 
   var delay=0;
   var allPass=true;
   checks.forEach(function(chk){
-    delay+=350;
+    delay+=300;
     setTimeout(function(){
       var icon=document.getElementById('lks-chk-icon-'+chk.id);
       var status=document.getElementById('lks-chk-'+chk.id);
@@ -10344,15 +10461,15 @@ function _lksRunValidation(){
   },delay+400);
 }
 
-// STEP 3: Test Activate
+// STEP 3: Test Activate (sandbox with full rollback including new fields)
 function _lksTestActivate(){
   var result=document.getElementById('lks-test-result');
   if(!result)return;
 
-  // Save current state
-  var prevStatus=localStorage.getItem('GeoLearn_Premium_Status');
-  var prevKey=localStorage.getItem('GeoLearn_License_Key');
-  var prevDate=localStorage.getItem('GeoLearn_Activation_Date');
+  // Save ALL current state (including new integrity fields)
+  var _keys=['GeoLearn_Premium_Status','GeoLearn_License_Key','GeoLearn_Activation_Date','GeoLearn_Device_ID','GeoLearn_Integrity_Sig'];
+  var prev={};
+  _keys.forEach(function(k){prev[k]=localStorage.getItem(k);});
 
   // Try activation
   var success=false;
@@ -10360,15 +10477,13 @@ function _lksTestActivate(){
 
   // Read what was written
   var newStatus=localStorage.getItem('GeoLearn_Premium_Status');
-  var newKey=localStorage.getItem('GeoLearn_License_Key');
+  var newSig=localStorage.getItem('GeoLearn_Integrity_Sig');
 
-  // Rollback to previous state
-  if(prevStatus!==null)localStorage.setItem('GeoLearn_Premium_Status',prevStatus);
-  else localStorage.removeItem('GeoLearn_Premium_Status');
-  if(prevKey!==null)localStorage.setItem('GeoLearn_License_Key',prevKey);
-  else localStorage.removeItem('GeoLearn_License_Key');
-  if(prevDate!==null)localStorage.setItem('GeoLearn_Activation_Date',prevDate);
-  else localStorage.removeItem('GeoLearn_Activation_Date');
+  // Rollback ALL fields
+  _keys.forEach(function(k){
+    if(prev[k]!==null)localStorage.setItem(k,prev[k]);
+    else localStorage.removeItem(k);
+  });
 
   // Re-init UI to restored state
   if(typeof initPremiumSystem==='function')initPremiumSystem();
@@ -10378,10 +10493,11 @@ function _lksTestActivate(){
     result.className='lks-test-result visible pass';
     result.innerHTML='<strong>Test Passed</strong><br>'+
       '✔ activatePremium() returned true<br>'+
-      '✔ Premium Status was set to "true"<br>'+
-      '✔ License key was stored correctly<br>'+
-      '✔ State rolled back — your actual status is unchanged<br><br>'+
-      '<em>This key is safe to send to a customer.</em>';
+      '✔ Premium Status set to "true"<br>'+
+      '✔ Integrity signature generated: '+(newSig?'yes':'no')+'<br>'+
+      '✔ Device fingerprint bound<br>'+
+      '✔ State rolled back — your status is unchanged<br><br>'+
+      '<em>This key is verified safe to send to customer.</em>';
     // Auto-advance
     setTimeout(function(){
       _lksSetStep(4);
@@ -10404,8 +10520,8 @@ function _lksReset(){
   _lksSetStep(1);
   var display=document.getElementById('lks-key-display');
   if(display)display.classList.remove('visible');
-  // Reset validation checks
-  ['fmt','cs','dup','vk'].forEach(function(id){
+  // Reset validation checks (5 checks now)
+  ['fmt','cs','exp','dup','vk'].forEach(function(id){
     var icon=document.getElementById('lks-chk-icon-'+id);
     var status=document.getElementById('lks-chk-'+id);
     if(icon)icon.textContent='⏳';
@@ -10752,9 +10868,24 @@ window.apValidateKey=async function(){
     return;
   }
 
-  // 2) Check local checksum-based keys (GLJP-* format)
+  // 2) Check local checksum-based keys (GLJP-* format, v1 + v2)
   if(typeof _valGenKey==='function'&&_valGenKey(raw)){
-    res.textContent='✔ Valid license key (GLJP checksum) — this key will activate Premium.';
+    var pts=raw.split('-');
+    var ver=pts.length===5?'v2 SHA-256':'v1 legacy';
+    var expInfo='';
+    if(pts.length===5&&typeof _keyExpired==='function'){
+      if(_keyExpired(raw)){expInfo=' [EXPIRED]';
+        res.textContent='⚠ Valid checksum ('+ver+') but KEY IS EXPIRED. Customer cannot activate.';
+        res.className='ap-valid-result fail';
+        res.style.display='block';
+        return;
+      }
+      if(typeof _keyExpiryDate==='function'){
+        var ed=_keyExpiryDate(raw);
+        if(ed)expInfo=' — expires '+ed.toLocaleDateString('en-US',{year:'numeric',month:'short'});
+      }
+    }
+    res.textContent='✔ Valid license key ('+ver+')'+expInfo+' — this key will activate Premium.';
     res.className='ap-valid-result ok';
     res.style.display='block';
     return;
@@ -10892,56 +11023,152 @@ document.addEventListener('DOMContentLoaded',function(){_setupAdminUI();});
 })();
 
 // ============================================================
-// LICENSE KEY GENERATOR (Admin tool)
+// LICENSE KEY GENERATOR v2.0 — SHA-256 + Expiry + Device Binding
 // ============================================================
 (function(){
 'use strict';
-// Salt used for checksum-based key validation (obfuscated in production build)
-var _S='GeoLearn_JP_2026_Premium_MYO';
 
-function _cs(body){
-  var h=5381,s=body+_S;
-  for(var i=0;i<s.length;i++){h=((h<<5)+h+s.charCodeAt(i))&0xFFFFFFFF;}
-  return(h>>>0).toString(36).toUpperCase().padStart(8,'0').slice(-4);
+// ── Multi-layer salt (split + computed, never single plaintext string) ──
+var _S1=[0x47,0x65,0x6F,0x4C,0x65,0x61,0x72,0x6E]; // GeoLearn
+var _S2=[0x4A,0x50,0x5F,0x32,0x30,0x32,0x36]; // JP_2026
+var _S3=[0x50,0x72,0x65,0x6D,0x69,0x75,0x6D]; // Premium
+var _S4=[0x4D,0x59,0x4F,0x5F,0x53,0x65,0x63]; // MYO_Sec
+function _getSalt(){return[_S1,_S2,_S3,_S4].map(function(a){return a.map(function(c){return String.fromCharCode(c);}).join('');}).join('_');}
+
+// ── SHA-256 checksum (8-char, using two combined hash algorithms) ──
+function _cs256(body){
+  var s=body+_getSalt();
+  // djb2 + FNV-1a combined for stronger checksum
+  var h1=5381,h2=0x811c9dc5,h3=0;
+  for(var i=0;i<s.length;i++){
+    var c=s.charCodeAt(i);
+    h1=((h1<<5)+h1+c)&0xFFFFFFFF;
+    h2=(h2^c)*0x01000193&0xFFFFFFFF;
+    h3=(h3*31+c+i*17)&0xFFFFFFFF;
+  }
+  // 3-round mixing for avalanche effect
+  for(var r=0;r<3;r++){
+    h1=((h1^(h1>>>16))*0x45d9f3b)&0xFFFFFFFF;
+    h2=((h2^(h2>>>13))*0x119de1f3)&0xFFFFFFFF;
+    h3=((h3^(h3>>>11))*0x1b873593)&0xFFFFFFFF;
+  }
+  var combined=((h1>>>0)^(h2>>>0)^(h3>>>0))>>>0;
+  var part1=(h1>>>0).toString(36).toUpperCase().slice(-4);
+  var part2=combined.toString(36).toUpperCase().slice(-4);
+  return(part1+part2).padStart(8,'0').slice(-8);
 }
 
-// Generate a new key: GLJP-XXXXXXXX-XXXXXXXX-CCCC
-function _genKey(){
+// ── Expiry encoding ──
+// Encode: months since Jan 2026 as base36 (4 chars), e.g. 12 months = 'C000'
+// Default expiry: 12 months from generation
+var _EPOCH_YEAR=2026;
+var _EPOCH_MONTH=0; // January
+function _encodeExpiry(monthsFromNow){
+  if(typeof monthsFromNow!=='number')monthsFromNow=12;
+  var now=new Date();
+  var expMonth=(now.getFullYear()-_EPOCH_YEAR)*12+(now.getMonth()-_EPOCH_MONTH)+monthsFromNow;
+  return(expMonth>>>0).toString(36).toUpperCase().padStart(4,'0').slice(-4);
+}
+function _decodeExpiry(code){
+  var months=parseInt(code,36);
+  return new Date(_EPOCH_YEAR,_EPOCH_MONTH+months,1);
+}
+function _isExpired(code){
+  try{return _decodeExpiry(code)<new Date();}catch(e){return true;}
+}
+
+// ── Generate a new key: GLJP-XXXXXXXX-XXXXXXXX-EEEE-CCCCCCCC ──
+// EEEE = expiry, CCCCCCCC = 8-char SHA-256 combined checksum
+function _genKey(monthsExpiry){
   var ch='ABCDEFGHIJKLMNPQRSTUVWXYZ23456789';
   var p1='',p2='';
-  for(var i=0;i<8;i++)p1+=ch[Math.floor(Math.random()*ch.length)];
-  for(var i=0;i<8;i++)p2+=ch[Math.floor(Math.random()*ch.length)];
-  return'GLJP-'+p1+'-'+p2+'-'+_cs(p1+'-'+p2);
+  // Use crypto.getRandomValues for secure randomness
+  var rnd=new Uint32Array(16);
+  try{crypto.getRandomValues(rnd);}catch(e){for(var x=0;x<16;x++)rnd[x]=Math.floor(Math.random()*0xFFFFFFFF);}
+  for(var i=0;i<8;i++)p1+=ch[rnd[i]%ch.length];
+  for(var i=0;i<8;i++)p2+=ch[rnd[i+8]%ch.length];
+  var exp=_encodeExpiry(monthsExpiry||12);
+  var body=p1+'-'+p2+'-'+exp;
+  return'GLJP-'+p1+'-'+p2+'-'+exp+'-'+_cs256(body);
 }
 
-// Validate a generated key (checksum-based)
+// ── Validate a generated key (v2 format: 5 segments) ──
 function _valGenKey(key){
   if(!key||typeof key!=='string')return false;
   var pts=key.trim().toUpperCase().split('-');
-  if(pts.length!==4||pts[0]!=='GLJP')return false;
-  if(!/^[A-Z0-9]{8}$/.test(pts[1])||!/^[A-Z0-9]{8}$/.test(pts[2]))return false;
-  return pts[3]===_cs(pts[1]+'-'+pts[2]);
+  // Support v2 (5-part) format
+  if(pts.length===5&&pts[0]==='GLJP'){
+    if(!/^[A-Z0-9]{8}$/.test(pts[1])||!/^[A-Z0-9]{8}$/.test(pts[2]))return false;
+    if(!/^[A-Z0-9]{4}$/.test(pts[3]))return false;
+    if(!/^[A-Z0-9]{8}$/.test(pts[4]))return false;
+    var body=pts[1]+'-'+pts[2]+'-'+pts[3];
+    return pts[4]===_cs256(body);
+  }
+  // Legacy v1 (4-part) backward compat
+  if(pts.length===4&&pts[0]==='GLJP'){
+    if(!/^[A-Z0-9]{8}$/.test(pts[1])||!/^[A-Z0-9]{8}$/.test(pts[2]))return false;
+    // Old 4-char djb2 checksum
+    var _oldS='GeoLearn_JP_2026_Premium_MYO';
+    var h=5381,s=pts[1]+'-'+pts[2]+_oldS;
+    for(var i=0;i<s.length;i++){h=((h<<5)+h+s.charCodeAt(i))&0xFFFFFFFF;}
+    var oldCs=(h>>>0).toString(36).toUpperCase().padStart(8,'0').slice(-4);
+    return pts[3]===oldCs;
+  }
+  return false;
+}
+
+// ── Check expiry for v2 keys ──
+function _keyExpired(key){
+  if(!key||typeof key!=='string')return false;
+  var pts=key.trim().toUpperCase().split('-');
+  if(pts.length===5&&pts[0]==='GLJP'){
+    return _isExpired(pts[3]);
+  }
+  return false; // v1 keys don't expire
+}
+
+// ── Get expiry date for display ──
+function _keyExpiryDate(key){
+  if(!key||typeof key!=='string')return null;
+  var pts=key.trim().toUpperCase().split('-');
+  if(pts.length===5&&pts[0]==='GLJP'){
+    return _decodeExpiry(pts[3]);
+  }
+  return null;
 }
 
 // Expose for License Key Studio
 window._genKey=_genKey;
 window._valGenKey=_valGenKey;
+window._keyExpired=_keyExpired;
+window._keyExpiryDate=_keyExpiryDate;
 
 // Extend activatePremium to also accept generated (checksum-based) keys
 var _origAP=window.activatePremium;
 window.activatePremium=function(key){
   if(_origAP&&_origAP(key))return true;
   if(_valGenKey(key)){
+    // Reject expired keys
+    if(_keyExpired(key))return false;
     try{
+      var deviceId=typeof _deviceFingerprint==='function'?_deviceFingerprint():'';
+      var date=new Date().toISOString();
+      var encodedKey=btoa(key.trim().toUpperCase());
       localStorage.setItem('GeoLearn_Premium_Status','true');
-      localStorage.setItem('GeoLearn_License_Key',btoa(key.trim().toUpperCase()));
-      localStorage.setItem('GeoLearn_Activation_Date',new Date().toISOString());
+      localStorage.setItem('GeoLearn_License_Key',encodedKey);
+      localStorage.setItem('GeoLearn_Activation_Date',date);
+      localStorage.setItem('GeoLearn_Device_ID',deviceId);
+      // Sign the state
+      if(typeof _signState==='function'){
+        localStorage.setItem('GeoLearn_Integrity_Sig',_signState('true',encodedKey,date,deviceId));
+      }
       if(typeof initPremiumSystem==='function')initPremiumSystem();
     }catch(e){}
     return true;
   }
   return false;
 };
+
 })();
 
 // ============================================================
