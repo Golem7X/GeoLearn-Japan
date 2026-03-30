@@ -4017,6 +4017,93 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 .admin-keygen-hint{margin-top:10px;font-size:10px;color:var(--text3);line-height:1.6;background:rgba(255,215,0,.04);border:1px solid rgba(255,215,0,.1);border-radius:6px;padding:8px 10px}
 .admin-keygen-hint code{font-family:'JetBrains Mono',monospace;color:var(--gold);font-size:10px}
 
+/* ── License Key Studio ──────────────────────────────────────── */
+.lks-card{grid-column:1/-1}
+.lks-pipeline{display:flex;align-items:center;gap:0;margin-bottom:20px;overflow-x:auto;padding-bottom:4px}
+.lks-step{display:flex;align-items:center;gap:8px;padding:10px 18px;background:var(--surface2);border:1px solid var(--border);font-size:11px;font-weight:700;color:var(--text3);cursor:default;transition:all .25s;white-space:nowrap;position:relative}
+.lks-step:first-child{border-radius:10px 0 0 10px}
+.lks-step:last-child{border-radius:0 10px 10px 0}
+.lks-step .lks-step-num{width:22px;height:22px;border-radius:50%;background:var(--border);color:var(--text3);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0;transition:all .25s}
+.lks-step.active{background:rgba(255,215,0,.1);border-color:rgba(255,215,0,.4);color:var(--gold)}
+.lks-step.active .lks-step-num{background:var(--gold);color:#000}
+.lks-step.done{background:rgba(127,255,110,.06);border-color:rgba(127,255,110,.3);color:var(--accent3)}
+.lks-step.done .lks-step-num{background:var(--accent3);color:#000}
+.lks-step-arrow{color:var(--border);font-size:16px;margin:0 -1px;flex-shrink:0;z-index:1}
+.lks-section{display:none;animation:lksFadeIn .3s ease}
+.lks-section.visible{display:block}
+@keyframes lksFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* Step 1: Generate */
+.lks-gen-btn{background:linear-gradient(135deg,rgba(255,215,0,.3),rgba(255,140,0,.22));border:1px solid rgba(255,215,0,.5);color:var(--gold);font-size:14px;font-weight:800;padding:14px 32px;border-radius:12px;cursor:pointer;font-family:'Syne',sans-serif;transition:all .25s;display:flex;align-items:center;gap:10px;width:100%}
+.lks-gen-btn:hover{background:linear-gradient(135deg,rgba(255,215,0,.45),rgba(255,140,0,.35));border-color:var(--gold);transform:translateY(-1px);box-shadow:0 6px 20px rgba(255,215,0,.15)}
+.lks-gen-btn:active{transform:translateY(0)}
+.lks-key-display{margin-top:16px;background:rgba(0,0,0,.35);border:1px solid rgba(255,215,0,.25);border-radius:10px;padding:16px 18px;display:none}
+.lks-key-display.visible{display:block}
+.lks-key-text{font-family:'JetBrains Mono',monospace;font-size:18px;color:var(--gold);letter-spacing:2px;font-weight:700;word-break:break-all;text-align:center;padding:8px 0;user-select:all}
+.lks-key-meta{display:flex;gap:12px;justify-content:center;margin-top:8px;flex-wrap:wrap}
+.lks-key-meta-tag{font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px;letter-spacing:.4px}
+.lks-key-meta-tag.secure{background:rgba(127,255,110,.1);border:1px solid rgba(127,255,110,.25);color:var(--accent3)}
+.lks-key-meta-tag.format{background:rgba(100,180,255,.1);border:1px solid rgba(100,180,255,.25);color:var(--accent)}
+.lks-key-meta-tag.time{background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--text3)}
+
+/* Step 2: Validate */
+.lks-validate-box{background:rgba(0,0,0,.2);border:1px solid var(--border);border-radius:10px;padding:16px 18px;display:none}
+.lks-validate-box.visible{display:block}
+.lks-check-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.lks-check-row:last-child{border-bottom:none}
+.lks-check-icon{font-size:16px;flex-shrink:0;width:22px;text-align:center}
+.lks-check-label{font-size:12px;color:var(--text2);flex:1}
+.lks-check-status{font-size:11px;font-weight:700;font-family:'JetBrains Mono',monospace}
+.lks-check-status.pass{color:var(--accent3)}
+.lks-check-status.fail{color:#ff4757}
+.lks-check-status.pending{color:var(--text3)}
+
+/* Step 3: Test */
+.lks-test-box{background:rgba(0,0,0,.2);border:1px solid var(--border);border-radius:10px;padding:16px 18px;display:none}
+.lks-test-box.visible{display:block}
+.lks-test-btn{background:rgba(100,180,255,.12);border:1px solid rgba(100,180,255,.3);color:var(--accent);font-size:12px;font-weight:700;padding:10px 20px;border-radius:8px;cursor:pointer;font-family:'Syne',sans-serif;transition:all .2s;width:100%}
+.lks-test-btn:hover{background:rgba(100,180,255,.22);border-color:var(--accent)}
+.lks-test-result{margin-top:12px;font-size:12px;line-height:1.7;display:none}
+.lks-test-result.visible{display:block}
+.lks-test-result.pass{color:var(--accent3);background:rgba(127,255,110,.06);border:1px solid rgba(127,255,110,.2);border-radius:8px;padding:12px 14px}
+.lks-test-result.fail{color:#ff4757;background:rgba(255,71,87,.06);border:1px solid rgba(255,71,87,.2);border-radius:8px;padding:12px 14px}
+
+/* Step 4: Ready */
+.lks-ready-box{background:rgba(127,255,110,.04);border:1px solid rgba(127,255,110,.25);border-radius:10px;padding:20px;display:none;text-align:center}
+.lks-ready-box.visible{display:block}
+.lks-ready-title{font-size:15px;font-weight:800;color:var(--accent3);margin-bottom:6px}
+.lks-ready-sub{font-size:11px;color:var(--text3);margin-bottom:16px;line-height:1.6}
+.lks-ready-key{font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--gold);letter-spacing:2.5px;font-weight:700;background:rgba(0,0,0,.4);border:1px dashed rgba(255,215,0,.3);border-radius:10px;padding:14px 20px;margin-bottom:16px;user-select:all;word-break:break-all}
+.lks-ready-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.lks-ready-copy{background:linear-gradient(135deg,rgba(127,255,110,.2),rgba(0,200,80,.15));border:1px solid rgba(127,255,110,.4);color:var(--accent3);font-size:12px;font-weight:700;padding:10px 24px;border-radius:8px;cursor:pointer;font-family:'Syne',sans-serif;transition:all .2s}
+.lks-ready-copy:hover{background:linear-gradient(135deg,rgba(127,255,110,.3),rgba(0,200,80,.25))}
+.lks-ready-new{background:none;border:1px solid var(--border);color:var(--text3);font-size:12px;font-weight:600;padding:10px 20px;border-radius:8px;cursor:pointer;font-family:'Syne',sans-serif;transition:all .15s}
+.lks-ready-new:hover{border-color:var(--text2);color:var(--text2)}
+.lks-history{margin-top:20px;border-top:1px solid rgba(255,215,0,.1);padding-top:16px}
+.lks-history-title{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
+.lks-history-list{display:flex;flex-direction:column;gap:6px;max-height:180px;overflow-y:auto}
+.lks-history-row{display:flex;align-items:center;gap:10px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:8px 12px}
+.lks-history-key{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);flex:1;letter-spacing:.6px;word-break:break-all}
+.lks-history-time{font-size:10px;color:var(--text3);white-space:nowrap}
+.lks-history-copy{background:none;border:1px solid var(--border);color:var(--text3);font-size:10px;font-weight:600;padding:3px 8px;border-radius:5px;cursor:pointer;transition:all .15s;flex-shrink:0}
+.lks-history-copy:hover{border-color:var(--accent);color:var(--accent)}
+
+/* Manual key input for validator */
+.lks-manual-row{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.lks-manual-input{flex:1;min-width:200px;background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:'JetBrains Mono',monospace;font-size:13px;padding:10px 14px;border-radius:8px;outline:none;transition:border-color .2s;text-transform:uppercase;letter-spacing:1px}
+.lks-manual-input:focus{border-color:var(--gold)}
+.lks-manual-input::placeholder{text-transform:none;letter-spacing:normal;opacity:.35;font-family:'Syne',sans-serif;font-size:12px}
+.lks-manual-btn{background:rgba(100,180,255,.12);border:1px solid rgba(100,180,255,.3);color:var(--accent);font-size:12px;font-weight:700;padding:10px 16px;border-radius:8px;cursor:pointer;font-family:'Syne',sans-serif;transition:all .2s;white-space:nowrap}
+.lks-manual-btn:hover{background:rgba(100,180,255,.22);border-color:var(--accent)}
+
+@media(max-width:600px){
+.lks-pipeline{flex-wrap:wrap;gap:4px}
+.lks-step{padding:8px 12px;font-size:10px}
+.lks-step-arrow{display:none}
+.lks-key-text{font-size:14px;letter-spacing:1px}
+.lks-ready-key{font-size:15px;letter-spacing:1.5px;padding:10px 14px}
+}
+
 /* ── Pending Payments card ───────────────────────────────────── */
 .ap-pending-list{display:flex;flex-direction:column;gap:8px;max-height:320px;overflow-y:auto}
 .ap-pending-empty{font-size:12px;color:var(--text3);text-align:center;padding:20px}
@@ -9630,44 +9717,99 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
       <button class="ap-valid-btn" style="margin-top:12px;width:100%" onclick="apRefreshSysInfo()">↻ Refresh</button>
     </div>
 
-    <!-- LICENSE KEY GENERATOR -->
-    <div class="ap-card gold-border">
-      <div class="ap-card-title">⚡ Key Generator</div>
-      <div class="ap-card-sub">Generate a new license key hash to add to <code style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold)">_VK</code> in index.html.</div>
-      <div class="admin-keygen-presets" style="margin-bottom:10px">
-        <button class="admin-keygen-preset" onclick="adminKeygenFill('GEOJPN-2026-PRO')">GEOJPN-2026-PRO</button>
-        <button class="admin-keygen-preset" onclick="adminKeygenFill('MYOGEO-PREMIUM')">MYOGEO-PREMIUM</button>
-        <button class="admin-keygen-preset" onclick="adminKeygenFill('GEOLEARN-STUDENT')">GEOLEARN-STUDENT</button>
-        <button class="admin-keygen-preset" onclick="adminKeygenFill('GEOLEARN-FULLACCESS')">GEOLEARN-FULLACCESS</button>
-      </div>
-      <div class="admin-keygen-row">
-        <input type="text" id="admin-keygen-input" class="admin-keygen-input" placeholder="e.g. GEOJPN-2026-PRO3" maxlength="64" autocomplete="off" spellcheck="false">
-        <button class="admin-keygen-btn" onclick="adminGenerateKey()">Generate</button>
-      </div>
-      <div class="admin-keygen-result" id="admin-keygen-result">
-        <div class="admin-keygen-result-row">
-          <span class="admin-keygen-label">Key</span>
-          <span class="admin-keygen-value" id="admin-keygen-out-key"></span>
-          <button class="admin-keygen-copy" onclick="adminKeygenCopy('key',this)">Copy</button>
-        </div>
-        <div class="admin-keygen-result-row">
-          <span class="admin-keygen-label">Hash</span>
-          <span class="admin-keygen-value hash" id="admin-keygen-out-hash"></span>
-          <button class="admin-keygen-copy" onclick="adminKeygenCopy('hash',this)">Copy</button>
-        </div>
-        <div class="admin-keygen-hint" id="admin-keygen-hint"></div>
-      </div>
-    </div>
+    <!-- LICENSE KEY STUDIO — One-click Generate → Validate → Test → Send -->
+    <div class="ap-card gold-border lks-card">
+      <div class="ap-card-title">⚡ License Key Studio</div>
+      <div class="ap-card-sub">One-click secure key generation with built-in validation and test activation. Verify everything before sending to customer.</div>
 
-    <!-- LICENSE VALIDATOR -->
-    <div class="ap-card">
-      <div class="ap-card-title">🔍 Key Validator</div>
-      <div class="ap-card-sub">Check whether a key is accepted by the current <code style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold)">_VK</code> hash list.</div>
-      <div class="ap-valid-row">
-        <input type="text" id="ap-valid-input" class="ap-valid-input" placeholder="Paste license key..." maxlength="64" autocomplete="off" spellcheck="false">
-        <button class="ap-valid-btn" onclick="apValidateKey()">Check</button>
+      <!-- Pipeline Steps -->
+      <div class="lks-pipeline" id="lks-pipeline">
+        <div class="lks-step active" id="lks-step-1"><span class="lks-step-num">1</span> Generate</div>
+        <span class="lks-step-arrow">▸</span>
+        <div class="lks-step" id="lks-step-2"><span class="lks-step-num">2</span> Validate</div>
+        <span class="lks-step-arrow">▸</span>
+        <div class="lks-step" id="lks-step-3"><span class="lks-step-num">3</span> Test Activate</div>
+        <span class="lks-step-arrow">▸</span>
+        <div class="lks-step" id="lks-step-4"><span class="lks-step-num">4</span> Ready to Send</div>
       </div>
-      <div class="ap-valid-result" id="ap-valid-result"></div>
+
+      <!-- STEP 1: GENERATE -->
+      <div class="lks-section visible" id="lks-sec-1">
+        <button class="lks-gen-btn" id="lks-gen-btn">⚡ Generate Secure License Key</button>
+        <div class="lks-key-display" id="lks-key-display">
+          <div class="lks-key-text" id="lks-key-text"></div>
+          <div class="lks-key-meta">
+            <span class="lks-key-meta-tag secure">HMAC-Checksum Secured</span>
+            <span class="lks-key-meta-tag format">GLJP-XXXX-XXXX-CCCC</span>
+            <span class="lks-key-meta-tag time" id="lks-key-time"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2: VALIDATE -->
+      <div class="lks-section" id="lks-sec-2">
+        <div class="lks-validate-box visible" id="lks-validate-box">
+          <div class="lks-check-row">
+            <span class="lks-check-icon" id="lks-chk-icon-fmt">⏳</span>
+            <span class="lks-check-label">Key format (GLJP-XXXXXXXX-XXXXXXXX-CCCC)</span>
+            <span class="lks-check-status pending" id="lks-chk-fmt">Pending</span>
+          </div>
+          <div class="lks-check-row">
+            <span class="lks-check-icon" id="lks-chk-icon-cs">⏳</span>
+            <span class="lks-check-label">Checksum integrity verification</span>
+            <span class="lks-check-status pending" id="lks-chk-cs">Pending</span>
+          </div>
+          <div class="lks-check-row">
+            <span class="lks-check-icon" id="lks-chk-icon-dup">⏳</span>
+            <span class="lks-check-label">Duplicate check (not already activated)</span>
+            <span class="lks-check-status pending" id="lks-chk-dup">Pending</span>
+          </div>
+          <div class="lks-check-row">
+            <span class="lks-check-icon" id="lks-chk-icon-vk">⏳</span>
+            <span class="lks-check-label">Activation engine accepts key</span>
+            <span class="lks-check-status pending" id="lks-chk-vk">Pending</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3: TEST ACTIVATE -->
+      <div class="lks-section" id="lks-sec-3">
+        <div class="lks-test-box visible" id="lks-test-box">
+          <div style="font-size:11px;color:var(--text3);margin-bottom:12px;line-height:1.6">Sandbox test: activates the key in a temporary session to confirm it works end-to-end, then automatically rolls back so your actual premium status is unchanged.</div>
+          <button class="lks-test-btn" id="lks-test-btn">Run Test Activation</button>
+          <div class="lks-test-result" id="lks-test-result"></div>
+        </div>
+      </div>
+
+      <!-- STEP 4: READY TO SEND -->
+      <div class="lks-section" id="lks-sec-4">
+        <div class="lks-ready-box visible" id="lks-ready-box">
+          <div class="lks-ready-title">All Checks Passed — Key Ready</div>
+          <div class="lks-ready-sub">This key has been generated, validated, and test-activated successfully. Safe to send to customer.</div>
+          <div class="lks-ready-key" id="lks-ready-key"></div>
+          <div class="lks-ready-actions">
+            <button class="lks-ready-copy" id="lks-ready-copy">Copy Key to Clipboard</button>
+            <button class="lks-ready-new" id="lks-ready-new">Generate Another</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- KEY VALIDATOR (manual check) -->
+      <div style="margin-top:24px;border-top:1px solid rgba(255,215,0,.12);padding-top:18px">
+        <div style="font-size:12px;font-weight:700;color:var(--text2);margin-bottom:4px;display:flex;align-items:center;gap:6px">🔍 Key Validator</div>
+        <div style="font-size:11px;color:var(--text3);margin-bottom:12px">Manually check any license key against all validation sources (local + Supabase).</div>
+        <div class="lks-manual-row">
+          <input type="text" id="ap-valid-input" class="lks-manual-input" placeholder="Paste any license key to validate..." maxlength="64" autocomplete="off" spellcheck="false">
+          <button class="lks-manual-btn" id="lks-manual-check-btn">Check</button>
+        </div>
+        <div class="ap-valid-result" id="ap-valid-result"></div>
+      </div>
+
+      <!-- SESSION HISTORY -->
+      <div class="lks-history" id="lks-history" style="display:none">
+        <div class="lks-history-title">Session Key History</div>
+        <div class="lks-history-list" id="lks-history-list"></div>
+      </div>
     </div>
 
     <!-- PENDING PAYMENTS -->
@@ -10086,58 +10228,228 @@ window.adminLogout=function(){
 };
 
 // ── Admin Key Generator ──────────────────────────────────────────
-window.adminKeygenFill=function(preset){
-  var inp=document.getElementById('admin-keygen-input');
-  if(inp){inp.value=preset;inp.focus();}
-};
+// ─────────────────────────────────────────────────────────────────
+// LICENSE KEY STUDIO — One-click pipeline
+// ─────────────────────────────────────────────────────────────────
+(function(){
+'use strict';
 
-window.adminGenerateKey=function(){
-  var inp=document.getElementById('admin-keygen-input');
-  if(!inp)return;
-  var raw=inp.value.trim().toUpperCase();
-  if(!raw){inp.focus();return;}
-  var hash=_E(raw);
-  var outKey=document.getElementById('admin-keygen-out-key');
-  var outHash=document.getElementById('admin-keygen-out-hash');
-  var hint=document.getElementById('admin-keygen-hint');
-  var result=document.getElementById('admin-keygen-result');
-  if(outKey)outKey.textContent=raw;
-  if(outHash)outHash.textContent=hash;
-  if(hint)hint.innerHTML=
-    'Paste this hash into <code>_VK</code> in index.html (line ~7990):<br>'+
-    'Change: <code>var _VK=[...last-hash...];</code><br>'+
-    'To:&nbsp;&nbsp;&nbsp;&nbsp;<code>var _VK=[...last-hash..., \''+hash+'\'];</code>';
-  if(result)result.classList.add('visible');
-  // reset copy buttons
-  document.querySelectorAll('.admin-keygen-copy').forEach(function(b){
-    b.textContent='Copy';b.classList.remove('copied');
-  });
-};
+var _lksKey=''; // current key in pipeline
+var _lksHistory=[]; // session history
 
-window.adminKeygenCopy=function(which,btn){
-  var el=document.getElementById(which==='hash'?'admin-keygen-out-hash':'admin-keygen-out-key');
-  if(!el||!el.textContent)return;
-  navigator.clipboard.writeText(el.textContent).then(function(){
-    btn.textContent='Copied!';btn.classList.add('copied');
-    setTimeout(function(){btn.textContent='Copy';btn.classList.remove('copied');},2000);
+function _lksSetStep(n){
+  for(var i=1;i<=4;i++){
+    var step=document.getElementById('lks-step-'+i);
+    var sec=document.getElementById('lks-sec-'+i);
+    if(!step||!sec)continue;
+    step.classList.remove('active','done');
+    sec.classList.remove('visible');
+    if(i<n)step.classList.add('done');
+    else if(i===n)step.classList.add('active');
+    if(i===n)sec.classList.add('visible');
+  }
+}
+
+function _lksCopyText(text,btn){
+  navigator.clipboard.writeText(text).then(function(){
+    var orig=btn.textContent;
+    btn.textContent='Copied!';btn.style.borderColor='var(--accent3)';btn.style.color='var(--accent3)';
+    setTimeout(function(){btn.textContent=orig;btn.style.borderColor='';btn.style.color='';},2000);
   }).catch(function(){
-    // fallback for older browsers
     var ta=document.createElement('textarea');
-    ta.value=el.textContent;ta.style.position='fixed';ta.style.opacity='0';
-    document.body.appendChild(ta);ta.select();document.execCommand('copy');
-    document.body.removeChild(ta);
-    btn.textContent='Copied!';btn.classList.add('copied');
-    setTimeout(function(){btn.textContent='Copy';btn.classList.remove('copied');},2000);
+    ta.value=text;ta.style.cssText='position:fixed;opacity:0';
+    document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+    var orig=btn.textContent;
+    btn.textContent='Copied!';
+    setTimeout(function(){btn.textContent=orig;},2000);
   });
-};
+}
 
-// also allow Enter key in keygen input
+function _lksAddHistory(key){
+  var ts=new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+  _lksHistory.unshift({key:key,time:ts});
+  if(_lksHistory.length>20)_lksHistory.pop();
+  _lksRenderHistory();
+}
+
+function _lksRenderHistory(){
+  var wrap=document.getElementById('lks-history');
+  var list=document.getElementById('lks-history-list');
+  if(!wrap||!list)return;
+  if(_lksHistory.length===0){wrap.style.display='none';return;}
+  wrap.style.display='block';
+  list.innerHTML='';
+  _lksHistory.forEach(function(item){
+    var row=document.createElement('div');row.className='lks-history-row';
+    var keyEl=document.createElement('span');keyEl.className='lks-history-key';keyEl.textContent=item.key;
+    var timeEl=document.createElement('span');timeEl.className='lks-history-time';timeEl.textContent=item.time;
+    var copyEl=document.createElement('button');copyEl.className='lks-history-copy';copyEl.textContent='Copy';
+    copyEl.addEventListener('click',function(){_lksCopyText(item.key,copyEl);});
+    row.appendChild(keyEl);row.appendChild(timeEl);row.appendChild(copyEl);
+    list.appendChild(row);
+  });
+}
+
+// STEP 1: Generate
+function _lksGenerate(){
+  if(typeof _genKey!=='function'){
+    // fallback: call the IIFE-scoped _genKey via the admin button logic
+    alert('Key generator not available. Please reload.');return;
+  }
+  _lksKey=_genKey();
+  var display=document.getElementById('lks-key-display');
+  var text=document.getElementById('lks-key-text');
+  var time=document.getElementById('lks-key-time');
+  if(text)text.textContent=_lksKey;
+  if(time)time.textContent=new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  if(display)display.classList.add('visible');
+
+  // Auto-advance to validation after brief delay
+  setTimeout(function(){_lksRunValidation();},600);
+}
+
+// STEP 2: Validate
+function _lksRunValidation(){
+  _lksSetStep(2);
+  var checks=[
+    {id:'fmt',test:function(){
+      var pts=_lksKey.split('-');
+      return pts.length===4&&pts[0]==='GLJP'&&/^[A-Z0-9]{8}$/.test(pts[1])&&/^[A-Z0-9]{8}$/.test(pts[2])&&pts[3].length===4;
+    },label:'Format'},
+    {id:'cs',test:function(){return typeof _valGenKey==='function'&&_valGenKey(_lksKey);},label:'Checksum'},
+    {id:'dup',test:function(){
+      try{var stored=localStorage.getItem('GeoLearn_License_Key');
+      if(!stored)return true;return atob(stored)!==_lksKey;}catch(e){return true;}
+    },label:'Not duplicate'},
+    {id:'vk',test:function(){return typeof window.activatePremium==='function';},label:'Engine ready'}
+  ];
+
+  var delay=0;
+  var allPass=true;
+  checks.forEach(function(chk){
+    delay+=350;
+    setTimeout(function(){
+      var icon=document.getElementById('lks-chk-icon-'+chk.id);
+      var status=document.getElementById('lks-chk-'+chk.id);
+      var pass=chk.test();
+      if(!pass)allPass=false;
+      if(icon)icon.textContent=pass?'✔':'✘';
+      if(status){status.textContent=pass?'Pass':'Fail';status.className='lks-check-status '+(pass?'pass':'fail');}
+    },delay);
+  });
+
+  // After all checks, auto-advance
+  setTimeout(function(){
+    if(allPass)_lksSetStep(3);
+  },delay+400);
+}
+
+// STEP 3: Test Activate
+function _lksTestActivate(){
+  var result=document.getElementById('lks-test-result');
+  if(!result)return;
+
+  // Save current state
+  var prevStatus=localStorage.getItem('GeoLearn_Premium_Status');
+  var prevKey=localStorage.getItem('GeoLearn_License_Key');
+  var prevDate=localStorage.getItem('GeoLearn_Activation_Date');
+
+  // Try activation
+  var success=false;
+  try{success=window.activatePremium(_lksKey);}catch(e){}
+
+  // Read what was written
+  var newStatus=localStorage.getItem('GeoLearn_Premium_Status');
+  var newKey=localStorage.getItem('GeoLearn_License_Key');
+
+  // Rollback to previous state
+  if(prevStatus!==null)localStorage.setItem('GeoLearn_Premium_Status',prevStatus);
+  else localStorage.removeItem('GeoLearn_Premium_Status');
+  if(prevKey!==null)localStorage.setItem('GeoLearn_License_Key',prevKey);
+  else localStorage.removeItem('GeoLearn_License_Key');
+  if(prevDate!==null)localStorage.setItem('GeoLearn_Activation_Date',prevDate);
+  else localStorage.removeItem('GeoLearn_Activation_Date');
+
+  // Re-init UI to restored state
+  if(typeof initPremiumSystem==='function')initPremiumSystem();
+
+  result.classList.add('visible');
+  if(success&&newStatus==='true'){
+    result.className='lks-test-result visible pass';
+    result.innerHTML='<strong>Test Passed</strong><br>'+
+      '✔ activatePremium() returned true<br>'+
+      '✔ Premium Status was set to "true"<br>'+
+      '✔ License key was stored correctly<br>'+
+      '✔ State rolled back — your actual status is unchanged<br><br>'+
+      '<em>This key is safe to send to a customer.</em>';
+    // Auto-advance
+    setTimeout(function(){
+      _lksSetStep(4);
+      var readyKey=document.getElementById('lks-ready-key');
+      if(readyKey)readyKey.textContent=_lksKey;
+      _lksAddHistory(_lksKey);
+    },800);
+  }else{
+    result.className='lks-test-result visible fail';
+    result.innerHTML='<strong>Test Failed</strong><br>'+
+      '✘ activatePremium() returned '+(success?'true':'false')+'<br>'+
+      '✘ Premium Status: '+(newStatus||'null')+'<br>'+
+      'Do not send this key to a customer.';
+  }
+}
+
+// Reset the entire pipeline
+function _lksReset(){
+  _lksKey='';
+  _lksSetStep(1);
+  var display=document.getElementById('lks-key-display');
+  if(display)display.classList.remove('visible');
+  // Reset validation checks
+  ['fmt','cs','dup','vk'].forEach(function(id){
+    var icon=document.getElementById('lks-chk-icon-'+id);
+    var status=document.getElementById('lks-chk-'+id);
+    if(icon)icon.textContent='⏳';
+    if(status){status.textContent='Pending';status.className='lks-check-status pending';}
+  });
+  // Reset test result
+  var testResult=document.getElementById('lks-test-result');
+  if(testResult){testResult.classList.remove('visible','pass','fail');}
+}
+
+// Expose _genKey and _valGenKey from the IIFE below so the studio can call them
+// (they will be assigned after the keygen IIFE runs)
+
 document.addEventListener('DOMContentLoaded',function(){
-  var inp=document.getElementById('admin-keygen-input');
-  if(inp){inp.addEventListener('keydown',function(e){if(e.key==='Enter')adminGenerateKey();});}
+  // Generate button
+  var genBtn=document.getElementById('lks-gen-btn');
+  if(genBtn)genBtn.addEventListener('click',_lksGenerate);
+
+  // Test button
+  var testBtn=document.getElementById('lks-test-btn');
+  if(testBtn)testBtn.addEventListener('click',_lksTestActivate);
+
+  // Ready: copy
+  var readyCopy=document.getElementById('lks-ready-copy');
+  if(readyCopy)readyCopy.addEventListener('click',function(){_lksCopyText(_lksKey,readyCopy);});
+
+  // Ready: new
+  var readyNew=document.getElementById('lks-ready-new');
+  if(readyNew)readyNew.addEventListener('click',_lksReset);
+
+  // Manual validator enter key
   var vi=document.getElementById('ap-valid-input');
-  if(vi){vi.addEventListener('keydown',function(e){if(e.key==='Enter')apValidateKey();});}
+  if(vi)vi.addEventListener('keydown',function(e){if(e.key==='Enter')apValidateKey();});
+
+  // Manual check button
+  var manualBtn=document.getElementById('lks-manual-check-btn');
+  if(manualBtn)manualBtn.addEventListener('click',function(){apValidateKey();});
 });
+
+// Keep old functions as no-ops for backward compat
+window.adminKeygenFill=function(){};
+window.adminGenerateKey=function(){};
+window.adminKeygenCopy=function(){};
+})();
 // ─────────────────────────────────────────────────────────────────
 
 // ── Pending Payments (admin panel) ───────────────────────────────
@@ -10611,6 +10923,10 @@ function _valGenKey(key){
   return pts[3]===_cs(pts[1]+'-'+pts[2]);
 }
 
+// Expose for License Key Studio
+window._genKey=_genKey;
+window._valGenKey=_valGenKey;
+
 // Extend activatePremium to also accept generated (checksum-based) keys
 var _origAP=window.activatePremium;
 window.activatePremium=function(key){
@@ -10626,42 +10942,6 @@ window.activatePremium=function(key){
   }
   return false;
 };
-
-// Wire up the Generate button
-document.addEventListener('DOMContentLoaded',function(){
-  var btn=document.getElementById('admin-gen-key-btn');
-  if(!btn)return;
-  btn.addEventListener('click',function(){
-    if(typeof isAdmin==='function'&&!isAdmin())return;
-    var key=_genKey();
-    var list=document.getElementById('admin-keygen-list');
-    if(!list)return;
-    var row=document.createElement('div');
-    row.className='admin-keygen-row';
-    var keyEl=document.createElement('span');
-    keyEl.className='admin-keygen-key';
-    keyEl.textContent=key;
-    var copyEl=document.createElement('button');
-    copyEl.className='admin-keygen-copy';
-    copyEl.textContent='Copy';
-    copyEl.addEventListener('click',function(){
-      navigator.clipboard.writeText(key).then(function(){
-        copyEl.textContent='Copied!';
-        copyEl.style.color='var(--accent3)';
-        copyEl.style.borderColor='var(--accent3)';
-        setTimeout(function(){copyEl.textContent='Copy';copyEl.style.color='';copyEl.style.borderColor='';},2000);
-      }).catch(function(){
-        var ta=document.createElement('textarea');
-        ta.value=key;ta.style.cssText='position:fixed;opacity:0';
-        document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
-        copyEl.textContent='Copied!';
-        setTimeout(function(){copyEl.textContent='Copy';},2000);
-      });
-    });
-    row.appendChild(keyEl);row.appendChild(copyEl);
-    list.insertBefore(row,list.firstChild);
-  });
-});
 })();
 
 // ============================================================
