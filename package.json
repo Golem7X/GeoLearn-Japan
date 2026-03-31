@@ -7,7 +7,8 @@
     "build": "node secure-build.js",
     "security-check": "node scripts/security-check.js",
     "verify-hashes": "node scripts/verify-csp-hashes.js",
-    "test": "npm run security-check && npm run verify-hashes"
+    "test": "npm run security-check && npm run verify-hashes",
+    "test:license": "node --test tests/unit/keygen.test.js tests/unit/edge-generate-license.test.js tests/unit/edge-validate-license.test.js tests/unit/activation-flow.test.js"
   },
   "repository": {
     "type": "git",

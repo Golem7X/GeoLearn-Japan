@@ -81,8 +81,10 @@ Deno.serve(async (req: Request) => {
     })
   }
 
-  const quantity    = Math.min(Math.max(Number(body.quantity)    || 5,  1), 50)
-  const max_devices = Math.min(Math.max(Number(body.max_devices) || 2,  1), 10)
+  const _qty        = Number(body.quantity);
+  const _dev        = Number(body.max_devices);
+  const quantity    = Math.min(Math.max(Number.isFinite(_qty) ? _qty : 5,  1), 50)
+  const max_devices = Math.min(Math.max(Number.isFinite(_dev) ? _dev : 2,  1), 10)
   const note        = ((body.note as string) || '').slice(0, 100) || null
 
   // Default to 30 days from now if no expiry provided
