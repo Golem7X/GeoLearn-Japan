@@ -417,10 +417,31 @@ if (fs.existsSync(headersPath)) {
   fs.writeFileSync(headersPath, headers, 'utf8');
   fs.writeFileSync(path.join(ROOT, '_headers.built'), headers, 'utf8');
   console.log('\n_headers updated with actual hashes (Cloudflare Pages ready).');
+
+  // Sync dist/_headers to prevent stale CSP hashes blocking JavaScript on Cloudflare Pages
+  const distDir = path.join(ROOT, 'dist');
+  if (fs.existsSync(distDir)) {
+    const distHeadersPath = path.join(distDir, '_headers');
+    const distHeadersBuiltPath = path.join(distDir, '_headers.built');
+    if (fs.existsSync(distHeadersPath)) {
+      fs.writeFileSync(distHeadersPath, headers, 'utf8');
+    }
+    if (fs.existsSync(distHeadersBuiltPath)) {
+      fs.writeFileSync(distHeadersBuiltPath, headers, 'utf8');
+    }
+    console.log('  dist/_headers synced (prevents stale CSP hash blocking JavaScript).');
+  }
 }
 
 // ── Write final output ────────────────────────────────────────────────────────
 fs.writeFileSync(path.join(ROOT, 'index.html'), rebuiltHtml, 'utf8');
+
+// Sync dist/index.html to match built output
+const distHtmlPath = path.join(ROOT, 'dist', 'index.html');
+if (fs.existsSync(distHtmlPath)) {
+  fs.writeFileSync(distHtmlPath, rebuiltHtml, 'utf8');
+  console.log('  dist/index.html synced with built output.');
+}
 
 // ── Validation ────────────────────────────────────────────────────────────────
 console.log('\nRunning post-build validation...');
