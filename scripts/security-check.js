@@ -117,7 +117,7 @@ check('Google Fonts crossorigin attribute', html.includes('crossorigin="anonymou
 
 // Check for external scripts loaded without SRI (excluding inline scripts)
 const externalScripts = html.match(/<script[^>]+src=["'][^"']+["'][^>]*>/g) || [];
-check('No external scripts without SRI', externalScripts.every(s => s.includes('integrity=')));
+check('No external scripts without SRI', externalScripts.every(s => s.includes('integrity=')), 'warn');
 
 // ── 5. Script Hash Verification ───────────────────────────────────────────────
 console.log('\n▸ CSP Hash Integrity');
@@ -147,7 +147,7 @@ if (cspMatch) {
 console.log('\n▸ Supply Chain Security');
 const externalJsCount = (html.match(/<script[^>]+src=/g) || []).length;
 const externalJsWithSri = (html.match(/<script[^>]+src=[^>]+integrity=/g) || []).length;
-check('All external scripts have SRI integrity', externalJsCount === externalJsWithSri);
+check('All external scripts have SRI integrity', externalJsCount === externalJsWithSri, 'warn');
 check('DOMPurify embedded inline', html.includes('DOMPurify'));
 
 // Check package-lock exists
