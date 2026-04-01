@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "node secure-build.js",
+    "build:cf": "node secure-build.js && mkdir -p dist && cp index.html dist/ && cp _headers dist/ && cp _redirects dist/ && cp -r content dist/ 2>/dev/null; cp -r flashcards dist/ 2>/dev/null; cp -r study dist/ 2>/dev/null; cp -r languages dist/ 2>/dev/null; cp -r vocabulary dist/ 2>/dev/null; cp -r assets dist/ 2>/dev/null; echo 'Cloudflare Pages dist/ ready'",
     "security-check": "node scripts/security-check.js",
     "verify-hashes": "node scripts/verify-csp-hashes.js",
     "test": "npm run security-check && npm run verify-hashes"

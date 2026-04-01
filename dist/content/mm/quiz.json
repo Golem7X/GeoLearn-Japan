@@ -1,0 +1,422 @@
+[
+  {
+    "cat": "soil",
+    "q": "What does ထိရောက်သော ဖိအား (effective stress) σ' represent in မြေသားသိပ္ပံ (soil mechanics)?",
+    "opts": [
+      "စုစုပေါင်း ဖိအား (Total stress) minus အပေါက်ရေ ဖိအား (pore water pressure)",
+      "စုစုပေါင်း ဖိအား (Total stress) plus အပေါက်ရေ ဖိအား (pore water pressure)",
+      "Just the အပေါက်ရေ ဖိအား (pore water pressure)",
+      "ဖိအား (Stress) from မြေအောက်ရေ (groundwater) only"
+    ],
+    "ans": 0,
+    "explain": "ထိရောက်သော ဖိအား (Effective stress) = σ - u (တာဇာဂီ (Terzaghi) 1925). It is the ဖိအား (stress) carried by the soil skeleton, controlling ALL mechanical behavior: ဖြတ်ခံနိုင်ရည် (shear strength), ပေါင်းစည်းခြင်း (consolidation) rate, and အရည်ပြောင်းခြင်း (liquefaction) resistance."
+  },
+  {
+    "cat": "soil",
+    "q": "What is the မော-ကူလုံ (Mohr-Coulomb) failure criterion for drained conditions?",
+    "opts": [
+      "τf = cu",
+      "τf = c' + σ'tanφ'",
+      "τf = σ·tanφ",
+      "τf = c + u·tanφ"
+    ],
+    "ans": 1,
+    "explain": "Drained: τf = c' + σ'tanφ'. Both c' (ကပ်ငြိတွယ်ကပ်နိုင်ရည် (cohesion)) and φ' (ပွတ်တိုက်ထောင့် (friction angle)) are ထိရောက်သော ဖိအား (effective stress) parameters from CD triaxial or drained direct shear tests. Undrained: τf = cu (φu=0)."
+  },
+  {
+    "cat": "soil",
+    "q": "In တာဇာဂီ (Terzaghi)'s ပေါင်းစည်းခြင်း (consolidation) theory, what does Tv = 0.848 correspond to?",
+    "opts": [
+      "U = 50%",
+      "U = 90%",
+      "U = 99%",
+      "U = 70%"
+    ],
+    "ans": 1,
+    "explain": "Time factors: Tv=0.197 → U=50%. Tv=0.848 → U=90%. Tv=1.781 → U=99%. The formula: Tv = cv·t/H² where H is the drainage path length. Double drainage: H = half layer thickness."
+  },
+  {
+    "cat": "soil",
+    "q": "အရည်ပြောင်းခြင်း (Liquefaction) is most likely to occur in which soil type?",
+    "opts": [
+      "Dense ကျောက်စရစ် (gravel)",
+      "Loose saturated သဲ (sand)/နုန်းမြေ (silt)",
+      "Stiff ရွှံ့မြေ (clay)",
+      "Dry သဲ (sand)"
+    ],
+    "ans": 1,
+    "explain": "အရည်ပြောင်းခြင်း (Liquefaction) requires: (1) cohesionless soil (သဲ (sand)/နုန်းမြေ (silt)), (2) saturated (below water table), (3) loose state (low Dr or low N), (4) cyclic loading (ငလျင် (earthquake)). FL = CRR/CSR < 1.0 → liquefied."
+  },
+  {
+    "cat": "soil",
+    "q": "What is the typical ပွတ်တိုက်ထောင့် (friction angle) φ' for loose to medium dense clean သဲ (sand)?",
+    "opts": [
+      "10-20°",
+      "28-36°",
+      "40-50°",
+      "5-10°"
+    ],
+    "ans": 1,
+    "explain": "သဲ (Sand): φ' = 28-32° (loose, rounded), 32-38° (medium dense), 38-45° (dense, angular). ရွှံ့မြေ (Clay): φ' = 20-30°. φ' depends on particle shape, size distribution, and state of compaction. From triaxial CD tests."
+  },
+  {
+    "cat": "soil",
+    "q": "What happens to ထိရောက်သော ဖိအား (effective stress) during undrained loading of saturated ရွှံ့မြေ (clay)?",
+    "opts": [
+      "It increases immediately",
+      "It remains zero",
+      "Excess pore pressure develops, ထိရောက်သော ဖိအား (effective stress) doesn't change much short-term",
+      "It decreases to zero"
+    ],
+    "ans": 2,
+    "explain": "In undrained loading, volume change is prevented. Excess pore pressure develops to carry the applied load. စုစုပေါင်း ဖိအား (Total stress) increases but σ' changes little initially. Over time (ပေါင်းစည်းခြင်း (consolidation)), u dissipates and σ' increases."
+  },
+  {
+    "cat": "soil",
+    "q": "The compression index Cc is used for calculating:",
+    "opts": [
+      "အရည်ပြောင်းခြင်း (Liquefaction) resistance",
+      "Primary ပေါင်းစည်းခြင်း (consolidation) နစ်ကျခြင်း (settlement)",
+      "ဖြတ်ခံနိုင်ရည် (Shear strength)",
+      "ရေစိမ့်ဝင်နိုင်စွမ်း (Permeability)"
+    ],
+    "ans": 1,
+    "explain": "Sc = Cc·H·log(σ'f/σ'0)/(1+e0). Cc from oedometer test (slope of e vs log σ' curve in virgin compression). Cs = swelling/recompression index (used for OCR > 1). Typically Cc ≈ 0.009(LL-10) for remolded clays."
+  },
+  {
+    "cat": "soil",
+    "q": "What does OCR > 1 indicate?",
+    "opts": [
+      "Normally consolidated soil",
+      "Overconsolidated soil",
+      "Underconsolidated soil",
+      "Liquefied soil"
+    ],
+    "ans": 1,
+    "explain": "OCR = σ'pc/σ'v0. OCR = 1: normally consolidated (NC). OCR > 1: overconsolidated (OC) — soil was previously under higher ဖိအား (stress) (e.g., erosion, past ice load). OC soils are denser and stronger than NC at same σ'v0."
+  },
+  {
+    "cat": "soil",
+    "q": "What is Darcy's Law for flow through soil?",
+    "opts": [
+      "v = k/i",
+      "v = k·i",
+      "q = k·A/i",
+      "v = i/k"
+    ],
+    "ans": 1,
+    "explain": "v = k·i where v = seepage velocity (m/s), k = hydraulic conductivity (m/s), i = hydraulic gradient (dimensionless). Q = k·i·A. ရွှံ့မြေ (Clay): k ≈ 10⁻⁸-10⁻¹⁰ m/s. သဲ (Sand): k ≈ 10⁻³-10⁻⁵ m/s."
+  },
+  {
+    "cat": "soil",
+    "q": "What is the general ဝန်ခံနိုင်ရည် (bearing capacity) equation (တာဇာဂီ (Terzaghi))?",
+    "opts": [
+      "qu = γDf",
+      "qu = cNc + qNq + 0.5γBNγ",
+      "qu = N/0.05",
+      "qu = 2cu"
+    ],
+    "ans": 1,
+    "explain": "တာဇာဂီ (Terzaghi) (1943): qu = cNc + qNq + 0.5γBNγ. Nc, Nq, Nγ depend on φ'. For φ'=30°: Nc=30.1, Nq=18.4, Nγ=15.7. Allowable: qa = qu/FS. FS = 3 for static loads. Shape factors applied for non-strip footings."
+  },
+  {
+    "cat": "wave",
+    "q": "What is the formula for P-လှိုင်း (P-wave) velocity?",
+    "opts": [
+      "Vp = √(G/ρ)",
+      "Vp = √(M/ρ) = √((K+4G/3)/ρ)",
+      "Vp = √(E/ρ)",
+      "Vp = √(K/ρ)"
+    ],
+    "ans": 1,
+    "explain": "Vp = √(M/ρ) where M = constrained ကိန်းဆက် (modulus) = K + 4G/3 = λ + 2G. Always Vp > Vs. In saturated soil, K ≫ G so Vp is dominated by bulk stiffness (~1500 m/s like water). Vs is unaffected by saturation (G same)."
+  },
+  {
+    "cat": "wave",
+    "q": "Why can't S-waves travel through water or liquefied soil?",
+    "opts": [
+      "They are too slow",
+      "Shear ကိန်းဆက် (modulus) G = 0 in fluids",
+      "They need air to travel",
+      "They require high သိပ်သည်းဆ (density)"
+    ],
+    "ans": 1,
+    "explain": "S-waves require shear stiffness G. Fluids (water, liquefied soil) have G = 0 — they cannot resist shear. Therefore Vs = √(G/ρ) = 0 in fluids. This is why S-waves don't travel through water and why Vs indicates အရည်ပြောင်းခြင်း (liquefaction)."
+  },
+  {
+    "cat": "wave",
+    "q": "What is Vs30 (Vs30) and what is it used for?",
+    "opts": [
+      "Average P-လှိုင်း (P-wave) velocity",
+      "Average S-လှိုင်း (S-wave) velocity in top 30m for site classification",
+      "Vs at 30m depth exactly",
+      "S-လှိုင်း (S-wave) velocity at 30Hz"
+    ],
+    "ans": 1,
+    "explain": "Vs30 (Vs30) = 30/Σ(hi/Vsi) = time-average Vs for top 30m. Used for seismic site classification worldwide. Japan: 告示1457号. NEHRP classes: A(>1500), B(760-1500), C(360-760), D(180-360), E(<180) m/s."
+  },
+  {
+    "cat": "wave",
+    "q": "Snell's Law for ငလျင်အကွေ့ဆိုင်ရာ (seismic refraction) is expressed as:",
+    "opts": [
+      "V₁/V₂ = sin(θ₂)/sin(θ₁)",
+      "sin(θ₁)/V₁ = sin(θ₂)/V₂",
+      "V₁·sin(θ₁) = V₂·sin(θ₂)",
+      "θ₁/V₁ = θ₂/V₂"
+    ],
+    "ans": 1,
+    "explain": "sin(θ)/V = constant (ray parameter). At critical angle ic: sin(ic) = V₁/V₂. Head wave travels along interface at V₂. Travel time: t = x/V₁ + 2h·cos(ic)/V₁. Crossover distance: xc = 2h√((V₂-V₁)/(V₂+V₁))."
+  },
+  {
+    "cat": "wave",
+    "q": "In a PS မှတ်တမ်းတင်ခြင်း (PS logging) survey, which is measured?",
+    "opts": [
+      "Only P-လှိုင်း (P-wave) velocity",
+      "Only S-လှိုင်း (S-wave) velocity",
+      "Both Vp and Vs vs depth in a တွင်းဖော် (borehole)",
+      "Surface wave velocity"
+    ],
+    "ans": 2,
+    "explain": "PS မှတ်တမ်းတင်ခြင်း (PS logging) (PS検層, JGS 3511) measures BOTH Vp and Vs at depth intervals in a တွင်းဖော် (borehole). Surface source (sledgehammer), 3-component downhole receiver. Output: Vp(z), Vs(z) → Vs30 (Vs30), G0, E0, ν."
+  },
+  {
+    "cat": "wave",
+    "q": "The small-ပုံပျက်ခြင်း (strain) shear ကိန်းဆက် (modulus) G0 from Vs is:",
+    "opts": [
+      "G0 = ρ/Vs²",
+      "G0 = ρ·Vs²",
+      "G0 = Vs/ρ",
+      "G0 = Vs²/ρ²"
+    ],
+    "ans": 1,
+    "explain": "G0 = ρ·Vs² where ρ = mass သိပ်သည်းဆ (density) (kg/m³), Vs = shear wave velocity (m/s). G0 in Pa. Example: ρ=1800 kg/m³, Vs=200 m/s → G0 = 1800×200² = 72 MPa. G0 = small-ပုံပျက်ခြင်း (strain) (dynamic) ကိန်းဆက် (modulus), larger than static G."
+  },
+  {
+    "cat": "wave",
+    "q": "Rayleigh wave velocity VR in homogeneous material is approximately:",
+    "opts": [
+      "VR = Vs",
+      "VR ≈ 0.92·Vs (for ν=0.25)",
+      "VR = Vp",
+      "VR = 2·Vs"
+    ],
+    "ans": 1,
+    "explain": "VR ≈ 0.92·Vs for ν=0.25. Retrograde elliptical particle motion. In layered media, VR is dispersive (different frequency = different depth = different Vs). မျက်နှာပြင်လှိုင်း စူးစမ်းခြင်း (MASW) exploits this dispersion to build Vs profiles."
+  },
+  {
+    "cat": "wave",
+    "q": "ငလျင်အကွေ့ဆိုင်ရာ (Seismic refraction) CANNOT detect which condition?",
+    "opts": [
+      "Bedrock depth",
+      "Water table",
+      "Velocity inversion (low-speed layer under high-speed layer)",
+      "Fill layer thickness"
+    ],
+    "ans": 2,
+    "explain": "ငလျင်အကွေ့ဆိုင်ရာ (Seismic refraction) requires velocity increasing with depth (V₂>V₁). A velocity inversion (low-speed layer beneath high-speed layer) creates a 'hidden layer' — the refraction method cannot detect it. Use reflection or tomography instead."
+  },
+  {
+    "cat": "wave",
+    "q": "What is the typical Vs of soft ရွှံ့မြေ (clay)?",
+    "opts": [
+      "50-150 m/s",
+      "300-600 m/s",
+      "800-1500 m/s",
+      "1500-3000 m/s"
+    ],
+    "ans": 0,
+    "explain": "Soft ရွှံ့မြေ (clay): Vs = 50-150 m/s (very soft). Dense သဲ (sand): 200-400. Soft ကျောက် (rock): 400-700. Hard ကျောက် (rock): >1000. Tokyo bay area soft alluvial clays often have Vs < 100 m/s → site class D → high amplification."
+  },
+  {
+    "cat": "wave",
+    "q": "The H/V spectral ratio peak frequency in microtremor surveys corresponds to:",
+    "opts": [
+      "P-လှိုင်း (P-wave) resonance",
+      "The site fundamental period (site resonance)",
+      "Rayleigh wave dispersion",
+      "Body wave frequency"
+    ],
+    "ans": 1,
+    "explain": "H/V (Nakamura method 1989): H/V peak = f0 = site fundamental frequency (T0 = 1/f0). Related to average Vs and depth H: f0 ≈ Vs/4H. High H/V amplitude at f0 → strong site amplification expected."
+  },
+  {
+    "cat": "test",
+    "q": "In စံထိုးဖောက်စမ်းသပ်ခြင်း (SPT), what does the N-တန်ဖိုး (N-value) represent?",
+    "opts": [
+      "Energy of hammer",
+      "Number of blows per 300mm to drive the sampler",
+      "Depth in meters",
+      "Weight of hammer in kg"
+    ],
+    "ans": 1,
+    "explain": "N = number of blows to drive split-spoon sampler 300 mm (after 150 mm seating drive). Hammer: 63.5 kg, drop 760 mm. JIS A 1219. N60 = N×(ER/60) corrects for energy ratio. Japanese auto hammer: ER ≈ 72%."
+  },
+  {
+    "cat": "test",
+    "q": "The overburden correction factor CN for စံထိုးဖောက်စမ်းသပ်ခြင်း (SPT) is applied to:",
+    "opts": [
+      "N → N60",
+      "N60 → (N1)60 (ဖိအား (stress)-normalized)",
+      "Correct for hammer type",
+      "Correct for တွင်းဖော် (borehole) diameter"
+    ],
+    "ans": 1,
+    "explain": "CN corrects N60 to reference pressure (100 kPa). CN = √(Pa/σ'v0). (N1)60 = CN×N60. Deep samples appear lower N due to confinement. Correction brings all values to same confining ဖိအား (stress) for comparison."
+  },
+  {
+    "cat": "test",
+    "q": "In CPTu, what does Ic represent?",
+    "opts": [
+      "Inclination correction",
+      "Soil Behavior Type Index",
+      "Cone area factor",
+      "Friction correction"
+    ],
+    "ans": 1,
+    "explain": "Ic = √((3.47-logQt)²+(1.22+logFr)²) — Soil Behavior Type Index (Robertson 1990). Ic < 1.31: gravels. 1.31-2.05: clean sands. 2.05-2.60: silty sands. 2.60-2.95: sandy silts. 2.95-3.60: silty clays. >3.60: clays."
+  },
+  {
+    "cat": "test",
+    "q": "Wenner array apparent ခံနိုင်ရည် (resistivity) formula is:",
+    "opts": [
+      "ρa = πa²·V/I",
+      "ρa = 2πa·V/I",
+      "ρa = 4πa·V/I",
+      "ρa = V/(I·a)"
+    ],
+    "ans": 1,
+    "explain": "Wenner: ρa = 2πa·(V/I) where a = electrode spacing, V = voltage between MN, I = injected current. K = 2πa (geometric factor). Larger a → deeper penetration (approximately 0.5a). Good for horizontal mapping."
+  },
+  {
+    "cat": "test",
+    "q": "PS မှတ်တမ်းတင်ခြင်း (PS logging) JGS 3511 measures:",
+    "opts": [
+      "Static strength at depth",
+      "Dynamic P and S wave velocities in တွင်းဖော် (borehole)",
+      "Pore pressure vs depth",
+      "In-situ သိပ်သည်းဆ (density)"
+    ],
+    "ans": 1,
+    "explain": "PS検層 (JGS 3511): 3-component geophone moved down တွင်းဖော် (borehole) in 1m steps. Surface hammer source on plank (P) or horizontal (S). First-arrival picks → interval Vp and Vs. Used for Vs30 (Vs30), G0=ρVs², seismic design."
+  },
+  {
+    "cat": "test",
+    "q": "The FL method for အရည်ပြောင်းခြင်း (liquefaction) assessment uses:",
+    "opts": [
+      "FL = CRR/CSR",
+      "FL = CSR/CRR",
+      "FL = N/(CSR×MSF)",
+      "FL = Vs²/CRR"
+    ],
+    "ans": 0,
+    "explain": "FL = CRR/CSR (道路橋示方書, Japanese Road Bridge Specification). FL < 1.0: liquefiable. FL = 1.0-1.5: marginal. FL > 1.5: safe. CRR from (N1)60cs or Vs. CSR = 0.65×(σv/σ'v)×(amax/g)×rd."
+  },
+  {
+    "cat": "test",
+    "q": "What is the critical angle in ငလျင်အကွေ့ဆိုင်ရာ (seismic refraction)?",
+    "opts": [
+      "ic = arctan(V₁/V₂)",
+      "ic = arcsin(V₁/V₂)",
+      "ic = arccos(V₁/V₂)",
+      "ic = V₁/V₂ radians"
+    ],
+    "ans": 1,
+    "explain": "ic = arcsin(V₁/V₂). At this angle of incidence, the refracted ray travels along the interface. Below ic: reflection occurs. At ic: head wave forms. Refraction works only when V₂ > V₁ (otherwise no ic exists)."
+  },
+  {
+    "cat": "test",
+    "q": "What does a တွင်းတွင်းကင်မရာ (borehole camera) (孔内カメラ) primarily reveal that a core log alone cannot?",
+    "opts": [
+      "N-တန်ဖိုး (N-value) and soil သိပ်သည်းဆ (density)",
+      "3D fracture orientation, aperture, and မြေအောက်ရေ (groundwater) inflow locations",
+      "Wave velocity at depth",
+      "Pore pressure distribution"
+    ],
+    "ans": 1,
+    "explain": "တွင်းဖော် (Borehole) cameras provide visual images of fracture orientation (dip/strike), aperture (crack width), infill material, weathering grade, and exact depth of မြေအောက်ရေ (groundwater) inflow. Core samples lose orientation information during retrieval — the camera sees these features in place."
+  },
+  {
+    "cat": "test",
+    "q": "In a ဖိအားတိုင်းကိရိယာ (pressuremeter) test, what does the limit pressure PL represent?",
+    "opts": [
+      "The elastic ကိန်းဆက် (modulus) Em",
+      "The hydrostatic pressure at depth",
+      "The lateral ground failure pressure (ultimate resistance)",
+      "The စံထိုးဖောက်စမ်းသပ်ခြင်း (SPT) N-တန်ဖိုး (N-value) equivalent"
+    ],
+    "ans": 2,
+    "explain": "PL = limit pressure is the asymptotic pressure at which the soil/ကျောက် (rock) fails laterally during ဖိအားတိုင်းကိရိယာ (pressuremeter) inflation. It is analogous to ဝန်ခံနိုင်ရည် (bearing capacity) in the horizontal direction. PL ≈ 5.5×cu for soft ရွှံ့မြေ (clay). Used for pile lateral capacity and foundation design."
+  },
+  {
+    "cat": "test",
+    "q": "What is the K30 value in a ပြားတင်စမ်းသပ်ခြင်း (plate load test) and what is the Japanese road base specification?",
+    "opts": [
+      "K30 is depth of test; spec ≥ 150 MN/m³",
+      "K30 = နစ်ကျခြင်း (settlement) at 300 kPa; spec ≥ 10 mm",
+      "K30 = pressure/နစ်ကျခြင်း (settlement) at 1.25mm; Japanese road base spec ≥ 110 MN/m³",
+      "K30 = ဝန်ခံနိုင်ရည် (bearing capacity) factor; spec ≥ 3.0"
+    ],
+    "ans": 2,
+    "explain": "K30 = subgrade reaction coefficient from ပြားတင်စမ်းသပ်ခြင်း (plate load test). K30 = load at 1.25mm နစ်ကျခြင်း (settlement) / 1.25mm, using a 300mm diameter rigid plate. Japanese road design specification (道路橋示方書): K30 ≥ 110 MN/m³ for road base layer. Higher K30 = stiffer subgrade."
+  },
+  {
+    "cat": "test",
+    "q": "ကျောက်တုံးအရည်အသွေးညွှန်း (RQD) = 55% on a core log is classified as:",
+    "opts": [
+      "Excellent ကျောက် (rock) quality",
+      "Good ကျောက် (rock) quality",
+      "Fair ကျောက် (rock) quality",
+      "Very Poor ကျောက် (rock) quality"
+    ],
+    "ans": 2,
+    "explain": "ကျောက်တုံးအရည်အသွေးညွှန်း (RQD) classification: 90-100% = Excellent (優良), 75-90% = Good (良), 50-75% = Fair (普通), 25-50% = Poor (不良), <25% = Very Poor (極めて不良). ကျောက်တုံးအရည်အသွေးညွှန်း (RQD) = 55% falls in FAIR (50-75%). Tunnel support: steel sets + shotcrete likely needed. RMR will reflect this classification."
+  },
+  {
+    "cat": "test",
+    "q": "Ground Penetrating Radar (မြေအောက် ရေဒါ (GPR)) works BEST in which ground condition?",
+    "opts": [
+      "Saturated marine ရွှံ့မြေ (clay)",
+      "Saltwater-intrusion သဲ (sand)",
+      "Dry resistive သဲ (sand) or ကျောက်စရစ် (gravel)",
+      "Wet volcanic ash"
+    ],
+    "ans": 2,
+    "explain": "မြေအောက် ရေဒါ (GPR) signal is attenuated by high electrical conductivity. Saltwater, wet ရွှံ့မြေ (clay), and conductive soils absorb the EM energy — depth penetration drops to 0.5-1m. Dry သဲ (sand), ကျောက်စရစ် (gravel), and dry ကျောက် (rock) are ideal (low conductivity) — depth up to 10-30m possible. Always check soil conductivity before deploying မြေအောက် ရေဒါ (GPR)."
+  },
+  {
+    "cat": "test",
+    "q": "In မြေအောက် ရေဒါ (GPR), the depth formula d = v·t/2 uses two-way travel time because:",
+    "opts": [
+      "The radar travels at double speed underground",
+      "The pulse travels DOWN to the reflector and BACK UP — hence ÷2 for one-way depth",
+      "The antenna moves twice per scan",
+      "Reflectors always occur in pairs"
+    ],
+    "ans": 1,
+    "explain": "The radar pulse travels from surface antenna DOWN to the reflector, then reflects UP back to the same antenna. The recorded time t is two-way travel time (TWTT). Depth = (wave velocity × TWTT) / 2. Velocity v = c/√εr where εr is the soil dielectric constant."
+  },
+  {
+    "cat": "test",
+    "q": "Which investigation method is the ONLY standard way to directly measure the lateral stiffness (horizontal deformation ကိန်းဆက် (modulus)) of soil or soft ကျောက် (rock)?",
+    "opts": [
+      "စံထိုးဖောက်စမ်းသပ်ခြင်း (SPT) N-တန်ဖိုး (N-value)",
+      "Electrical ခံနိုင်ရည် (resistivity) survey",
+      "ဖိအားတိုင်းကိရိယာ (Pressuremeter) test (孔内水平載荷試験)",
+      "ပြားတင်စမ်းသပ်ခြင်း (Plate load test)"
+    ],
+    "ans": 2,
+    "explain": "The ဖိအားတိုင်းကိရိယာ (pressuremeter) test (Ménard) is the ONLY standard in-situ test that directly measures horizontal ဖိအား (stress)-ပုံပျက်ခြင်း (strain) behavior. It inflates a cylindrical probe against the တွင်းဖော် (borehole) wall and records pressure vs. volume change. Em (ဖိအားတိုင်းကိရိယာ (pressuremeter) ကိန်းဆက် (modulus)) is used directly in Ménard's နစ်ကျခြင်း (settlement) formula for laterally loaded piles and flexible foundations."
+  },
+  {
+    "cat": "test",
+    "q": "What is the key difference between ကျောက်တုံးအရည်အသွေးညွှန်း (RQD) and TCR (Total Core Recovery)?",
+    "opts": [
+      "ကျောက်တုံးအရည်အသွေးညွှန်း (RQD) counts pieces ≥100mm only (natural breaks); TCR counts ALL recovered core",
+      "TCR is for soft soil; ကျောက်တုံးအရည်အသွေးညွှန်း (RQD) is for hard ကျောက် (rock)",
+      "ကျောက်တုံးအရည်အသွေးညွှန်း (RQD) is measured in % while TCR is in mm",
+      "They are identical — same measurement"
+    ],
+    "ans": 0,
+    "explain": "ကျောက်တုံးအရည်အသွေးညွှန်း (RQD) = (Σ intact pieces ≥ 100mm natural breaks) / L × 100%. TCR = all recovered core / L × 100%. TCR ≥ ကျောက်တုံးအရည်အသွေးညွှန်း (RQD) always. A core with many short pieces (all <100mm) could have TCR=100% but ကျောက်တုံးအရည်အသွေးညွှန်း (RQD)=0%. Only natural fractures are counted for ကျောက်တုံးအရည်အသွေးညွှန်း (RQD) — mechanical drill breaks are excluded."
+  }
+]

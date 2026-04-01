@@ -48,12 +48,26 @@ jobs:
           mkdir -p _site
           cp index.html _site/
           cp _headers _site/ 2>/dev/null || true
+          cp _redirects _site/ 2>/dev/null || true
           cp -r content _site/ 2>/dev/null || true
           cp -r flashcards _site/ 2>/dev/null || true
           cp -r study _site/ 2>/dev/null || true
           cp -r languages _site/ 2>/dev/null || true
           cp -r vocabulary _site/ 2>/dev/null || true
           cp -r assets _site/ 2>/dev/null || true
+
+      - name: Stage Cloudflare Pages dist/
+        run: |
+          mkdir -p dist
+          cp index.html dist/
+          cp _headers dist/
+          cp _redirects dist/
+          cp -r content dist/ 2>/dev/null || true
+          cp -r flashcards dist/ 2>/dev/null || true
+          cp -r study dist/ 2>/dev/null || true
+          cp -r languages dist/ 2>/dev/null || true
+          cp -r vocabulary dist/ 2>/dev/null || true
+          cp -r assets dist/ 2>/dev/null || true
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v6

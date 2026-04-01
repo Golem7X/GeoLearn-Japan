@@ -6,7 +6,12 @@
 ## Deploy on Cloudflare Pages:
 ##   1. Connect GitHub repo to Cloudflare Pages
 ##   2. Set build output directory to "/" (static site)
-##   3. This file is auto-processed by Cloudflare Pages
+##   3. Set build command to: node secure-build.js
+##   4. This file is auto-processed by Cloudflare Pages
+##
+## IMPORTANT: Do NOT enable Rocket Loader, HTML Minification,
+##   or Email Obfuscation in Cloudflare Speed settings — these
+##   features modify inline script content and break SHA-256 hashes.
 ##
 ## Deploy on Netlify:
 ##   Rename this file to netlify.toml [[headers]] format OR
@@ -14,55 +19,15 @@
 ## ═══════════════════════════════════════════════════════════════════
 
 /*
-  # ── Transport Security ─────────────────────────────────────────
-  # Force HTTPS for 2 years, include subdomains, request HSTS preload
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
-
-  # ── Framing Protection (Clickjacking) ──────────────────────────
   X-Frame-Options: DENY
-  # CSP frame-ancestors is stronger; X-Frame-Options is fallback
-  # (frame-ancestors cannot be set via meta tag, only HTTP header)
-
-  # ── MIME Sniffing ───────────────────────────────────────────────
   X-Content-Type-Options: nosniff
-
-  # ── Legacy XSS Auditor ─────────────────────────────────────────
-  # Disable browser XSS auditor — CSP is far superior and auditor can be exploited
   X-XSS-Protection: 0
-
-  # ── Referrer Policy ────────────────────────────────────────────
-  # Send origin only for same-origin, origin-only for cross-origin HTTPS
   Referrer-Policy: strict-origin-when-cross-origin
-
-  # ── Cross-Origin Policies (Spectre / side-channel mitigations) ─
   Cross-Origin-Opener-Policy: same-origin
   Cross-Origin-Resource-Policy: cross-origin
-  # Note: COEP require-corp omitted — breaks Google Fonts (cross-origin)
-  # Upgrade when fonts are self-hosted
-
-  # ── Permissions Policy ─────────────────────────────────────────
-  # Deny access to all sensitive browser APIs not needed by this app
   Permissions-Policy: accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), bluetooth=(), camera=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(self), geolocation=(), gyroscope=(), hid=(), idle-detection=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), serial=(), speaker-selection=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()
-
-  # ── Content Security Policy ────────────────────────────────────
-  # This is the authoritative CSP delivered as HTTP header.
-  # The meta-tag CSP in HTML is a fallback for GitHub Pages.
-  # HTTP header CSP takes full precedence and supports frame-ancestors.
-  #
-  # Security model:
-  # • script-src: ONLY the two inline scripts (SHA-256 hashed) — no CDN, no eval
-  # • style-src: unsafe-inline required for inline styles (CSS injection risk is low)
-  # • img-src: self + Unsplash CDN + data URIs for canvas
-  # • connect-src: none — app has no XHR/fetch/WebSocket
-  # • frame-ancestors: none — prevents all embedding (clickjacking)
-  # • block-all-mixed-content: hard-blocks HTTP sub-resources
-  #
-  # NOTE: Replace 28rkRAVyIgnGHuRcrIclCG/5ZGYcg0vT71kD9OVYyvw= and g1aBFnVAH2Sge71wI3SA0IxUP2r+0Jjay9feGGplmFQ= with actual SHA-256 hashes
-  # from the build process. These are computed automatically by secure-build.js.
-  # Run: node secure-build.js to get the current hashes.
-  Content-Security-Policy: default-src 'none'; script-src 'self' https://cdn.jsdelivr.net 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-K+X96eA5RCXAi+EYRSXEMwW3dNK8tHzFtRgBjUOzWcU=' ; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' https://images.unsplash.com data: blob: https://www.google-analytics.com; connect-src 'self' https://ftmkgkxzgobgjkasnmxn.supabase.co https://*.supabase.co https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests
-
-  # ── Cache Control ───────────────────────────────────────────────
+  Content-Security-Policy: default-src 'none'; script-src 'self' https://cdn.jsdelivr.net 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-byjO2cz4t0lCF8D1NJFsytq3ysV10Uj8FYwKOfLwdYY=' ; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' https://images.unsplash.com data: blob: https://www.google-analytics.com; connect-src 'self' https://ftmkgkxzgobgjkasnmxn.supabase.co https://*.supabase.co https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests
   Cache-Control: no-store, no-cache, must-revalidate
 
 /*.html

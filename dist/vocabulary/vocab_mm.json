@@ -1,0 +1,132 @@
+{
+  "soil": [
+    {
+      "jp": "間隙水圧",
+      "kana": "かんげきすいあつ",
+      "en": "အပေါက်ရေ ဖိအား (Pore water pressure)",
+      "formula": "u = γw × h"
+    },
+    {
+      "jp": "圧密沈下",
+      "kana": "あつみつちんか",
+      "en": "ပေါင်းစည်းခြင်း (Consolidation) နစ်ကျခြင်း (settlement)",
+      "formula": "Sc = Cc·H·log(σf/σo)/(1+e0)"
+    },
+    {
+      "jp": "透水係数",
+      "kana": "とうすいけいすう",
+      "en": "Coefficient of ရေစိမ့်ဝင်နိုင်စွမ်း (permeability)",
+      "formula": "k = Q·L/(A·h·t)"
+    }
+  ],
+  "foundation": [
+    {
+      "jp": "支持力",
+      "kana": "しじりょく",
+      "en": "ဝန်ခံနိုင်ရည် (Bearing capacity)",
+      "formula": "qu = cNc + qNq + 0.5γBNγ"
+    },
+    {
+      "jp": "杭基礎",
+      "kana": "くいきそ",
+      "en": "တိုင်အုတ်မြစ် (Pile foundation)",
+      "formula": "Ra = Rt + Rs"
+    },
+    {
+      "jp": "直接基礎",
+      "kana": "ちょくせつきそ",
+      "en": "Shallow foundation",
+      "formula": "qallow = qu/Fs"
+    },
+    {
+      "jp": "根入れ深さ",
+      "kana": "ねいれふかさ",
+      "en": "Embedment depth",
+      "formula": "Df ≥ 1.2m (Japan frost depth)"
+    },
+    {
+      "jp": "接地圧",
+      "kana": "せっちあつ",
+      "en": "Contact pressure",
+      "formula": "q = N/(B×L)"
+    }
+  ],
+  "earthquake": [
+    {
+      "jp": "液状化",
+      "kana": "えきじょうか",
+      "en": "အရည်ပြောင်းခြင်း (Liquefaction)",
+      "formula": "FL = CRR/CSR"
+    },
+    {
+      "jp": "地震動",
+      "kana": "じしんどう",
+      "en": "Ground motion",
+      "formula": "PGA, PGV, Sa(T)"
+    },
+    {
+      "jp": "地盤増幅",
+      "kana": "じばんぞうふく",
+      "en": "Site amplification",
+      "formula": "Amp = As/Ar"
+    },
+    {
+      "jp": "耐震設計",
+      "kana": "たいしんせっけい",
+      "en": "Seismic design",
+      "formula": "Base shear V = ZRtAiCo·W"
+    },
+    {
+      "jp": "震度",
+      "kana": "しんど",
+      "en": "Seismic intensity (JMA scale)",
+      "formula": "I = 2 log a + 0.94"
+    }
+  ],
+  "geophysics": [
+    {
+      "jp": "弾性波速度",
+      "kana": "だんせいはそくど",
+      "en": "Elastic wave velocity",
+      "formula": "Vp = √(M/ρ), Vs = √(G/ρ)"
+    },
+    {
+      "jp": "比抵抗",
+      "kana": "ひていこう",
+      "en": "Electrical ခံနိုင်ရည် (resistivity)",
+      "formula": "ρ = 2πa × V/I (Wenner)"
+    },
+    {
+      "jp": "表面波探査",
+      "kana": "ひょうめんはたんさ",
+      "en": "Surface wave survey (မျက်နှာပြင်လှိုင်း စူးစမ်းခြင်း (MASW))",
+      "formula": "Vs(z) from dispersion"
+    },
+    {
+      "jp": "地中レーダー",
+      "kana": "ちちゅうれーだー",
+      "en": "Ground Penetrating Radar",
+      "formula": "d = v·t/2, v = c/√εr"
+    },
+    {
+      "jp": "屈折法探査",
+      "kana": "くっせつほうたんさ",
+      "en": "ငလျင်အကွေ့ဆိုင်ရာ (Seismic refraction)",
+      "formula": "t = x/V1 + 2h cosθc/V1"
+    }
+  ],
+  "investigation": [
+    {
+      "jp": "ボーリング",
+      "kana": "ぼーりんぐ",
+      "en": "တွင်းဖော် (Borehole) drilling",
+      "formula": "Core recovery = L_core/L_run × 100%"
+    },
+    {
+      "jp": "標準貫入試験",
+      "kana": "ひょうじゅんかんにゅうしけん",
+      "en": "Standard Penetration Test (စံထိုးဖောက်စမ်းသပ်ခြင်း (SPT))",
+      "formula": "N60 = N × ER/60"
+    }
+  ]
+}

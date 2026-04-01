@@ -1,0 +1,373 @@
+[
+  {
+    "deck": "soil",
+    "jp": "有効応力",
+    "en": "Effective Stress",
+    "eq": "σ' = σ - u",
+    "back": "Stress carried by soil skeleton. Controls shear strength, consolidation, and liquefaction. σ = total stress, u = pore water pressure. Foundation of all geotechnical analysis (Terzaghi 1925)."
+  },
+  {
+    "deck": "soil",
+    "jp": "せん断強さ",
+    "en": "Shear Strength",
+    "eq": "τf = c' + σ'tanφ'",
+    "back": "Mohr-Coulomb failure criterion. c' = effective cohesion (soil bonding). φ' = friction angle (particle interlocking). Both depend on drainage conditions. CD/CU/UU tests in lab."
+  },
+  {
+    "deck": "soil",
+    "jp": "圧密",
+    "en": "Consolidation",
+    "eq": "Tv = cv·t/H²",
+    "back": "Time-dependent compression of saturated clay as excess pore pressure dissipates. Tv = time factor. cv = coefficient of consolidation. H = drainage path. Longer drainage = more time."
+  },
+  {
+    "deck": "soil",
+    "jp": "液状化",
+    "en": "Liquefaction",
+    "eq": "FL = CRR/CSR",
+    "back": "Saturated loose sand loses strength when σ' → 0 during earthquake. FL < 1.0 = liquefiable. CSR = cyclic stress ratio from earthquake. CRR = cyclic resistance ratio from N-value or Vs."
+  },
+  {
+    "deck": "soil",
+    "jp": "間隙比",
+    "en": "Void Ratio",
+    "eq": "e = Vv/Vs",
+    "back": "Volume of voids / volume of solids. Loose sand: e ≈ 0.7-0.9. Dense sand: e ≈ 0.4-0.6. Related to porosity: n = e/(1+e). Decreases during consolidation."
+  },
+  {
+    "deck": "soil",
+    "jp": "相対密度",
+    "en": "Relative Density",
+    "eq": "Dr = (emax-e)/(emax-emin)",
+    "back": "State of compaction relative to loosest and densest states. Dr < 35% = loose. 35-65% = medium. 65-85% = dense. >85% = very dense. Correlated to SPT N-value and CPT qc."
+  },
+  {
+    "deck": "soil",
+    "jp": "透水係数",
+    "en": "Hydraulic Conductivity",
+    "eq": "v = k·i  (Darcy's Law)",
+    "back": "Rate of water flow through soil per unit area per unit hydraulic gradient. Clay: k = 10⁻⁸-10⁻¹⁰ m/s. Silt: 10⁻⁶-10⁻⁸. Sand: 10⁻³-10⁻⁵. Gravel: >10⁻³."
+  },
+  {
+    "deck": "soil",
+    "jp": "支持力",
+    "en": "Bearing Capacity",
+    "eq": "qu = cNc + qNq + 0.5γBNγ",
+    "back": "Terzaghi's general bearing capacity equation. Nc, Nq, Nγ = dimensionless factors depending on φ'. q = surcharge = γDf. Allowable: qa = qu/FS (FS=3 typical)."
+  },
+  {
+    "deck": "soil",
+    "jp": "沈下",
+    "en": "Settlement",
+    "eq": "Sc = Cc·H·log(σ'f/σ'0)/(1+e0)",
+    "back": "Primary consolidation settlement. Cc = compression index. H = layer thickness. e0 = initial void ratio. σ'f = final effective stress. σ'0 = initial. Use Cs for unloading/reloading."
+  },
+  {
+    "deck": "soil",
+    "jp": "一軸圧縮強さ",
+    "en": "Unconfined Compressive Strength",
+    "eq": "qu = 2·cu  →  cu = qu/2",
+    "back": "Uniaxial compression of cohesive soil. Undrained shear strength cu = qu/2. Used for soft clay classification. qu < 25 kPa = very soft. 25-50 = soft. 50-100 = medium. >200 = hard."
+  },
+  {
+    "deck": "wave",
+    "jp": "P波（縦波）",
+    "en": "P-Wave (Compressional)",
+    "eq": "Vp = √(M/ρ)",
+    "back": "Primary wave. Particle motion parallel to propagation. Travels in solids and liquids. Typical in soil: 200-2000 m/s. Saturated soil dominated by water: Vp ≈ 1500 m/s. Used in refraction surveys."
+  },
+  {
+    "deck": "wave",
+    "jp": "S波（横波）",
+    "en": "S-Wave (Shear)",
+    "eq": "Vs = √(G/ρ)",
+    "back": "Secondary wave. Particle motion perpendicular to propagation. Cannot travel through liquids. Key for Vs30, site classification, and dynamic modulus. G = ρVs² (small strain shear modulus)."
+  },
+  {
+    "deck": "wave",
+    "jp": "Vs30",
+    "en": "Average Shear Velocity (top 30m)",
+    "eq": "Vs30 = 30/Σ(hi/Vsi)",
+    "back": "Time-average Vs in top 30m. Used for seismic site classification. Japan: 告示1457号. Class A: Vs30 > 600 m/s. Class B/C: 150-600. Class D (軟弱地盤): < 150 m/s."
+  },
+  {
+    "deck": "wave",
+    "jp": "レイリー波",
+    "en": "Rayleigh Wave",
+    "eq": "VR ≈ 0.92·Vs",
+    "back": "Surface wave. Retrograde elliptical particle motion. Dispersive in layered media. Velocity depends on frequency (wavelength). Longer wavelengths sample deeper layers. Used in MASW surveys."
+  },
+  {
+    "deck": "wave",
+    "jp": "弾性率",
+    "en": "Elastic Moduli from Waves",
+    "eq": "G = ρVs²   E = 2G(1+ν)   ν = (Vp²-2Vs²)/(2(Vp²-Vs²))",
+    "back": "Dynamic (small-strain) moduli from seismic velocities. G = shear modulus. E = Young's modulus. ν = Poisson's ratio. For saturated soil: ν → 0.5 (undrained). Dry sand: ν ≈ 0.25-0.35."
+  },
+  {
+    "deck": "wave",
+    "jp": "スネルの法則",
+    "en": "Snell's Law (Refraction)",
+    "eq": "sin(θ₁)/V₁ = sin(θ₂)/V₂",
+    "back": "Wave refraction at interface. At critical angle ic = arcsin(V₁/V₂), wave travels along interface as head wave. ic = arcsin(V₁/V₂). Used in seismic refraction to find layer depths."
+  },
+  {
+    "deck": "test",
+    "jp": "標準貫入試験",
+    "en": "Standard Penetration Test (SPT)",
+    "eq": "N₆₀ = N·(ER/60)",
+    "back": "63.5 kg hammer, 760 mm drop. N = blows per 300 mm. Energy correction to 60% (N60). Overburden correction: (N1)60 = CN·N60. JIS A 1219. Japanese ER ≈ 72% (auto hammer)."
+  },
+  {
+    "deck": "test",
+    "jp": "コーン貫入試験",
+    "en": "CPTu (Cone Penetration Test)",
+    "eq": "Ic = √((3.47-logQt)²+(1.22+logFr)²)",
+    "back": "Continuous profile of qc, fs, u2 at 20 mm/s. Qt = normalized tip resistance. Fr = friction ratio (%). Ic = soil behavior type index. Ic < 2.05: sand. Ic > 2.95: clay."
+  },
+  {
+    "deck": "test",
+    "jp": "PS検層",
+    "en": "PS Logging (Downhole)",
+    "eq": "V = Δd/Δt",
+    "back": "Borehole seismic method measuring Vp and Vs at depth intervals. Surface source (hammer), downhole receiver. JGS 3511. Used for Vs30, dynamic moduli, seismic design. More accurate than surface MASW."
+  },
+  {
+    "deck": "test",
+    "jp": "プレッシャーメーター試験",
+    "en": "Pressuremeter Test",
+    "eq": "Ep = 2(1+ν)·V·ΔP/ΔV",
+    "back": "In-situ lateral stress-strain measurement. Inflatable probe in borehole. Ep = pressuremeter modulus. PL = limit pressure (ultimate). Useful in soft rock, stiff clays. Ménard pressuremeter."
+  },
+  {
+    "deck": "test",
+    "jp": "電気探査",
+    "en": "Electrical Resistivity Survey",
+    "eq": "ρa = K·(V/I)  K=2πa (Wenner)",
+    "back": "Measure bulk resistivity to map geology. 4-electrode arrays. Wenner (lateral), Schlumberger (depth sounding), dipole-dipole (2D imaging). Saltwater: 0.2 Ωm. Rock: 1000+ Ωm."
+  },
+  {
+    "deck": "test",
+    "jp": "屈折法地震探査",
+    "en": "Seismic Refraction Survey",
+    "eq": "t = x/V₁ + 2h·cosθc/V₁",
+    "back": "Surface seismic method using first arrivals. Maps velocity layers. Requires V increasing with depth. Good for bedrock depth, water table. Equipment: geophones + seismograph. 24-96 channel arrays."
+  },
+  {
+    "deck": "jp",
+    "jp": "地盤調査",
+    "en": "Ground Investigation / Site Investigation",
+    "eq": "",
+    "back": "Comprehensive geotechnical investigation of a site. Includes boring, sampling, in-situ tests (SPT, CPT, PS logging), lab tests, and reporting. Required for all major construction in Japan."
+  },
+  {
+    "deck": "jp",
+    "jp": "液状化判定",
+    "en": "Liquefaction Assessment",
+    "eq": "FL = CRR/CSR ≥ 1.0",
+    "back": "Japanese method per 道路橋示方書 (Road Bridge Specification). Calculate CSR from earthquake acceleration. CRR from (N1)60cs. FL < 1.0 = liquefiable. Check at each soil layer. Typically < 20m depth."
+  },
+  {
+    "deck": "jp",
+    "jp": "地盤種別",
+    "en": "Ground Classification (Seismic)",
+    "eq": "Vs30 based",
+    "back": "Japanese seismic site classification per 告示1457号. 第1種地盤: rock/stiff (Vs30>600). 第2種地盤: ordinary. 第3種地盤: soft (Vs30<150). TG (site period) also used."
+  },
+  {
+    "deck": "jp",
+    "jp": "N値",
+    "en": "N-value (SPT blow count)",
+    "eq": "N = blows/300mm",
+    "back": "Standard penetration test result. N < 4: very soft/loose. N = 4-10: soft/loose. N = 10-30: medium. N = 30-50: dense. N > 50: very dense or rock. Key parameter for Japanese foundation design."
+  },
+  {
+    "deck": "jp",
+    "jp": "圧密沈下",
+    "en": "Consolidation Settlement",
+    "eq": "Sc = Cc·H·log(σ'f/σ'0)/(1+e0)",
+    "back": "Long-term settlement of soft clay under load. May take years to decades. Important in Tokyo, Osaka bay areas with thick alluvial clay. Monitoring with settlement plates and piezometers."
+  },
+  {
+    "deck": "jp",
+    "jp": "支持力",
+    "en": "Bearing Capacity / Ground Support Capacity",
+    "eq": "qu = cNc + qNq + 0.5γBNγ",
+    "back": "Maximum load a foundation can support without shear failure. Ultimate: qu. Allowable: qa = qu/FS. FS = 3 (static). Japanese foundation design: 建築基礎構造設計指針."
+  },
+  {
+    "deck": "jp",
+    "jp": "物理探査",
+    "en": "Geophysical Exploration",
+    "eq": "",
+    "back": "Investigation using physical properties of ground. Seismic (弾性波), electrical (電気探査), electromagnetic (電磁探査), gravity (重力探査). Non-invasive subsurface mapping. License: 物理探査技士."
+  },
+  {
+    "deck": "jp",
+    "jp": "弾性波探査",
+    "en": "Seismic (Elastic Wave) Exploration",
+    "eq": "V = d/t",
+    "back": "Uses elastic wave propagation (P-wave, S-wave) for subsurface imaging. Methods: refraction (屈折法), reflection (反射法), MASW (表面波), PS logging (PS検層). Fundamental to 物理探査技士 exam."
+  },
+  {
+    "deck": "jp",
+    "jp": "岩盤",
+    "en": "Bedrock / Rock Mass",
+    "eq": "RQD = (Σ core pieces ≥ 100mm)/L × 100%",
+    "back": "Solid rock beneath soil overburden. RQD = Rock Quality Designation. RQD > 90%: excellent. 75-90%: good. 50-75%: fair. 25-50%: poor. <25%: very poor. Key for tunnel design."
+  },
+  {
+    "deck": "soil",
+    "jp": "過圧密比",
+    "en": "Overconsolidation Ratio (OCR)",
+    "eq": "OCR = σ'pc / σ'v0",
+    "back": "Ratio of preconsolidation stress to current effective stress. OCR = 1: normally consolidated. OCR > 1: overconsolidated (stronger). Important for settlement prediction and Ko estimation."
+  },
+  {
+    "deck": "wave",
+    "jp": "微動探査",
+    "en": "Microtremor Survey (H/V Method)",
+    "eq": "f0 = Vs/4H  (H/V peak)",
+    "back": "Ambient noise (microtremors) recorded with 3-component seismometer. H/V spectral ratio peak = site resonant frequency f0. Non-invasive. Used for rapid site screening. Nakamura method (1989)."
+  },
+  {
+    "deck": "test",
+    "jp": "ロータリーボーリング",
+    "en": "Rotary Boring",
+    "eq": "",
+    "back": "Standard ground investigation method in Japan. Rotary drilling with water flush. JIS A 1220. Recovers core samples for logging. Enables SPT, sampling, PS logging, pressuremeter tests at depth."
+  },
+  {
+    "deck": "jp",
+    "jp": "地質調査技士",
+    "en": "Geological Survey Engineer License",
+    "eq": "",
+    "back": "Japanese national license for geological investigation. Categories: surface investigation, boring investigation, physical exploration. Required to supervise investigations for public works. Exam: written + practical."
+  },
+  {
+    "deck": "jp",
+    "jp": "技術士",
+    "en": "Professional Engineer (Japan)",
+    "eq": "",
+    "back": "Highest engineering qualification in Japan. Equivalent to international PE license. Geotechnical field: 応用理学部門 or 建設部門. Requires 7+ years experience + PE exam. Required for major design sign-off."
+  },
+  {
+    "deck": "soil",
+    "jp": "モール・クーロン破壊基準",
+    "en": "Mohr-Coulomb Failure Criterion",
+    "eq": "τf = c' + σ'·tan(φ')",
+    "back": "Defines the stress state at failure. Failure envelope is linear in τ-σ' space. Parameters c' and φ' from drained triaxial or direct shear tests. Most fundamental equation in soil mechanics."
+  },
+  {
+    "deck": "wave",
+    "jp": "表面波探査",
+    "en": "MASW (Surface Wave Survey)",
+    "eq": "Vs(z) from dispersion inversion",
+    "back": "Multichannel Analysis of Surface Waves. Measures Rayleigh wave dispersion curve from geophone array. Inverts to get Vs profile. No borehole needed. 24 channels, 4.5Hz geophones, 2-5m spacing typical."
+  },
+  {
+    "deck": "soil",
+    "jp": "間隙水圧",
+    "en": "Pore Water Pressure",
+    "eq": "u = γw·h  (hydrostatic)",
+    "back": "Water pressure in soil voids. Hydrostatic (静水圧). Excess (過剰間隙水圧) from loading or earthquakes. Measured by piezometer (ピエゾメーター). Excess u = 0 at equilibrium (fully consolidated)."
+  },
+  {
+    "deck": "test",
+    "jp": "検層",
+    "en": "Well Logging / Borehole Logging",
+    "eq": "",
+    "back": "Measurement of physical properties in boreholes. PS logging (弾性波検層), electrical logging, gamma-ray logging. Essential for stratigraphy correlation and geophysical parameter measurement at depth in Japan."
+  },
+  {
+    "deck": "test",
+    "jp": "孔内カメラ",
+    "en": "Borehole Camera",
+    "eq": "Visual fracture log",
+    "back": "Waterproof optical probe lowered into borehole to observe wall conditions. Reveals: fracture orientation, aperture, joint infill, weathering grade, groundwater inflow depth. 360° panoramic models available. Essential for tunnel and slope design in jointed rock. Used in conjunction with core logging."
+  },
+  {
+    "deck": "test",
+    "jp": "亀裂傾斜",
+    "en": "Fracture Dip Angle",
+    "eq": "α = arctan(Δz/Δr)",
+    "back": "Inclination of fractures observed in borehole camera footage. Measured from horizontal. Steep dip (>60°) toward tunnel face = high wedge failure risk. Camera orientation sensor allows 3D fracture orientation mapping. Critical input for kinematic stability analysis."
+  },
+  {
+    "deck": "test",
+    "jp": "孔内水平載荷試験",
+    "en": "Pressuremeter Test (PMT)",
+    "eq": "Em = 2(1+ν)·Vm·ΔP/ΔV",
+    "back": "In-situ lateral stress-strain test using inflatable probe in borehole. Ménard pressuremeter. Measures Em (pressuremeter modulus) and PL (limit pressure). Em used in foundation settlement calculation. PL = lateral ground failure pressure. Best for soft rock and stiff clay."
+  },
+  {
+    "deck": "test",
+    "jp": "限界圧力",
+    "en": "Limit Pressure (PL)",
+    "eq": "PL = pressure at volumetric failure",
+    "back": "Pressuremeter limit pressure — the asymptotic pressure at which soil/rock fails laterally. Analogous to bearing capacity in the lateral direction. PL correlates to undrained shear strength (cu ≈ PL/5.5) and pile lateral capacity. Key design parameter from Ménard pressuremeter test."
+  },
+  {
+    "deck": "wave",
+    "jp": "地中レーダー探査",
+    "en": "Ground Penetrating Radar (GPR)",
+    "eq": "d = v·t/2  v = c/√εr",
+    "back": "Electromagnetic pulse radar for shallow subsurface imaging. Speed v depends on dielectric constant εr: dry sand v≈0.15 m/ns, wet clay v≈0.07 m/ns. Depth range: 0.5m (2GHz) to ~30m (25MHz). Best in dry resistive ground. Poor in clay/saltwater. Used for utilities, voids, rebar, layer boundaries."
+  },
+  {
+    "deck": "wave",
+    "jp": "誘電率",
+    "en": "Dielectric Permittivity (εr)",
+    "eq": "v = c / √εr   (c = 3×10⁸ m/s)",
+    "back": "Controls electromagnetic wave speed in soil. Air εr=1. Dry sand εr=4-6. Moist sand εr=10-15. Saturated clay εr=25-40. Water εr=81. High water content = slow wave = poor GPR depth. Calibrated in field using known target depth or CMP survey."
+  },
+  {
+    "deck": "test",
+    "jp": "平板載荷試験",
+    "en": "Plate Load Test (JIS A 1215)",
+    "eq": "K30 = p/s  (s=1.25mm, dia=300mm)",
+    "back": "Direct measurement of bearing capacity at foundation level. Steel plate (300mm or 750mm) loaded incrementally. K30 = subgrade reaction coefficient — key for Japanese road design (≥110 MN/m³ for road base). E0 = settlement modulus from elastic theory. Scale effect: real footing larger than plate."
+  },
+  {
+    "deck": "test",
+    "jp": "地盤反力係数",
+    "en": "Subgrade Reaction Coefficient K30",
+    "eq": "K30 = 110 MN/m³ (road base min.)",
+    "back": "Ratio of applied pressure to plate settlement at s=1.25mm during plate load test (300mm plate). Used in Japanese road design to verify compaction. K30 = p(1.25mm) / 1.25mm × 1000. Also used for pile design and railroad track design in Japan (JIS A 1215). Values: soft clay 10-30, sand 50-150, gravel >200 MN/m³."
+  },
+  {
+    "deck": "test",
+    "jp": "岩盤品質指標",
+    "en": "RQD (Rock Quality Designation)",
+    "eq": "RQD = Σ(≥100mm)/L × 100%",
+    "back": "Core-based measure of rock mass fracturing degree. Only natural breaks counted — mechanical drill breaks excluded. Classification: Excellent 90-100%, Good 75-90%, Fair 50-75%, Poor 25-50%, Very Poor <25%. Foundation of RMR and Q-system. Introduced by Deere (1963). Standard in Japanese tunnel and dam investigation."
+  },
+  {
+    "deck": "test",
+    "jp": "コア回収率",
+    "en": "Core Recovery Rate (TCR)",
+    "eq": "TCR = (recovered core) / L × 100%",
+    "back": "Total core recovery from drilling. Different from RQD — TCR counts ALL recovered pieces including short ones. TCR=100% means perfect recovery, common in intact rock. TCR<RQD is impossible. Low TCR in soft/fractured zones indicates very poor rock quality or drilling problems. Both TCR and RQD are logged on borehole records."
+  },
+  {
+    "deck": "wave",
+    "jp": "探査深度",
+    "en": "Investigation Depth",
+    "eq": "z_max ≈ L_array / 2  (MASW)",
+    "back": "Maximum investigation depth for surface methods. MASW: ~half the geophone array length. Seismic refraction: ~quarter of maximum geophone offset. GPR: depends on antenna frequency and soil conductivity. Electrical resistivity: depth ~ electrode spacing (Wenner). PS logging: unlimited with deep boring. Matching investigation depth to target depth is key survey design skill."
+  },
+  {
+    "deck": "jp",
+    "jp": "岩盤分類",
+    "en": "Rock Mass Classification",
+    "eq": "RMR = Σ(6 parameters, 0–100)",
+    "back": "Classification of rock mass engineering quality. RMR (Rock Mass Rating, Bieniawski 1989): 6 parameters scored 0-100. RMR>80: Class I (very good), 61-80: Class II (good), 41-60: Class III (fair), 21-40: Class IV (poor), <21: Class V (very poor). Used directly for tunnel support design and rock slope analysis in Japan."
+  },
+  {
+    "deck": "jp",
+    "jp": "走向・傾斜",
+    "en": "Strike & Dip",
+    "eq": "Strike = direction of horizontal line on plane",
+    "back": "Geometric description of a discontinuity (joint, fault, bedding). Strike = compass direction of horizontal intersection. Dip = maximum angle below horizontal. Critical for assessing instability: planar failure if dip direction = slope direction. Used with borehole camera data and geological mapping. Japan: important for tunnel alignment selection."
+  }
+]

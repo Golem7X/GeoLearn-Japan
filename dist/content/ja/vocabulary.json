@@ -1,0 +1,132 @@
+{
+  "soil": [
+    {
+      "jp": "間隙水圧",
+      "kana": "かんげきすいあつ",
+      "en": "間隙水圧",
+      "formula": "u = γw × h"
+    },
+    {
+      "jp": "圧密沈下",
+      "kana": "あつみつちんか",
+      "en": "圧密沈下",
+      "formula": "Sc = Cc·H·log(σf/σo)/(1+e0)"
+    },
+    {
+      "jp": "透水係数",
+      "kana": "とうすいけいすう",
+      "en": "透水係数",
+      "formula": "k = Q·L/(A·h·t)"
+    }
+  ],
+  "foundation": [
+    {
+      "jp": "支持力",
+      "kana": "しじりょく",
+      "en": "支持力",
+      "formula": "qu = cNc + qNq + 0.5γBNγ"
+    },
+    {
+      "jp": "杭基礎",
+      "kana": "くいきそ",
+      "en": "杭基礎",
+      "formula": "Ra = Rt + Rs"
+    },
+    {
+      "jp": "直接基礎",
+      "kana": "ちょくせつきそ",
+      "en": "直接基礎",
+      "formula": "qallow = qu/Fs"
+    },
+    {
+      "jp": "根入れ深さ",
+      "kana": "ねいれふかさ",
+      "en": "根入れ深さ",
+      "formula": "Df ≥ 1.2m (Japan frost depth)"
+    },
+    {
+      "jp": "接地圧",
+      "kana": "せっちあつ",
+      "en": "接地圧",
+      "formula": "q = N/(B×L)"
+    }
+  ],
+  "earthquake": [
+    {
+      "jp": "液状化",
+      "kana": "えきじょうか",
+      "en": "液状化",
+      "formula": "FL = CRR/CSR"
+    },
+    {
+      "jp": "地震動",
+      "kana": "じしんどう",
+      "en": "地震動",
+      "formula": "PGA, PGV, Sa(T)"
+    },
+    {
+      "jp": "地盤増幅",
+      "kana": "じばんぞうふく",
+      "en": "地盤増幅",
+      "formula": "Amp = As/Ar"
+    },
+    {
+      "jp": "耐震設計",
+      "kana": "たいしんせっけい",
+      "en": "耐震設計",
+      "formula": "Base shear V = ZRtAiCo·W"
+    },
+    {
+      "jp": "震度",
+      "kana": "しんど",
+      "en": "震度",
+      "formula": "I = 2 log a + 0.94"
+    }
+  ],
+  "geophysics": [
+    {
+      "jp": "弾性波速度",
+      "kana": "だんせいはそくど",
+      "en": "弾性波速度",
+      "formula": "Vp = √(M/ρ), Vs = √(G/ρ)"
+    },
+    {
+      "jp": "比抵抗",
+      "kana": "ひていこう",
+      "en": "比抵抗",
+      "formula": "ρ = 2πa × V/I (Wenner)"
+    },
+    {
+      "jp": "表面波探査",
+      "kana": "ひょうめんはたんさ",
+      "en": "表面波探査",
+      "formula": "Vs(z) from dispersion"
+    },
+    {
+      "jp": "地中レーダー",
+      "kana": "ちちゅうれーだー",
+      "en": "地中レーダー",
+      "formula": "d = v·t/2, v = c/√εr"
+    },
+    {
+      "jp": "屈折法探査",
+      "kana": "くっせつほうたんさ",
+      "en": "屈折法探査",
+      "formula": "t = x/V1 + 2h cosθc/V1"
+    }
+  ],
+  "investigation": [
+    {
+      "jp": "ボーリング",
+      "kana": "ぼーりんぐ",
+      "en": "ボーリング",
+      "formula": "Core recovery = L_core/L_run × 100%"
+    },
+    {
+      "jp": "標準貫入試験",
+      "kana": "ひょうじゅんかんにゅうしけん",
+      "en": "標準貫入試験",
+      "formula": "N60 = N × ER/60"
+    }
+  ]
+}
