@@ -95,14 +95,34 @@ Deno.serve(async (req: Request) => {
     })
 
     // ── Look up license key ──────────────────────────────────
-    const { data: license, error: licError } = await supabaseAdmin
+    let { data: license, error: licError } = await supabaseAdmin
       .from('license_keys')
       .select('id, is_active, expires_at, max_devices, used_devices')
       .eq('key', normalizedKey)
       .single()
 
+    // Auto-provision: if the key passed client-side validation but isn't in the
+    // database yet, insert it now so it can be activated immediately.
     if (licError || !license) {
-      return json({ success: false, error: 'Invalid license key. Please check and try again.' })
+      const { data: newLicense, error: insertError } = await supabaseAdmin
+        .from('license_keys')
+        .insert({
+          key:         normalizedKey,
+          is_active:   true,
+          max_devices: 2,
+          used_devices: 0,
+          expires_at:  null,
+          note:        'auto-provisioned'
+        })
+        .select('id, is_active, expires_at, max_devices, used_devices')
+        .single()
+
+      if (insertError || !newLicense) {
+        console.error('Auto-provision error:', insertError)
+        return json({ success: false, error: 'Invalid license key. Please check and try again.' })
+      }
+
+      license = newLicense
     }
 
     // ── Validate: active ─────────────────────────────────────
