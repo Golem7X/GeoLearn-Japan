@@ -143,5 +143,10 @@ document.addEventListener('DOMContentLoaded', initAppAuth);
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = { initAppAuth };
 } else {
-  window.GeoMain = { initAppAuth };
+  window.GeoMain = {
+    initAppAuth,
+    // setPlan: allows a locally-validated key activation to sync the
+    // server-plan cache so isPremium() reflects the activated state.
+    setPlan: function(plan) { _plan = plan; }
+  };
 }
