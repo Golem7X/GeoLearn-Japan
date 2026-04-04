@@ -3958,9 +3958,31 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 .admin-view-badge.free{background:rgba(255,107,53,.15);color:var(--accent2);border:1px solid rgba(255,107,53,.3)}
 .admin-view-badge.premium{background:rgba(255,215,0,.15);color:var(--gold);border:1px solid rgba(255,215,0,.3)}
 .admin-view-badge.actual{background:rgba(127,255,110,.15);color:var(--accent3);border:1px solid rgba(127,255,110,.3)}
+.admin-bar-activate-btn{background:linear-gradient(135deg,rgba(255,215,0,.25),rgba(255,140,0,.18));border:1px solid rgba(255,215,0,.5);color:#ffd700;font-size:11px;font-weight:800;padding:5px 13px;border-radius:20px;cursor:pointer;transition:all .2s;font-family:'Syne',sans-serif;letter-spacing:.3px}
+.admin-bar-activate-btn:hover{background:linear-gradient(135deg,rgba(255,215,0,.4),rgba(255,140,0,.32));border-color:#ffd700}
 @media(max-width:600px){
   .admin-bar{bottom:12px;left:12px;right:12px;transform:none;border-radius:16px;flex-wrap:wrap;justify-content:center}
 }
+/* ── Compact admin panel ─────────────────────────────────────── */
+.ap-accordion{background:var(--surface);border:1px solid var(--border);border-radius:14px;margin-bottom:14px;overflow:hidden}
+.ap-accordion-hd{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;cursor:pointer;user-select:none;transition:background .2s}
+.ap-accordion-hd:hover{background:rgba(255,255,255,.03)}
+.ap-accordion-title{font-size:12px;font-weight:800;color:var(--text);letter-spacing:.2px;display:flex;align-items:center;gap:7px}
+.ap-accordion-arrow{font-size:11px;color:var(--text3);transition:transform .25s}
+.ap-accordion.open .ap-accordion-arrow{transform:rotate(90deg)}
+.ap-accordion-body{display:none;padding:0 18px 16px}
+.ap-accordion.open .ap-accordion-body{display:block}
+.amk-compact{display:flex;align-items:center;gap:10px;background:rgba(0,0,0,.3);border:1px solid rgba(255,215,0,.3);border-radius:10px;padding:10px 14px;margin:10px 0}
+.amk-compact-key{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;letter-spacing:2px;background:linear-gradient(90deg,#b8860b,#ffd700,#ffe066,#ffd700,#b8860b);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:amk-shimmer 2.8s linear infinite;flex:1;user-select:all}
+.amk-compact-actions{display:flex;gap:6px;flex-shrink:0}
+.amk-compact-btn{font-size:10px;font-weight:700;padding:5px 10px;border-radius:8px;cursor:pointer;font-family:'Syne',sans-serif;transition:all .18s;white-space:nowrap}
+.amk-compact-btn.copy{background:rgba(255,215,0,.12);border:1px solid rgba(255,215,0,.35);color:#ffd700}
+.amk-compact-btn.copy:hover{background:rgba(255,215,0,.25);border-color:#ffd700}
+.amk-compact-btn.use{background:rgba(0,212,255,.1);border:1px solid rgba(0,212,255,.3);color:var(--accent)}
+.amk-compact-btn.use:hover{background:rgba(0,212,255,.22);border-color:var(--accent)}
+.amk-compact-msg{font-size:10px;font-weight:600;margin-top:4px;min-height:13px}
+.ap-compact-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.ap-mini-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px}
 
 /* Admin header badge */
 .admin-header-badge{display:none;align-items:center;gap:5px;background:rgba(255,215,0,.12);border:1px solid rgba(255,215,0,.35);color:var(--gold);font-size:10px;font-weight:800;padding:3px 10px;border-radius:20px;letter-spacing:1px;text-transform:uppercase}
@@ -4635,7 +4657,7 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 }
 .plan-badge-upgrade:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,212,255,.3)}
 </style>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://cdn.jsdelivr.net 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-EpuOOB/aVdOunB4H461Axrd5WmLq3BfnezRnaODqtLc='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' https://images.unsplash.com data: blob:; connect-src 'self' https://ftmkgkxzgobgjkasnmxn.supabase.co https://*.supabase.co https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://cdn.jsdelivr.net 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-tnLMCpxFiLQ4FnSCK7e/I9SyLrN4VdMXVjVPVkP/CqQ='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' https://images.unsplash.com data: blob:; connect-src 'self' https://ftmkgkxzgobgjkasnmxn.supabase.co https://*.supabase.co https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
 </head>
 <body>
 
@@ -9721,228 +9743,178 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
     <button class="ap-logout-btn" onclick="adminLogout()">✕ Exit Admin Mode</button>
   </div>
 
-  <div class="ap-grid">
+  <!-- ── COMPACT ADMIN PANEL ── -->
 
-    <!-- ADMIN MASTER KEY -->
-    <div class="ap-card gold-border amk-card">
-      <div class="amk-particles" id="amk-particles"></div>
-      <div class="amk-badge">⚡ Admin Master Key</div>
-      <div class="ap-card-sub" style="margin-bottom:0">Permanent admin-use license. Valid forever. Never show to customers.</div>
-      <div class="amk-key-wrap" id="amk-key-wrap">
-        <div class="amk-key-text" id="amk-key-text">GLJP-ADMINKEY-GEOLEARN-ZZZZ-H9R4TJ9C</div>
-        <div class="amk-never-badge">✦ Never Expires — Admin Only ✦</div>
-      </div>
-      <div class="amk-actions">
-        <button class="amk-copy-btn" id="amk-copy-btn" onclick="amkCopy()">📋 Copy Key</button>
-        <button class="amk-use-btn" id="amk-use-btn" onclick="amkActivate()">⚡ Use Now</button>
-      </div>
-      <div class="amk-status-msg" id="amk-status-msg"></div>
-      <div class="amk-info-row">
-        <span>Format</span><span class="amk-info-val">v2 · SHA-256 Signed</span>
-        <span>Devices</span><span class="amk-info-val">Unlimited</span>
-        <span>Expires</span><span class="amk-info-val">Never</span>
+  <!-- Master Key -->
+  <div class="ap-mini-card" style="border-color:rgba(255,215,0,.4);background:rgba(255,215,0,.03);margin-bottom:14px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px">
+      <span style="font-size:12px;font-weight:800;color:#ffd700">⚡ Admin Master Key</span>
+      <span style="font-size:9px;font-weight:700;color:var(--text3);background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.2);border-radius:4px;padding:2px 7px;letter-spacing:.8px;text-transform:uppercase">Never Expires</span>
+    </div>
+    <div class="amk-compact" id="amk-key-wrap">
+      <div class="amk-compact-key" id="amk-key-text">GLJP-ADMINKEY-GEOLEARN-ZZZZ-H9R4TJ9C</div>
+      <div class="amk-compact-actions">
+        <button class="amk-compact-btn copy" id="amk-copy-btn" onclick="amkCopy()">📋 Copy</button>
+        <button class="amk-compact-btn use" id="amk-use-btn" onclick="amkActivate()">⚡ Use</button>
       </div>
     </div>
+    <div class="amk-compact-msg" id="amk-status-msg"></div>
+    <div class="amk-particles" id="amk-particles"></div>
+  </div>
 
-    <!-- PREVIEW MODE -->
-    <div class="ap-card gold-border">
-      <div class="ap-card-title">👁 Preview Mode</div>
-      <div class="ap-card-sub">Simulate how the app looks for different user types. Your actual activation status is never changed.</div>
+  <!-- Preview Mode + System State -->
+  <div class="ap-compact-row">
+    <div class="ap-mini-card" style="border-color:rgba(255,215,0,.3);background:rgba(255,215,0,.02)">
+      <div style="font-size:12px;font-weight:800;color:var(--text);margin-bottom:10px">👁 Preview Mode</div>
       <div class="ap-preview-btns">
-        <button class="ap-prev-btn actual" id="ap-btn-actual" onclick="apSetPreview('actual')">✔ Actual State</button>
-        <button class="ap-prev-btn free"   id="ap-btn-free"   onclick="apSetPreview('free')">👁 Free View</button>
-        <button class="ap-prev-btn prem"   id="ap-btn-prem"   onclick="apSetPreview('premium')">⭐ Premium View</button>
+        <button class="ap-prev-btn actual" id="ap-btn-actual" onclick="apSetPreview('actual')">✔ Actual</button>
+        <button class="ap-prev-btn free"   id="ap-btn-free"   onclick="apSetPreview('free')">Free View</button>
+        <button class="ap-prev-btn prem"   id="ap-btn-prem"   onclick="apSetPreview('premium')">Premium View</button>
       </div>
-      <div class="ap-preview-badge">Current: <span id="ap-preview-badge-text" class="actual">ACTUAL STATE</span></div>
+      <div class="ap-preview-badge" style="margin-top:10px">Viewing: <span id="ap-preview-badge-text" class="actual">ACTUAL STATE</span></div>
     </div>
-
-    <!-- SYSTEM STATE -->
-    <div class="ap-card">
-      <div class="ap-card-title">📊 System State</div>
-      <div class="ap-card-sub">Live read of localStorage and runtime flags.</div>
-      <ul class="ap-info-list" id="ap-sysinfo-list">
-        <li class="ap-info-item"><span class="ap-info-label">Premium Status</span><span class="ap-info-value" id="apsi-premium">—</span></li>
-        <li class="ap-info-item"><span class="ap-info-label">Activation Date</span><span class="ap-info-value" id="apsi-date">—</span></li>
-        <li class="ap-info-item"><span class="ap-info-label">License Key (stored)</span><span class="ap-info-value" id="apsi-key">—</span></li>
-        <li class="ap-info-item"><span class="ap-info-label">Admin Mode</span><span class="ap-info-value ok">Active</span></li>
-        <li class="ap-info-item"><span class="ap-info-label">Preview Override</span><span class="ap-info-value" id="apsi-preview">—</span></li>
+    <div class="ap-mini-card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <span style="font-size:12px;font-weight:800;color:var(--text)">📊 System State</span>
+        <button class="ap-valid-btn" onclick="apRefreshSysInfo()" style="padding:3px 9px;font-size:10px">↻</button>
+      </div>
+      <ul class="ap-info-list" id="ap-sysinfo-list" style="gap:5px">
+        <li class="ap-info-item"><span class="ap-info-label">Premium</span><span class="ap-info-value" id="apsi-premium">—</span></li>
+        <li class="ap-info-item"><span class="ap-info-label">Activated</span><span class="ap-info-value" id="apsi-date">—</span></li>
+        <li class="ap-info-item"><span class="ap-info-label">Key</span><span class="ap-info-value" id="apsi-key" style="font-size:9px;word-break:break-all">—</span></li>
+        <li class="ap-info-item"><span class="ap-info-label">Admin</span><span class="ap-info-value ok">Active</span></li>
+        <li class="ap-info-item"><span class="ap-info-label">Preview</span><span class="ap-info-value" id="apsi-preview">—</span></li>
       </ul>
-      <button class="ap-valid-btn" style="margin-top:12px;width:100%" onclick="apRefreshSysInfo()">↻ Refresh</button>
     </div>
+  </div>
 
-    <!-- LICENSE KEY STUDIO — One-click Generate → Validate → Test → Send -->
-    <div class="ap-card gold-border lks-card">
-      <div class="ap-card-title">⚡ License Key Studio</div>
-      <div class="ap-card-sub">One-click secure key generation with built-in validation and test activation. Verify everything before sending to customer.</div>
-
-      <!-- Pipeline Steps -->
+  <!-- License Key Studio (accordion, open) -->
+  <div class="ap-accordion open">
+    <div class="ap-accordion-hd" onclick="this.parentElement.classList.toggle('open')">
+      <span class="ap-accordion-title">⚡ License Key Studio <span style="font-size:10px;font-weight:400;color:var(--text3);margin-left:6px">Generate keys for customers</span></span>
+      <span class="ap-accordion-arrow">▶</span>
+    </div>
+    <div class="ap-accordion-body" style="padding-top:0">
       <div class="lks-pipeline" id="lks-pipeline">
         <div class="lks-step active" id="lks-step-1"><span class="lks-step-num">1</span> Generate</div>
         <span class="lks-step-arrow">▸</span>
         <div class="lks-step" id="lks-step-2"><span class="lks-step-num">2</span> Validate</div>
         <span class="lks-step-arrow">▸</span>
-        <div class="lks-step" id="lks-step-3"><span class="lks-step-num">3</span> Test Activate</div>
+        <div class="lks-step" id="lks-step-3"><span class="lks-step-num">3</span> Test</div>
         <span class="lks-step-arrow">▸</span>
-        <div class="lks-step" id="lks-step-4"><span class="lks-step-num">4</span> Ready to Send</div>
+        <div class="lks-step" id="lks-step-4"><span class="lks-step-num">4</span> Send</div>
       </div>
-
-      <!-- STEP 1: GENERATE -->
       <div class="lks-section visible" id="lks-sec-1">
         <button class="lks-gen-btn" id="lks-gen-btn">⚡ Generate Secure License Key</button>
         <div class="lks-key-display" id="lks-key-display">
           <div class="lks-key-text" id="lks-key-text"></div>
           <div class="lks-key-meta">
             <span class="lks-key-meta-tag secure">SHA-256 Signed</span>
-            <span class="lks-key-meta-tag format">GLJP-XXXX-XXXX-EEEE-CCCCCCCC</span>
             <span class="lks-key-meta-tag time" id="lks-key-time"></span>
             <span class="lks-key-meta-tag time" id="lks-key-expiry"></span>
           </div>
         </div>
       </div>
-
-      <!-- STEP 2: VALIDATE -->
       <div class="lks-section" id="lks-sec-2">
         <div class="lks-validate-box visible" id="lks-validate-box">
-          <div class="lks-check-row">
-            <span class="lks-check-icon" id="lks-chk-icon-fmt">⏳</span>
-            <span class="lks-check-label">Key format (GLJP-XXXXXXXX-XXXXXXXX-EEEE-CCCCCCCC)</span>
-            <span class="lks-check-status pending" id="lks-chk-fmt">Pending</span>
-          </div>
-          <div class="lks-check-row">
-            <span class="lks-check-icon" id="lks-chk-icon-cs">⏳</span>
-            <span class="lks-check-label">SHA-256 checksum integrity</span>
-            <span class="lks-check-status pending" id="lks-chk-cs">Pending</span>
-          </div>
-          <div class="lks-check-row">
-            <span class="lks-check-icon" id="lks-chk-icon-exp">⏳</span>
-            <span class="lks-check-label">Expiry date valid (not expired)</span>
-            <span class="lks-check-status pending" id="lks-chk-exp">Pending</span>
-          </div>
-          <div class="lks-check-row">
-            <span class="lks-check-icon" id="lks-chk-icon-dup">⏳</span>
-            <span class="lks-check-label">Duplicate check (not already activated)</span>
-            <span class="lks-check-status pending" id="lks-chk-dup">Pending</span>
-          </div>
-          <div class="lks-check-row">
-            <span class="lks-check-icon" id="lks-chk-icon-vk">⏳</span>
-            <span class="lks-check-label">Activation engine accepts key</span>
-            <span class="lks-check-status pending" id="lks-chk-vk">Pending</span>
-          </div>
+          <div class="lks-check-row"><span class="lks-check-icon" id="lks-chk-icon-fmt">⏳</span><span class="lks-check-label">Format</span><span class="lks-check-status pending" id="lks-chk-fmt">Pending</span></div>
+          <div class="lks-check-row"><span class="lks-check-icon" id="lks-chk-icon-cs">⏳</span><span class="lks-check-label">Checksum</span><span class="lks-check-status pending" id="lks-chk-cs">Pending</span></div>
+          <div class="lks-check-row"><span class="lks-check-icon" id="lks-chk-icon-exp">⏳</span><span class="lks-check-label">Expiry</span><span class="lks-check-status pending" id="lks-chk-exp">Pending</span></div>
+          <div class="lks-check-row"><span class="lks-check-icon" id="lks-chk-icon-dup">⏳</span><span class="lks-check-label">Duplicate</span><span class="lks-check-status pending" id="lks-chk-dup">Pending</span></div>
+          <div class="lks-check-row"><span class="lks-check-icon" id="lks-chk-icon-vk">⏳</span><span class="lks-check-label">Engine</span><span class="lks-check-status pending" id="lks-chk-vk">Pending</span></div>
         </div>
       </div>
-
-      <!-- STEP 3: TEST ACTIVATE -->
       <div class="lks-section" id="lks-sec-3">
         <div class="lks-test-box visible" id="lks-test-box">
-          <div style="font-size:11px;color:var(--text3);margin-bottom:12px;line-height:1.6">Sandbox test: activates the key in a temporary session to confirm it works end-to-end, then automatically rolls back so your actual premium status is unchanged.</div>
           <button class="lks-test-btn" id="lks-test-btn">Run Test Activation</button>
           <div class="lks-test-result" id="lks-test-result"></div>
         </div>
       </div>
-
-      <!-- STEP 4: READY TO SEND -->
       <div class="lks-section" id="lks-sec-4">
         <div class="lks-ready-box visible" id="lks-ready-box">
           <div class="lks-ready-title">All Checks Passed — Key Ready</div>
-          <div class="lks-ready-sub">This key has been generated, validated, and test-activated successfully. Safe to send to customer.</div>
           <div class="lks-ready-key" id="lks-ready-key"></div>
           <div class="lks-ready-actions">
-            <button class="lks-ready-copy" id="lks-ready-copy">Copy Key to Clipboard</button>
-            <button class="lks-ready-new" id="lks-ready-new">Generate Another</button>
+            <button class="lks-ready-copy" id="lks-ready-copy">Copy Key</button>
+            <button class="lks-ready-new" id="lks-ready-new">New Key</button>
           </div>
         </div>
       </div>
-
-      <!-- KEY VALIDATOR (manual check) -->
-      <div style="margin-top:24px;border-top:1px solid rgba(255,215,0,.12);padding-top:18px">
-        <div style="font-size:12px;font-weight:700;color:var(--text2);margin-bottom:4px;display:flex;align-items:center;gap:6px">🔍 Key Validator</div>
-        <div style="font-size:11px;color:var(--text3);margin-bottom:12px">Manually check any license key against all validation sources (local + Supabase).</div>
+      <div style="margin-top:16px;border-top:1px solid rgba(255,215,0,.1);padding-top:14px">
         <div class="lks-manual-row">
-          <input type="text" id="ap-valid-input" class="lks-manual-input" placeholder="Paste any license key to validate..." maxlength="64" autocomplete="off" spellcheck="false">
+          <input type="text" id="ap-valid-input" class="lks-manual-input" placeholder="Paste key to validate..." maxlength="64" autocomplete="off" spellcheck="false">
           <button class="lks-manual-btn" id="lks-manual-check-btn">Check</button>
         </div>
         <div class="ap-valid-result" id="ap-valid-result"></div>
       </div>
-
-      <!-- SESSION HISTORY -->
       <div class="lks-history" id="lks-history" style="display:none">
-        <div class="lks-history-title">Session Key History</div>
+        <div class="lks-history-title">Session History</div>
         <div class="lks-history-list" id="lks-history-list"></div>
       </div>
     </div>
+  </div>
 
-    <!-- PENDING PAYMENTS -->
-    <div class="ap-card ap-card-full">
-      <div class="ap-card-title">⏳ Pending Payments</div>
-      <div class="ap-card-sub">Singapore bank payments (PayNow, DBS, UOB) waiting for approval. Click <strong>Approve</strong> to auto-generate a license key and email it to the buyer instantly.</div>
-      <button class="ap-valid-btn" style="margin-bottom:14px" onclick="apLoadPending()">↻ Refresh</button>
-      <div id="ap-pending-list" class="ap-pending-list">
-        <div class="ap-pending-empty">Click Refresh to load pending payments</div>
-      </div>
+  <!-- Pending Payments (accordion, collapsed) -->
+  <div class="ap-accordion">
+    <div class="ap-accordion-hd" onclick="this.parentElement.classList.toggle('open');if(this.parentElement.classList.contains('open'))apLoadPending()">
+      <span class="ap-accordion-title">⏳ Pending Payments <span style="font-size:10px;font-weight:400;color:var(--text3);margin-left:6px">Click to load</span></span>
+      <span class="ap-accordion-arrow">▶</span>
+    </div>
+    <div class="ap-accordion-body">
+      <div id="ap-pending-list" class="ap-pending-list"><div class="ap-pending-empty">Loading...</div></div>
       <div id="ap-pending-status" class="ap-skm-status"></div>
     </div>
+  </div>
 
-    <!-- SUPABASE KEY MANAGER -->
-    <div class="ap-card ap-card-full gold-border">
-      <div class="ap-card-title">🗝 Supabase Key Manager</div>
-      <div class="ap-card-sub">Generate real license keys and save them directly to the Supabase database. Copy the keys into Gumroad for automatic delivery to buyers worldwide.</div>
-
+  <!-- Supabase Key Manager (accordion, collapsed) -->
+  <div class="ap-accordion">
+    <div class="ap-accordion-hd" onclick="this.parentElement.classList.toggle('open')">
+      <span class="ap-accordion-title">🗝 Supabase Key Manager <span style="font-size:10px;font-weight:400;color:var(--text3);margin-left:6px">Save keys to DB</span></span>
+      <span class="ap-accordion-arrow">▶</span>
+    </div>
+    <div class="ap-accordion-body">
       <div class="ap-skm-field-row">
-        <label class="ap-skm-label">Admin Secret <span style="color:var(--text3);font-weight:400;text-transform:none;letter-spacing:0">(set <code style="font-family:'JetBrains Mono',monospace;font-size:10px">GENERATE_SECRET</code> in Supabase → Settings → Edge Functions → Secrets)</span></label>
+        <label class="ap-skm-label">Admin Secret</label>
         <div class="ap-skm-input-row">
-          <input type="password" id="skm-secret" class="ap-skm-input" placeholder="Paste your GENERATE_SECRET here..." autocomplete="off" spellcheck="false">
+          <input type="password" id="skm-secret" class="ap-skm-input" placeholder="Paste GENERATE_SECRET..." autocomplete="off" spellcheck="false">
           <button class="ap-skm-save-btn" onclick="skmSaveSecret()">Save</button>
         </div>
         <div class="ap-skm-hint" id="skm-secret-hint"></div>
       </div>
-
       <div class="ap-skm-options-grid">
-        <div class="ap-skm-field">
-          <label class="ap-skm-label">Quantity</label>
-          <input type="number" id="skm-qty" class="ap-skm-input-sm" value="5" min="1" max="50">
-        </div>
-        <div class="ap-skm-field">
-          <label class="ap-skm-label">Max Devices</label>
-          <input type="number" id="skm-devices" class="ap-skm-input-sm" value="2" min="1" max="10">
-        </div>
-        <div class="ap-skm-field">
-          <label class="ap-skm-label">Expires <span style="color:var(--accent3);font-weight:700;text-transform:none;letter-spacing:0">(default: 30 days)</span></label>
-          <input type="date" id="skm-expiry" class="ap-skm-input-sm">
-        </div>
-        <div class="ap-skm-field">
-          <label class="ap-skm-label">Note / Batch</label>
-          <input type="text" id="skm-note" class="ap-skm-input-sm" placeholder="e.g. Gumroad Feb 2026" maxlength="80">
-        </div>
+        <div class="ap-skm-field"><label class="ap-skm-label">Qty</label><input type="number" id="skm-qty" class="ap-skm-input-sm" value="5" min="1" max="50"></div>
+        <div class="ap-skm-field"><label class="ap-skm-label">Devices</label><input type="number" id="skm-devices" class="ap-skm-input-sm" value="2" min="1" max="10"></div>
+        <div class="ap-skm-field"><label class="ap-skm-label">Expires</label><input type="date" id="skm-expiry" class="ap-skm-input-sm"></div>
+        <div class="ap-skm-field"><label class="ap-skm-label">Note</label><input type="text" id="skm-note" class="ap-skm-input-sm" placeholder="e.g. Gumroad Feb 2026" maxlength="80"></div>
       </div>
-
       <button class="ap-skm-gen-btn" id="skm-gen-btn" onclick="skmGenerate()">⚡ Generate Keys</button>
-
       <div id="skm-status" class="ap-skm-status"></div>
-
       <div id="skm-results" class="ap-skm-results">
         <div class="ap-skm-results-header">
           <span id="skm-results-count" class="ap-skm-results-count"></span>
-          <button class="ap-skm-copy-all" onclick="skmCopyAll()">📋 Copy All for Gumroad</button>
+          <button class="ap-skm-copy-all" onclick="skmCopyAll()">📋 Copy All</button>
         </div>
         <div id="skm-results-list" class="ap-skm-list"></div>
       </div>
     </div>
-
   </div>
+
+</div>
 </div>
 
 <!-- ADMIN FLOATING CONTROL BAR -->
 <div class="admin-bar" id="admin-bar" role="toolbar" aria-label="Admin preview controls">
   <span class="admin-bar-label">⚙ Admin</span>
   <span class="admin-bar-sep"></span>
+  <button class="admin-bar-activate-btn" onclick="amkActivate();this.textContent='✔ Done!';setTimeout(()=>this.textContent='⚡ Activate',2000)">⚡ Activate</button>
+  <span class="admin-bar-sep"></span>
   <button class="admin-preview-btn" onclick="showPage('admin')" style="border-color:rgba(255,215,0,.4);color:var(--gold)">⚙ Panel</button>
   <span class="admin-bar-sep"></span>
-  <span style="font-size:10px;color:var(--text3);font-weight:600">Viewing:</span>
-  <button class="admin-preview-btn actual" id="admin-btn-actual" onclick="setAdminPreview('actual')">Actual State</button>
-  <button class="admin-preview-btn free" id="admin-btn-free" onclick="setAdminPreview('free')">👁 Free View</button>
-  <button class="admin-preview-btn prem" id="admin-btn-prem" onclick="setAdminPreview('premium')">👁 Premium View</button>
+  <button class="admin-preview-btn actual" id="admin-btn-actual" onclick="setAdminPreview('actual')">Actual</button>
+  <button class="admin-preview-btn free" id="admin-btn-free" onclick="setAdminPreview('free')">Free</button>
+  <button class="admin-preview-btn prem" id="admin-btn-prem" onclick="setAdminPreview('premium')">Premium</button>
   <span class="admin-bar-sep"></span>
-  <span class="admin-view-badge actual" id="admin-view-badge">ACTUAL</span>
+  <span class="admin-view-badge actual" id="admin-view-badge">ACTUAL STATE</span>
   <span class="admin-bar-sep"></span>
   <button class="admin-exit-btn" onclick="adminLogout()">✕ Exit</button>
 </div>
@@ -11483,6 +11455,8 @@ function sanitizeText(s) {
 
 
 
+
+
 // ╔══════════════════════════════════════════════════════════════════════════╗
 // ║                                                                          ║
 // ║   GeoLearn Japan — Geotechnical & Geophysical Engineering Platform       ║
@@ -11651,7 +11625,7 @@ function sanitizeText(s) {
       trustedTypes: !!(window.trustedTypes),
       domPurify:    typeof DOMPurify !== 'undefined',
       hardened:     true,
-      built:        '2026-04-04T02:10:31.061Z',
+      built:        '2026-04-04T05:07:09.702Z',
     }),
     writable:     false,
     configurable: false,
