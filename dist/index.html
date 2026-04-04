@@ -4178,6 +4178,31 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 .ap-card-title{font-size:13px;font-weight:800;color:var(--text);letter-spacing:.2px;margin-bottom:4px;display:flex;align-items:center;gap:7px}
 .ap-card-sub{font-size:11px;color:var(--text3);margin-bottom:16px;line-height:1.55}
 .ap-card.gold-border{border-color:rgba(255,215,0,.3);background:rgba(255,215,0,.03)}
+/* ── Admin Master Key card ──────────────────────────────────────── */
+.amk-card{position:relative;overflow:hidden;border-color:rgba(255,215,0,.55)!important;background:linear-gradient(135deg,rgba(255,215,0,.06),rgba(255,140,0,.04),rgba(255,215,0,.08))!important}
+@keyframes amk-border-pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,215,0,.0),inset 0 0 20px rgba(255,215,0,.04)}50%{box-shadow:0 0 18px 2px rgba(255,215,0,.22),inset 0 0 28px rgba(255,215,0,.10)}}
+.amk-card{animation:amk-border-pulse 3s ease-in-out infinite}
+@keyframes amk-shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
+.amk-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(255,215,0,.15);border:1px solid rgba(255,215,0,.45);border-radius:20px;padding:3px 10px;font-size:9px;font-weight:800;color:#ffd700;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:14px}
+.amk-key-wrap{position:relative;background:rgba(0,0,0,.35);border:1px solid rgba(255,215,0,.35);border-radius:12px;padding:18px 16px;margin:14px 0;text-align:center;overflow:hidden}
+@keyframes amk-scan{0%{top:-100%}100%{top:200%}}
+.amk-key-wrap::before{content:'';position:absolute;left:0;right:0;height:40%;background:linear-gradient(to bottom,transparent,rgba(255,215,0,.06),transparent);animation:amk-scan 3.5s linear infinite;pointer-events:none}
+.amk-key-text{font-family:'JetBrains Mono',monospace;font-size:17px;font-weight:700;letter-spacing:3px;background:linear-gradient(90deg,#b8860b,#ffd700,#ffe066,#ffd700,#b8860b);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:amk-shimmer 2.8s linear infinite;user-select:all;word-break:break-all}
+.amk-never-badge{display:inline-block;margin-top:8px;font-size:9px;font-weight:800;color:#ffd700;text-transform:uppercase;letter-spacing:1.5px;background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.25);border-radius:4px;padding:2px 8px}
+@keyframes amk-never-glow{0%,100%{opacity:.7}50%{opacity:1;text-shadow:0 0 8px rgba(255,215,0,.6)}}
+.amk-never-badge{animation:amk-never-glow 1.8s ease-in-out infinite}
+.amk-actions{display:flex;gap:8px;margin-top:4px}
+.amk-copy-btn{flex:1;background:linear-gradient(135deg,rgba(255,215,0,.2),rgba(255,140,0,.15));border:1px solid rgba(255,215,0,.4);color:#ffd700;font-size:11px;font-weight:700;padding:9px 0;border-radius:9px;cursor:pointer;font-family:'Syne',sans-serif;letter-spacing:.3px;transition:all .2s}
+.amk-copy-btn:hover{background:linear-gradient(135deg,rgba(255,215,0,.35),rgba(255,140,0,.28));border-color:#ffd700;transform:translateY(-1px);box-shadow:0 4px 12px rgba(255,215,0,.2)}
+.amk-copy-btn:active{transform:translateY(0)}
+.amk-use-btn{flex:1;background:linear-gradient(135deg,rgba(0,212,255,.15),rgba(0,150,200,.1));border:1px solid rgba(0,212,255,.35);color:var(--accent);font-size:11px;font-weight:700;padding:9px 0;border-radius:9px;cursor:pointer;font-family:'Syne',sans-serif;letter-spacing:.3px;transition:all .2s}
+.amk-use-btn:hover{background:linear-gradient(135deg,rgba(0,212,255,.28),rgba(0,150,200,.2));border-color:var(--accent);transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,212,255,.15)}
+.amk-info-row{display:flex;justify-content:space-between;font-size:10px;color:var(--text3);margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,215,0,.1)}
+.amk-info-val{color:var(--text2);font-weight:600;font-family:'JetBrains Mono',monospace}
+.amk-status-msg{font-size:11px;text-align:center;margin-top:8px;min-height:16px;transition:all .3s;font-weight:600}
+.amk-particles{position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;overflow:hidden}
+.amk-spark{position:absolute;width:3px;height:3px;border-radius:50%;background:#ffd700;opacity:0}
+@keyframes amk-spark-anim{0%{opacity:0;transform:translate(0,0) scale(0)}20%{opacity:1;transform:translate(var(--tx1),var(--ty1)) scale(1)}100%{opacity:0;transform:translate(var(--tx2),var(--ty2)) scale(.3)}}
 /* Preview mode card */
 .ap-preview-btns{display:flex;gap:8px;flex-wrap:wrap}
 .ap-prev-btn{flex:1;min-width:90px;padding:10px 8px;border-radius:10px;border:1px solid var(--border);background:none;color:var(--text2);font-size:11px;font-weight:700;cursor:pointer;font-family:'Syne',sans-serif;transition:all .2s;text-align:center}
@@ -4501,8 +4526,10 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 .pw-confirmed-action{background:var(--surface2);border:1px solid var(--border);color:var(--accent);font-size:12px;font-weight:700;padding:8px 18px;border-radius:8px;cursor:pointer;font-family:'Syne',sans-serif;transition:all .2s}
 .pw-confirmed-action:hover{border-color:var(--accent);background:rgba(0,212,255,.08)}
 
-/* ── Get Key section (activate page) ───────────────────────── */
-.get-key-section{margin-bottom:24px}
+/* ── Get Key section (activate page, admin-only) ───────────── */
+.get-key-section{margin-bottom:24px;display:none}
+.is-admin .get-key-section{display:block}
+.get-key-admin-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,215,0,.12);border:1px solid rgba(255,215,0,.35);border-radius:6px;padding:4px 10px;font-size:10px;font-weight:700;color:#ffd700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
 .get-key-title{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
 .get-key-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
 .get-key-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px 16px;display:flex;flex-direction:column;gap:4px}
@@ -4608,7 +4635,7 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 }
 .plan-badge-upgrade:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,212,255,.3)}
 </style>
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://cdn.jsdelivr.net 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-bZ7BxsnfU+gFDSW9ibGbX6kXJGzsabTheEK8RRQ+S8o='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' https://images.unsplash.com data: blob:; connect-src 'self' https://ftmkgkxzgobgjkasnmxn.supabase.co https://*.supabase.co https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://cdn.jsdelivr.net 'sha256-F9iQEwiazuTdab6La2Nz12Hff2c5CYnDflCA7WXiYJM=' 'sha256-QnXnatdBeqNXTUokeWrhM+Wp38YLNZRxxXTIH/E50tg=' 'sha256-mjhJH+vByv90QVFCj+7JWVRscJtn8RHr9OkwP5YyX3w='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' https://images.unsplash.com data: blob:; connect-src 'self' https://ftmkgkxzgobgjkasnmxn.supabase.co https://*.supabase.co https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; block-all-mixed-content; upgrade-insecure-requests">
 </head>
 <body>
 
@@ -9537,8 +9564,9 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
       </div>
     </div>
 
-    <!-- Buy section (shown for free users) -->
+    <!-- Buy section (admin-only, hidden from regular users) -->
     <div class="get-key-section" id="get-key-section">
+      <div class="get-key-admin-badge">⚙ Admin Only — hidden from users</div>
       <div class="get-key-title">Get a License Key</div>
       <div class="get-key-cards">
         <div class="get-key-card get-key-card-stripe">
@@ -9694,6 +9722,27 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
   </div>
 
   <div class="ap-grid">
+
+    <!-- ADMIN MASTER KEY -->
+    <div class="ap-card gold-border amk-card">
+      <div class="amk-particles" id="amk-particles"></div>
+      <div class="amk-badge">⚡ Admin Master Key</div>
+      <div class="ap-card-sub" style="margin-bottom:0">Permanent admin-use license. Valid forever. Never show to customers.</div>
+      <div class="amk-key-wrap" id="amk-key-wrap">
+        <div class="amk-key-text" id="amk-key-text">GLJP-ADMINKEY-GEOLEARN-ZZZZ-H9R4TJ9C</div>
+        <div class="amk-never-badge">✦ Never Expires — Admin Only ✦</div>
+      </div>
+      <div class="amk-actions">
+        <button class="amk-copy-btn" id="amk-copy-btn" onclick="amkCopy()">📋 Copy Key</button>
+        <button class="amk-use-btn" id="amk-use-btn" onclick="amkActivate()">⚡ Use Now</button>
+      </div>
+      <div class="amk-status-msg" id="amk-status-msg"></div>
+      <div class="amk-info-row">
+        <span>Format</span><span class="amk-info-val">v2 · SHA-256 Signed</span>
+        <span>Devices</span><span class="amk-info-val">Unlimited</span>
+        <span>Expires</span><span class="amk-info-val">Never</span>
+      </div>
+    </div>
 
     <!-- PREVIEW MODE -->
     <div class="ap-card gold-border">
@@ -10342,6 +10391,87 @@ window.adminLogout=function(){
   var ap=document.getElementById('page-admin');
   if(ap&&ap.classList.contains('active'))showPage('activate');
 };
+
+// ── Admin Master Key ─────────────────────────────────────────────
+(function(){
+  var _AMK='GLJP-ADMINKEY-GEOLEARN-ZZZZ-H9R4TJ9C';
+
+  function _amkSparkBurst(){
+    var wrap=document.getElementById('amk-key-wrap');
+    var container=document.getElementById('amk-particles');
+    if(!wrap||!container)return;
+    var rect=wrap.getBoundingClientRect();
+    for(var i=0;i<12;i++){
+      (function(idx){
+        var spark=document.createElement('div');
+        spark.className='amk-spark';
+        var startX=Math.random()*100;
+        var startY=Math.random()*100;
+        var tx1=(Math.random()-0.5)*40+'px';
+        var ty1=(Math.random()-0.5)*40+'px';
+        var tx2=(Math.random()-0.5)*80+'px';
+        var ty2=(Math.random()-0.5)*80+'px';
+        spark.style.cssText='left:'+startX+'%;top:'+startY+'%;--tx1:'+tx1+';--ty1:'+ty1+';--tx2:'+tx2+';--ty2:'+ty2+';animation:amk-spark-anim 0.8s ease-out '+(idx*60)+'ms forwards';
+        container.appendChild(spark);
+        setTimeout(function(){spark.remove();},900+idx*60);
+      })(i);
+    }
+  }
+
+  window.amkCopy=function(){
+    var btn=document.getElementById('amk-copy-btn');
+    var msg=document.getElementById('amk-status-msg');
+    _amkSparkBurst();
+    navigator.clipboard.writeText(_AMK).then(function(){
+      if(btn){btn.textContent='✔ Copied!';btn.style.borderColor='var(--accent3)';btn.style.color='var(--accent3)';}
+      if(msg){msg.textContent='Key copied to clipboard.';msg.style.color='var(--accent3)';}
+      setTimeout(function(){
+        if(btn){btn.textContent='📋 Copy Key';btn.style.borderColor='';btn.style.color='';}
+        if(msg){msg.textContent='';}
+      },2500);
+    }).catch(function(){
+      var ta=document.createElement('textarea');ta.value=_AMK;ta.style.cssText='position:fixed;opacity:0';
+      document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+      if(btn){btn.textContent='✔ Copied!';setTimeout(function(){btn.textContent='📋 Copy Key';},2500);}
+    });
+  };
+
+  window.amkActivate=function(){
+    var btn=document.getElementById('amk-use-btn');
+    var msg=document.getElementById('amk-status-msg');
+    _amkSparkBurst();
+    if(typeof activatePremium==='function'&&activatePremium(_AMK)){
+      if(btn){btn.textContent='✔ Activated!';}
+      if(msg){msg.textContent='Premium activated with admin key.';msg.style.color='var(--accent3)';}
+      if(typeof initPremiumSystem==='function')initPremiumSystem();
+    } else if(typeof activateLicenseViaEdge==='function'){
+      if(btn){btn.textContent='⏳ Activating...';}
+      if(msg){msg.textContent='Sending to activation engine...';msg.style.color='var(--text3)';}
+      activateLicenseViaEdge(_AMK).then(function(r){
+        if(r&&r.success){
+          if(btn){btn.textContent='✔ Activated!';}
+          if(msg){msg.textContent='Premium activated!';msg.style.color='var(--accent3)';}
+        } else {
+          if(btn){btn.textContent='⚡ Use Now';}
+          if(msg){msg.textContent=(r&&r.message)||'Activation failed.';msg.style.color='#ff6b6b';}
+        }
+        setTimeout(function(){if(btn)btn.textContent='⚡ Use Now';},3000);
+      }).catch(function(){
+        if(btn){btn.textContent='⚡ Use Now';}
+        if(msg){msg.textContent='Activation error.';msg.style.color='#ff6b6b';}
+      });
+    } else {
+      if(msg){msg.textContent='Activation engine not ready yet.';msg.style.color='#ff6b6b';}
+    }
+  };
+
+  // Continuous subtle glow pulse on the key text
+  document.addEventListener('DOMContentLoaded',function(){
+    var keyEl=document.getElementById('amk-key-text');
+    if(!keyEl)return;
+    keyEl.addEventListener('mouseenter',function(){_amkSparkBurst();});
+  });
+})();
 
 // ── Admin Key Generator ──────────────────────────────────────────
 // ─────────────────────────────────────────────────────────────────
@@ -11345,6 +11475,10 @@ function sanitizeText(s) {
 
 
 
+
+
+
+
 // ╔══════════════════════════════════════════════════════════════════════════╗
 // ║                                                                          ║
 // ║   GeoLearn Japan — Geotechnical & Geophysical Engineering Platform       ║
@@ -11513,7 +11647,7 @@ function sanitizeText(s) {
       trustedTypes: !!(window.trustedTypes),
       domPurify:    typeof DOMPurify !== 'undefined',
       hardened:     true,
-      built:        '2026-04-02T12:50:17.649Z',
+      built:        '2026-04-04T02:01:14.651Z',
     }),
     writable:     false,
     configurable: false,
