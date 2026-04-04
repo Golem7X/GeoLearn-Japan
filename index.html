@@ -4501,8 +4501,10 @@ body.study-mode .hero-brand-info h1 span { color: #3A6EA5; }
 .pw-confirmed-action{background:var(--surface2);border:1px solid var(--border);color:var(--accent);font-size:12px;font-weight:700;padding:8px 18px;border-radius:8px;cursor:pointer;font-family:'Syne',sans-serif;transition:all .2s}
 .pw-confirmed-action:hover{border-color:var(--accent);background:rgba(0,212,255,.08)}
 
-/* ── Get Key section (activate page) ───────────────────────── */
-.get-key-section{margin-bottom:24px}
+/* ── Get Key section (activate page, admin-only) ───────────── */
+.get-key-section{margin-bottom:24px;display:none}
+.is-admin .get-key-section{display:block}
+.get-key-admin-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,215,0,.12);border:1px solid rgba(255,215,0,.35);border-radius:6px;padding:4px 10px;font-size:10px;font-weight:700;color:#ffd700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
 .get-key-title{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
 .get-key-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
 .get-key-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px 16px;display:flex;flex-direction:column;gap:4px}
@@ -9537,8 +9539,9 @@ s.src='https://www.googletagmanager.com/gtag/js?id=G-02M522MYYL';document.head.a
       </div>
     </div>
 
-    <!-- Buy section (shown for free users) -->
+    <!-- Buy section (admin-only, hidden from regular users) -->
     <div class="get-key-section" id="get-key-section">
+      <div class="get-key-admin-badge">⚙ Admin Only — hidden from users</div>
       <div class="get-key-title">Get a License Key</div>
       <div class="get-key-cards">
         <div class="get-key-card get-key-card-stripe">
