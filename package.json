@@ -30,6 +30,6 @@
     "dompurify": "^3.1.6"
   },
   "dependencies": {
-    "javascript-obfuscator": "^5.4.1"
+    "javascript-obfuscator": "^5.4.2"
   }
 }
