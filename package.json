@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/Golem7X/GeoLearn-Japan#readme",
   "devDependencies": {
-    "dompurify": "^3.4.0"
+    "dompurify": "^3.4.2"
   },
   "dependencies": {
     "javascript-obfuscator": "^5.4.2"
